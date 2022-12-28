@@ -37,12 +37,12 @@ sketchybar --add bracket spaces '/space\..*/'                  \
                          background.drawing=on
 
 
-sketchybar   --add item       separator left                                  \
-             --set separator  icon=􀆊                                          \
-                              icon.font="MesloLGS Nerd Font Mono:Regular:16.0"\
-                              background.padding_left=17                      \
-                              background.padding_right=10                     \
-                              label.drawing=off                               \
-                              associated_display=active                       \
+sketchybar   --add item       separator left                                                             \
+             --set separator  icon=􀆊                                                                     \
+                              icon.font="$FONT:Bold:14.0"                                                \
+                              background.padding_left=15                                                 \
+                              background.padding_right=10                                                \
+                              label.drawing=off                                                          \
+                              associated_display=active                                                  \
                               click_script='yabai -m space --create && sketchybar --trigger space_change'\
                               icon.color=$WHITE

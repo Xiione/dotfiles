@@ -20,3 +20,5 @@ utils.map("n", "<leader>b", function()
                 " -o " .. utils.resolve_spaces(vim.fn.expand("%:p:r"))
 	utils.send_cmd(cmd, "%:p:h")
 end)
+
+vim.opt_local.shiftwidth = 2

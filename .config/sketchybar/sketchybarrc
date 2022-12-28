@@ -33,7 +33,7 @@ sketchybar --bar     height=29                                         \
                      notch_width=200                                   \
                                                                        \
            --default updates=when_shown                                \
-                     icon.font="$FONT:SemiBold:14.0"                       \
+                     icon.font="$FONT:SemiBold:14.0"                   \
                      icon.color=$ICON_COLOR                            \
                      icon.padding_left=$PADDINGS                       \
                      icon.padding_right=$PADDINGS                      \
