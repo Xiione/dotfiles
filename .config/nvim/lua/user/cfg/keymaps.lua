@@ -68,7 +68,7 @@ map("n", "<leader>e", "<CMD>lua require'dapui'.close()<CR>" .. "<CMD>NvimTreeTog
 -- map("n", "<leader>e", "<CMD>NeoTreeShowToggle<CR>", opts)
 
 -- Telescope
-map("n", "<leader>ff", "<CMD>Telescope find_files<CR>", opts)
+map("n", "<leader>ff", "<CMD>Telescope find_files hidden=true<CR>", opts)
 map("n", "<leader>ft", "<CMD>Telescope live_grep<CR>", opts)
 map("n", "<leader>fp", "<CMD>Telescope projects<CR>", opts)
 map("n", "<leader>fb", "<CMD>Telescope buffers<CR>", opts)
