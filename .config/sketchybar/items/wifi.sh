@@ -5,6 +5,7 @@ sketchybar --add item           wifi.logo right                         \
                                 icon.font="$FONT:SemiBold:16.0"         \
                                 icon.color=$GREEN                       \
                                 background.padding_right=10             \
+                                background.padding_left=-3              \
                                 label.drawing=off                       \
                                 script="$PLUGIN_DIR/wifi.sh"            \
                                 update_freq=5                           \
