@@ -1,0 +1,23 @@
+{
+	"cp1 header": {
+		"prefix": "cp1",
+		"body": [
+			"// Author: Hamilton Wang",
+			"// It is ok to post my anonymized solution",
+			"",
+			"#include <iostream>",
+			"",
+			"typedef long long ll;",
+			"",
+			"using namespace std;",
+			"",
+			"int main() {",
+			"    ios_base::sync_with_stdio(false);",
+			"    cin.tie(nullptr);",
+			"",		
+			"    $0",
+			"}"
+		],
+		"description": "Header for CP1 hw + bonus"
+	}
+}

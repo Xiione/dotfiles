@@ -1,0 +1,8 @@
+require "user.cfg.impatient"
+require "user.cfg.options"
+require "user.cfg.keymaps"
+require "user.cfg.plugins"
+require "user.cfg.autocommands"
+require "user.cfg.colorscheme"
+require "user.setup"
+require "user.lsp"
