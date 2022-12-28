@@ -38,7 +38,7 @@ sketchybar --add bracket spaces '/space\..*/'                  \
 
 
 sketchybar   --add item       separator left                                  \
-             --set separator  icon=                                          \
+             --set separator  icon=􀆊                                          \
                               icon.font="MesloLGS Nerd Font Mono:Regular:16.0"\
                               background.padding_left=17                      \
                               background.padding_right=10                     \

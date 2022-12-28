@@ -68,11 +68,11 @@ map("n", "<leader>e", "<CMD>lua require'dapui'.close()<CR>" .. "<CMD>NvimTreeTog
 -- map("n", "<leader>e", "<CMD>NeoTreeShowToggle<CR>", opts)
 
 -- Telescope
-map("n", "<leader>ff", "<CMD>Telescope find_files hidden=true<CR>", opts)
-map("n", "<leader>ft", "<CMD>Telescope live_grep<CR>", opts)
-map("n", "<leader>fp", "<CMD>Telescope projects<CR>", opts)
-map("n", "<leader>fb", "<CMD>Telescope buffers<CR>", opts)
-map("n", "<leader>fr", "<CMD>Telescope oldfiles<CR>", opts)
+map("n", "<leader>ff", "<CMD>lua require('telescope.builtin').find_files({hidden=true})<CR>", opts)
+map("n", "<leader>ft", "<CMD>lua require('telescope.builtin').live_grep()<CR>", opts)
+map("n", "<leader>fp", "<CMD>lua require('telescope').extensions.projects.projects()<CR>", opts)
+map("n", "<leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", opts)
+map("n", "<leader>fr", "<CMD>lua require('telescope.builtin').oldfiles()<CR>", opts)
 
 -- Git
 map("n", "<leader>gg", "<CMD>lua _LAZYGIT_TOGGLE()<CR>", opts)
@@ -128,4 +128,4 @@ map("n", "<leader>u", "<CMD>UndotreeToggle<CR>", opts)
 -- works better here? idk
 map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
 
-command('OP', "silent !open .", {})
+command("OP", "silent !open .", {})

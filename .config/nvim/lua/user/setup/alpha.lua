@@ -111,13 +111,13 @@ dashboard.section.header.val = {
 [[⣿⣿⡇⠀⠀⠀⠀⠀⠀⠘⢿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡞⠁⠀⠀⠀⠀⣿⣷⠀⠈⢿⣿⡆⠘⡆⠘⢆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⡇⢰⡇⠀⠀⠀⠀]],
 }
 dashboard.section.buttons.val = {
-	dashboard.button("f", " " .. " Find file", ":Telescope find_files hidden=true<CR>"),
-	dashboard.button("e", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-	dashboard.button("p", " " .. " Find project", ":lua require('telescope').extensions.projects.projects()<CR>"),
-	dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
-	dashboard.button("t", " " .. " Find text", ":Telescope live_grep <CR>"),
-	dashboard.button("s", " " .. " Create packer snapshot", ":lua require('user.lib.utils').create_packer_snapshot()<CR>"),
-	dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+	dashboard.button("f", " " .. " Find file", "<CMD>lua require('telescope.builtin').find_files({hidden=true})<CR>"),
+	dashboard.button("e", " " .. " New file", "<CMD>ene <BAR> startinsert <CR>"),
+	dashboard.button("p", " " .. " Find project", "<CMD>lua require('telescope').extensions.projects.projects()<CR>"),
+	dashboard.button("r", " " .. " Recent files", "<CMD>lua require('telescope.builtin').oldfiles()<CR>"),
+	dashboard.button("t", " " .. " Find text", "<CMD>lua require('telescope.builtin').oldfiles()<CR>"),
+	dashboard.button("s", " " .. " Create packer snapshot", "<CMD>lua require('user.lib.utils').create_packer_snapshot()<CR>"),
+	dashboard.button("q", " " .. " Quit", "<CMD>qa<CR>"),
 }
 
 local quotes = {
