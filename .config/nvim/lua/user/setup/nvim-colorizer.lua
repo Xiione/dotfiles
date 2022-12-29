@@ -4,6 +4,6 @@ if not status_ok then
 end
 
 colorizer.setup({
-    "conf";
-    "sh";
+    conf = { names = false },
+    sh = { names = false }
 })
