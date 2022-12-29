@@ -27,6 +27,7 @@ toggle_devices() {
     fi
     args+=(--add item volume.device.$COUNTER popup."$NAME" \
            --set volume.device.$COUNTER label="${device}" \
+                                        icon.background.drawing=off \
                                         label.color="$COLOR" \
                  click_script="SwitchAudioSource -s \"${device}\" && sketchybar --set /volume.device\.*/ label.color=$GREY --set \$NAME label.color=$WHITE")
     COUNTER=$((COUNTER+1))

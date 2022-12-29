@@ -13,7 +13,8 @@ zen_on() {
              --set spotify.play updates=off \
              --set brew drawing=off \
              --set divider drawing=off \
-             --set '/wifi.*/' drawing=off
+             --set wifi_alias drawing=off \
+             --set status drawing=off
 }
 
 zen_off() {
@@ -28,7 +29,8 @@ zen_off() {
              --set spotify.play updates=on \
              --set brew drawing=on \
              --set divider drawing=on \
-             --set '/wifi.*/' drawing=on
+             --set wifi_alias drawing=on \
+             --set status drawing=on
 }
 
 if [ "$1" = "on" ]; then

@@ -11,6 +11,8 @@ BELL_DOT=􀝗
 WIFI=􀙇
 WIFI_SLASH=􀙈
 WIFI_BANG=􀙥
+NETWORK=􀤆
+TX=􀆏
 
 # Git Icons
 GIT_ISSUE=􀍷

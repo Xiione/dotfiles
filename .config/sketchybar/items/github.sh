@@ -7,6 +7,7 @@ sketchybar --add       item            github.bell right                  \
                                        icon.font="$FONT:Bold:15.0"        \
                                        icon=$BELL                         \
                                        icon.color=$BLUE                   \
+                                       icon.background.drawing=off        \
                                        label=$LOADING                     \
                                        label.highlight_color=$BLUE        \
                                        popup.align=right                  \

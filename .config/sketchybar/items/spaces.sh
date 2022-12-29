@@ -15,6 +15,7 @@ do
                               icon=${SPACE_ICONS[i]}                        \
                               icon.padding_left=10                          \
                               icon.padding_right=15                         \
+                              icon.background.drawing=off                   \
                               background.padding_left=2                     \
                               background.padding_right=2                    \
                               label.padding_right=20                        \
@@ -40,6 +41,7 @@ sketchybar --add bracket spaces '/space\..*/'                  \
 sketchybar   --add item       separator left                                                             \
              --set separator  icon=􀆊                                                                     \
                               icon.font="$FONT:Bold:14.0"                                                \
+                              icon.background.drawing=on                                                  \
                               background.padding_left=15                                                 \
                               background.padding_right=10                                                \
                               label.drawing=off                                                          \

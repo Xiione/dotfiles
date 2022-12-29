@@ -7,8 +7,9 @@ sketchybar --add       event        window_focus                  \
            --add       item         system.yabai left             \
            --set       system.yabai script="$PLUGIN_DIR/yabai.sh" \
                                     icon.font="$FONT:Bold:16.0"   \
-                                    label.drawing=off             \
+                                    icon.background.drawing=on    \
                                     icon.width=30                 \
+                                    label.drawing=off             \
                                     icon=$YABAI_GRID              \
                                     icon.color=$YELLOW            \
                                     associated_display=active     \
