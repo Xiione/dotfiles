@@ -123,7 +123,7 @@ map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 map("n", "<leader>u", "<CMD>UndotreeToggle<CR>", opts)
 
 -- easier leave term
--- map("t", "<esc>", "<C-\\><C-n>", opts)
+map("t", "<esc>", "<C-\\><C-n>", opts)
 
 -- works better here? idk
 map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
