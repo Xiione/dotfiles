@@ -23,6 +23,13 @@ function nv
     nvim $argv
 end
 
-function PU_SSH 
-
+function v 
+    nvim .
 end
+
+function ssh
+    TERM=xterm-256color command ssh $argv
+end
+
+set -gx EDITOR nvim
+set -gx VISUAL nvim

@@ -4,6 +4,7 @@ SETUVAR --export LANG:en_US\x2eUTF\x2d8
 SETUVAR --export LANGUAGE:en_US\x2eUTF\x2d8
 SETUVAR --export LC_ALL:en_US\x2eUTF\x2d8
 SETUVAR --export LC_TYPE:en_US\x2eUTF\x2d8
+SETUVAR --export TERM:xterm\x2dkitty
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:4c566a
 SETUVAR fish_color_cancel:\x2d\x2dreverse

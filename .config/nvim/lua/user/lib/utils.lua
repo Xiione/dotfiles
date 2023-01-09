@@ -126,7 +126,7 @@ local function send_cmd(cmd, dir, silent)
 end
 
 local function create_packer_snapshot()
-    local fn = os.date('%d-%m-%y_%H-%M')
+    local fn = os.date('%y-%m-%d_%H-%M')
     print("Creating new snapshot " .. fn .. "...")
     require('packer').snapshot(fn)
 end
