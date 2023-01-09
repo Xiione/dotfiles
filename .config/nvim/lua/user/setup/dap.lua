@@ -134,6 +134,7 @@ end
 
 local function start_session()
 	setup_maps()
+    require('nvim-tree.api').tree.close()
 	dapui.open()
 
 	-- force local statusline

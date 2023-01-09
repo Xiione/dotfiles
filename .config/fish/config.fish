@@ -22,3 +22,7 @@ end
 function nv 
     nvim $argv
 end
+
+function PU_SSH 
+
+end

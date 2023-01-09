@@ -11,15 +11,6 @@ autocmd({ "FileType" }, {
 	end,
 })
 
-autocmd("BufEnter", {
-  group = augroup("NvimTreeClose", {clear = true}),
-  pattern = "NvimTree_*",
-  callback = function()
-    local layout = vim.api.nvim_call_function("winlayout", {})
-    if layout[1] == "leaf" and vim.api.nvim_buf_get_option(vim.api.nvim_win_get_buf(layout[2]), "filetype") == "NvimTree" and layout[3] == nil then vim.cmd("confirm quit") end
-  end
-})
-
 autocmd({ "FileType" }, {
 	pattern = { "markdown", "gitcommit" },
 	callback = function()

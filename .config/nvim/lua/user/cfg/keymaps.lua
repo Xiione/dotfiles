@@ -64,7 +64,7 @@ map("v", "<leader>d", '"_d', opts)
 -- Plugins --
 
 -- NvimTree/NeoTree
-map("n", "<leader>e", "<CMD>lua require'dapui'.close()<CR>" .. "<CMD>NvimTreeToggle<CR>", opts)
+map("n", "<leader>e", "<CMD>lua require'dapui'.close()<CR>" .. "<CMD>lua require('nvim-tree.api').tree.toggle()<CR>", opts)
 -- map("n", "<leader>e", "<CMD>NeoTreeShowToggle<CR>", opts)
 
 -- Telescope

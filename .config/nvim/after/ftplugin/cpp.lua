@@ -16,9 +16,9 @@ utils.map("n", "<leader>b", function()
 	local cmd = "g++ " .. utils.resolve_spaces(vim.fn.expand("%:p")) ..
                 " -std=gnu++17" ..
                 " -g" ..
-                " -O2" ..
                 " -o " .. utils.resolve_spaces(vim.fn.expand("%:p:r"))
 	utils.send_cmd(cmd, "%:p:h")
 end)
 
 vim.opt_local.shiftwidth = 2
+vim.opt_local.tabstop = 2
