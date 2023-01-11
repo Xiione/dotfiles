@@ -52,7 +52,7 @@ return packer.startup(function(use)
 	use({ "nvim-tree/nvim-web-devicons" })
 	use({ "nvim-tree/nvim-tree.lua" })
 	-- use { "nvim-neo-tree/neo-tree.nvim" } }
-	use({ "akinsho/bufferline.nvim", tag="v3.1.0" })
+	use({ "akinsho/bufferline.nvim", tag = "v3.1.0" })
 	use({ "moll/vim-bbye" })
 	use({ "nvim-lualine/lualine.nvim" })
 	use({ "akinsho/toggleterm.nvim" })
@@ -65,9 +65,9 @@ return packer.startup(function(use)
 	use("shaunsingh/nord.nvim")
 
 	-- cmp plugins
-	use({ "hrsh7th/nvim-cmp"}) -- The completion plugin
-	use({ "hrsh7th/cmp-buffer"}) -- buffer completions
-	use({ "hrsh7th/cmp-path"}) -- path completions
+	use({ "hrsh7th/nvim-cmp" }) -- The completion plugin
+	use({ "hrsh7th/cmp-buffer" }) -- buffer completions
+	use({ "hrsh7th/cmp-path" }) -- path completions
 	use({ "saadparwaiz1/cmp_luasnip" }) -- snippet completions
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-nvim-lua" })
@@ -102,13 +102,17 @@ return packer.startup(function(use)
 	use({ "ravenxrz/DAPInstall.nvim" })
 
 	-- mine :)
-	use({"jinh0/eyeliner.nvim", tag="v0.2.0"})
+	use({ "jinh0/eyeliner.nvim", tag = "v0.2.0" })
 	use("mfussenegger/nvim-jdtls")
 	-- use("rcarriga/nvim-notify")
 	use("lukas-reineke/virt-column.nvim")
 	use("mbbill/undotree")
 	use("norcalli/nvim-colorizer.lua")
-    -- use("glepnir/lspsaga.nvim")
+	-- use("glepnir/lspsaga.nvim")
+	use({
+		"folke/persistence.nvim",
+		event = "BufReadPre", -- this will only start session saving when an actual file was opened
+	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
