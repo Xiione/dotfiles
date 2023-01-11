@@ -31,5 +31,11 @@ function ssh
     TERM=xterm-256color command ssh $argv
 end
 
+function pussh
+    set -l pushh_server wang5660@data.cs.purdue.edu
+    set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
+    TERM=xterm-256color expect ~/.local/scripts/exp.sh $pussh_password ssh $pushh_server
+end
+
 set -gx EDITOR nvim
 set -gx VISUAL nvim
