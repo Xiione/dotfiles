@@ -16,8 +16,17 @@ nvim_tree.setup({
 	open_on_setup_file = true,
 	update_focused_file = {
 		enable = true,
-		update_cwd = false,
+		update_root = false,
+        -- ignore_list = {"help"}
 	},
+    sync_root_with_cwd = true,
+    actions = {
+        file_popup = {
+            open_win_config = {
+                border = "rounded"
+            }
+        }
+    },
 	renderer = {
 		root_folder_modifier = ":~",
 		icons = {
