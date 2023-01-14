@@ -19,6 +19,7 @@ do
                               background.padding_left=2                     \
                               background.padding_right=2                    \
                               label.padding_right=20                        \
+                              icon.color=$WHITE                             \
                               icon.highlight_color=$BLUE                    \
                               label.font="sketchybar-app-font:Regular:16.0" \
                               label.background.height=26                    \

@@ -12,12 +12,34 @@
 			"using namespace std;",
 			"",
 			"int main() {",
-			"    ios_base::sync_with_stdio(false);",
-			"    cin.tie(nullptr);",
+			"  ios_base::sync_with_stdio(false);",
+			"  cin.tie(nullptr);",
 			"",		
-			"    $0",
+			"  $0",
 			"}"
 		],
 		"description": "Header for CP1 hw + bonus"
+	},
+	"cp2 bonus header": {
+		"prefix": "bonus",
+		"body": [
+			"// Author: Hamilton Wang",
+			"// It is ok to share my code anonymously for educational purposes",
+			"",
+			"#include <iostream>",
+			"",
+			"typedef long long ll;",
+			"",
+			"using namespace std;",
+			"",
+			"int main() {",
+			"  ios_base::sync_with_stdio(false);",
+			"  cin.tie(nullptr);",
+			"  cout.tie(nullptr);",
+			"",		
+			"  $0",
+			"}"
+		],
+		"description": "Header for CP2 hw + bonus"
 	}
 }
