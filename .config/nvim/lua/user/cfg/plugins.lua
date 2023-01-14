@@ -114,6 +114,8 @@ return packer.startup(function(use)
 		event = "BufReadPre", -- this will only start session saving when an actual file was opened
 	})
 
+    use({ "Weissle/persistent-breakpoints.nvim" })
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

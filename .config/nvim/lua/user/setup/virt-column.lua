@@ -3,4 +3,4 @@ if not status_ok then
 	return
 end
 
-virt_column.setup{ char = "▏", virtcolumn = "" }
+virt_column.setup{ char = "▕", virtcolumn = "" }
