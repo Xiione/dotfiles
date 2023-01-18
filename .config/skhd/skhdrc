@@ -185,28 +185,28 @@ ctrl - 9 : yabai -m space --focus 9
 ctrl - 0x32 : yabai -m space --focus recent
 
 # send window to specific space and follow focus
-ctrl + alt - 1 : yabai -m window --space 1 && yabai -m space --focus 1 && sketchybar --trigger space_change
-ctrl + alt - 2 : yabai -m window --space 2 && yabai -m space --focus 2 && sketchybar --trigger space_change
-ctrl + alt - 3 : yabai -m window --space 3 && yabai -m space --focus 3 && sketchybar --trigger space_change
-ctrl + alt - 4 : yabai -m window --space 4 && yabai -m space --focus 4 && sketchybar --trigger space_change
-ctrl + alt - 5 : yabai -m window --space 5 && yabai -m space --focus 5 && sketchybar --trigger space_change
-ctrl + alt - 6 : yabai -m window --space 6 && yabai -m space --focus 6 && sketchybar --trigger space_change
-ctrl + alt - 7 : yabai -m window --space 7 && yabai -m space --focus 7 && sketchybar --trigger space_change
-ctrl + alt - 8 : yabai -m window --space 8 && yabai -m space --focus 8 && sketchybar --trigger space_change
-ctrl + alt - 9 : yabai -m window --space 9 && yabai -m space --focus 9 && sketchybar --trigger space_change
-ctrl + alt - 0x32 : yabai -m window --space recent && yabai -m space --focus recent && sketchybar --trigger space_change
+ctrl + alt - 1 : yabai -m window --space 1 && yabai -m space --focus 1 && sketchybar --trigger windows_on_spaces
+ctrl + alt - 2 : yabai -m window --space 2 && yabai -m space --focus 2 && sketchybar --trigger windows_on_spaces
+ctrl + alt - 3 : yabai -m window --space 3 && yabai -m space --focus 3 && sketchybar --trigger windows_on_spaces
+ctrl + alt - 4 : yabai -m window --space 4 && yabai -m space --focus 4 && sketchybar --trigger windows_on_spaces
+ctrl + alt - 5 : yabai -m window --space 5 && yabai -m space --focus 5 && sketchybar --trigger windows_on_spaces
+ctrl + alt - 6 : yabai -m window --space 6 && yabai -m space --focus 6 && sketchybar --trigger windows_on_spaces
+ctrl + alt - 7 : yabai -m window --space 7 && yabai -m space --focus 7 && sketchybar --trigger windows_on_spaces
+ctrl + alt - 8 : yabai -m window --space 8 && yabai -m space --focus 8 && sketchybar --trigger windows_on_spaces
+ctrl + alt - 9 : yabai -m window --space 9 && yabai -m space --focus 9 && sketchybar --trigger windows_on_spaces
+ctrl + alt - 0x32 : yabai -m window --space recent && yabai -m space --focus recent && sketchybar --trigger windows_on_spaces
 
 # swap space with give space SKETCH
-ctrl + shift - 1 : yabai -m space --move 1 && sketchybar -m --trigger space_change
-ctrl + shift - 2 : yabai -m space --move 2 && sketchybar -m --trigger space_change
-ctrl + shift - 3 : yabai -m space --move 3 && sketchybar -m --trigger space_change
-ctrl + shift - 4 : yabai -m space --move 4 && sketchybar -m --trigger space_change
-ctrl + shift - 5 : yabai -m space --move 5 && sketchybar -m --trigger space_change
-ctrl + shift - 6 : yabai -m space --move 6 && sketchybar -m --trigger space_change
-ctrl + shift - 7 : yabai -m space --move 7 && sketchybar -m --trigger space_change
-ctrl + shift - 8 : yabai -m space --move 8 && sketchybar -m --trigger space_change
-ctrl + shift - 9 : yabai -m space --move 9 && sketchybar -m --trigger space_change
-ctrl + shift - 0x32 : yabai -m space --move recent && sketchybar -m --trigger space_change
+ctrl + shift - 1 : yabai -m space --move 1 && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
+ctrl + shift - 2 : yabai -m space --move 2 && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
+ctrl + shift - 3 : yabai -m space --move 3 && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
+ctrl + shift - 4 : yabai -m space --move 4 && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
+ctrl + shift - 5 : yabai -m space --move 5 && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
+ctrl + shift - 6 : yabai -m space --move 6 && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
+ctrl + shift - 7 : yabai -m space --move 7 && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
+ctrl + shift - 8 : yabai -m space --move 8 && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
+ctrl + shift - 9 : yabai -m space --move 9 && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
+ctrl + shift - 0x32 : yabai -m space --move recent && sketchybar -m --trigger windows_on_spaces && sketchybar -m --trigger space_change
 
 # send window to specific display
 ctrl + alt + shift - 1 : yabai -m window --display 1 && yabai -m display --focus 1 && sketchybar -m --trigger space_change
