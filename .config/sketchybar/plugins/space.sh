@@ -2,7 +2,7 @@
 
 update() {
   WIDTH="dynamic"
-  if [ "$SELECTED" = "false" ]; then
+  if [ "$SELECTED" = "true" ]; then
     WIDTH="0"
   fi
 
