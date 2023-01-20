@@ -4,10 +4,11 @@ sketchybar --add item     calendar right                    \
            --set calendar icon=cal                          \
                           icon.font="$FONT:Black:12.0"      \
                           label.font="$FONT:SemiBold:13.0"  \
-                          icon.padding_right=0              \
+                          icon.padding_left=10              \
                           label.width=65                    \
                           label.align=right                 \
-                          background.padding_left=10        \
+                          label.padding_right=11            \
+                          background.padding_left=0         \
                           background.drawing=on             \
                           background.color=$CLICK           \
                           y_offset=1                        \

@@ -21,7 +21,7 @@ toggle_devices() {
   COUNTER=0
   CURRENT="$(SwitchAudioSource -t output -c)"
   while IFS= read -r device; do
-    COLOR=$GREY
+    COLOR=$LIGHT_GREY
     if [ "${device}" = "$CURRENT" ]; then
       COLOR=$WHITE
     fi

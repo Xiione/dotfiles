@@ -10,8 +10,10 @@ export YELLOW=0xffEBCB8B
 export ORANGE=0xffD08770
 export MAGENTA=0xffB48EAD
 export GREY=0xff3B4252
+export LIGHT_GREY=0xff4C566A
 export TRANSPARENT=0x00000000
-export CLICK=0xff000000
+export CLICK=0x0d000000
+# export CLICK=0xffffffff
 
 # General bar colors
 export BAR_COLOR=$TRANSPARENT

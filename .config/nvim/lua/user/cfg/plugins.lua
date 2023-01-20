@@ -115,6 +115,7 @@ return packer.startup(function(use)
 	})
 
     use({ "Weissle/persistent-breakpoints.nvim" })
+    use({ "eandrju/cellular-automaton.nvim" })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

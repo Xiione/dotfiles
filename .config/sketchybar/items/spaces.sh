@@ -42,9 +42,11 @@ sketchybar --add bracket spaces '/space\..*/'                  \
 sketchybar   --add item       separator left                                                             \
              --set separator  icon=􀆊                                                                     \
                               icon.font="$FONT:Bold:14.0"                                                \
-                              icon.background.drawing=on                                                  \
-                              background.padding_left=15                                                 \
-                              background.padding_right=10                                                \
+                              icon.background.drawing=on                                                 \
+                              icon.padding_left=15                                                       \
+                              icon.padding_right=10                                                      \
+                              background.padding_left=0                                                  \
+                              background.padding_right=0                                                 \
                               label.drawing=off                                                          \
                               associated_display=active                                                  \
                               click_script='yabai -m space --create && sketchybar --trigger space_change'\
