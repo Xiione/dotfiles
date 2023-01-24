@@ -9,7 +9,6 @@ sketchybar --add item           apple.logo left                             \
                                 icon.color=$GREEN                           \
                                 icon.background.drawing=on                  \
                                 icon.padding_right=15                       \
-                                icon.padding_left=11                        \
                                 background.padding_right=0                  \
                                 background.padding_left=0                   \
                                 label.drawing=off                           \

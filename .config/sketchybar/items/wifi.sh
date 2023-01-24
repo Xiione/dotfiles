@@ -7,8 +7,8 @@ sketchybar --add alias "Control Center,WiFi" right                      \
            --set wifi_alias icon.drawing=off                            \
                               label.drawing=off                         \
                               alias.color=$WHITE                        \
-                              width=45                                  \
-                              align=right                               \
+                              width=dynamic                             \
+                              align=left                               \
                               click_script="$POPUP_CLICK_SCRIPT"        \
                                  script="$PLUGIN_DIR/wifi.sh"           \
                                  update_freq=5                          \

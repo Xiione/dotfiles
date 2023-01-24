@@ -40,7 +40,7 @@ map("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>", opts)
 -- map("n", "<leader>h", "<CMD>nohlsearch<CR>", opts)
 
 -- Close buffers
-map("n", "<S-q>", "<CMD>Bdelete!<CR>", opts)
+map("n", "<S-w>", "<CMD>Bdelete!<CR>", opts)
 
 -- Better paste
 map("x", "<leader>p", '"_dP', opts)
@@ -129,3 +129,23 @@ map("t", "<esc>", "<C-\\><C-n>", opts)
 map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
 
 command("OP", "silent !open .", {})
+
+-- vimtex 
+map("n", "<leader>ti", "<plug>(vimtex-info)", opts)
+map("n", "<leader>tI", "<plug>(vimtex-info-full)", opts)
+map("n", "<leader>tt", "<plug>(vimtex-toc-open)", opts)
+map("n", "<leader>tT", "<plug>(vimtex-toc-toggle)", opts)
+map("n", "<leader>tv", "<plug>(vimtex-view)", opts)
+map("n", "<leader>tr", "<plug>(vimtex-reverse-search)", opts)
+map("n", "<leader>tb", "<plug>(vimtex-compile)", opts)
+map("n", "<leader>tk", "<plug>(vimtex-stop", opts)
+map("n", "<leader>tK", "<plug>(vimtex-stop-all)", opts)
+map("n", "<leader>te", "<plug>(vimtex-errors)", opts)
+map("n", "<leader>to", "<plug>(vimtex-compile-output)", opts)
+map("n", "<leader>tg", "<plug>(vimtex-status)", opts)
+map("n", "<leader>tG", "<plug>(vimtex-status-all)", opts)
+map("n", "<leader>tc", "<plug>(vimtex-clean)", opts)
+map("n", "<leader>tC", "<plug>(vimtex-clean-full)", opts)
+map("n", "<leader>tm", "<plug>(vimtex-imaps-list)", opts)
+map("n", "<leader>tx", "<plug>(vimtex-reload)", opts)
+map("n", "<leader>ts", "<plug>(vimtex-toggle-main)", opts)

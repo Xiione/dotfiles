@@ -74,7 +74,7 @@ return packer.startup(function(use)
 
 	-- snippets
 	use({ "L3MON4D3/LuaSnip" }) --snippet engine
-	use({ "rafamadriz/friendly-snippets" }) -- a bunch of snippets to use
+	-- use({ "rafamadriz/friendly-snippets" }) -- a bunch of snippets to use
 
 	-- LSP
 	-- use { "williamboman/nvim-lsp-installer" } -- simple to use language server installer
@@ -114,8 +114,17 @@ return packer.startup(function(use)
 		event = "BufReadPre", -- this will only start session saving when an actual file was opened
 	})
 
-    use({ "Weissle/persistent-breakpoints.nvim" })
-    use({ "eandrju/cellular-automaton.nvim" })
+	use({ "Weissle/persistent-breakpoints.nvim" })
+	use({ "eandrju/cellular-automaton.nvim" })
+	use({ "lervag/vimtex" })
+	use({
+		"iurimateus/luasnip-latex-snippets.nvim",
+		requires = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
+		config = function()
+			require("luasnip-latex-snippets").setup()
+		end,
+		ft = "tex",
+	})
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

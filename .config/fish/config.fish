@@ -3,6 +3,7 @@ if status is-interactive
 end
 
 fish_add_path /opt/homebrew/bin
+fish_add_path /Library/TeX/texbin/latexmk
 
 set -g theme_color_scheme nord
 
