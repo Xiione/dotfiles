@@ -83,6 +83,7 @@ map("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.
 
 -- DAP
 map("n", "<leader>db", "<CMD>lua require'dap'.toggle_breakpoint()<CR>", opts)
+map("n", "<leader>dB", "<CMD>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
 map("n", "<leader>dc", "<CMD>lua require'dap'.continue()<CR>", opts)
 map("n", "<leader>di", "<CMD>lua require'dap'.step_into()<CR>", opts)
 map("n", "<leader>do", "<CMD>lua require'dap'.step_over()<CR>", opts)

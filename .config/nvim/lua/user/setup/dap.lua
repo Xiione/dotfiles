@@ -53,7 +53,21 @@ dap.configurations.c = {
 		console = "integratedTerminal",
 	},
 }
-dap.configurations.cpp = dap.configurations.c
+
+dap.configurations.cpp = {
+	{
+		type = "codelldb",
+		request = "launch",
+		cwd = "${workspaceFolder}",
+		stopOnEntry = false,
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		args = {},
+		terminal = "integrated",
+		console = "integratedTerminal",
+	},
+}
 dap.configurations.rust = dap.configurations.cpp
 
 -- repl setup
