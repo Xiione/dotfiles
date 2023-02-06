@@ -7,30 +7,30 @@ ctrl + alt - k : yabai -m window --focus north || yabai -m window --focus south
 ctrl + alt - l : yabai -m window --focus east || yabai -m window --focus west
 
 # move window
-ctrl + shift - h : (yabai -m window --warp west || yabai -m window --warp east) || yabai -m window --move rel:-40:0
-ctrl + shift - j : (yabai -m window --warp south || yabai -m window --warp north) || yabai -m window --move rel:0:40
-ctrl + shift - k : (yabai -m window --warp north || yabai -m window --warp south) || yabai -m window --move rel:0:-40
-ctrl + shift - l : (yabai -m window --warp east || yabai -m window --warp west) || yabai -m window --move rel:40:0
+# ctrl + shift - h : (yabai -m window --warp west || yabai -m window --warp east) || yabai -m window --move rel:-40:0
+# ctrl + shift - j : (yabai -m window --warp south || yabai -m window --warp north) || yabai -m window --move rel:0:40
+# ctrl + shift - k : (yabai -m window --warp north || yabai -m window --warp south) || yabai -m window --move rel:0:-40
+# ctrl + shift - l : (yabai -m window --warp east || yabai -m window --warp west) || yabai -m window --move rel:40:0
 
 # swap window
-ctrl + alt + shift - h : yabai -m window --swap west || yabai -m window --swap east
-ctrl + alt + shift - j : yabai -m window --swap south || yabai -m window --swap north
-ctrl + alt + shift - k : yabai -m window --swap north || yabai -m window --swap south
-ctrl + alt + shift - l : yabai -m window --swap east || yabai -m window --swap west
+# ctrl + alt + shift - h : yabai -m window --swap west || yabai -m window --swap east
+# ctrl + alt + shift - j : yabai -m window --swap south || yabai -m window --swap north
+# ctrl + alt + shift - k : yabai -m window --swap north || yabai -m window --swap south
+# ctrl + alt + shift - l : yabai -m window --swap east || yabai -m window --swap west
 
 # UIOP
 
 # resize window
-ctrl + alt - u : yabai -m window --resize right:40:0 & yabai -m window --resize left:-40:0
-ctrl + alt - i : yabai -m window --resize bottom:0:-40 & yabai -m window --resize top:0:40
-ctrl + alt - o : yabai -m window --resize bottom:0:40 & yabai -m window --resize top:0:-40
-ctrl + alt - p : yabai -m window --resize right:-40:0 & yabai -m window --resize left:40:0
+# ctrl + alt - u : yabai -m window --resize right:40:0 & yabai -m window --resize left:-40:0
+# ctrl + alt - i : yabai -m window --resize bottom:0:-40 & yabai -m window --resize top:0:40
+# ctrl + alt - o : yabai -m window --resize bottom:0:40 & yabai -m window --resize top:0:-40
+# ctrl + alt - p : yabai -m window --resize right:-40:0 & yabai -m window --resize left:40:0
 
 # set insertion point in focused container
-ctrl + shift - u : yabai -m window --insert west
-ctrl + shift - i : yabai -m window --insert south
-ctrl + shift - o : yabai -m window --insert north
-ctrl + shift - p : yabai -m window --insert east
+# ctrl + shift - u : yabai -m window --insert west
+# ctrl + shift - i : yabai -m window --insert south
+# ctrl + shift - o : yabai -m window --insert north
+# ctrl + shift - p : yabai -m window --insert east
 
 # VBNM
 
@@ -51,71 +51,71 @@ ctrl + alt - backspace : yabai -m window --toggle float; yabai -m window --toggl
 ctrl + shift - backspace : yabai -m window --grid 1:1:0:0:1:1
 
 # cycle space management type
-ctrl + alt + shift - backspace : source ~/.scripts/.space_change && sketchybar -m --trigger mode_change
+# ctrl + alt + shift - backspace : source ~/.scripts/.space_change && sketchybar -m --trigger mode_change
 
 # RETURN
 
 # rotate tree clockwise
-ctrl + alt - return : yabai -m space --rotate 270
+# ctrl + alt - return : yabai -m space --rotate 270
 
 # rotate tree counter-clockwise
-ctrl + shift - return : yabai -m space --rotate 90
+# ctrl + shift - return : yabai -m space --rotate 90
 
 # balance size of windows
-ctrl + alt + shift - return : yabai -m space --balance
+# ctrl + alt + shift - return : yabai -m space --balance
 
 # C+A
 
 # make floating window fill left-half of screen
-ctrl + shift - v : yabai -m window --grid 1:2:0:0:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:0:0:1:1) && sketchybar -m --trigger float_change
+# ctrl + shift - v : yabai -m window --grid 1:2:0:0:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:0:0:1:1) && sketchybar -m --trigger float_change
 # make floating window fill right-half of screen
-ctrl + shift - b : yabai -m window --grid 1:2:1:1:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
+# ctrl + shift - b : yabai -m window --grid 1:2:1:1:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
 
 # make floating window fill top-half of screen
-ctrl + shift - n : yabai -m window --grid 2:1:0:0:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
+# ctrl + shift - n : yabai -m window --grid 2:1:0:0:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
 
 # make floating window fill bottom-half of screen
-ctrl + shift - m : yabai -m window --grid 2:1:0:1:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
+# ctrl + shift - m : yabai -m window --grid 2:1:0:1:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
 
 # Add thirds shortcuts?
 
 
 # make floating window fill top-right quarter of screen
-ctrl + alt + shift - v : yabai -m window --grid 2:2:1:0:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
+# ctrl + alt + shift - v : yabai -m window --grid 2:2:1:0:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
 
 # make floating window fill top-left quarter of screen
-ctrl + alt + shift - b : yabai -m window --grid 2:2:0:0:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
+# ctrl + alt + shift - b : yabai -m window --grid 2:2:0:0:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
 
 # make floating window fill bottom-right quarter of screen
-ctrl + alt + shift - n : yabai -m window --grid 2:2:1:1:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
+# ctrl + alt + shift - n : yabai -m window --grid 2:2:1:1:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
 
 # make floating window fill bottom-left quarter of screen
-ctrl + alt + shift - m : yabai -m window --grid 2:2:0:1:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
+# ctrl + alt + shift - m : yabai -m window --grid 2:2:0:1:1:1 || (yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 1:2:1:1:1:1) && sketchybar -m --trigger float_change
 
 # \
 
 # toggle window split type '\'
-ctrl + alt - 0x2A: yabai -m window --toggle split && sketchybar -m --trigger mode_change
+# ctrl + alt - 0x2A: yabai -m window --toggle split && sketchybar -m --trigger mode_change
 
 # toggle window parent zoom '\'
-ctrl + shift - 0x2A : yabai -m window --toggle zoom-parent
+# ctrl + shift - 0x2A : yabai -m window --toggle zoom-parent
 
 # toggle picture-in-picture '\'
-ctrl + alt + shift - 0x2A : yabai -m window --toggle sticky && sketchybar -m --trigger mode_change
+# ctrl + alt + shift - 0x2A : yabai -m window --toggle sticky && sketchybar -m --trigger mode_change
 # ctrl + alt + shift - 0x2A : yabai -m window --toggle sticky; yabai -m window --toggle topmost; yabai -m window --toggle pip
 
 # ;
 
 # zoom window to or full screen ';' SKETCH
-ctrl + alt - 0x29 : yabai -m window --toggle zoom-fullscreen && sketchybar -m --trigger float_change
+# ctrl + alt - 0x29 : yabai -m window --toggle zoom-fullscreen && sketchybar -m --trigger float_change
 
 # []
 
 # mirror tree y-axis '['
-ctrl + alt - 0x21 : yabai -m space --mirror y-axis
+# ctrl + alt - 0x21 : yabai -m space --mirror y-axis
 
 # mirror tree x-axis ']'
-ctrl + alt - 0x1E : yabai -m space --mirror x-axis
+# ctrl + alt - 0x1E : yabai -m space --mirror x-axis
 
 # swap current window with largest window '['
 ctrl + shift - 0x21 : yabai -m window --swap largest
@@ -126,47 +126,47 @@ ctrl + shift - 0x1E : yabai -m window --swap smallest
 # 0
 
 # toggle desktop offset '0'
-ctrl + alt - 0 : yabai -m space --padding abs:0:0:0:0
+# ctrl + alt - 0 : yabai -m space --padding abs:0:0:0:0
 
 # toggle window offset '0'
-ctrl + shift - 0 : yabai -m space --gap abs:0
+# ctrl + shift - 0 : yabai -m space --gap abs:0
 
 # toggle window and desktop offset '0'
-ctrl + alt + shift - 0 : yabai -m space --gap abs:0 && yabai -m space --padding abs:0:0:0:0
+# ctrl + alt + shift - 0 : yabai -m space --gap abs:0 && yabai -m space --padding abs:0:0:0:0
 
 # -
 
 # decrease padding between desktop '-'
-ctrl + alt - 0x18 :yabai -m space --padding rel:5:5:5:5
+# ctrl + alt - 0x18 :yabai -m space --padding rel:5:5:5:5
 
 # decrease padding between windows '-'
-ctrl + alt - 0x18 : yabai -m space --gap rel:5
+# ctrl + alt - 0x18 : yabai -m space --gap rel:5
 
 # decrease padding between windows and desktop '-'
-ctrl + alt + shift - 0x18 : yabai -m space --gap rel:5 && yabai -m space --padding rel:5:5:5:5
+# ctrl + alt + shift - 0x18 : yabai -m space --gap rel:5 && yabai -m space --padding rel:5:5:5:5
 
 # +
 
 # increase padding between desktop '+'
-ctrl + alt - 0x1B : yabai -m space --padding rel:-5:-5:-5:-5
+# ctrl + alt - 0x1B : yabai -m space --padding rel:-5:-5:-5:-5
 
 # increase padding between windows '+'
-ctrl + alt - 0x1B : yabai -m space --gap rel:-5
+# ctrl + alt - 0x1B : yabai -m space --gap rel:-5
 
 # increase padding between windows and desktop '+'
-ctrl + alt + shift - 0x1B : yabai -m space --gap rel:-5 && yabai -m space --padding rel:-5:-5:-5:-5
+# ctrl + alt + shift - 0x1B : yabai -m space --gap rel:-5 && yabai -m space --padding rel:-5:-5:-5:-5
 
 # create desktop and follow focus - uses jq for parsing json (brew install jq)
 ctrl + alt - t : yabai -m space --create && \
-                index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
-                yabai -m space --focus "${index}" && \
+                set -l index "$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+                yabai -m space --focus $index && \
                 sketchybar -m --trigger space_change
 
 # create desktop, move window and follow focus - uses jq for parsing json (brew install jq)
 ctrl + shift - t : yabai -m space --create && \
-                  index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')" && \
-                  yabai -m window --space "${index}" && \
-                  yabai -m space --focus "${index}" && \
+                  set -l index "$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+                  yabai -m window --space $index && \
+                  yabai -m space --focus $index && \
                   sketchybar -m --trigger space_change
 
 # destroy desktop

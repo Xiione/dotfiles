@@ -61,3 +61,7 @@ vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = colors.nord3 })
 vim.api.nvim_set_hl(0, "FloatBorder", { fg = colors.nord3 })
 vim.api.nvim_set_hl(0, "NvimTreeWindowPicker", { bg = colors.nord3 })
 
+-- hack fix for broken definiton hovers
+-- nvm doesnt work
+-- vim.api.nvim_set_hl(0, "markdownError", { bg = "none", fg = "none" })
+

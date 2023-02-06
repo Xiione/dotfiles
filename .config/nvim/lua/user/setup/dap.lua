@@ -113,6 +113,9 @@ dapui.setup({
 	floating = { border = "rounded", mappings = { close = { "q", "<esc>" } } },
 })
 
+local types_enabled = false
+dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
+
 -- remove debugging keymaps
 local function remove_maps()
 	utils.unmap("n", "<m-d>B")

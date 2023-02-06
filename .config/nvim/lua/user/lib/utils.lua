@@ -1,50 +1,57 @@
 local core = require("user.lib.core")
+local dapui = require("dapui")
 
 --- {{{ global states
 -- lsp+ts: current tag_state [updated async]
 local tag_state = {
-    cache = {},
-    context = {},
-    req_state = {}
+	cache = {},
+	context = {},
+	req_state = {},
 }
 
 -- terminal: current run_config [updated elsewhere]
 local run_config = {
-    target_terminal = nil,
-    target_command = "",
+	target_terminal = nil,
+	target_command = "",
 }
 
 -- diagnostics: toggle state
 local diagnostics_state = {
-    ["local"] = {},
-    ["global"] = false,
+	["local"] = {},
+	["global"] = false,
 }
 
 -- ui: toggles
 local ui_state = {
-    thick_separators = false,
-    window_state = {},
+	thick_separators = false,
+	window_state = {},
 }
 
 -- registered custom commands
 local commands = {
-    keys = { },
-    callbacks = { }
+	keys = {},
+	callbacks = {},
 }
 -- }}}
 
 -- setup keymaps
 local function map(mode, lhs, rhs, opts, bufnr)
 	local options = { noremap = true }
-	if opts then options = vim.tbl_extend("force", options, opts) end
-	if bufnr then options["buffer"] = bufnr end
+	if opts then
+		options = vim.tbl_extend("force", options, opts)
+	end
+	if bufnr then
+		options["buffer"] = bufnr
+	end
 	vim.keymap.set(mode, lhs, rhs, options)
 end
 
 -- remove keymaps
 local function unmap(mode, lhs, bufnr)
 	local options = {}
-	if bufnr then options["buffer"] = bufnr end
+	if bufnr then
+		options["buffer"] = bufnr
+	end
 
 	-- vim.keymap.del(mode, lhs, options)
 	pcall(vim.keymap.del, mode, lhs, options)
@@ -53,20 +60,21 @@ end
 -- set qflist and open
 local function qf_populate(lines, mode, title)
 	if mode == nil or type(mode) == "table" then
-		lines = core.foreach(lines, function(item) return { filename = item, lnum = 1, col = 1, text = item } end)
+		lines = core.foreach(lines, function(item)
+			return { filename = item, lnum = 1, col = 1, text = item }
+		end)
 		mode = "r"
 	end
 
 	vim.fn.setqflist(lines, mode)
 
 	if not title then
-		vim.cmd [[
+		vim.cmd([[
             belowright copen
             wincmd p
-        ]]
+        ]])
 	else
-        vim.cmd(string.format("belowright copen\n%s\nwincmd p",
-            require('statusline').set_statusline_cmd(title)))
+		vim.cmd(string.format("belowright copen\n%s\nwincmd p", require("statusline").set_statusline_cmd(title)))
 	end
 end
 
@@ -86,51 +94,64 @@ end
 
 -- is buffer horizontally truncated
 local function is_htruncated(width, global)
-    local current_width = (global and vim.api.nvim_get_option_value('columns', { scope = 'global'})) or vim.api.nvim_win_get_width(0)
+	local current_width = (global and vim.api.nvim_get_option_value("columns", { scope = "global" }))
+		or vim.api.nvim_win_get_width(0)
 	return current_width <= width
 end
 
 -- is buffer vertical truncated
 local function is_vtruncated(height, global)
-	local current_height = (global and vim.api.nvim_get_option_value('lines', { scope = 'global' })) or vim.api.nvim_win_get_height(0)
+	local current_height = (global and vim.api.nvim_get_option_value("lines", { scope = "global" }))
+		or vim.api.nvim_win_get_height(0)
 	return current_height <= height
 end
 
 -- add custom command
 local function add_command(key, callback, cmd_opts, also_custom)
-    -- opts defined, create user command
-    if cmd_opts and next(cmd_opts) then
-        vim.api.nvim_create_user_command(key, callback, cmd_opts)
-    end
+	-- opts defined, create user command
+	if cmd_opts and next(cmd_opts) then
+		vim.api.nvim_create_user_command(key, callback, cmd_opts)
+	end
 
-    -- create custom command
-    if also_custom then
+	-- create custom command
+	if also_custom then
+		-- assert opts not defined, or 0 args
+		assert((not cmd_opts) or not cmd_opts.nargs or cmd_opts.nargs == 0)
+		if commands.callbacks[key] == nil then
+			table.insert(commands.keys, key)
+		end
 
-        -- assert opts not defined, or 0 args
-        assert((not cmd_opts) or (not cmd_opts.nargs) or cmd_opts.nargs == 0)
-        if commands.callbacks[key] == nil then table.insert(commands.keys, key) end
-
-        if type(callback) == 'function' then commands.callbacks[key] = callback
-        else commands.callbacks[key] = function() vim.api.nvim_command(callback) end end
-    end
+		if type(callback) == "function" then
+			commands.callbacks[key] = callback
+		else
+			commands.callbacks[key] = function()
+				vim.api.nvim_command(callback)
+			end
+		end
+	end
 end
 
 local function resolve_spaces(str)
-    return string.gsub(str, "%s", "\\ ")
+	return string.gsub(str, "%s", "\\ ")
 end
 
 local function send_cmd(cmd, dir, silent)
-    silent = silent or false
-    local args = string.format('cmd="%s" dir="%s" open=%s', cmd, dir, silent and "0" or "1")
-    require("toggleterm").exec_command(args, vim.v.count)
+	silent = silent or false
+	local args = string.format('cmd="%s" dir="%s" open=%s', cmd, dir, silent and "0" or "1")
+	require("toggleterm").exec_command(args, vim.v.count)
 end
 
 local function create_packer_snapshot()
-    local fn = os.date('%y-%m-%d_%H-%M')
-    print("Creating new snapshot " .. fn .. "...")
-    require('packer').snapshot(fn)
+	local fn = os.date("%y-%m-%d_%H-%M")
+	print("Creating new snapshot " .. fn .. "...")
+	require("packer").snapshot(fn)
 end
 
+local types_enabled = false
+local toggle_scope_types = function()
+	types_enabled = not types_enabled
+	dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
+end
 
 return {
 	truncation_limit_s_terminal = 110,
@@ -144,10 +165,11 @@ return {
 	notify = notify,
 	is_htruncated = is_htruncated,
 	is_vtruncated = is_vtruncated,
-    add_command = add_command,
-    resolve_spaces = resolve_spaces,
-    send_cmd = send_cmd,
-    create_packer_snapshot = create_packer_snapshot,
+	add_command = add_command,
+	resolve_spaces = resolve_spaces,
+	send_cmd = send_cmd,
+	create_packer_snapshot = create_packer_snapshot,
+    toggle_scope_types = toggle_scope_types,
 
 	symbol_config = {
 		-- indicators, icons
@@ -164,44 +186,44 @@ return {
 		sign_error = "x",
 	},
 	modes = {
-		["n"]  = "Normal",
+		["n"] = "Normal",
 		["no"] = "N-Pending",
-		["v"]  = "Visual",
-		["V"]  = "V-Line",
+		["v"] = "Visual",
+		["V"] = "V-Line",
 		[""] = "V-Block",
-		["s"]  = "Select",
-		["S"]  = "S-Line",
+		["s"] = "Select",
+		["S"] = "S-Line",
 		[""] = "S-Block",
-		["i"]  = "Insert",
+		["i"] = "Insert",
 		["ic"] = "Insert",
-		["R"]  = "Replace",
+		["R"] = "Replace",
 		["Rv"] = "V-Replace",
-		["c"]  = "Command",
+		["c"] = "Command",
 		["cv"] = "Vim-Ex ",
 		["ce"] = "Ex",
-        ["r"]  = "Prompt",
-        ["rm"] = "More",
-        ["r?"] = "Confirm",
-        ["!"]  = "Shell",
-        ["t"]  = "Terminal",
-    },
-    statusline_colors = {
-        active      = "%#StatusLine#",
-        inactive    = "%#StatusLineNC#",
-        mode        = "%#PmenuSel#",
-        git         = "%#Pmenu#",
-        diagnostics = "%#PmenuSbar#",
-        file        = "%#CursorLine#",
-        tagname     = "%#PmenuSbar#",
-        line_col    = "%#CursorLine#",
-        percentage  = "%#CursorLine#",
-        bufnr       = "%#PmenuSbar#",
-        filetype    = "%#PmenuSel#",
-    },
+		["r"] = "Prompt",
+		["rm"] = "More",
+		["r?"] = "Confirm",
+		["!"] = "Shell",
+		["t"] = "Terminal",
+	},
+	statusline_colors = {
+		active = "%#StatusLine#",
+		inactive = "%#StatusLineNC#",
+		mode = "%#PmenuSel#",
+		git = "%#Pmenu#",
+		diagnostics = "%#PmenuSbar#",
+		file = "%#CursorLine#",
+		tagname = "%#PmenuSbar#",
+		line_col = "%#CursorLine#",
+		percentage = "%#CursorLine#",
+		bufnr = "%#PmenuSbar#",
+		filetype = "%#PmenuSel#",
+	},
 
-    tag_state = tag_state,
-    run_config = run_config,
-    diagnostics_state = diagnostics_state,
-    ui_state = ui_state,
-    commands = commands
+	tag_state = tag_state,
+	run_config = run_config,
+	diagnostics_state = diagnostics_state,
+	ui_state = ui_state,
+	commands = commands,
 }

@@ -13,8 +13,8 @@ utils.map("n", "<leader>r", function()
 end)
 
 utils.map("n", "<leader>b", function()
-	local cmd = "g++ " .. utils.resolve_spaces(vim.fn.expand("%:p")) ..
-                " -std=gnu++17" ..
+	local cmd = "gcc " .. utils.resolve_spaces(vim.fn.expand("%:p")) ..
+                " -std=c17" ..
                 " -g" ..
                 " -o " .. utils.resolve_spaces(vim.fn.expand("%:p:r"))
 	utils.send_cmd(cmd, "%:p:h")

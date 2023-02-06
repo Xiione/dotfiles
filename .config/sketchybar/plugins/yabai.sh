@@ -30,7 +30,7 @@ window_state() {
         ;;
       "true")
         args+=(--set $NAME icon=$YABAI_FLOAT icon.color=$MAGENTA)
-        yabai -m config active_window_border_color $MAGENTA > /dev/null 2>&1 &
+        yabai -m config active_window_border_color $GREY > /dev/null 2>&1 &
         ;;
     esac
   fi

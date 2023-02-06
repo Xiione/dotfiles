@@ -40,6 +40,7 @@ vim.opt.shortmess:append "c"                    -- hide all the completion messa
 vim.opt.iskeyword:append("-")                   -- treats words with `-` as single words
 vim.opt.formatoptions:remove({ "c", "r", "o" }) -- This is a sequence of letters which describes how automatic formatting is to be done
 vim.opt.linebreak = true
+vim.opt.guicursor = "v-r-cr:hor50,i:ver50"
 
 vim.opt.relativenumber = true
 vim.opt.hlsearch = false
@@ -54,8 +55,8 @@ vim.opt.mousemoveevent = false
 
 vim.opt.fillchars = {
     horiz = '─',
-    horizup = '⠓',
-    horizdown = '⡤',
+    horizup = '─',
+    horizdown = '─',
     vert = '▏',
     vertright = '',
     vertleft = '▏',
@@ -71,18 +72,22 @@ vim.g.loaded_netrwPlugin = 1
 vim.g["undotree_SplitWidth"] = 40
 vim.g["undotree_WindowLayout"] = 3
 vim.g["undotree_HelpLine"] = 0
-vim.g["Undotree_CustomMap"] = function ()
-    vim.cmd("nmap <buffer>l <plug>UndotreeEnter")
-end
+
 vim.g["undotree_TreeNodeShape"] = "◍"
 vim.g["undotree_TreeReturnShape"] = "╲"
 vim.g["undotree_TreeVertShape"] = "▕"
 vim.g["undotree_TreeSplitShape"] = "╱"
 
+local ignore_messages = {
+    "warning: multiple different client offset_encodings",
+    "Debug adapter reported a frame at line"
+}
 local notify = vim.notify
 vim.notify = function(msg, ...)
-    if msg:match("warning: multiple different client offset_encodings") then
-        return
+    for _, value in ipairs(ignore_messages) do
+        if msg:match(value) then
+            return
+        end
     end
 
     notify(msg, ...)

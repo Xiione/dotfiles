@@ -33,14 +33,13 @@ map("n", "<C-Left>", "<CMD>vertical resize -2<CR>", opts)
 map("n", "<C-Right>", "<CMD>vertical resize +2<CR>", opts)
 
 -- Navigate buffers
-map("n", "<S-l>", "<CMD>BufferLineCycleNext<CR>", opts)
-map("n", "<S-h>", "<CMD>BufferLineCyclePrev<CR>", opts)
-
--- Clear highlights
--- map("n", "<leader>h", "<CMD>nohlsearch<CR>", opts)
+map("n", "<C-S-l>", "<CMD>BufferLineCycleNext<CR>", opts)
+map("n", "<C-S-h>", "<CMD>BufferLineCyclePrev<CR>", opts)
 
 -- Close buffers
-map("n", "<S-w>", "<CMD>Bdelete!<CR>", opts)
+map("n", "<C-S-w>", "<CMD>Bdelete!<CR>", opts)
+map("n", "<leader>bq", "<CMD>BufferLineCloseLeft<CR>", opts)
+map("n", "<leader>be", "<CMD>BufferLineCloseRight<CR>", opts)
 
 -- Better paste
 map("x", "<leader>p", '"_dP', opts)
@@ -51,6 +50,9 @@ map("n", "<leader>Y", '"+Y', opts)
 
 map("n", "<leader>d", '"_d', opts)
 map("v", "<leader>d", '"_d', opts)
+
+-- Clear highlights
+-- map("n", "<leader>h", "<CMD>nohlsearch<CR>", opts)
 
 -- Insert --
 -- Press jk fast to enter
@@ -92,6 +94,9 @@ map("n", "<leader>dr", "<CMD>lua require'dap'.repl.toggle()<CR>", opts)
 map("n", "<leader>dl", "<CMD>lua require'dap'.run_last()<CR>", opts)
 map("n", "<leader>du", "<CMD>lua require'dapui'.toggle()<CR>" .. "<CMD>NvimTreeClose<CR>", opts)
 map("n", "<leader>dt", "<CMD>lua require'dap'.terminate()<CR>", opts)
+map("n", "<leader>dS", function ()
+    utils.toggle_scope_types()
+end, opts)
 
 map("n", "<C-d>", "<C-d>zz", opts)
 map("n", "<C-u>", "<C-u>zz", opts)
