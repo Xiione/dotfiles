@@ -1,7 +1,6 @@
 -- Shorten function name
 local utils = require("user.lib.utils")
 local map = utils.map
-local command = vim.api.nvim_create_user_command
 
 -- Silent map option
 local opts = { silent = true }
@@ -84,22 +83,22 @@ map("n", "<leader>/", "<CMD>lua require('Comment.api').toggle.linewise.current()
 map("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
 
 -- DAP
-map("n", "<leader>db", "<CMD>lua require'dap'.toggle_breakpoint()<CR>", opts)
-map("n", "<leader>dB", "<CMD>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
-map("n", "<leader>dc", "<CMD>lua require'dap'.continue()<CR>", opts)
-map("n", "<leader>di", "<CMD>lua require'dap'.step_into()<CR>", opts)
-map("n", "<leader>do", "<CMD>lua require'dap'.step_over()<CR>", opts)
-map("n", "<leader>dO", "<CMD>lua require'dap'.step_out()<CR>", opts)
-map("n", "<leader>dr", "<CMD>lua require'dap'.repl.toggle()<CR>", opts)
-map("n", "<leader>dl", "<CMD>lua require'dap'.run_last()<CR>", opts)
-map("n", "<leader>du", "<CMD>lua require'dapui'.toggle()<CR>" .. "<CMD>NvimTreeClose<CR>", opts)
-map("n", "<leader>dt", "<CMD>lua require'dap'.terminate()<CR>", opts)
-map("n", "<leader>dS", function ()
-    utils.toggle_scope_types()
-end, opts)
-
-map("n", "<C-d>", "<C-d>zz", opts)
-map("n", "<C-u>", "<C-u>zz", opts)
+-- map("n", "<leader>db", "<CMD>lua require'dap'.toggle_breakpoint()<CR>", opts)
+-- map("n", "<leader>dB", "<CMD>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
+-- map("n", "<leader>dc", "<CMD>lua require'dap'.continue()<CR>", opts)
+-- map("n", "<leader>di", "<CMD>lua require'dap'.step_into()<CR>", opts)
+-- map("n", "<leader>do", "<CMD>lua require'dap'.step_over()<CR>", opts)
+-- map("n", "<leader>dO", "<CMD>lua require'dap'.step_out()<CR>", opts)
+-- map("n", "<leader>dr", "<CMD>lua require'dap'.repl.toggle()<CR>", opts)
+-- map("n", "<leader>dl", "<CMD>lua require'dap'.run_last()<CR>", opts)
+-- map("n", "<leader>du", "<CMD>lua require'dapui'.toggle()<CR>" .. "<CMD>NvimTreeClose<CR>", opts)
+-- map("n", "<leader>dt", "<CMD>lua require'dap'.terminate()<CR>", opts)
+-- map("n", "<leader>dS", function ()
+--     utils.toggle_scope_types()
+-- end, opts)
+--
+-- map("n", "<C-d>", "<C-d>", opts)
+-- map("n", "<C-u>", "<C-u>", opts)
 
 map("i", "<C-h>", "<Left>", opts)
 map("i", "<C-j>", "<Down>", opts)
@@ -130,11 +129,14 @@ map("n", "<leader>u", "<CMD>UndotreeToggle<CR>", opts)
 
 -- easier leave term
 map("t", "<esc>", "<C-\\><C-n>", opts)
+map("t", "<C-h>", "<C-\\><C-n><C-W>h", opts)
+map("t", "<C-j>", "<C-\\><C-n><C-W>j", opts)
+map("t", "<C-k>", "<C-\\><C-n><C-W>k", opts)
+map("t", "<C-l>", "<C-\\><C-n><C-W>l", opts)
 
 -- works better here? idk
 map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
 
-command("OP", "silent !open .", {})
 
 -- vimtex 
 map("n", "<leader>ti", "<plug>(vimtex-info)", opts)

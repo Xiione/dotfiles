@@ -90,48 +90,48 @@ require('jdtls').start_or_attach(config)
 -- local tmux_send_cmd = require("utils.tmux").tmux_send_cmd
 local utils = require('user.lib.utils')
 
-if vim.fn.filereadable("build.gradle") == 1 then
-    utils.map('n', "<leader>r", function()
-        local cmd = "java -jar " ..
-            vim.fn.resolve("build/libs/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. ".jar")
-        utils.send_cmd(cmd)
-    end)
-
-    -- build + run
-    utils.map('n', "<leader>R", function()
-        local cmd = {
-            "./gradlew assemble",
-            "java -jar " ..
-                vim.fn.resolve("build/libs/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. ".jar")
-        }
-        utils.send_cmd(cmd)
-    end)
-
-    -- build
-    utils.map('n', "<leader>b", function()
-        local cmd = "./gradlew assemble"
-        utils.send_cmd(cmd)
-    end)
-
-    -- test
-    utils.map('n', "<leader>B", function()
-        local cmd = "./gradlew build"
-        utils.send_cmd(cmd)
-    end)
-else
-    utils.map('n', "<leader>r", function()
-        local cmd = "java " ..
-            "-classpath " .. utils.resolve_spaces(vim.fn.expand('%:p:h')) .. " " .. utils.resolve_spaces(vim.fn.expand('%:t:r'))
-        utils.send_cmd(cmd)
-    end)
-
-    utils.map('n', "<leader>R", function()
-        local cmd = "java " .. utils.resolve_spaces(vim.fn.expand('%:p'))
-        utils.send_cmd(cmd)
-    end)
-
-    utils.map('n', "<leader>b", function()
-        local cmd = "javac " .. utils.resolve_spaces(vim.fn.expand('%:p'))
-        utils.send_cmd(cmd)
-    end)
-end
+-- if vim.fn.filereadable("build.gradle") == 1 then
+--     utils.map('n', "<leader>r", function()
+--         local cmd = "java -jar " ..
+--             vim.fn.resolve("build/libs/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. ".jar")
+--         utils.send_cmd(cmd)
+--     end)
+--
+--     -- build + run
+--     utils.map('n', "<leader>R", function()
+--         local cmd = {
+--             "./gradlew assemble",
+--             "java -jar " ..
+--                 vim.fn.resolve("build/libs/" .. vim.fn.fnamemodify(vim.fn.getcwd(), ":t") .. ".jar")
+--         }
+--         utils.send_cmd(cmd)
+--     end)
+--
+--     -- build
+--     utils.map('n', "<leader>b", function()
+--         local cmd = "./gradlew assemble"
+--         utils.send_cmd(cmd)
+--     end)
+--
+--     -- test
+--     utils.map('n', "<leader>B", function()
+--         local cmd = "./gradlew build"
+--         utils.send_cmd(cmd)
+--     end)
+-- else
+--     utils.map('n', "<leader>r", function()
+--         local cmd = "java " ..
+--             "-classpath " .. utils.resolve_spaces(vim.fn.expand('%:p:h')) .. " " .. utils.resolve_spaces(vim.fn.expand('%:t:r'))
+--         utils.send_cmd(cmd)
+--     end)
+--
+--     utils.map('n', "<leader>R", function()
+--         local cmd = "java " .. utils.resolve_spaces(vim.fn.expand('%:p'))
+--         utils.send_cmd(cmd)
+--     end)
+--
+--     utils.map('n', "<leader>b", function()
+--         local cmd = "javac " .. utils.resolve_spaces(vim.fn.expand('%:p'))
+--         utils.send_cmd(cmd)
+--     end)
+-- end

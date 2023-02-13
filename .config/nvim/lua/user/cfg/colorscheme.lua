@@ -15,8 +15,8 @@ if not status_ok then
 end
 
 local colors = {
-	-- nord0 = "#2E3440", -- i think the nord nvim theme takes all bgs with the nord0 color "none"
 	nord0 = "#2E3440",
+	nord0o = "#2E3441", -- i think the nord nvim theme takes all bgs with the nord0 color "none"
 	nord1 = "#3B4252",
 	nord2 = "#434C5E",
 	nord3 = "#4C566A",
@@ -54,14 +54,22 @@ vim.api.nvim_set_hl(0, "DapUIPlayPause", { fg = colors.nord14 })
 vim.api.nvim_set_hl(0, "DapUIRestart", { fg = colors.nord14 })
 vim.api.nvim_set_hl(0, "DapUIUnavailable", { fg = colors.nord2 })
 
-vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = colors.nord3 })
-vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = colors.nord3 })
-vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = colors.nord3 })
+vim.api.nvim_set_hl(0, "DapBreakpointSign", { fg = colors.nord13 })
 
-vim.api.nvim_set_hl(0, "FloatBorder", { fg = colors.nord3 })
-vim.api.nvim_set_hl(0, "NvimTreeWindowPicker", { bg = colors.nord3 })
+-- vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = colors.nord3 })
+-- vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = colors.nord3 })
+-- vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = colors.nord3 })
+--
+-- vim.api.nvim_set_hl(0, "FloatBorder", { fg = colors.nord3 })
+-- vim.api.nvim_set_hl(0, "LspFloatWinBorder", { fg = colors.nord3 })
+-- vim.api.nvim_set_hl(0, "LsOutlinePreviewBorder", { fg = colors.nord3 })
+-- vim.api.nvim_set_hl(0, "NvimTreeWindowPicker", { bg = colors.nord3 })
+-- vim.api.nvim_set_hl(0, "BorderFloat", { bg = colors.nord3 })
+--
+-- vim.api.nvim_set_hl(0, "FloatShadow", { fg = colors.nord0 })
+-- vim.api.nvim_set_hl(0, "FloatShadowThrough", { fg = colors.nord0 })
 
 -- hack fix for broken definiton hovers
--- nvm doesnt work
--- vim.api.nvim_set_hl(0, "markdownError", { bg = "none", fg = "none" })
+-- doesnt work
+-- vim.api.nvim_set_hl(0, "markdownH2", { bg = "none", fg = "none" })
 

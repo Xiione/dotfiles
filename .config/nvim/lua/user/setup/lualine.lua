@@ -18,19 +18,13 @@ local diagnostics = {
 
 local diff = {
 	"diff",
-	colored = false,
-	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+	colored = true,
+	symbols = { added = " ", modified = "󰏫 ", removed = "󰇾 " }, -- changes diff symbols
 	cond = hide_in_width,
 }
-
 local filetype = {
 	"filetype",
 	icons_enabled = true,
-}
-
-local location = {
-	"location",
-	padding = 1,
 }
 
 local spaces = function()
@@ -59,78 +53,92 @@ local colors = {
 
 local mynord = require("lualine.themes.nord")
 
-local c = { fg = colors.nord5, bg = colors.nord1 }
+local c = { fg = colors.nord4, bg = colors.nord0 }
+local afg = colors.nord0;
+local bbg = colors.nord1;
 
 mynord.normal = {
 	a = {
-		fg = colors.nord0,
+		fg = afg,
 		bg = colors.nord4,
 		gui = "bold",
 	},
 	b = {
 		fg = colors.nord4,
-		bg = colors.nord0,
+		bg = bbg,
 	},
 	c = c,
 }
 mynord.insert = {
 	a = {
-		fg = colors.nord0,
+		fg = afg,
 		bg = colors.nord14,
 		gui = "bold",
 	},
 	b = {
 		fg = colors.nord14,
-		bg = colors.nord0,
+		bg = bbg,
 	},
 	c = c,
 }
 mynord.visual = {
 	a = {
-		fg = colors.nord0,
+		fg = afg,
 		bg = colors.nord7,
 		gui = "bold",
 	},
 	b = {
 		fg = colors.nord7,
-		bg = colors.nord0,
+		bg = bbg,
 	},
 	c = c,
 }
 mynord.replace = {
 	a = {
-		fg = colors.nord0,
+		fg = afg,
 		bg = colors.nord13,
 		gui = "bold",
 	},
 	b = {
 		fg = colors.nord13,
-		bg = colors.nord0,
+		bg = bbg,
 	},
 	c = c,
 }
 mynord.command = {
 	a = {
-		fg = colors.nord0,
+		fg = afg,
 		bg = colors.nord12,
 		gui = "bold",
 	},
 	b = {
 		fg = colors.nord12,
-		bg = colors.nord0,
+		bg = bbg,
 	},
 	c = c,
 }
 
 mynord.terminal = {
 	a = {
-		fg = colors.nord0,
+		fg = afg,
 		bg = colors.nord15,
 		gui = "bold",
 	},
 	b = {
 		fg = colors.nord15,
-		bg = colors.nord0,
+		bg = bbg,
+	},
+	c = c,
+}
+mynord.select = {
+	a = {
+		fg = afg,
+		bg = colors.nord10,
+		gui = "bold",
+	},
+	b = {
+		fg = colors.nord10,
+		bg = bbg,
 	},
 	c = c,
 }
@@ -140,14 +148,18 @@ lualine.setup({
 		globalstatus = true,
 		icons_enabled = true,
 		theme = mynord,
-		disabled_filetypes = { "alpha" }
+        component_separators = '',
+        section_separators = '',
+		disabled_filetypes = {
+            "alpha"
+        }
 	},
 	sections = {
-		lualine_a = { "mode" },
+		lualine_a = { "mode", { padding = 0 } },
 		lualine_b = { diagnostics },
-		lualine_c = { "branch", diff },
-		lualine_x = { "encoding", "filetype" },
-		lualine_y = { "progress" },
-		lualine_z = { location },
-	},
+		lualine_c = { diff },
+		lualine_x = { "filetype" },
+		lualine_y = { "progress", { padding = 1 } },
+		lualine_z = { "location", { padding = 1 } },
+	}
 })

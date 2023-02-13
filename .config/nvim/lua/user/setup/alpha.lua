@@ -115,7 +115,7 @@ dashboard.section.buttons.val = {
 	dashboard.button("f", " " .. " Find file", "<CMD>lua require('telescope.builtin').find_files({hidden=true})<CR>"),
 	dashboard.button("e", " " .. " New file", "<CMD>ene <BAR> startinsert <CR>"),
 	dashboard.button("r", " " .. " Recent files", "<CMD>lua require('telescope.builtin').oldfiles()<CR>"),
-	dashboard.button("t", " " .. " Find text", "<CMD>lua require('telescope.builtin').oldfiles()<CR>"),
+	dashboard.button("t", " " .. " Find text", "<CMD>lua require('telescope.builtin').live_grep()<CR>"),
 	dashboard.button("s", " " .. " Create packer snapshot", "<CMD>lua require('user.lib.utils').create_packer_snapshot()<CR>"),
 	dashboard.button("q", " " .. " Quit", "<CMD>qa<CR>"),
 }

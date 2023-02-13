@@ -1,41 +1,15 @@
-local core = require("user.lib.core")
+local dap = require("dap")
 local dapui = require("dapui")
+local toggleterm = require("toggleterm")
 
---- {{{ global states
--- lsp+ts: current tag_state [updated async]
-local tag_state = {
-	cache = {},
-	context = {},
-	req_state = {},
-}
+local M = {}
 
--- terminal: current run_config [updated elsewhere]
-local run_config = {
-	target_terminal = nil,
-	target_command = "",
-}
-
--- diagnostics: toggle state
-local diagnostics_state = {
-	["local"] = {},
-	["global"] = false,
-}
-
--- ui: toggles
-local ui_state = {
-	thick_separators = false,
-	window_state = {},
-}
-
--- registered custom commands
 local commands = {
-	keys = {},
-	callbacks = {},
+    keys = {},
+    callbacks = {}
 }
--- }}}
 
--- setup keymaps
-local function map(mode, lhs, rhs, opts, bufnr)
+M.map = function(mode, lhs, rhs, opts, bufnr)
 	local options = { noremap = true }
 	if opts then
 		options = vim.tbl_extend("force", options, opts)
@@ -46,8 +20,7 @@ local function map(mode, lhs, rhs, opts, bufnr)
 	vim.keymap.set(mode, lhs, rhs, options)
 end
 
--- remove keymaps
-local function unmap(mode, lhs, bufnr)
+M.unmap = function(mode, lhs, bufnr)
 	local options = {}
 	if bufnr then
 		options["buffer"] = bufnr
@@ -57,57 +30,8 @@ local function unmap(mode, lhs, bufnr)
 	pcall(vim.keymap.del, mode, lhs, options)
 end
 
--- set qflist and open
-local function qf_populate(lines, mode, title)
-	if mode == nil or type(mode) == "table" then
-		lines = core.foreach(lines, function(item)
-			return { filename = item, lnum = 1, col = 1, text = item }
-		end)
-		mode = "r"
-	end
-
-	vim.fn.setqflist(lines, mode)
-
-	if not title then
-		vim.cmd([[
-            belowright copen
-            wincmd p
-        ]])
-	else
-		vim.cmd(string.format("belowright copen\n%s\nwincmd p", require("statusline").set_statusline_cmd(title)))
-	end
-end
-
--- notify using current  notifications setup
-local function notify(content, type, opts, force)
-	if force then
-		-- if packer_plugins['nvim-notify'] ~= nil and packer_plugins['nvim-notify'].loaded then
-		--     require('notify')(content, type, opts)
-		-- end
-
-		require("notify")(content, type, opts)
-		return
-	end
-
-	vim.notify(content, type, opts)
-end
-
--- is buffer horizontally truncated
-local function is_htruncated(width, global)
-	local current_width = (global and vim.api.nvim_get_option_value("columns", { scope = "global" }))
-		or vim.api.nvim_win_get_width(0)
-	return current_width <= width
-end
-
--- is buffer vertical truncated
-local function is_vtruncated(height, global)
-	local current_height = (global and vim.api.nvim_get_option_value("lines", { scope = "global" }))
-		or vim.api.nvim_win_get_height(0)
-	return current_height <= height
-end
-
 -- add custom command
-local function add_command(key, callback, cmd_opts, also_custom)
+M.add_command = function(key, callback, cmd_opts, also_custom)
 	-- opts defined, create user command
 	if cmd_opts and next(cmd_opts) then
 		vim.api.nvim_create_user_command(key, callback, cmd_opts)
@@ -131,99 +55,73 @@ local function add_command(key, callback, cmd_opts, also_custom)
 	end
 end
 
-local function resolve_spaces(str)
+M.resolve_spaces = function(str)
 	return string.gsub(str, "%s", "\\ ")
 end
 
-local function send_cmd(cmd, dir, silent)
-	silent = silent or false
-	local args = string.format('cmd="%s" dir="%s" open=%s', cmd, dir, silent and "0" or "1")
-	require("toggleterm").exec_command(args, vim.v.count)
+M.exec_cmd = function(args)
+    vim.cmd("wall")
+    if type(args) == "string" then
+        toggleterm.exec(vim.fn.expandcmd(args), vim.v.count, nil, nil, nil, nil, nil)
+    else
+        toggleterm.exec(vim.fn.expandcmd(args.cmd), vim.v.count, nil, args.dir, nil, nil, args.open)
+    end
 end
 
-local function create_packer_snapshot()
+M.send_return = function ()
+    M.exec_cmd({
+        cmd = "\x03",
+        dir = nil,
+        open = false
+    })
+end
+
+M.add_callback_flags = function(cmd, on_success, on_failure)
+    return cmd .. [[ && ]] .. on_success .. [[ || ]] .. on_failure
+end
+
+M.flag_build_success = "NV_BUILD_SUCCESS"
+M.flag_build_fail = "NV_BUILD_FAIL"
+M.flag_ready_debug = "NV_READY_FOR_DEBUG"
+
+
+M.setup_build_command = function(mode, mapping, cmd)
+    M.map(mode, mapping, function()
+        print("Building...")
+        M.send_return()
+        M.exec_cmd({
+            cmd = M.add_callback_flags(cmd, "echo '" .. M.flag_build_success ..
+                "'", "echo '" .. M.flag_build_fail .. "'"),
+            dir = vim.fn.expand("%:p:h"),
+            open = false
+        })
+    end)
+end
+
+M.setup_debug_command = function(mode, mapping, cmd)
+    M.map(mode, mapping, function()
+        print("Building...")
+        M.send_return()
+        M.exec_cmd({
+            cmd = M.add_callback_flags(cmd, "echo '" .. M.flag_ready_debug ..
+                "'", "echo '" .. M.flag_build_fail .. "'"),
+            dir = vim.fn.expand("%:p:h"),
+            open = false
+        })
+        print("Building...")
+    end)
+end
+
+M.create_packer_snapshot = function()
 	local fn = os.date("%y-%m-%d_%H-%M")
 	print("Creating new snapshot " .. fn .. "...")
 	require("packer").snapshot(fn)
 end
 
 local types_enabled = false
-local toggle_scope_types = function()
+M.toggle_scope_types = function()
 	types_enabled = not types_enabled
 	dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
 end
 
-return {
-	truncation_limit_s_terminal = 110,
-	truncation_limit_s = 80,
-	truncation_limit = 100,
-	truncation_limit_l = 160,
-
-	map = map,
-	unmap = unmap,
-	qf_populate = qf_populate,
-	notify = notify,
-	is_htruncated = is_htruncated,
-	is_vtruncated = is_vtruncated,
-	add_command = add_command,
-	resolve_spaces = resolve_spaces,
-	send_cmd = send_cmd,
-	create_packer_snapshot = create_packer_snapshot,
-    toggle_scope_types = toggle_scope_types,
-
-	symbol_config = {
-		-- indicators, icons
-		indicator_seperator = "",
-		indicator_hint = "[@]",
-		indicator_info = "[i]",
-		indicator_warning = "[!]",
-		indicator_error = "[x]",
-
-		-- signs
-		sign_hint = "@",
-		sign_info = "i",
-		sign_warning = "!",
-		sign_error = "x",
-	},
-	modes = {
-		["n"] = "Normal",
-		["no"] = "N-Pending",
-		["v"] = "Visual",
-		["V"] = "V-Line",
-		[""] = "V-Block",
-		["s"] = "Select",
-		["S"] = "S-Line",
-		[""] = "S-Block",
-		["i"] = "Insert",
-		["ic"] = "Insert",
-		["R"] = "Replace",
-		["Rv"] = "V-Replace",
-		["c"] = "Command",
-		["cv"] = "Vim-Ex ",
-		["ce"] = "Ex",
-		["r"] = "Prompt",
-		["rm"] = "More",
-		["r?"] = "Confirm",
-		["!"] = "Shell",
-		["t"] = "Terminal",
-	},
-	statusline_colors = {
-		active = "%#StatusLine#",
-		inactive = "%#StatusLineNC#",
-		mode = "%#PmenuSel#",
-		git = "%#Pmenu#",
-		diagnostics = "%#PmenuSbar#",
-		file = "%#CursorLine#",
-		tagname = "%#PmenuSbar#",
-		line_col = "%#CursorLine#",
-		percentage = "%#CursorLine#",
-		bufnr = "%#PmenuSbar#",
-		filetype = "%#PmenuSel#",
-	},
-
-	tag_state = tag_state,
-	run_config = run_config,
-	diagnostics_state = diagnostics_state,
-	ui_state = ui_state,
-	commands = commands,
-}
+return M

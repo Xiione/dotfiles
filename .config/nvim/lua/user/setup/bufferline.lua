@@ -35,8 +35,9 @@ local opts = {
 for _, type in pairs(filetypes) do
 	table.insert(opts.offsets, {
 		filetype = type[1],
-		text = type[2],
-		text_align = "center",
+		-- text = type[2],
+        text = "",
+		text_align = "right",
 		padding = 0,
         separator = "▏"
 	})

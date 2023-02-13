@@ -78,7 +78,7 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
-	if client.name == "cland" then
+	if client.name == "clangd" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
 

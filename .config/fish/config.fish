@@ -1,4 +1,4 @@
-if status is-interactive
+if status is-login
     neofetch
 end
 

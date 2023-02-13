@@ -72,6 +72,9 @@ vim.g.loaded_netrwPlugin = 1
 vim.g["undotree_SplitWidth"] = 40
 vim.g["undotree_WindowLayout"] = 3
 vim.g["undotree_HelpLine"] = 0
+vim.g["Undotree_CustomMap"] = function ()
+    vim.cmd("nmap <buffer>l <plug>UndotreeEnter")
+end
 
 vim.g["undotree_TreeNodeShape"] = "◍"
 vim.g["undotree_TreeReturnShape"] = "╲"
@@ -92,3 +95,10 @@ vim.notify = function(msg, ...)
 
     notify(msg, ...)
 end
+
+local command = vim.api.nvim_create_user_command
+command("OP", "silent !open .", {})
+command("Hitest", function ()
+    -- vim.cmd("enew")
+    vim.cmd("silent so " .. vim.fn.expand("$VIMRUNTIME/syntax/hitest.vim"))
+end, {})

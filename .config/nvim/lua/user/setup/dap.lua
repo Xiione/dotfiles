@@ -21,10 +21,14 @@ dap.adapters.python = {
 }
 
 dap.adapters.codelldb = function(callback, _)
-	utils.send_cmd("codelldb --port 13000", vim.fn.expand("%:p:h"), true)
+    utils.exec_cmd({
+        cmd = "codelldb --port 13000",
+        dir = vim.fn.expand("%:p:h"),
+        open = false
+    })
 	vim.defer_fn(function()
 		callback({ type = "server", host = "127.0.0.1", port = 13000 })
-	end, 100)
+	end, 150)
 end
 
 -- language configurations
@@ -45,9 +49,7 @@ dap.configurations.c = {
 		request = "launch",
 		cwd = "${workspaceFolder}",
 		stopOnEntry = false,
-		program = function()
-			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-		end,
+		program = "${fileDirname}/${fileBasenameNoExtension}",
 		args = {},
 		terminal = "integrated",
 		console = "integratedTerminal",
@@ -60,9 +62,7 @@ dap.configurations.cpp = {
 		request = "launch",
 		cwd = "${workspaceFolder}",
 		stopOnEntry = false,
-		program = function()
-			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-		end,
+		program = "${fileDirname}/${fileBasenameNoExtension}",
 		args = {},
 		terminal = "integrated",
 		console = "integratedTerminal",
@@ -118,35 +118,35 @@ dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
 
 -- remove debugging keymaps
 local function remove_maps()
-	utils.unmap("n", "<m-d>B")
-	utils.unmap({ "n", "v" }, "<m-d>k")
-	utils.unmap("n", "<m-1>")
-	utils.unmap("n", "<m-2>")
-	utils.unmap("n", "<m-3>")
-	utils.unmap("n", "<m-q>")
-	utils.unmap("n", "<f4>")
+	utils.unmap("n", "<M-b>")
+	utils.unmap("n", "<M-S-b>")
+	utils.unmap({ "n", "v" }, "<M-k>")
+	utils.unmap("n", "<M-1>")
+	utils.unmap("n", "<M-2>")
+	utils.unmap("n", "<M-3>")
 end
 
 -- setup debugging keymaps
 local function setup_maps()
-	utils.map("n", "<m-d>B", function()
+	utils.map("n", "<M-b>", dap.toggle_breakpoint)
+	utils.map("n", "<M-S-b>", function()
 		local condition = vim.fn.input("breakpoint condition: ")
 		if condition then
 			dap.set_breakpoint(condition)
 		end
 	end)
 
-	utils.map({ "n", "v" }, "<m-d>k", dapui.eval)
-	utils.map("n", "<m-1>", dap.step_over)
-	utils.map("n", "<m-2>", dap.step_into)
-	utils.map("n", "<m-3>", dap.step_out)
+	utils.map({ "n", "v" }, "<M-k>", dapui.eval)
+	utils.map("n", "<M-1>", dap.continue)
+	utils.map("n", "<M-2>", dap.step_over)
+	utils.map("n", "<M-3>", dap.terminate)
 
-	utils.map("n", "<m-q>", function()
-		remove_maps()
-		dap.close()
-	end)
-
-	utils.map("n", "<f4>", dapui.toggle)
+	-- utils.map("n", "<m-q>", function()
+	-- 	remove_maps()
+	-- 	dap.close()
+	-- end)
+	--
+	-- utils.map("n", "<f4>", dapui.toggle)
 end
 
 local function start_session()
@@ -169,12 +169,12 @@ dap.listeners.before.event_exited["dapui"] = terminate_session
 dap.defaults.fallback.focus_terminal = true
 
 -- signs
-vim.fn.sign_define("DapStopped", { text = "", texthl = "DiagnosticWarn", numhl = "DiagnosticWarn" })
-vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
-vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticWarn", numhl = "DiagnosticWarn" })
-vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
+vim.fn.sign_define("DapStopped", { text = "", texthl = "DapBreakpointSign", linehl = "DapBreakpointSign",  numhl = "DapBreakpointSign" })
+vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DapBreakpointSign" })
+vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticWarning", linehl="", numhl = "DiagnosticWarning" })
+vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DiagnosticSignError" })
 -- general keymaps
-utils.map("n", "<f5>", function()
+utils.map("n", "<F5>", function()
 	dap.continue()
 end)
 

@@ -7,18 +7,15 @@ virt_column.setup_buffer({ virtcolumn = "80" })
 
 local utils = require("user.lib.utils")
 
-utils.map("n", "<leader>r", function()
-	local cmd = utils.resolve_spaces(vim.fn.expand("%:p:r"))
-	utils.send_cmd(cmd, "%:p:h")
-end)
+local cmd_build = "gcc " .. utils.resolve_spaces(vim.fn.expand("%:p")) ..
+            " -std=c17" ..
+            " -Wall -Werror" ..
+            " -o " .. utils.resolve_spaces(vim.fn.expand("%:p:r"))
+utils.setup_build_command("n", "<M-c>", cmd_build)
 
-utils.map("n", "<leader>b", function()
-	local cmd = "gcc " .. utils.resolve_spaces(vim.fn.expand("%:p")) ..
-                " -std=c17" ..
-                " -g" ..
-                " -o " .. utils.resolve_spaces(vim.fn.expand("%:p:r"))
-	utils.send_cmd(cmd, "%:p:h")
-end)
+local cmd_build_debug = cmd_build .. " -g"
+utils.setup_debug_command("n", "<M-d>", cmd_build_debug)
+
 
 vim.opt_local.shiftwidth = 2
 vim.opt_local.tabstop = 2
