@@ -12,10 +12,13 @@ telescope.setup({
 		path_display = { "smart" },
 		file_ignore_patterns = { ".git/", "node_modules" },
 
-        dynamic_preview_title = true, 
-        results_title = false,
+		dynamic_preview_title = true,
+		results_title = false,
 
-        -- winblend = 20,
+		winblend = 10,
+		border = true,
+		borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+		color_devicons = true,
 
 		mappings = {
 			i = {

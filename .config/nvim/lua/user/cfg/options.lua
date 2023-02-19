@@ -25,6 +25,7 @@ vim.opt.expandtab = true                        -- convert tabs to spaces
 vim.opt.shiftwidth = 4                          -- the number of spaces inserted for each indentation
 vim.opt.tabstop = 4                             -- insert 2 spaces for a tab
 vim.opt.cursorline = true                       -- highlight the current line
+vim.opt.cursorlineopt = "both"
 vim.opt.number = true                           -- set numbered lines
 vim.opt.laststatus = 3                          -- only the last window will always have a status line
 vim.opt.showcmd = true                         -- hide (partial) command in the last line of the screen (for performance)
@@ -35,12 +36,11 @@ vim.opt.wrap = false                            -- display lines as one long lin
 vim.opt.scrolloff = 8                           -- minimal number of screen lines to keep above and below the cursor
 vim.opt.sidescrolloff = 8                       -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
 vim.opt.guifont = "monospace:h17"               -- the font used in graphical neovim applications
-vim.opt.fillchars.eob=" "                       -- show empty lines at the end of a buffer as ` ` {default `~`}
 vim.opt.shortmess:append "c"                    -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 vim.opt.iskeyword:append("-")                   -- treats words with `-` as single words
 vim.opt.formatoptions:remove({ "c", "r", "o" }) -- This is a sequence of letters which describes how automatic formatting is to be done
 vim.opt.linebreak = true
-vim.opt.guicursor = "v-r-cr:hor50,i:ver50"
+vim.opt.guicursor = "v-r-cr:hor50,i:ver50"      -- Underscore visual select cursor
 
 vim.opt.relativenumber = true
 vim.opt.hlsearch = false
@@ -53,14 +53,29 @@ vim.opt.autoindent = true
 vim.opt.scroll = 5
 vim.opt.mousemoveevent = false
 
+vim.opt.winblend = 10
+vim.opt.pumblend = 10
+
+-- vim.opt.fillchars = {
+--     horiz = '─',
+--     horizup = '─',
+--     horizdown = '─',
+--     vert = '▏',
+--     vertright = '',
+--     vertleft = '▏',
+--     verthoriz = '',
+--     eob = ' '
+-- }
+
 vim.opt.fillchars = {
-    horiz = '─',
-    horizup = '─',
-    horizdown = '─',
-    vert = '▏',
-    vertright = '',
-    vertleft = '▏',
-    verthoriz = '',
+    -- horiz = '▄',
+    horiz = '█',
+    horizup = '█',
+    horizdown = '█',
+    vert = '█',
+    vertright = '█',
+    vertleft = '█',
+    verthoriz = '█',
     eob = ' '
 }
 

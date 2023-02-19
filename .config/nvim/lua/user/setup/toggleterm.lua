@@ -8,7 +8,7 @@ local dap = require("dap")
 local utils = require("user.lib.utils")
 
 toggleterm.setup({
-	size = 58,
+	size = 13,
 	open_mapping = [[<c-\>]],
 	hide_numbers = true,
 	start_in_insert = true,
@@ -18,9 +18,13 @@ toggleterm.setup({
 	shell = vim.o.shell,
 	auto_scroll = true,
 	float_opts = {
-		border = "curved",
+		border = "solid",
+        winblend = 10
 	},
 	highlights = {
+        NormalFloat = {
+            link = "NormalFloat"
+        },
 		FloatBorder = {
             link = "FloatBorder"
 		},

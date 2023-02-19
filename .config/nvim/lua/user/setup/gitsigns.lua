@@ -11,7 +11,7 @@ gitsigns.setup({
 		topdelete = { hl = "GitSignsDelete", text = "", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
 		changedelete = { hl = "GitSignsChange", text = "▎", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
 	},
-	signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+	signcolumn = false, -- Toggle with `:Gitsigns toggle_signs`
 	watch_gitdir = {
 		interval = 1000,
 		follow_files = true,

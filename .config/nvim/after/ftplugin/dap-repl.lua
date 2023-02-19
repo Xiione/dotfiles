@@ -1,3 +1,5 @@
-vim.opt_local.number = false
-vim.opt_local.relativenumber = false
-vim.opt_local.cursorline = false
+local utils = require("user.lib.utils")
+utils.sidebar({ signcolumn = false, cursorline = false })
+
+vim.api.nvim_set_hl(0, "WinBar", { link = "NormalSidebar" })
+

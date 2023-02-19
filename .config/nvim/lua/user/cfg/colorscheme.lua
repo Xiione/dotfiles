@@ -1,8 +1,8 @@
-vim.g.nord_contrast = false
+vim.g.nord_contrast = true
 vim.g.nord_borders = true
-vim.g.nord_disable_background = true
+vim.g.nord_disable_background = false
 vim.g.nord_cursorline_transparent = false
-vim.g.nord_enable_sidebar_background = false
+vim.g.nord_enable_sidebar_background = true
 vim.g.nord_italic = true
 vim.g.nord_uniform_diff_background = true
 vim.g.nord_bold = false
@@ -15,8 +15,10 @@ if not status_ok then
 end
 
 local colors = {
+    nord17 = "#1e2128", -- custom
+    nord16 = "#272c36", -- custom
 	nord0 = "#2E3440",
-	nord0o = "#2E3441", -- i think the nord nvim theme takes all bgs with the nord0 color "none"
+	-- nord0o = "#2E3441", -- i think the nord nvim theme takes all bgs with the nord0 color "none"
 	nord1 = "#3B4252",
 	nord2 = "#434C5E",
 	nord3 = "#4C566A",
@@ -34,38 +36,70 @@ local colors = {
 	nord15 = "#B48EAD",
 }
 
--- vim.api.nvim_set_hl(0, "CursorLine", { bg = colors.nord0 })
--- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
---
-vim.api.nvim_set_hl(0, "NvimTreeEmptyFolderName", { fg = colors.nord10 })
-vim.api.nvim_set_hl(0, "NvimTreeIndentMarker", { fg = colors.nord1 })
+local set_hl = vim.api.nvim_set_hl
 
-vim.api.nvim_set_hl(0, "QuickFixLine", { bg = colors.nord2 })
-vim.api.nvim_set_hl(0, "qfLineNr", { fg = colors.nord10 })
+set_hl(0, "NormalSidebar", { fg = "none", bg = colors.nord17 })
 
-vim.api.nvim_set_hl(0, "DapUIBreakpointsDisabledLine", { fg = colors.nord2 })
-vim.api.nvim_set_hl(0, "DapUIStepOver", { fg = colors.nord8 })
-vim.api.nvim_set_hl(0, "DapUIStepInto", { fg = colors.nord8 })
-vim.api.nvim_set_hl(0, "DapUIStepBack", { fg = colors.nord8 })
-vim.api.nvim_set_hl(0, "DapUIStepOut", { fg = colors.nord8 })
-vim.api.nvim_set_hl(0, "DapUIStop", { fg = colors.nord11 })
-vim.api.nvim_set_hl(0, "DapUIPlayPause", { fg = colors.nord14 })
-vim.api.nvim_set_hl(0, "DapUIRestart", { fg = colors.nord14 })
-vim.api.nvim_set_hl(0, "DapUIUnavailable", { fg = colors.nord2 })
+set_hl(0, "NvimTreeEmptyFolderName", { fg = colors.nord10 })
+set_hl(0, "NvimTreeIndentMarker", { fg = colors.nord0 })
+set_hl(0, "NvimTreeWindowPicker", { bg = colors.nord3 })
+-- set_hl(0, "NvimTreeCursorLine", { bg = colors.nord0 })
 
-vim.api.nvim_set_hl(0, "DapBreakpointSign", { fg = colors.nord13 })
+set_hl(0, "QuickFixLine", { bg = colors.nord0 })
+set_hl(0, "qfLineNr", { fg = colors.nord10 })
+
+set_hl(0, "DapUIBreakpointsDisabledLine", { fg = colors.nord2, bg = colors.nord17 })
+set_hl(0, "DapUIStepOver", { fg = colors.nord8, bg = colors.nord17 })
+set_hl(0, "DapUIStepInto", { fg = colors.nord8, bg = colors.nord17 })
+set_hl(0, "DapUIStepBack", { fg = colors.nord8, bg = colors.nord17 })
+set_hl(0, "DapUIStepOut", { fg = colors.nord8, bg = colors.nord17 })
+set_hl(0, "DapUIStop", { fg = colors.nord11, bg = colors.nord17 })
+set_hl(0, "DapUIPlayPause", { fg = colors.nord14, bg = colors.nord17 })
+set_hl(0, "DapUIRestart", { fg = colors.nord14, bg = colors.nord17 })
+set_hl(0, "DapUIUnavailable", { fg = colors.nord2, bg = colors.nord17 })
+
+set_hl(0, "DapBreakpointSign", { fg = colors.nord13 })
+
+set_hl(0, "BufferLineIndicatorVisible", { fg = colors.nord17, bg = colors.nord17 })
+set_hl(0, "StatusLine", { fg = colors.nord4, bg = colors.nord0 })
+set_hl(0, "StatusLineNC", { fg = colors.nord0, bg = colors.nord0 })
+
+set_hl(0, "SmoothCursor", { fg = colors.nord13 })
+set_hl(0, "SmoothCursorRed", { fg = colors.nord11 })
+set_hl(0, "SmoothCursorOrange", { fg = colors.nord12 })
+set_hl(0, "SmoothCursorYellow", { fg = colors.nord13 })
+set_hl(0, "SmoothCursorGreen", { fg = colors.nord14 })
+set_hl(0, "SmoothCursorAqua", { fg = colors.nord8 })
+set_hl(0, "SmoothCursorBlue", { fg = colors.nord10 })
+set_hl(0, "SmoothCursorPurple", { fg = colors.nord15 })
+
 
 -- vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = colors.nord3 })
 -- vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = colors.nord3 })
 -- vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = colors.nord3 })
 --
--- vim.api.nvim_set_hl(0, "FloatBorder", { fg = colors.nord3 })
--- vim.api.nvim_set_hl(0, "LspFloatWinBorder", { fg = colors.nord3 })
--- vim.api.nvim_set_hl(0, "LsOutlinePreviewBorder", { fg = colors.nord3 })
--- vim.api.nvim_set_hl(0, "NvimTreeWindowPicker", { bg = colors.nord3 })
--- vim.api.nvim_set_hl(0, "BorderFloat", { bg = colors.nord3 })
---
+set_hl(0, "NormalFloat", { bg = colors.nord17 })
+set_hl(0, "FloatBorder", { bg = colors.nord17 })
+set_hl(0, "LspFloatWinBorder", { bg = colors.nord17 })
+set_hl(0, "LsOutlinePreviewBorder", { bg = colors.nord17 })
+set_hl(0, "BorderFloatFloatBorder", { bg = colors.nord17 })
+
+set_hl(0, "TelescopeNormal", { bg = colors.nord17 })
+set_hl(0, "TelescopeBorder", { bg = colors.nord17 })
+
+set_hl(0, "TelescopePromptNormal", { bg = colors.nord17 })
+set_hl(0, "TelescopePromptBorder", { bg = colors.nord17 })
+set_hl(0, "TelescopePromptTitle", { bg = colors.nord17 })
+set_hl(0, "TelescopePromptCounter", { bg = colors.nord17 })
+
+set_hl(0, "TelescopeResultsTitle", { bg = colors.nord17 })
+set_hl(0, "TelescopeResultsBorder", { bg = colors.nord17 })
+
+set_hl(0, "TelescopePreviewTitle", { bg = colors.nord17 })
+set_hl(0, "TelescopePreviewBorder", { bg = colors.nord17 })
+
+-- set_hl(0, "TelescopeMatching", { bg = colors.nord17 })
+
 -- vim.api.nvim_set_hl(0, "FloatShadow", { fg = colors.nord0 })
 -- vim.api.nvim_set_hl(0, "FloatShadowThrough", { fg = colors.nord0 })
 

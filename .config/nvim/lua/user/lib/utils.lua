@@ -5,8 +5,8 @@ local toggleterm = require("toggleterm")
 local M = {}
 
 local commands = {
-    keys = {},
-    callbacks = {}
+	keys = {},
+	callbacks = {},
 }
 
 M.map = function(mode, lhs, rhs, opts, bufnr)
@@ -60,56 +60,61 @@ M.resolve_spaces = function(str)
 end
 
 M.exec_cmd = function(args)
-    vim.cmd("wall")
-    if type(args) == "string" then
-        toggleterm.exec(vim.fn.expandcmd(args), vim.v.count, nil, nil, nil, nil, nil)
-    else
-        toggleterm.exec(vim.fn.expandcmd(args.cmd), vim.v.count, nil, args.dir, nil, nil, args.open)
-    end
+	vim.cmd("wall")
+	if type(args) == "string" then
+		toggleterm.exec(vim.fn.expandcmd(args), vim.v.count, nil, nil, nil, nil, nil)
+	else
+		toggleterm.exec(vim.fn.expandcmd(args.cmd), vim.v.count, nil, args.dir, nil, nil, args.open)
+	end
 end
 
-M.send_return = function ()
-    M.exec_cmd({
-        cmd = "\x03",
-        dir = nil,
-        open = false
-    })
+M.send_return = function()
+	M.exec_cmd({
+		cmd = "q\x03",
+		dir = nil,
+		open = false,
+	})
 end
 
 M.add_callback_flags = function(cmd, on_success, on_failure)
-    return cmd .. [[ && ]] .. on_success .. [[ || ]] .. on_failure
+	return cmd .. [[ && ]] .. on_success .. [[ || ]] .. on_failure
 end
 
 M.flag_build_success = "NV_BUILD_SUCCESS"
 M.flag_build_fail = "NV_BUILD_FAIL"
 M.flag_ready_debug = "NV_READY_FOR_DEBUG"
 
-
 M.setup_build_command = function(mode, mapping, cmd)
-    M.map(mode, mapping, function()
-        print("Building...")
-        M.send_return()
-        M.exec_cmd({
-            cmd = M.add_callback_flags(cmd, "echo '" .. M.flag_build_success ..
-                "'", "echo '" .. M.flag_build_fail .. "'"),
-            dir = vim.fn.expand("%:p:h"),
-            open = false
-        })
-    end)
+	M.map(mode, mapping, function()
+		print("Building...")
+		M.send_return()
+		M.exec_cmd({
+			cmd = M.add_callback_flags(
+				cmd,
+				"echo '" .. M.flag_build_success .. "'",
+				"echo '" .. M.flag_build_fail .. "'"
+			),
+			dir = vim.fn.expand("%:p:h"),
+			open = false,
+		})
+	end)
 end
 
 M.setup_debug_command = function(mode, mapping, cmd)
-    M.map(mode, mapping, function()
-        print("Building...")
-        M.send_return()
-        M.exec_cmd({
-            cmd = M.add_callback_flags(cmd, "echo '" .. M.flag_ready_debug ..
-                "'", "echo '" .. M.flag_build_fail .. "'"),
-            dir = vim.fn.expand("%:p:h"),
-            open = false
-        })
-        print("Building...")
-    end)
+	M.map(mode, mapping, function()
+		print("Building...")
+		M.send_return()
+		M.exec_cmd({
+			cmd = M.add_callback_flags(
+				cmd,
+				"echo '" .. M.flag_ready_debug .. "'",
+				"echo '" .. M.flag_build_fail .. "'"
+			),
+			dir = vim.fn.expand("%:p:h"),
+			open = false,
+		})
+		print("Building...")
+	end)
 end
 
 M.create_packer_snapshot = function()
@@ -123,5 +128,30 @@ M.toggle_scope_types = function()
 	types_enabled = not types_enabled
 	dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
 end
+
+-- used instead of contrast() in nord/util.lua
+M.sidebar = function(opts)
+	vim.opt_local.winhighlight = "Normal:NormalSidebar,SignColumn:NormalSidebar,CursorLine:NormalSidebar,WinBar:NormalSidebar"
+		.. (opts.cursorline and "" or ",CursorLine:NormalSidebar")
+	vim.opt_local.signcolumn = opts.signcolumn and "yes" or "no"
+	vim.opt_local.number = false
+	vim.opt_local.relativenumber = false
+	vim.opt_local.cursorline = false
+	vim.opt.cursorlineopt = opts.cursorline and "both" or "number"
+end
+
+M.sidebar_types = {
+	"dap-repl",
+	"dapui_breakpoints",
+	"dapui_console",
+	"dapui_scopes",
+	"dapui_stacks",
+	"dapui_watches",
+	"diff",
+	"help",
+	"qf",
+	"NvimTree",
+	"undotree",
+}
 
 return M

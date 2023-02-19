@@ -77,28 +77,14 @@ map("n", "<leader>fr", "<CMD>lua require('telescope.builtin').oldfiles()<CR>", o
 
 -- Git
 map("n", "<leader>gg", "<CMD>lua _LAZYGIT_TOGGLE()<CR>", opts)
+map("n", "<leader>gs", "<CMD>Gitsigns toggle_signs<CR>", opts)
 
 -- Comment
 map("n", "<leader>/", "<CMD>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
 map("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
 
--- DAP
--- map("n", "<leader>db", "<CMD>lua require'dap'.toggle_breakpoint()<CR>", opts)
--- map("n", "<leader>dB", "<CMD>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", opts)
--- map("n", "<leader>dc", "<CMD>lua require'dap'.continue()<CR>", opts)
--- map("n", "<leader>di", "<CMD>lua require'dap'.step_into()<CR>", opts)
--- map("n", "<leader>do", "<CMD>lua require'dap'.step_over()<CR>", opts)
--- map("n", "<leader>dO", "<CMD>lua require'dap'.step_out()<CR>", opts)
--- map("n", "<leader>dr", "<CMD>lua require'dap'.repl.toggle()<CR>", opts)
--- map("n", "<leader>dl", "<CMD>lua require'dap'.run_last()<CR>", opts)
--- map("n", "<leader>du", "<CMD>lua require'dapui'.toggle()<CR>" .. "<CMD>NvimTreeClose<CR>", opts)
--- map("n", "<leader>dt", "<CMD>lua require'dap'.terminate()<CR>", opts)
--- map("n", "<leader>dS", function ()
---     utils.toggle_scope_types()
--- end, opts)
---
--- map("n", "<C-d>", "<C-d>", opts)
--- map("n", "<C-u>", "<C-u>", opts)
+map("n", "<C-d>", "<C-d>zz", opts)
+map("n", "<C-u>", "<C-u>zz", opts)
 
 map("i", "<C-h>", "<Left>", opts)
 map("i", "<C-j>", "<Down>", opts)
@@ -138,7 +124,7 @@ map("t", "<C-l>", "<C-\\><C-n><C-W>l", opts)
 map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
 
 
--- vimtex 
+-- vimtex
 map("n", "<leader>ti", "<plug>(vimtex-info)", opts)
 map("n", "<leader>tI", "<plug>(vimtex-info-full)", opts)
 map("n", "<leader>tt", "<plug>(vimtex-toc-open)", opts)

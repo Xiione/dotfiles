@@ -1,5 +1,6 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local utils = require("user.lib.utils")
 
 autocmd({ "FileType" }, {
 	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
@@ -19,6 +20,14 @@ autocmd({ "FileType" }, {
 	end,
 })
 
+autocmd({ "BufWinEnter" }, {
+	callback = function()
+        if vim.bo.filetype:match("dap") then
+            utils.sidebar({ cursorline = false, signcolumn = false })
+        end
+	end,
+})
+
 vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
 
 autocmd({ "VimResized" }, {
@@ -35,7 +44,7 @@ autocmd({ "CmdWinEnter" }, {
 
 autocmd({ "TextYankPost" }, {
 	callback = function()
-		vim.highlight.on_yank({ higroup = "Visual", timeout = 200 })
+		vim.highlight.on_yank({ higroup = "Search", timeout = 100 })
 	end,
 })
 
@@ -68,3 +77,10 @@ autocmd({ "FileType" }, {
         vim.opt_local.buflisted = false
 	end,
 })
+
+-- autocmd({ "ColorScheme" }, {
+--     group = augroup("nord", {clear = false}),
+--     callback = function ()
+--         require("nord.util").onColorScheme()
+--     end
+-- })

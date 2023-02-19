@@ -1,5 +1,5 @@
 local servers = {
-	"sumneko_lua",
+	"lua_ls",
 	"cssls",
 	"html",
 	"tsserver",
@@ -13,7 +13,7 @@ local servers = {
 }
 local settings = {
 	ui = {
-		border = "rounded",
+		border = "solid",
 		icons = {
 			package_installed = "◍",
 			package_pending = "◍",

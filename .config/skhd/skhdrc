@@ -238,7 +238,7 @@ ctrl + shift - left : (yabai -m space --move prev && sketchybar -m --trigger spa
 ctrl + shift - right : (yabai -m space --move next && sketchybar -m --trigger space_change) || (yabai -m space --swap first && sketchybar -m --trigger space_change)
 
 # Focus recent space
-ctrl + alt - tab : yabai -m space --focus recent
+alt - tab : yabai -m space --focus recent
 
 # Focus recent display
 # ctrl + alt + shift - tab : yabai -m display --focus recent && sketchybar -m --trigger space_change

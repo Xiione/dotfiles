@@ -21,11 +21,11 @@ dap.adapters.python = {
 }
 
 dap.adapters.codelldb = function(callback, _)
-    utils.exec_cmd({
-        cmd = "codelldb --port 13000",
-        dir = vim.fn.expand("%:p:h"),
-        open = false
-    })
+	utils.exec_cmd({
+		cmd = "codelldb --port 13000",
+		dir = vim.fn.expand("%:p:h"),
+		open = false,
+	})
 	vim.defer_fn(function()
 		callback({ type = "server", host = "127.0.0.1", port = 13000 })
 	end, 150)
@@ -83,7 +83,7 @@ dap.repl.commands = vim.tbl_extend("force", dap.repl.commands, {
 dapui.setup({
 	icons = { expanded = "", collapsed = "", circular = "" },
 	mappings = {
-		expand = {"<CR>", "l"},
+		expand = { "<CR>", "l" },
 		open = "o",
 		remove = "d",
 		edit = "e",
@@ -95,22 +95,22 @@ dapui.setup({
 			elements = {
 				{ id = "scopes", size = 0.33 },
 				{ id = "breakpoints", size = 0.17 },
-				{ id = "stacks", size = 0.25 },
-				{ id = "watches", size = 0.25 },
+				{ id = "stacks", size = 0.125 },
+				{ id = "watches", size = 0.125 },
+				{ id = "repl", size = 0.25 },
 			},
 			size = 40,
 			position = "left",
 		},
 		{
 			elements = {
-				{ id = "console", size = 0.505 },
-				{ id = "repl", size = 0.495 },
+				{ id = "console", size = 1.0 },
 			},
-			size = 0.27,
+			size = 0.25,
 			position = "bottom",
 		},
 	},
-	floating = { border = "rounded", mappings = { close = { "q", "<esc>" } } },
+	floating = { border = "solid", mappings = { close = { "q", "<esc>" } } },
 })
 
 local types_enabled = false
@@ -118,8 +118,8 @@ dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
 
 -- remove debugging keymaps
 local function remove_maps()
-	utils.unmap("n", "<M-b>")
-	utils.unmap("n", "<M-S-b>")
+	-- utils.unmap("n", "<M-b>")
+	-- utils.unmap("n", "<M-S-b>")
 	utils.unmap({ "n", "v" }, "<M-k>")
 	utils.unmap("n", "<M-1>")
 	utils.unmap("n", "<M-2>")
@@ -128,14 +128,6 @@ end
 
 -- setup debugging keymaps
 local function setup_maps()
-	utils.map("n", "<M-b>", dap.toggle_breakpoint)
-	utils.map("n", "<M-S-b>", function()
-		local condition = vim.fn.input("breakpoint condition: ")
-		if condition then
-			dap.set_breakpoint(condition)
-		end
-	end)
-
 	utils.map({ "n", "v" }, "<M-k>", dapui.eval)
 	utils.map("n", "<M-1>", dap.continue)
 	utils.map("n", "<M-2>", dap.step_over)
@@ -151,7 +143,7 @@ end
 
 local function start_session()
 	setup_maps()
-    require('nvim-tree.api').tree.close()
+	require("nvim-tree.api").tree.close()
 	dapui.open()
 
 	-- force local statusline
@@ -169,13 +161,37 @@ dap.listeners.before.event_exited["dapui"] = terminate_session
 dap.defaults.fallback.focus_terminal = true
 
 -- signs
-vim.fn.sign_define("DapStopped", { text = "", texthl = "DapBreakpointSign", linehl = "DapBreakpointSign",  numhl = "DapBreakpointSign" })
-vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DapBreakpointSign" })
-vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticWarning", linehl="", numhl = "DiagnosticWarning" })
-vim.fn.sign_define("DapBreakpointCondition", { text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DiagnosticSignError" })
+vim.fn.sign_define(
+	"DapStopped",
+	{ text = "", texthl = "DapBreakpointSign", linehl = "DapBreakpointSign", numhl = "DapBreakpointSign" }
+)
+vim.fn.sign_define(
+	"DapBreakpoint",
+	{ text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DapBreakpointSign" }
+)
+vim.fn.sign_define(
+	"DapBreakpointRejected",
+	{ text = "", texthl = "DiagnosticWarning", linehl = "", numhl = "DiagnosticWarning" }
+)
+vim.fn.sign_define(
+	"DapBreakpointCondition",
+	{ text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DapBreakpointSign" }
+)
 -- general keymaps
 utils.map("n", "<F5>", function()
 	dap.continue()
+end)
+utils.map("n", "<F4>", function()
+	require('nvim-tree.api').tree.close()
+    -- vim.wait(100, dapui.toggle)
+    dapui.toggle()
+end)
+utils.map("n", "<M-b>", dap.toggle_breakpoint)
+utils.map("n", "<M-S-b>", function()
+	local condition = vim.fn.input("Breakpoint condition: ")
+	if condition then
+		dap.set_breakpoint(condition)
+	end
 end)
 
 return { remove_maps = remove_maps, setup_maps = setup_maps }

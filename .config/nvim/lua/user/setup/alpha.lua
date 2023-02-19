@@ -127,6 +127,7 @@ local quotes = {
 	"Maybe you have some bird ideas. Maybe that’s the best you can do.",
 	"'I can figure this out.'",
 	"10 years ago or today, life is worth living",
+    "all I understand is that I don't understand"
 }
 local function footer()
 	math.randomseed(os.time())

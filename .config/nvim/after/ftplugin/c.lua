@@ -9,7 +9,7 @@ local utils = require("user.lib.utils")
 
 local cmd_build = "gcc " .. utils.resolve_spaces(vim.fn.expand("%:p")) ..
             " -std=c17" ..
-            " -Wall -Werror" ..
+            " -Wall" ..
             " -o " .. utils.resolve_spaces(vim.fn.expand("%:p:r"))
 utils.setup_build_command("n", "<M-c>", cmd_build)
 

@@ -33,7 +33,7 @@ end
 packer.init({
 	display = {
 		open_fn = function()
-			return require("packer.util").float({ border = "rounded" })
+			return require("packer.util").float({ border = "solid" })
 		end,
 	},
 	git = {
@@ -125,6 +125,9 @@ return packer.startup(function(use)
 		end,
 		ft = "tex",
 	})
+
+    use ({ "folke/neodev.nvim" })
+    use ({ "gen740/SmoothCursor.nvim" })
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
