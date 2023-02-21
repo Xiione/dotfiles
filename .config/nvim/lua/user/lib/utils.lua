@@ -9,6 +9,9 @@ local commands = {
 	callbacks = {},
 }
 
+-- toggleterm needs to be opened at least once for silent/non-open commands to execute properly
+local initalized = false
+
 M.map = function(mode, lhs, rhs, opts, bufnr)
 	local options = { noremap = true }
 	if opts then
@@ -64,7 +67,17 @@ M.exec_cmd = function(args)
 	if type(args) == "string" then
 		toggleterm.exec(vim.fn.expandcmd(args), vim.v.count, nil, nil, nil, nil, nil)
 	else
-		toggleterm.exec(vim.fn.expandcmd(args.cmd), vim.v.count, nil, args.dir, nil, nil, args.open)
+		if not initalized then
+			local Terminal = require("toggleterm.terminal").Terminal
+			Terminal:new({
+				cmd = vim.fn.expandcmd(args.cmd),
+				count = vim.v.count,
+				dir = args.dir,
+			})
+			initalized = true
+		else
+			toggleterm.exec(vim.fn.expandcmd(args.cmd), vim.v.count, nil, args.dir, nil, nil, args.open)
+		end
 	end
 end
 
@@ -131,7 +144,7 @@ end
 
 -- used instead of contrast() in nord/util.lua
 M.sidebar = function(opts)
-	vim.opt_local.winhighlight = "Normal:NormalSidebar,SignColumn:NormalSidebar,CursorLine:NormalSidebar,WinBar:NormalSidebar"
+	vim.opt_local.winhighlight = "Normal:NormalSidebar,SignColumn:NormalSidebar,CursorLine:NormalSidebar"
 		.. (opts.cursorline and "" or ",CursorLine:NormalSidebar")
 	vim.opt_local.signcolumn = opts.signcolumn and "yes" or "no"
 	vim.opt_local.number = false

@@ -53,8 +53,8 @@ vim.opt.autoindent = true
 vim.opt.scroll = 5
 vim.opt.mousemoveevent = false
 
-vim.opt.winblend = 10
-vim.opt.pumblend = 10
+vim.opt.winblend = 8
+vim.opt.pumblend = 8
 
 -- vim.opt.fillchars = {
 --     horiz = '─',

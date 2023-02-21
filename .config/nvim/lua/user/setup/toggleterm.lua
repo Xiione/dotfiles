@@ -9,7 +9,7 @@ local utils = require("user.lib.utils")
 
 toggleterm.setup({
 	size = 13,
-	open_mapping = [[<c-\>]],
+	open_mapping = [[<C-\>]],
 	hide_numbers = true,
 	start_in_insert = true,
 	persist_size = false,
@@ -19,7 +19,7 @@ toggleterm.setup({
 	auto_scroll = true,
 	float_opts = {
 		border = "solid",
-        winblend = 10
+        winblend = 5
 	},
 	highlights = {
         NormalFloat = {

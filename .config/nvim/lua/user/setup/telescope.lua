@@ -15,7 +15,7 @@ telescope.setup({
 		dynamic_preview_title = true,
 		results_title = false,
 
-		winblend = 10,
+		winblend = 8,
 		border = true,
 		borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
 		color_devicons = true,

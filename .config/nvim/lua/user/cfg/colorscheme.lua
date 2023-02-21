@@ -37,6 +37,7 @@ local colors = {
 }
 
 local set_hl = vim.api.nvim_set_hl
+local get_hl = vim.api.nvim_get_hl_by_name
 
 set_hl(0, "NormalSidebar", { fg = "none", bg = colors.nord17 })
 
@@ -45,24 +46,38 @@ set_hl(0, "NvimTreeIndentMarker", { fg = colors.nord0 })
 set_hl(0, "NvimTreeWindowPicker", { bg = colors.nord3 })
 -- set_hl(0, "NvimTreeCursorLine", { bg = colors.nord0 })
 
+
 set_hl(0, "QuickFixLine", { bg = colors.nord0 })
 set_hl(0, "qfLineNr", { fg = colors.nord10 })
 
-set_hl(0, "DapUIBreakpointsDisabledLine", { fg = colors.nord2, bg = colors.nord17 })
-set_hl(0, "DapUIStepOver", { fg = colors.nord8, bg = colors.nord17 })
-set_hl(0, "DapUIStepInto", { fg = colors.nord8, bg = colors.nord17 })
-set_hl(0, "DapUIStepBack", { fg = colors.nord8, bg = colors.nord17 })
-set_hl(0, "DapUIStepOut", { fg = colors.nord8, bg = colors.nord17 })
-set_hl(0, "DapUIStop", { fg = colors.nord11, bg = colors.nord17 })
-set_hl(0, "DapUIPlayPause", { fg = colors.nord14, bg = colors.nord17 })
-set_hl(0, "DapUIRestart", { fg = colors.nord14, bg = colors.nord17 })
-set_hl(0, "DapUIUnavailable", { fg = colors.nord2, bg = colors.nord17 })
+
+set_hl(0, "DapUIBreakpointsDisabledLine", { fg = colors.nord2 })
+set_hl(0, "DapUIStepOver", { fg = colors.nord8 })
+set_hl(0, "DapUIStepInto", { fg = colors.nord8 })
+set_hl(0, "DapUIStepBack", { fg = colors.nord8 })
+set_hl(0, "DapUIStepOut", { fg = colors.nord8 })
+set_hl(0, "DapUIStop", { fg = colors.nord11 })
+set_hl(0, "DapUIPlayPause", { fg = colors.nord14 })
+set_hl(0, "DapUIRestart", { fg = colors.nord14 })
+set_hl(0, "DapUIUnavailable", { fg = colors.nord2 })
+set_hl(0, "DapUIWinSelect", { fg = colors.nord8 })
+
+set_hl(0, "DapUIStepOverNC", { fg = colors.nord8 })
+set_hl(0, "DapUIStepIntoNC", { fg = colors.nord8 })
+set_hl(0, "DapUIStepBackNC", { fg = colors.nord8 })
+set_hl(0, "DapUIStepOutNC", { fg = colors.nord8 })
+set_hl(0, "DapUIStopNC", { fg = colors.nord11 })
+set_hl(0, "DapUIPlayPauseNC", { fg = colors.nord14 })
+set_hl(0, "DapUIRestartNC", { fg = colors.nord14 })
+set_hl(0, "DapUIUnavailableNC", { fg = colors.nord2 })
 
 set_hl(0, "DapBreakpointSign", { fg = colors.nord13 })
+
 
 set_hl(0, "BufferLineIndicatorVisible", { fg = colors.nord17, bg = colors.nord17 })
 set_hl(0, "StatusLine", { fg = colors.nord4, bg = colors.nord0 })
 set_hl(0, "StatusLineNC", { fg = colors.nord0, bg = colors.nord0 })
+
 
 set_hl(0, "SmoothCursor", { fg = colors.nord13 })
 set_hl(0, "SmoothCursorRed", { fg = colors.nord11 })
@@ -72,11 +87,6 @@ set_hl(0, "SmoothCursorGreen", { fg = colors.nord14 })
 set_hl(0, "SmoothCursorAqua", { fg = colors.nord8 })
 set_hl(0, "SmoothCursorBlue", { fg = colors.nord10 })
 set_hl(0, "SmoothCursorPurple", { fg = colors.nord15 })
-
-
--- vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { fg = colors.nord3 })
--- vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { fg = colors.nord3 })
--- vim.api.nvim_set_hl(0, "TelescopePromptBorder", { fg = colors.nord3 })
 --
 set_hl(0, "NormalFloat", { bg = colors.nord17 })
 set_hl(0, "FloatBorder", { bg = colors.nord17 })
@@ -89,21 +99,20 @@ set_hl(0, "TelescopeBorder", { bg = colors.nord17 })
 
 set_hl(0, "TelescopePromptNormal", { bg = colors.nord17 })
 set_hl(0, "TelescopePromptBorder", { bg = colors.nord17 })
-set_hl(0, "TelescopePromptTitle", { bg = colors.nord17 })
+set_hl(0, "TelescopePromptTitle", { fg = colors.nord4, bg = colors.nord0 })
 set_hl(0, "TelescopePromptCounter", { bg = colors.nord17 })
 
 set_hl(0, "TelescopeResultsTitle", { bg = colors.nord17 })
 set_hl(0, "TelescopeResultsBorder", { bg = colors.nord17 })
 
-set_hl(0, "TelescopePreviewTitle", { bg = colors.nord17 })
+set_hl(0, "TelescopePreviewTitle", { fg = colors.nord4, bg = colors.nord0 })
 set_hl(0, "TelescopePreviewBorder", { bg = colors.nord17 })
+
+set_hl(0, "luaParenError", { link = "None" })
+set_hl(0, "MarkdownError", { link = "None" })
+set_hl(0, "MarkdownLinkText", { sp = colors.nord14 })
 
 -- set_hl(0, "TelescopeMatching", { bg = colors.nord17 })
 
 -- vim.api.nvim_set_hl(0, "FloatShadow", { fg = colors.nord0 })
 -- vim.api.nvim_set_hl(0, "FloatShadowThrough", { fg = colors.nord0 })
-
--- hack fix for broken definiton hovers
--- doesnt work
--- vim.api.nvim_set_hl(0, "markdownH2", { bg = "none", fg = "none" })
-

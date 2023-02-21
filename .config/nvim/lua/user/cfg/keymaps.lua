@@ -23,7 +23,7 @@ map("n", "<C-h>", "<C-w>h", opts)
 map("n", "<C-j>", "<C-w>j", opts)
 map("n", "<C-k>", "<C-w>k", opts)
 map("n", "<C-l>", "<C-w>l", opts)
-map("n", "<C-q>", "<C-w>q", opts)
+map("n", "<C-q>", "<CMD>Bdelete!<CR><C-w>q", opts)
 --
 -- Resize with arrows
 map("n", "<C-Up>", "<CMD>resize -2<CR>", opts)
@@ -109,6 +109,9 @@ vim.cmd([[
 
 -- theprimeagen replace thingie
 map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+
+-- https://stackoverflow.com/questions/676600/vim-search-and-replace-selected-text
+map("v", "<leader>s", '"hy:%s/<C-r>h//gc<left><left><left>')
 
 -- undotree
 map("n", "<leader>u", "<CMD>UndotreeToggle<CR>", opts)
