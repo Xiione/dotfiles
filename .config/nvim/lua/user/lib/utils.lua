@@ -165,6 +165,7 @@ M.sidebar_types = {
 	"qf",
 	"NvimTree",
 	"undotree",
+    ""
 }
 
 return M

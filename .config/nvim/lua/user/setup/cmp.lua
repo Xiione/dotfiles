@@ -109,7 +109,7 @@ cmp.setup({
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
-		{ name = "path" },
+		-- { name = "path" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
@@ -118,12 +118,15 @@ cmp.setup({
 	window = {
         completion = {
             winhighlight = "Normal:NormalSidebar",
+            col_offset = -3,
             side_padding = 1,
-            scrolloff = 4
+            scrolloff = 4,
+            max_width = 40,
+            max_height = 10
         },
         documentation = {
             winhighlight = "Normal:NormalSidebar,MarkdownError:none,luaParenError:none",
-            maxwidth = 40,
+            max_width = 40,
             side_padding = 1
         }
 	},

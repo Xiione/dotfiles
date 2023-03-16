@@ -1,45 +1,78 @@
 {
-	"cp1 header": {
-		"prefix": "cp1",
-		"body": [
-			"// Author: Hamilton Wang",
-			"// It is ok to post my anonymized solution",
-			"",
-			"#include <iostream>",
-			"",
-			"typedef long long ll;",
-			"",
-			"using namespace std;",
-			"",
-			"int main() {",
-			"  ios_base::sync_with_stdio(false);",
-			"  cin.tie(nullptr);",
-			"",		
-			"  $0",
-			"}"
-		],
-		"description": "Header for CP1 hw + bonus"
-	},
-	"cp2 bonus header": {
-		"prefix": "bonus",
-		"body": [
-			"// Author: Hamilton Wang",
-			"// It is ok to share my code anonymously for educational purposes",
-			"",
-			"#include <iostream>",
-			"",
-			"typedef long long ll;",
-			"",
-			"using namespace std;",
-			"",
-			"int main() {",
-			"  ios_base::sync_with_stdio(false);",
-			"  cin.tie(nullptr);",
-			"  cout.tie(nullptr);",
-			"",		
-			"  $0",
-			"}"
-		],
-		"description": "Header for CP2 hw + bonus"
-	}
+    "cp header": {
+        "prefix": "$cp",
+        "body": [
+            "#include <bits/stdc++.h>",
+            "using namespace std;",
+            "",
+            "#define rep(i, a, b) for (int i = a; i < (b); ++i)",
+            "#define all(x) begin(x), end(x)",
+            "#define sz(x) (int)(x).size()",
+            "",
+            "typedef long long ll;",
+            "typedef pair<int, int> pii;",
+            "typedef vector<int> vi;",
+            "",
+            "int main() {",
+            "  cin.tie(0)->sync_with_stdio(0);",
+            "  cin.exceptions(cin.failbit);",
+            "  $0",
+            "}"
+        ],
+        "description": "Header for competitive programming, via kactl"
+    },
+    "cp1 header": {
+        "prefix": "$cp1",
+        "body": [
+            "// Author: Hamilton Wang",
+            "// It is ok to post my anonymized solution",
+            "",
+            "  $0"
+        ],
+        "description": "CP1 hw bonus"
+    },
+    "cp2 header": {
+        "prefix": "$cp2",
+        "body": [
+            "// Author: Hamilton Wang",
+            "// It is ok to share my code anonymously for educational purposes",
+            "",
+            "$0"
+        ],
+        "description": "CP2 hw bonus"
+    },
+    "long long": {
+        "prefix": "tdll",
+        "body": [
+            "typedef long long ll;",
+            "$0"
+        ]
+    },
+    "vector<int> +": {
+        "prefix": "tdvi",
+        "body": [
+            "typedef vector<int> vi;",
+            "typedef vector<vi> vvi;",
+            "typedef vector<vvi> vvvi;",
+            "$0"
+        ]
+    },
+    "pair<int,int> +": {
+        "prefix": "tdpii",
+        "body": [
+            "typedef pair<int,int> pii;",
+            "typedef vector<pii> vpii;",
+            "typedef vector<vpii> vvpii;",
+            "$0"
+        ]
+    },
+    "frepoen io": {
+        "prefix": "$freopen",
+        "body": [
+            "freopen(\"$1.in\", \"r\", stdin);",
+            "freopen(\"$1.out\", \"r\", stdout);",
+            "$0"
+        ],
+        "description": "file io for cp"
+    }
 }

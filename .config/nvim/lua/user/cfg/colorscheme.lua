@@ -38,8 +38,12 @@ local colors = {
 
 local set_hl = vim.api.nvim_set_hl
 local get_hl = vim.api.nvim_get_hl_by_name
-
-set_hl(0, "NormalSidebar", { fg = "none", bg = colors.nord17 })
+--
+local normalFloat = get_hl("NormalFloat", true)
+normalFloat.bg = colors.nord17
+normalFloat.sp = colors.nord4
+set_hl(0, "NormalSidebar", normalFloat)
+set_hl(0, "NormalFloat", normalFloat)
 
 set_hl(0, "NvimTreeEmptyFolderName", { fg = colors.nord10 })
 set_hl(0, "NvimTreeIndentMarker", { fg = colors.nord0 })
@@ -88,11 +92,9 @@ set_hl(0, "SmoothCursorAqua", { fg = colors.nord8 })
 set_hl(0, "SmoothCursorBlue", { fg = colors.nord10 })
 set_hl(0, "SmoothCursorPurple", { fg = colors.nord15 })
 --
-set_hl(0, "NormalFloat", { bg = colors.nord17 })
 set_hl(0, "FloatBorder", { bg = colors.nord17 })
 set_hl(0, "LspFloatWinBorder", { bg = colors.nord17 })
 set_hl(0, "LsOutlinePreviewBorder", { bg = colors.nord17 })
-set_hl(0, "BorderFloatFloatBorder", { bg = colors.nord17 })
 
 set_hl(0, "TelescopeNormal", { bg = colors.nord17 })
 set_hl(0, "TelescopeBorder", { bg = colors.nord17 })
@@ -111,6 +113,9 @@ set_hl(0, "TelescopePreviewBorder", { bg = colors.nord17 })
 set_hl(0, "luaParenError", { link = "None" })
 set_hl(0, "MarkdownError", { link = "None" })
 set_hl(0, "MarkdownLinkText", { sp = colors.nord14 })
+
+set_hl(0, "EyelinerPrimary", { fg = colors.nord12, underline = true })
+set_hl(0, "EyelinerSecondary", { fg = colors.nord9, underline = true })
 
 -- set_hl(0, "TelescopeMatching", { bg = colors.nord17 })
 

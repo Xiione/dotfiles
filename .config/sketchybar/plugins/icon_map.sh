@@ -323,7 +323,7 @@ case $@ in
 "Reminders")
   icon_result=":reminders:"
   ;;
-"Preview" | "Skim" | "zathura")
+"Preview" | "Skim" | "zathura" | "sioyek")
   icon_result=":pdf:"
   ;;
 "1Password 7")

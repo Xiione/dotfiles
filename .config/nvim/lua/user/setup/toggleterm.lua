@@ -22,11 +22,17 @@ toggleterm.setup({
         winblend = 5
 	},
 	highlights = {
+        Normal = {
+            link = "NormalFloat",
+            sp = "None"
+        },
         NormalFloat = {
-            link = "NormalFloat"
+            link = "NormalFloat",
+            sp = "None"
         },
 		FloatBorder = {
-            link = "FloatBorder"
+            link = "FloatBorder",
+            sp = "None"
 		},
 	},
     on_stdout = function(term, job, data, name)

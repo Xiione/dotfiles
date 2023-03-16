@@ -40,6 +40,5 @@ smoothcursor.setup({
     timeout = 3000,            -- timout for animation
     threshold = 3,             -- animate if threshold lines jump
     disable_float_win = true, -- disable on float window
-    enabled_filetypes = nil,   -- example: { "lua", "vim" }
-    disabled_filetypes = utils.disabled_filetypes,  -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
+    disabled_filetypes = utils.sidebar_types,  -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
 })

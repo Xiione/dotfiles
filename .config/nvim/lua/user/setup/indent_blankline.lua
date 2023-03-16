@@ -3,6 +3,8 @@ if not status_ok then
   return
 end
 
+local utils = require("user.lib.utils")
+
 indent_blankline.setup {
   char = "▏",
   show_trailing_blankline_indent = false,
@@ -10,9 +12,5 @@ indent_blankline.setup {
   use_treesitter = true,
   show_current_context = true,
   buftype_exclude = { "terminal", "nofile" },
-  filetype_exclude = {
-    "help",
-    "packer",
-    "NvimTree",
-  },
+  filetype_exclude = utils.sidebar_types
 }
