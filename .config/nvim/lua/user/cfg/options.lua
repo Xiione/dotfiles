@@ -79,6 +79,9 @@ vim.opt.fillchars = {
     eob = ' '
 }
 
+-- h as c
+vim.g.c_syntax_for_h = 1
+
 -- no netrw
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

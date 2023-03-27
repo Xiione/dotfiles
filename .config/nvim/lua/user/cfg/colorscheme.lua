@@ -14,6 +14,8 @@ if not status_ok then
 	return
 end
 
+-- require("nord")
+
 local colors = {
     nord17 = "#1e2128", -- custom
     nord16 = "#272c36", -- custom
@@ -44,6 +46,8 @@ normalFloat.bg = colors.nord17
 normalFloat.sp = colors.nord4
 set_hl(0, "NormalSidebar", normalFloat)
 set_hl(0, "NormalFloat", normalFloat)
+set_hl(0, "NormalFloat", normalFloat)
+set_hl(0, "LazyProp", normalFloat)
 
 set_hl(0, "NvimTreeEmptyFolderName", { fg = colors.nord10 })
 set_hl(0, "NvimTreeIndentMarker", { fg = colors.nord0 })

@@ -118,7 +118,7 @@ cmp.setup({
 	window = {
         completion = {
             winhighlight = "Normal:NormalSidebar",
-            col_offset = -3,
+            col_offset = -2,
             side_padding = 1,
             scrolloff = 4,
             max_width = 40,

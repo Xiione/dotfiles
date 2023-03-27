@@ -15,6 +15,8 @@ local filetypes = {
 }
 
 local opts = {
+    color_icons = true,
+    show_buffer_icons = true,
     close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
     offsets = {},
