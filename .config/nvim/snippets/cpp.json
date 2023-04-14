@@ -22,7 +22,7 @@
         "description": "Header for competitive programming, via kactl"
     },
     "cp1 header": {
-        "prefix": "$cp1",
+        "prefix": "$cpone",
         "body": [
             "// Author: Hamilton Wang",
             "// It is ok to post my anonymized solution",
@@ -32,7 +32,7 @@
         "description": "CP1 hw bonus"
     },
     "cp2 header": {
-        "prefix": "$cp2",
+        "prefix": "$cptwo",
         "body": [
             "// Author: Hamilton Wang",
             "// It is ok to share my code anonymously for educational purposes",

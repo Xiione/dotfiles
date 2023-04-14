@@ -29,7 +29,7 @@ require("lazy").setup({
 	{ "goolord/alpha-nvim" },
 
 	-- Colorschemes
-	{ "shaunsingh/nord.nvim" },
+	{ "Xiione/nord.nvim" },
 
 	-- cmp plugins
 	{ "hrsh7th/nvim-cmp" }, -- The completion plugin
@@ -74,10 +74,10 @@ require("lazy").setup({
 	{ "ravenxrz/DAPInstall.nvim" },
 
 	-- mine :)
-	-- {
-	-- 	"jinh0/eyeliner.nvim",
-	-- 	lazy = false
-	-- },
+	{
+		"jinh0/eyeliner.nvim",
+		lazy = false
+	},
 	{ "mfussenegger/nvim-jdtls" },
 	-- "rcarriga/nvim-notify",
 	{ "lukas-reineke/virt-column.nvim" },

@@ -47,5 +47,6 @@
         "${3rd}/luv/library",
         "${3rd}/luv/library",
         "${3rd}/luv/library"
-    ]
+    ],
+    "workspace.checkThirdParty": false
 }

@@ -118,10 +118,14 @@ set_hl(0, "luaParenError", { link = "None" })
 set_hl(0, "MarkdownError", { link = "None" })
 set_hl(0, "MarkdownLinkText", { sp = colors.nord14 })
 
-set_hl(0, "EyelinerPrimary", { fg = colors.nord12, underline = true })
-set_hl(0, "EyelinerSecondary", { fg = colors.nord9, underline = true })
+set_hl(0, "EyelinerPrimary", { fg = colors.nord4, underline = true })
+set_hl(0, "EyelinerSecondary", { fg = colors.nord8 })
 
 -- set_hl(0, "TelescopeMatching", { bg = colors.nord17 })
 
 -- vim.api.nvim_set_hl(0, "FloatShadow", { fg = colors.nord0 })
 -- vim.api.nvim_set_hl(0, "FloatShadowThrough", { fg = colors.nord0 })
+
+local spellBad = get_hl("SpellBad", true)
+spellBad.sp = colors.nord11;
+set_hl(0, "SpellBad", spellBad)

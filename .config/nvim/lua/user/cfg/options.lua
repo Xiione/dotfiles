@@ -101,7 +101,8 @@ vim.g["undotree_TreeSplitShape"] = "╱"
 
 local ignore_messages = {
     "warning: multiple different client offset_encodings",
-    "Debug adapter reported a frame at line"
+    "Debug adapter reported a frame at line",
+    "Resolved locations:"
 }
 local notify = vim.notify
 vim.notify = function(msg, ...)
