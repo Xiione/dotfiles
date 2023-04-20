@@ -14,7 +14,7 @@ if not status_ok then
 	return
 end
 
--- require("nord")
+require("nord")
 
 local colors = {
     nord17 = "#1e2128", -- custom
@@ -40,10 +40,16 @@ local colors = {
 
 local set_hl = vim.api.nvim_set_hl
 local get_hl = vim.api.nvim_get_hl_by_name
---
+
+local normal = get_hl("Normal", true)
+normal.bg = "none"
+normal.sp = "none"
+set_hl(0, "Normal", normal)
+
 local normalFloat = get_hl("NormalFloat", true)
 normalFloat.bg = colors.nord17
 normalFloat.sp = colors.nord4
+set_hl(0, "NormalSidebar", normalFloat)
 set_hl(0, "NormalSidebar", normalFloat)
 set_hl(0, "NormalFloat", normalFloat)
 set_hl(0, "NormalFloat", normalFloat)
@@ -95,6 +101,12 @@ set_hl(0, "SmoothCursorGreen", { fg = colors.nord14 })
 set_hl(0, "SmoothCursorAqua", { fg = colors.nord8 })
 set_hl(0, "SmoothCursorBlue", { fg = colors.nord10 })
 set_hl(0, "SmoothCursorPurple", { fg = colors.nord15 })
+
+set_hl(0, "SmoothCursor0", { fg = colors.nord0 })
+set_hl(0, "SmoothCursor1", { fg = colors.nord1 })
+set_hl(0, "SmoothCursor2", { fg = colors.nord2 })
+set_hl(0, "SmoothCursor3", { fg = colors.nord3 })
+set_hl(0, "SmoothCursor9", { fg = colors.nord9 })
 --
 set_hl(0, "FloatBorder", { bg = colors.nord17 })
 set_hl(0, "LspFloatWinBorder", { bg = colors.nord17 })
@@ -129,3 +141,7 @@ set_hl(0, "EyelinerSecondary", { fg = colors.nord8 })
 local spellBad = get_hl("SpellBad", true)
 spellBad.sp = colors.nord11;
 set_hl(0, "SpellBad", spellBad)
+
+-- local fishOption = get_hl("fish_color_option", true)
+-- fishOption.bg = nil;
+-- set_hl(0, "fish_color_option", fishOption)
