@@ -19,7 +19,7 @@ toggleterm.setup({
 	auto_scroll = true,
 	float_opts = {
 		border = "solid",
-        winblend = 5
+        -- winblend = 5
 	},
 	highlights = {
         Normal = {

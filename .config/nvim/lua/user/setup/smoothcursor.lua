@@ -15,9 +15,9 @@ smoothcursor.setup({
         enable = true,        -- enable fancy mode
         head = { cursor = "", texthl = "SmoothCursor", linehl = nil },
         body = {
-            { cursor = "󰝥", texthl = "SmoothCursor9" },
-            { cursor = "", texthl = "SmoothCursor3" },
-            { cursor = "", texthl = "SmoothCursor3" },
+            { cursor = "", texthl = "SmoothCursor9" },
+            { cursor = "󰝥", texthl = "SmoothCursor3" },
+            { cursor = "󰝥", texthl = "SmoothCursor3" },
             { cursor = "", texthl = "SmoothCursor2" },
             { cursor = "•", texthl = "SmoothCursor2" },
             { cursor = "󰧟", texthl = "SmoothCursor1" },

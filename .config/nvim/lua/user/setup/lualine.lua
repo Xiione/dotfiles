@@ -183,7 +183,7 @@ lualine.setup({
     inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = { { "filename", padding = 1 } },
+        lualine_c = {},
         lualine_x = {},
         lualine_y = {},
         lualine_z = {},

@@ -1,5 +1,7 @@
 local utils = require("user.lib.utils")
-local map = utils.map local M = {} local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+local map = utils.map
+local M = {}
+local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_cmp_ok then
 	return
 end
@@ -13,7 +15,7 @@ M.setup = function()
 
 		{ name = "DiagnosticSignError", text = "" },
 		{ name = "DiagnosticSignWarn", text = "" },
-		{ name = "DiagnosticSignHint", text = "" },
+		{ name = "DiagnosticSignHint", text = "" },
 		{ name = "DiagnosticSignInfo", text = "" },
 	}
 
@@ -50,7 +52,7 @@ M.setup = function()
 	})
 end
 
-local function lsp_keymaps(bufnr)
+local function lsp_keymaps(bufnr, client)
 	local opts = { noremap = true, silent = true }
 	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
 	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts, bufnr)
@@ -58,15 +60,18 @@ local function lsp_keymaps(bufnr)
 	map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts, bufnr)
 	map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts, bufnr)
 	map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts, bufnr)
-	map("n", "<leader>li", "<cmd>LspInfo<cr>", opts, bufnr)
-	-- map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>", opts, bufnr)
-    map("n", "<leader>lI", "<cmd>Mason<cr>", opts, bufnr)
-	map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts, bufnr)
-	map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts, bufnr)
-	map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts, bufnr)
-	map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts, bufnr)
-	map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, bufnr)
-	map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
+
+	if client.name ~= "texlab" then
+		map("n", "<leader>li", "<cmd>LspInfo<cr>", opts, bufnr)
+		-- map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>", opts, bufnr)
+		map("n", "<leader>lI", "<cmd>Mason<cr>", opts, bufnr)
+		map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts, bufnr)
+		map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts, bufnr)
+		map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts, bufnr)
+		map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts, bufnr)
+		map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, bufnr)
+		map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
+	end
 end
 
 M.on_attach = function(client, bufnr)
@@ -82,7 +87,7 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
-	lsp_keymaps(bufnr)
+	lsp_keymaps(bufnr, client)
 
 	-- i don't like illuminate
 	-- local status_ok, illuminate = pcall(require, "illuminate")

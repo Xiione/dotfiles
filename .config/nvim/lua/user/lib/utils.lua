@@ -165,7 +165,8 @@ M.sidebar_types = {
 	"qf",
 	"NvimTree",
 	"undotree",
-    ""
+	"vimtex-toc",
+	"",
 }
 
 return M

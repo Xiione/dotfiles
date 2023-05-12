@@ -32,13 +32,13 @@ map("n", "<C-Left>", "<CMD>vertical resize -2<CR>", opts)
 map("n", "<C-Right>", "<CMD>vertical resize +2<CR>", opts)
 
 -- Navigate buffers
-map("n", "<C-S-l>", "<CMD>BufferLineCycleNext<CR>", opts)
-map("n", "<C-S-h>", "<CMD>BufferLineCyclePrev<CR>", opts)
+-- map("n", "<C-S-l>", "<CMD>BufferLineCycleNext<CR>", opts)
+-- map("n", "<C-S-h>", "<CMD>BufferLineCyclePrev<CR>", opts)
 
 -- Close buffers
-map("n", "<C-S-w>", "<CMD>Bdelete!<CR>", opts)
-map("n", "<leader>bq", "<CMD>BufferLineCloseLeft<CR>", opts)
-map("n", "<leader>be", "<CMD>BufferLineCloseRight<CR>", opts)
+-- map("n", "<C-S-w>", "<CMD>Bdelete!<CR>", opts)
+-- map("n", "<leader>bq", "<CMD>BufferLineCloseLeft<CR>", opts)
+-- map("n", "<leader>be", "<CMD>BufferLineCloseRight<CR>", opts)
 
 -- Better paste
 map("x", "<leader>p", '"_dP', opts)
@@ -65,7 +65,12 @@ map("v", "<leader>d", '"_d', opts)
 -- Plugins --
 
 -- NvimTree/NeoTree
-map("n", "<leader>e", "<CMD>lua require'dapui'.close()<CR>" .. "<CMD>lua require('nvim-tree.api').tree.toggle()<CR>", opts)
+map(
+	"n",
+	"<leader>e",
+	"<CMD>lua require'dapui'.close()<CR>" .. "<CMD>lua require('nvim-tree.api').tree.toggle()<CR>",
+	opts
+)
 -- map("n", "<leader>e", "<CMD>NeoTreeShowToggle<CR>", opts)
 
 -- Telescope
@@ -126,23 +131,40 @@ map("t", "<C-l>", "<C-\\><C-n><C-W>l", opts)
 -- works better here? idk
 map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
 
-
 -- vimtex
-map("n", "<leader>ti", "<plug>(vimtex-info)", opts)
-map("n", "<leader>tI", "<plug>(vimtex-info-full)", opts)
-map("n", "<leader>tt", "<plug>(vimtex-toc-open)", opts)
-map("n", "<leader>tT", "<plug>(vimtex-toc-toggle)", opts)
-map("n", "<leader>tv", "<plug>(vimtex-view)", opts)
-map("n", "<leader>tr", "<plug>(vimtex-reverse-search)", opts)
-map("n", "<leader>tb", "<plug>(vimtex-compile)", opts)
-map("n", "<leader>tk", "<plug>(vimtex-stop", opts)
-map("n", "<leader>tK", "<plug>(vimtex-stop-all)", opts)
-map("n", "<leader>te", "<plug>(vimtex-errors)", opts)
-map("n", "<leader>to", "<plug>(vimtex-compile-output)", opts)
-map("n", "<leader>tg", "<plug>(vimtex-status)", opts)
-map("n", "<leader>tG", "<plug>(vimtex-status-all)", opts)
-map("n", "<leader>tc", "<plug>(vimtex-clean)", opts)
-map("n", "<leader>tC", "<plug>(vimtex-clean-full)", opts)
-map("n", "<leader>tm", "<plug>(vimtex-imaps-list)", opts)
-map("n", "<leader>tx", "<plug>(vimtex-reload)", opts)
-map("n", "<leader>ts", "<plug>(vimtex-toggle-main)", opts)
+-- map("n", "<leader>ti", "<plug>(vimtex-info)", opts)
+-- map("n", "<leader>tI", "<plug>(vimtex-info-full)", opts)
+-- map("n", "<leader>tt", "<plug>(vimtex-toc-open)", opts)
+-- map("n", "<leader>tT", "<plug>(vimtex-toc-toggle)", opts)
+-- map("n", "<leader>tv", "<plug>(vimtex-view)", opts)
+-- map("n", "<leader>tr", "<plug>(vimtex-reverse-search)", opts)
+-- map("n", "<leader>tb", "<plug>(vimtex-compile)", opts)
+-- map("n", "<leader>tk", "<plug>(vimtex-stop", opts)
+-- map("n", "<leader>tK", "<plug>(vimtex-stop-all)", opts)
+-- map("n", "<leader>te", "<plug>(vimtex-errors)", opts)
+-- map("n", "<leader>to", "<plug>(vimtex-compile-output)", opts)
+-- map("n", "<leader>tg", "<plug>(vimtex-status)", opts)
+-- map("n", "<leader>tG", "<plug>(vimtex-status-all)", opts)
+-- map("n", "<leader>tc", "<plug>(vimtex-clean)", opts)
+-- map("n", "<leader>tC", "<plug>(vimtex-clean-full)", opts)
+-- map("n", "<leader>tm", "<plug>(vimtex-imaps-list)", opts)
+-- map("n", "<leader>tx", "<plug>(vimtex-reload)", opts)
+-- map("n", "<leader>ts", "<plug>(vimtex-toggle-main)", opts)
+
+map("n", "<leader>a", function()
+	require("harpoon.mark").add_file()
+end, opts)
+map("n", "<leader>m", function()
+	require("harpoon.ui").toggle_quick_menu()
+end, opts)
+
+for i = 1, 9 do
+	map("n", string.format("<leader>%d", i), function()
+		require("harpoon.ui").nav_file(i)
+	end, opts)
+end
+
+-- stole from william
+map("n", "<M-s>a", "ggVG")
+map({ "i", "c" }, "<M-bs>", "<C-w>", { remap = true })
+

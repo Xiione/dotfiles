@@ -14,7 +14,7 @@ if not status_ok then
 	return
 end
 
-require("nord")
+-- require("nord")
 
 local colors = {
     nord17 = "#1e2128", -- custom
@@ -43,21 +43,27 @@ local get_hl = vim.api.nvim_get_hl_by_name
 
 local normal = get_hl("Normal", true)
 normal.bg = "none"
-normal.sp = "none"
+-- normal.sp = "none"
 set_hl(0, "Normal", normal)
 
 local normalFloat = get_hl("NormalFloat", true)
 normalFloat.bg = colors.nord17
 normalFloat.sp = colors.nord4
 set_hl(0, "NormalSidebar", normalFloat)
-set_hl(0, "NormalSidebar", normalFloat)
 set_hl(0, "NormalFloat", normalFloat)
+set_hl(0, "HarpoonBorder", normalFloat)
+set_hl(1, "HarpoonWindow", normalFloat)
+
 set_hl(0, "NormalFloat", normalFloat)
 set_hl(0, "LazyProp", normalFloat)
 
+local cursorLine = get_hl("CursorLine", true)
+cursorLine.bg = colors.nord0
+set_hl(0, "CursorLineSidebar", cursorLine)
+
 set_hl(0, "NvimTreeEmptyFolderName", { fg = colors.nord10 })
 set_hl(0, "NvimTreeIndentMarker", { fg = colors.nord0 })
-set_hl(0, "NvimTreeWindowPicker", { bg = colors.nord3 })
+set_hl(0, "NvimTreeWindowPicker", { fg = colors.nord0, bg = colors.nord9 })
 -- set_hl(0, "NvimTreeCursorLine", { bg = colors.nord0 })
 
 
@@ -142,6 +148,16 @@ local spellBad = get_hl("SpellBad", true)
 spellBad.sp = colors.nord11;
 set_hl(0, "SpellBad", spellBad)
 
--- local fishOption = get_hl("fish_color_option", true)
--- fishOption.bg = nil;
--- set_hl(0, "fish_color_option", fishOption)
+local spellCap = get_hl("SpellCap", true)
+spellCap.sp = colors.nord7;
+set_hl(0, "SpellCap", spellCap)
+
+local spellRare = get_hl("SpellRare", true)
+spellRare.sp = colors.nord9;
+set_hl(0, "SpellRare", spellRare)
+
+local spellLocal = get_hl("SpellLocal", true)
+spellLocal.sp = colors.nord8;
+set_hl(0, "SpellLocal", spellLocal)
+
+set_hl(0, "Quote", { fg = colors.nord4 })

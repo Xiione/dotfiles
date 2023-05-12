@@ -19,7 +19,7 @@ require("lazy").setup({
 	{ "nvim-tree/nvim-web-devicons" },
 	{ "nvim-tree/nvim-tree.lua" },
 	-- use { "nvim-neo-tree/neo-tree.nvim" } }
-	{ "akinsho/bufferline.nvim", tag = "v3.1.0" },
+	-- { "akinsho/bufferline.nvim", tag = "v3.1.0" },
 	{ "moll/vim-bbye" },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "akinsho/toggleterm.nvim" },
@@ -76,7 +76,7 @@ require("lazy").setup({
 	-- mine :)
 	{
 		"jinh0/eyeliner.nvim",
-		lazy = false
+		lazy = false,
 	},
 	{ "mfussenegger/nvim-jdtls" },
 	-- "rcarriga/nvim-notify",
@@ -103,4 +103,14 @@ require("lazy").setup({
 
 	{ "folke/neodev.nvim" },
 	{ "gen740/SmoothCursor.nvim" },
+	{ "ThePrimeagen/harpoon" },
+	{
+		"utilyre/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
 }, {})

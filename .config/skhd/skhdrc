@@ -44,7 +44,7 @@ ctrl + alt - m : yabai -m window --swap stack.next || yabai -m window --swap sta
 
 # float / unfloat window and center on screen
 # ctrl + alt - backspace : yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 4:4:1:1:2:2 && open -gj 'swiftbar://refreshplugin?name=yabai'
-ctrl + alt - backspace : yabai -m window --toggle float; yabai -m window --toggle border; yabai -m window --grid 4:4:1:1:2:2 && sketchybar -m --trigger float_change
+ctrl + alt - backspace : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2; sketchybar -m --trigger float_change
 
 
 # make floating window fill screen
