@@ -1,106 +1,96 @@
--- Shorten function name
 local utils = require("user.lib.utils")
 local map = utils.map
 
--- Silent map option
-local opts = { silent = true }
+local silent = { silent = true }
+local silent_nore = { silent = true, remap = false }
 
 --Remap space as leader key
-map("", "<Space>", "<Nop>", opts)
+map("", "<Space>", "<Nop>", silent)
 vim.g.mapleader = " "
 
--- Modes
---   normal_mode = "n",
---   insert_mode = "i",
---   visual_mode = "v",
---   visual_block_mode = "x",
---   term_mode = "t",
---   command_mode = "c",
+-- normal_mode = "n",
+-- insert_mode = "i",
+-- visual_mode = "v",
+-- visual_block_mode = "x",
+-- term_mode = "t",
+-- command_mode = "c",
 
--- Normal --
+
+-- Editing maps
+
+-- stole from william - delete a word at a time
+map({ "i", "c" }, "<M-bs>", "<C-w>", { remap = true })
+
+-- adjustments in insert
+map("i", "<C-h>", "<Left>", silent)
+map("i", "<C-j>", "<Down>", silent)
+map("i", "<C-k>", "<Up>", silent)
+map("i", "<C-l>", "<Right>", silent)
+
 -- Better window navigation
-map("n", "<C-h>", "<C-w>h", opts)
-map("n", "<C-j>", "<C-w>j", opts)
-map("n", "<C-k>", "<C-w>k", opts)
-map("n", "<C-l>", "<C-w>l", opts)
-map("n", "<C-q>", "<CMD>Bdelete!<CR><C-w>q", opts)
+map("n", "<C-h>", "<C-w>h", silent)
+map("n", "<C-j>", "<C-w>j", silent)
+map("n", "<C-k>", "<C-w>k", silent)
+map("n", "<C-l>", "<C-w>l", silent)
+map("n", "<C-q>", "<CMD>Bdelete!<CR><C-w>q", silent)
 --
 -- Resize with arrows
-map("n", "<C-Up>", "<CMD>resize -2<CR>", opts)
-map("n", "<C-Down>", "<CMD>resize +2<CR>", opts)
-map("n", "<C-Left>", "<CMD>vertical resize -2<CR>", opts)
-map("n", "<C-Right>", "<CMD>vertical resize +2<CR>", opts)
+map("n", "<C-Up>", "<CMD>resize -2<CR>", silent)
+map("n", "<C-Down>", "<CMD>resize +2<CR>", silent)
+map("n", "<C-Left>", "<CMD>vertical resize -2<CR>", silent)
+map("n", "<C-Right>", "<CMD>vertical resize +2<CR>", silent)
 
--- Navigate buffers
--- map("n", "<C-S-l>", "<CMD>BufferLineCycleNext<CR>", opts)
--- map("n", "<C-S-h>", "<CMD>BufferLineCyclePrev<CR>", opts)
+-- CMD-A select all
+map("n", "<M-a>", "ggVG", { remap = true })
 
--- Close buffers
--- map("n", "<C-S-w>", "<CMD>Bdelete!<CR>", opts)
--- map("n", "<leader>bq", "<CMD>BufferLineCloseLeft<CR>", opts)
--- map("n", "<leader>be", "<CMD>BufferLineCloseRight<CR>", opts)
+-- No overwrite paste and system clipboard paste
+map("x", "<leader>p", '"_dP', silent)
 
--- Better paste
-map("x", "<leader>p", '"_dP', opts)
+map("n", "<leader>y", '"+y', silent)
+map("v", "<leader>y", '"+y', silent)
+map("n", "<leader>Y", '"+Y', silent)
 
-map("n", "<leader>y", '"+y', opts)
-map("v", "<leader>y", '"+y', opts)
-map("n", "<leader>Y", '"+Y', opts)
+map("n", "<leader>d", '"_d', silent)
+map("v", "<leader>d", '"_d', silent)
 
-map("n", "<leader>d", '"_d', opts)
-map("v", "<leader>d", '"_d', opts)
-
--- Clear highlights
--- map("n", "<leader>h", "<CMD>nohlsearch<CR>", opts)
-
--- Insert --
--- Press jk fast to enter
--- map("i", "jk", "<ESC>", opts)
-
--- Visual --
 -- Stay in indent mode
--- map("v", "<", "<gv", opts)
--- map("v", ">", ">gv", opts)
+map("v", "<", "<gv", silent)
+map("v", ">", ">gv", silent)
 
--- Plugins --
+-- Center screen when C-u C-d
+map("n", "<C-d>", "<C-d>zz", silent)
+map("n", "<C-u>", "<C-u>zz", silent)
+
+-- qf navigation
+map("n", "<leader>k", "<cmd>cprev<CR>zz")
+map("n", "<leader>j", "<cmd>cnext<CR>zz")
+
+
+
+-- Plugins
 
 -- NvimTree/NeoTree
 map(
 	"n",
 	"<leader>e",
 	"<CMD>lua require'dapui'.close()<CR>" .. "<CMD>lua require('nvim-tree.api').tree.toggle()<CR>",
-	opts
+	silent
 )
--- map("n", "<leader>e", "<CMD>NeoTreeShowToggle<CR>", opts)
 
 -- Telescope
-map("n", "<leader>ff", "<CMD>lua require('telescope.builtin').find_files({hidden=true})<CR>", opts)
-map("n", "<leader>ft", "<CMD>lua require('telescope.builtin').live_grep()<CR>", opts)
-map("n", "<leader>fp", "<CMD>lua require('telescope').extensions.projects.projects()<CR>", opts)
-map("n", "<leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", opts)
-map("n", "<leader>fr", "<CMD>lua require('telescope.builtin').oldfiles()<CR>", opts)
+map("n", "<leader>ff", "<CMD>lua require('telescope.builtin').find_files({hidden=true})<CR>", silent)
+map("n", "<leader>ft", "<CMD>lua require('telescope.builtin').live_grep()<CR>", silent)
+map("n", "<leader>fp", "<CMD>lua require('telescope').extensions.projects.projects()<CR>", silent)
+map("n", "<leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", silent)
+map("n", "<leader>fr", "<CMD>lua require('telescope.builtin').oldfiles()<CR>", silent)
 
 -- Git
-map("n", "<leader>gg", "<CMD>lua _LAZYGIT_TOGGLE()<CR>", opts)
-map("n", "<leader>gs", "<CMD>Gitsigns toggle_signs<CR>", opts)
+map("n", "<leader>gg", "<CMD>lua _LAZYGIT_TOGGLE()<CR>", silent)
+map("n", "<leader>gs", "<CMD>Gitsigns toggle_signs<CR>", silent)
 
 -- Comment
-map("n", "<leader>/", "<CMD>lua require('Comment.api').toggle.linewise.current()<CR>", opts)
+map("n", "<leader>/", "<CMD>lua require('Comment.api').toggle.linewise.current()<CR>", silent)
 map("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
-
-map("n", "<C-d>", "<C-d>zz", opts)
-map("n", "<C-u>", "<C-u>zz", opts)
-
-map("i", "<C-h>", "<Left>", opts)
-map("i", "<C-j>", "<Down>", opts)
-map("i", "<C-k>", "<Up>", opts)
-map("i", "<C-l>", "<Right>", opts)
-
--- qf navigation
--- map("n", "<C-k>", "<cmd>cprev<CR>zz")
--- map("n", "<C-j>", "<cmd>cnext<CR>zz")
-map("n", "<leader>k", "<cmd>cprev<CR>zz")
-map("n", "<leader>j", "<cmd>cnext<CR>zz")
 
 -- fixing that stupid typo when trying to [save]exit
 vim.cmd([[
@@ -112,59 +102,44 @@ vim.cmd([[
     cnoreabbrev <expr> QA    ((getcmdtype()  is# ':' && getcmdline() is# 'QA')?('qa'):('QA'))
 ]])
 
--- theprimeagen replace thingie
+-- theprimeagen replace thingie - inner word text obj
 map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
+-- same as above using visual selection
 -- https://stackoverflow.com/questions/676600/vim-search-and-replace-selected-text
-map("v", "<leader>s", '"hy:%s/<C-r>h//gc<left><left><left>')
+map("v", "<leader>s", '"hy:%s/<C-r>h//gc<Left><Left><Left>')
 
 -- undotree
-map("n", "<leader>u", "<CMD>UndotreeToggle<CR>", opts)
+map("n", "<leader>u", "<CMD>UndotreeToggle<CR>", silent)
 
 -- easier leave term
-map("t", "<esc>", "<C-\\><C-n>", opts)
-map("t", "<C-h>", "<C-\\><C-n><C-W>h", opts)
-map("t", "<C-j>", "<C-\\><C-n><C-W>j", opts)
-map("t", "<C-k>", "<C-\\><C-n><C-W>k", opts)
-map("t", "<C-l>", "<C-\\><C-n><C-W>l", opts)
+map("t", "<esc>", "<C-\\><C-n>", silent)
+map("t", "<C-h>", "<C-\\><C-n><C-W>h", silent)
+map("t", "<C-j>", "<C-\\><C-n><C-W>j", silent)
+map("t", "<C-k>", "<C-\\><C-n><C-W>k", silent)
+map("t", "<C-l>", "<C-\\><C-n><C-W>l", silent)
 
--- works better here? idk
-map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", opts)
-
--- vimtex
--- map("n", "<leader>ti", "<plug>(vimtex-info)", opts)
--- map("n", "<leader>tI", "<plug>(vimtex-info-full)", opts)
--- map("n", "<leader>tt", "<plug>(vimtex-toc-open)", opts)
--- map("n", "<leader>tT", "<plug>(vimtex-toc-toggle)", opts)
--- map("n", "<leader>tv", "<plug>(vimtex-view)", opts)
--- map("n", "<leader>tr", "<plug>(vimtex-reverse-search)", opts)
--- map("n", "<leader>tb", "<plug>(vimtex-compile)", opts)
--- map("n", "<leader>tk", "<plug>(vimtex-stop", opts)
--- map("n", "<leader>tK", "<plug>(vimtex-stop-all)", opts)
--- map("n", "<leader>te", "<plug>(vimtex-errors)", opts)
--- map("n", "<leader>to", "<plug>(vimtex-compile-output)", opts)
--- map("n", "<leader>tg", "<plug>(vimtex-status)", opts)
--- map("n", "<leader>tG", "<plug>(vimtex-status-all)", opts)
--- map("n", "<leader>tc", "<plug>(vimtex-clean)", opts)
--- map("n", "<leader>tC", "<plug>(vimtex-clean-full)", opts)
--- map("n", "<leader>tm", "<plug>(vimtex-imaps-list)", opts)
--- map("n", "<leader>tx", "<plug>(vimtex-reload)", opts)
--- map("n", "<leader>ts", "<plug>(vimtex-toggle-main)", opts)
+-- lsp formatter
+map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", silent)
 
 map("n", "<leader>a", function()
+	local marks = require("harpoon").get_mark_config().marks
+    local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+    local ct_before = #marks
 	require("harpoon.mark").add_file()
-end, opts)
+    if #marks ~= ct_before then
+        vim.api.nvim_echo({{('"%s" successfully marked with index %d'):format(bufname, #marks)}}, false, {})
+    end
+end, silent)
+
+-- Harpoon
 map("n", "<leader>m", function()
 	require("harpoon.ui").toggle_quick_menu()
-end, opts)
+end, silent)
 
 for i = 1, 9 do
 	map("n", string.format("<leader>%d", i), function()
 		require("harpoon.ui").nav_file(i)
-	end, opts)
+	end, silent)
 end
-
--- stole from william
-map("n", "<M-s>a", "ggVG")
-map({ "i", "c" }, "<M-bs>", "<C-w>", { remap = true })
 

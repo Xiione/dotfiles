@@ -22,7 +22,7 @@ smoothcursor.setup({
             { cursor = "•", texthl = "SmoothCursor2" },
             { cursor = "󰧟", texthl = "SmoothCursor1" },
             { cursor = "󰧟", texthl = "SmoothCursor0" },
-            -- { cursor = "", texthl = "SmoothCursorRed" },
+            -- { cursor = "󰝥", texthl = "SmoothCursorRed" },
             -- { cursor = "󰻂", texthl = "SmoothCursorOrange" },
             -- { cursor = "", texthl = "SmoothCursorYellow" },
             -- { cursor = "", texthl = "SmoothCursorGreen" },

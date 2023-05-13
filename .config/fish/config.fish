@@ -4,6 +4,7 @@ end
 
 fish_add_path /opt/homebrew/bin
 fish_add_path /Library/TeX/texbin/latexmk
+fish_add_path ~/.cargo/bin/
 
 set -g theme_color_scheme nord
 set -gx EDITOR nvim

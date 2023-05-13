@@ -4,8 +4,8 @@ if not status_ok then
 end
 
 local filetypes = {
-    { "NvimTree",          "פּ" },
-    { "neo-tree",          "פּ" },
+    { "NvimTree",          "󱏒" },
+    { "neo-tree",          "󱏒" },
     { "dapui_scopes",      "" },
     { "dapui_breakpoints", "" },
     { "dapui_stacks",      "" },

@@ -51,7 +51,6 @@ vim.opt.softtabstop = 4
 vim.opt.incsearch = true
 vim.opt.colorcolumn = ""
 vim.opt.autoindent = true
-vim.opt.scroll = 5
 vim.opt.mousemoveevent = false
 
 -- vim.opt.winblend = 8
@@ -119,6 +118,5 @@ end
 local command = vim.api.nvim_create_user_command
 command("OP", "silent !open .", {})
 command("Hitest", function ()
-    -- vim.cmd("enew")
     vim.cmd("silent so " .. vim.fn.expand("$VIMRUNTIME/syntax/hitest.vim"))
 end, {})
