@@ -85,10 +85,10 @@ cmp.setup({
 			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
 			vim_item.menu = ({
-				nvim_lsp = "󰘦",
-				luasnip = " ",
+				nvim_lsp = "󰘦 ",
+				luasnip = "  ",
 				buffer = "󰦪 ",
-				path = " ",
+				path = "  ",
 			})[entry.source.name]
 			return vim_item
 		end,

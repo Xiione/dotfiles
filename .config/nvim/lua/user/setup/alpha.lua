@@ -132,7 +132,6 @@ local quotes = {
 local function footer()
 	math.randomseed(os.time())
 	return quotes[math.random(1, #quotes)]
-	-- return quotes[#quotes]
 end
 
 dashboard.section.footer.val = footer()

@@ -61,3 +61,8 @@ function pusshfs
         pfsum ||
         echo "Mount failed"
 end
+
+function purgedsstore
+    find . -name ".DS_Store" -type f -print -delete
+end
+
