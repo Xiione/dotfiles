@@ -113,7 +113,7 @@ map("v", "<leader>s", '"hy:%s/<C-r>h//gc<Left><Left><Left>')
 map("n", "<leader>u", "<CMD>UndotreeToggle<CR>", silent)
 
 -- easier leave term
-map("t", "<esc>", "<C-\\><C-n>", silent)
+-- map("t", "<esc>", "<C-\\><C-n>", silent)
 map("t", "<C-h>", "<C-\\><C-n><C-W>h", silent)
 map("t", "<C-j>", "<C-\\><C-n><C-W>j", silent)
 map("t", "<C-k>", "<C-\\><C-n><C-W>k", silent)
