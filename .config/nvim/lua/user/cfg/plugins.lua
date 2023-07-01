@@ -113,6 +113,7 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 		},
 	},
-    { "andweeb/presence.nvim" },
-    { "tpope/vim-abolish" }
+	{ "andweeb/presence.nvim" },
+	{ "tpope/vim-abolish" },
+	{ "echasnovski/mini.surround", version = "*" },
 }, {})
