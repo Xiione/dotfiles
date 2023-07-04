@@ -4,6 +4,7 @@ if not status_ok then
 end
 
 local utils = require("user.lib.utils")
+local colors = require("user.cfg.colorscheme")
 
 local hide_in_width = function()
     return vim.fn.winwidth(0) > 80
@@ -32,26 +33,6 @@ local filetype = {
 local spaces = function()
     return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
-
-local colors = {
-    -- nord0 = "#2E3440", -- i think the nord nvim theme makes all bgs with the nord0 color "none"
-    nord0 = "#2E3441",
-    nord1 = "#3B4252",
-    nord2 = "#434C5E",
-    nord3 = "#4C566A",
-    nord4 = "#D8DEE9",
-    nord5 = "#E5E9F0",
-    nord6 = "#ECEFF4",
-    nord7 = "#8FBCBB",
-    nord8 = "#88C0D0",
-    nord9 = "#81A1C1",
-    nord10 = "#5E81AC",
-    nord11 = "#BF616A",
-    nord12 = "#D08770",
-    nord13 = "#EBCB8B",
-    nord14 = "#A3BE8C",
-    nord15 = "#B48EAD",
-}
 
 local mynord = require("lualine.themes.nord")
 

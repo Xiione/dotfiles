@@ -39,14 +39,14 @@ local colors = {
 }
 
 local set_hl = vim.api.nvim_set_hl
-local get_hl = vim.api.nvim_get_hl_by_name
+local get_hl = vim.api.nvim_get_hl
 
-local normal = get_hl("Normal", true)
+local normal = get_hl(0, {name = "Normal"})
 normal.bg = "none"
 -- normal.sp = "none"
 set_hl(0, "Normal", normal)
 
-local normalFloat = get_hl("NormalFloat", true)
+local normalFloat = get_hl(0, {name = "NormalFloat"})
 normalFloat.bg = colors.nord17
 normalFloat.sp = colors.nord4
 set_hl(0, "NormalSidebar", normalFloat)
@@ -57,7 +57,7 @@ set_hl(1, "HarpoonWindow", normalFloat)
 set_hl(0, "NormalFloat", normalFloat)
 set_hl(0, "LazyProp", normalFloat)
 
-local cursorLine = get_hl("CursorLine", true)
+local cursorLine = get_hl(0, {name = "CursorLine"})
 cursorLine.bg = colors.nord0
 set_hl(0, "CursorLineSidebar", cursorLine)
 
@@ -132,12 +132,12 @@ set_hl(0, "TelescopeResultsBorder", { bg = colors.nord17 })
 set_hl(0, "TelescopePreviewTitle", { fg = colors.nord4, bg = colors.nord0 })
 set_hl(0, "TelescopePreviewBorder", { bg = colors.nord17 })
 
-local status_ok, luaTable = pcall(get_hl, "luaTable", true)
-if not status_ok then
-	return
+local status_ok_luaTable, luaTable = pcall(get_hl, "luaTable", true)
+if status_ok_luaTable then
+    set_hl(0, "luaError", luaTable)
 end
+
 set_hl(0, "luaParenError", { link = "none" })
-set_hl(0, "luaError", luaTable)
 set_hl(0, "MarkdownError", { link = "None" })
 set_hl(0, "MarkdownLinkText", { sp = colors.nord14 })
 
@@ -149,20 +149,24 @@ set_hl(0, "EyelinerSecondary", { fg = colors.nord8 })
 -- vim.api.nvim_set_hl(0, "FloatShadow", { fg = colors.nord0 })
 -- vim.api.nvim_set_hl(0, "FloatShadowThrough", { fg = colors.nord0 })
 
-local spellBad = get_hl("SpellBad", true)
+local spellBad = get_hl(0, {name = "SpellBad"})
 spellBad.sp = colors.nord11;
 set_hl(0, "SpellBad", spellBad)
 
-local spellCap = get_hl("SpellCap", true)
+local spellCap = get_hl(0, {name = "SpellCap"})
 spellCap.sp = colors.nord7;
 set_hl(0, "SpellCap", spellCap)
 
-local spellRare = get_hl("SpellRare", true)
+local spellRare = get_hl(0, {name = "SpellRare"})
 spellRare.sp = colors.nord9;
 set_hl(0, "SpellRare", spellRare)
 
-local spellLocal = get_hl("SpellLocal", true)
+local spellLocal = get_hl(0, {name = "SpellLocal"})
 spellLocal.sp = colors.nord8;
 set_hl(0, "SpellLocal", spellLocal)
 
 set_hl(0, "Quote", { fg = colors.nord4 })
+
+set_hl(0, "MatchParen", { fg = colors.nord4, bg = colors.nord10 })
+
+return colors;
