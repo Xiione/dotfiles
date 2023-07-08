@@ -99,10 +99,11 @@ vim.g["undotree_TreeReturnShape"] = "╲"
 vim.g["undotree_TreeVertShape"] = "▕"
 vim.g["undotree_TreeSplitShape"] = "╱"
 
+-- Some annoying plugin messages, they seem to work fine regardless
 local ignore_messages = {
     "warning: multiple different client offset_encodings",
     "Debug adapter reported a frame at line",
-    "Resolved locations:",
+    "Resolved locations:"
 }
 local notify = vim.notify
 vim.notify = function(msg, ...)

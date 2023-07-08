@@ -120,7 +120,7 @@ map("t", "<C-k>", "<C-\\><C-n><C-W>k", silent)
 map("t", "<C-l>", "<C-\\><C-n><C-W>l", silent)
 
 -- lsp formatter
-map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", silent)
+map("n", "<leader>lf", "<CMD>lua vim.lsp.buf.format{ async = true }<CR>", silent)
 
 map("n", "<leader>a", function()
 	local marks = require("harpoon").get_mark_config().marks
@@ -143,3 +143,5 @@ for i = 1, 9 do
 	end, silent)
 end
 
+-- Alpha
+map("n", "<leader>A", "<CMD>Alpha<CR>", silent)

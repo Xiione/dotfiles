@@ -112,10 +112,12 @@ dashboard.section.header.val = {
 }
 dashboard.section.buttons.val = {
 	dashboard.button("p", " " .. " Restore session", "<CMD>lua require('persistence').load()<CR>"),
+    dashboard.button("e", "󰙅 " .. " Browse files", "<CMD>lua require('nvim-tree.api').tree.toggle()<CR>"),
 	dashboard.button("f", "󰮗 " .. " Find file", "<CMD>lua require('telescope.builtin').find_files({hidden=true})<CR>"),
-	dashboard.button("e", " " .. " New file", "<CMD>ene <BAR> startinsert <CR>"),
+	dashboard.button("n", " " .. " New file", "<CMD>ene <BAR> startinsert <CR>"),
 	dashboard.button("r", " " .. " Recent files", "<CMD>lua require('telescope.builtin').oldfiles()<CR>"),
 	dashboard.button("t", "󱩾 " .. " Find text", "<CMD>lua require('telescope.builtin').live_grep()<CR>"),
+	dashboard.button("g", "󰊢 " .. " Open git UI", "<CMD>lua _LAZYGIT_TOGGLE()<CR>"),
 	-- dashboard.button("s", " " .. " Create packer snapshot", "<CMD>lua require('user.lib.utils').create_packer_snapshot()<CR>"),
 	dashboard.button("q", " " .. " Quit", "<CMD>qa<CR>"),
 }
