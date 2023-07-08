@@ -5,5 +5,6 @@ end
 
 colorizer.setup({
     conf = { names = false },
-    sh = { names = false }
+    sh = { names = false },
+    lua = { names = false }
 })

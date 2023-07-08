@@ -28,8 +28,6 @@ autocmd({ "BufWinEnter" }, {
 	end,
 })
 
-vim.cmd("autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif")
-
 autocmd({ "VimResized" }, {
 	callback = function()
 		vim.cmd("tabdo wincmd =")
@@ -44,7 +42,7 @@ autocmd({ "CmdWinEnter" }, {
 
 autocmd({ "TextYankPost" }, {
 	callback = function()
-		vim.highlight.on_yank({ higroup = "Search", timeout = 100 })
+		vim.highlight.on_yank({ higroup = "Search", timeout = 200 })
 	end,
 })
 

@@ -167,6 +167,6 @@ set_hl(0, "SpellLocal", spellLocal)
 
 set_hl(0, "Quote", { fg = colors.nord4 })
 
-set_hl(0, "MatchParen", { fg = colors.nord4, bg = colors.nord10 })
+set_hl(0, "MatchParen", { fg = colors.nord4, bg = colors.nord3 })
 
 return colors;

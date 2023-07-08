@@ -163,6 +163,7 @@ M.sidebar_types = {
 	"diff",
 	"help",
 	"qf",
+    "man",
 	"NvimTree",
 	"undotree",
 	"vimtex-toc",
