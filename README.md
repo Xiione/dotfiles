@@ -12,9 +12,19 @@ Contains configs for:
 - [skhd](https://github.com/koekeishiya/skhd) (hotkey daemon)
   - Pasted from [SxC97/dotfiles](https://github.com/SxC97/dotfiles)
 - [sketchybar](https://felixkratz.github.io/SketchyBar/) (status bar replacement)
-  - Forked from [FelixKratz/dotfiles](https://github.com/FelixKratz/dotfiles)
+  - Configuration installed from a separate repository ([here](https://github.com/Xiione/felixkratz-dotfiles))
 <br/><br/>
   
 <img width="1470" alt="image" src="https://github.com/Xiione/dotfiles/assets/25933822/b0dbde3a-a8e3-452f-b8d0-cfe45b34c628">
 
 Best effort to use [Nord](https://www.nordtheme.com/) wherever possible
+
+### Installation
+1. `brew install stow`
+2. Clone this repository to your home directory
+3. `cd dotfiles` (this repository)
+4. `stow .`
+6. Clone felixkratz-dotfiles or fork
+7. `cd felixkratz-dotfiles/.config/sketchybar`
+8. `stow -d . -t ~/dotfiles/.config/sketchybar`
+    - You may need to manually create the target directory as empty directories are not tracked
