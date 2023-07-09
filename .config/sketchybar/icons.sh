@@ -1,1 +1,0 @@
-../../../code/dotfiles/FelixKratz/.config/sketchybar/icons.sh
