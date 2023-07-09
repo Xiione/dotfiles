@@ -1,7 +1,6 @@
 # dotfiles
 
 My MacOS configuration files.
-Contains configs for:
 
 - [kitty](https://sw.kovidgoyal.net/kitty/) (terminal emulator)
 - [fish](https://fishshell.com/) (shell)
@@ -24,7 +23,7 @@ Best effort to use [Nord](https://www.nordtheme.com/) wherever possible
 2. Clone this repository to your home directory
 3. `cd dotfiles` (this repository)
 4. `stow .`
-6. Clone felixkratz-dotfiles or fork
+6. Clone [felixkratz-dotfiles](https://github.com/Xiione/felixkratz-dotfiles)
 7. `cd felixkratz-dotfiles/.config/sketchybar`
-8. `stow -d . -t ~/dotfiles/.config/sketchybar`
+8. `stow -d . -t ~/dotfiles/.config/sketchybar .`
     - You may need to manually create the target directory as empty directories are not tracked
