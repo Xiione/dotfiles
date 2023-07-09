@@ -16,4 +16,5 @@ Contains configs for:
 <br/><br/>
   
 <img width="1470" alt="image" src="https://github.com/Xiione/dotfiles/assets/25933822/b0dbde3a-a8e3-452f-b8d0-cfe45b34c628">
+
 Best effort to use [Nord](https://www.nordtheme.com/) wherever possible
