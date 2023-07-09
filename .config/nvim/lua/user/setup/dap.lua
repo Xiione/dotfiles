@@ -132,6 +132,7 @@ local function setup_maps()
 	utils.map("n", "<M-1>", dap.continue)
 	utils.map("n", "<M-2>", dap.step_over)
 	utils.map("n", "<M-3>", dap.terminate)
+	utils.map("n", "<M-4>", dap.step_into)
 
 	-- utils.map("n", "<m-q>", function()
 	-- 	remove_maps()
@@ -163,7 +164,7 @@ dap.defaults.fallback.focus_terminal = true
 -- signs
 vim.fn.sign_define(
 	"DapStopped",
-	{ text = "", texthl = "DapBreakpointSign", linehl = "DapBreakpointSign", numhl = "DapBreakpointSign" }
+	{ text = "", texthl = "DapBreakpointSign", linehl = "DapBreakpointSign", numhl = "" }
 )
 vim.fn.sign_define(
 	"DapBreakpoint",
