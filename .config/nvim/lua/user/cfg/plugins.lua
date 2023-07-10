@@ -113,4 +113,5 @@ require("lazy").setup({
 	{ "andweeb/presence.nvim" },
 	{ "tpope/vim-abolish" },
 	{ "echasnovski/mini.surround", version = "*" },
+    { "airblade/vim-matchquote" }
 }, {})
