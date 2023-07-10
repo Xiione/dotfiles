@@ -1,3 +1,6 @@
+local set_hl = vim.api.nvim_set_hl
+local get_hl = vim.api.nvim_get_hl
+
 vim.g.nord_contrast = true
 vim.g.nord_borders = true
 vim.g.nord_disable_background = false
@@ -37,9 +40,6 @@ local colors = {
 	nord14 = "#A3BE8C",
 	nord15 = "#B48EAD",
 }
-
-local set_hl = vim.api.nvim_set_hl
-local get_hl = vim.api.nvim_get_hl
 
 local normal = get_hl(0, {name = "Normal"})
 normal.bg = "none"
@@ -113,10 +113,11 @@ set_hl(0, "SmoothCursor1", { fg = colors.nord1 })
 set_hl(0, "SmoothCursor2", { fg = colors.nord2 })
 set_hl(0, "SmoothCursor3", { fg = colors.nord3 })
 set_hl(0, "SmoothCursor9", { fg = colors.nord9 })
---
+
 set_hl(0, "FloatBorder", { bg = colors.nord17 })
 set_hl(0, "LspFloatWinBorder", { bg = colors.nord17 })
 set_hl(0, "LsOutlinePreviewBorder", { bg = colors.nord17 })
+set_hl(0, "LspInfoBorder", { bg = colors.nord17 })
 
 set_hl(0, "TelescopeNormal", { bg = colors.nord17 })
 set_hl(0, "TelescopeBorder", { bg = colors.nord17 })
