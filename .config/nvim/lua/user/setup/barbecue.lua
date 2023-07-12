@@ -3,11 +3,11 @@ if not status_ok then
 	return
 end
 
-local utils = require("user.lib.utils")
+local sidebars = require("user.lib.sidebars")
 local colors = require("user.cfg.colorscheme")
 
 barbecue.setup({
-	exclude_filetypes = utils.sidebar_types,
+	exclude_filetypes = sidebars.sidebar_types,
 	theme = {
 		normal = { fg = colors.nord3 },
 		-- dirname = { fg = colors.nord3 },

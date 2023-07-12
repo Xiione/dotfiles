@@ -1,8 +1,17 @@
 local utils = require("user.lib.utils")
+local sidebars = require("user.lib.sidebars")
 local map = utils.map
 
+local dap_status_ok, dap = pcall(require, "dap")
+if not dap_status_ok then
+	return
+end
+local dap_ui_status_ok, dapui = pcall(require, "dapui")
+if not dap_ui_status_ok then
+	return
+end
+
 local silent = { silent = true }
-local silent_nore = { silent = true, remap = false }
 
 --Remap space as leader key
 map("", "<Space>", "<Nop>", silent)
@@ -14,7 +23,6 @@ vim.g.mapleader = " "
 -- visual_block_mode = "x",
 -- term_mode = "t",
 -- command_mode = "c",
-
 
 -- Editing maps
 
@@ -65,33 +73,6 @@ map("n", "<C-u>", "<C-u>zz", silent)
 map("n", "<leader>k", "<cmd>cprev<CR>zz")
 map("n", "<leader>j", "<cmd>cnext<CR>zz")
 
-
-
--- Plugins
-
--- NvimTree/NeoTree
-map(
-	"n",
-	"<leader>e",
-	"<CMD>lua require'dapui'.close()<CR>" .. "<CMD>lua require('nvim-tree.api').tree.toggle()<CR>",
-	silent
-)
-
--- Telescope
-map("n", "<leader>ff", "<CMD>lua require('telescope.builtin').find_files({hidden=true})<CR>", silent)
-map("n", "<leader>ft", "<CMD>lua require('telescope.builtin').live_grep()<CR>", silent)
-map("n", "<leader>fp", "<CMD>lua require('telescope').extensions.projects.projects()<CR>", silent)
-map("n", "<leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", silent)
-map("n", "<leader>fr", "<CMD>lua require('telescope.builtin').oldfiles()<CR>", silent)
-
--- Git
-map("n", "<leader>gg", "<CMD>lua _LAZYGIT_TOGGLE()<CR>", silent)
-map("n", "<leader>gs", "<CMD>Gitsigns toggle_signs<CR>", silent)
-
--- Comment
-map("n", "<leader>/", "<CMD>lua require('Comment.api').toggle.linewise.current()<CR>", silent)
-map("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
-
 -- fixing that stupid typo when trying to [save]exit
 vim.cmd([[
     cnoreabbrev <expr> W     ((getcmdtype()  is# ':' && getcmdline() is# 'W')?('w'):('W'))
@@ -109,9 +90,6 @@ map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 -- https://stackoverflow.com/questions/676600/vim-search-and-replace-selected-text
 map("v", "<leader>s", '"hy:%s/<C-r>h//gc<Left><Left><Left>')
 
--- undotree
-map("n", "<leader>u", "<CMD>UndotreeToggle<CR>", silent)
-
 -- easier leave term
 -- map("t", "<esc>", "<C-\\><C-n>", silent)
 map("t", "<C-h>", "<C-\\><C-n><C-W>h", silent)
@@ -124,12 +102,54 @@ map("n", "<leader>lf", "<CMD>lua vim.lsp.buf.format{ async = true }<CR>", silent
 
 map("n", "<leader>a", function()
 	local marks = require("harpoon").get_mark_config().marks
-    local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
-    local ct_before = #marks
+	local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+	local ct_before = #marks
 	require("harpoon.mark").add_file()
-    if #marks ~= ct_before then
-        vim.api.nvim_echo({{('"%s" successfully marked with index %d'):format(bufname, #marks)}}, false, {})
-    end
+	if #marks ~= ct_before then
+		vim.api.nvim_echo({ { ('"%s" successfully marked with index %d'):format(bufname, #marks) } }, false, {})
+	end
+end, silent)
+
+-- Plugins
+
+-- NvimTree/NeoTree
+map("n", "<leader>e", function()
+	sidebars.toggle("nvimtree")
+end, silent)
+
+-- Telescope
+map("n", "<leader>ff", "<CMD>lua require('telescope.builtin').find_files({hidden=true})<CR>", silent)
+map("n", "<leader>ft", "<CMD>lua require('telescope.builtin').live_grep()<CR>", silent)
+map("n", "<leader>fp", "<CMD>lua require('telescope').extensions.projects.projects()<CR>", silent)
+map("n", "<leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", silent)
+map("n", "<leader>fr", "<CMD>lua require('telescope.builtin').oldfiles()<CR>", silent)
+
+-- Git
+map("n", "<leader>gg", "<CMD>lua _LAZYGIT_TOGGLE()<CR>", silent)
+map("n", "<leader>gs", "<CMD>Gitsigns toggle_signs<CR>", silent)
+
+-- Comment
+map("n", "<leader>/", "<CMD>lua require('Comment.api').toggle.linewise.current()<CR>", silent)
+map("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
+
+-- DAP
+map("n", "<F5>", function()
+	dap.continue()
+end)
+map("n", "<F4>", function()
+	sidebars.toggle("dapui")
+end)
+map("n", "<M-b>", dap.toggle_breakpoint)
+map("n", "<M-S-b>", function()
+	local condition = vim.fn.input("Breakpoint condition: ")
+	if condition then
+		dap.set_breakpoint(condition)
+	end
+end)
+
+-- Undotree
+map("n", "<leader>u", function()
+    sidebars.toggle("undotree")
 end, silent)
 
 -- Harpoon
@@ -145,3 +165,8 @@ end
 
 -- Alpha
 map("n", "<leader>A", "<CMD>Alpha<CR>", silent)
+
+-- Symbols outline
+map("n", "<leader>o", function ()
+    sidebars.toggle("symbols_outline")
+end, silent)

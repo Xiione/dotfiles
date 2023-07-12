@@ -3,7 +3,7 @@ if not status_ok then
 	return
 end
 
-local utils = require("user.lib.utils")
+local sidebars = require("user.lib.sidebars")
 
 indent_blankline.setup({
 	char = "│",
@@ -14,5 +14,5 @@ indent_blankline.setup({
 	use_treesitter = true,
 	show_current_context = true,
 	buftype_exclude = { "terminal", "nofile" },
-	filetype_exclude = utils.sidebar_types,
+	filetype_exclude = sidebars.sidebar_types,
 })

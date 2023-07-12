@@ -59,7 +59,7 @@ require("lazy").setup({
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
-		}
+		},
 	},
 
 	-- Git
@@ -113,5 +113,6 @@ require("lazy").setup({
 	{ "andweeb/presence.nvim" },
 	{ "tpope/vim-abolish" },
 	{ "echasnovski/mini.surround", version = "*" },
-    { "airblade/vim-matchquote" }
+	{ "airblade/vim-matchquote" },
+	{ "simrat39/symbols-outline.nvim" } ,
 }, {})

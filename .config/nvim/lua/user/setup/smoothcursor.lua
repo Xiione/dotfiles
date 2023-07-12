@@ -3,7 +3,7 @@ if not status_ok then
 	return
 end
 
-local utils = require("user.lib.utils")
+local sidebars = require("user.lib.sidebars")
 
 smoothcursor.setup({
     autostart = true,
@@ -40,5 +40,5 @@ smoothcursor.setup({
     timeout = 3000,            -- timout for animation
     threshold = 3,             -- animate if threshold lines jump
     disable_float_win = true, -- disable on float window
-    disabled_filetypes = utils.sidebar_types,  -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
+    disabled_filetypes = sidebars.sidebar_types,  -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
 })

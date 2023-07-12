@@ -133,14 +133,10 @@ set_hl(0, "TelescopeResultsBorder", { bg = colors.nord17 })
 set_hl(0, "TelescopePreviewTitle", { fg = colors.nord4, bg = colors.nord0 })
 set_hl(0, "TelescopePreviewBorder", { bg = colors.nord17 })
 
-local status_ok_luaTable, luaTable = pcall(get_hl, "luaTable", true)
-if status_ok_luaTable then
-    set_hl(0, "luaError", luaTable)
-end
-
 set_hl(0, "luaParenError", { link = "none" })
 set_hl(0, "MarkdownError", { link = "None" })
 set_hl(0, "MarkdownLinkText", { sp = colors.nord14 })
+set_hl(0, "luaError", { link = "Structure" })
 
 set_hl(0, "EyelinerPrimary", { fg = colors.nord4, underline = true })
 set_hl(0, "EyelinerSecondary", { fg = colors.nord8 })

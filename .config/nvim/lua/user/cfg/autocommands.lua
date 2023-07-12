@@ -1,6 +1,7 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
-local utils = require("user.lib.utils")
+
+local sidebars = require("user.lib.sidebars")
 
 autocmd({ "FileType" }, {
 	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
@@ -23,7 +24,7 @@ autocmd({ "FileType" }, {
 autocmd({ "BufWinEnter" }, {
 	callback = function()
         if vim.bo.filetype:match("dap") then
-            utils.sidebar({ cursorline = false, signcolumn = false })
+            sidebars.use_sidebar_hl({ cursorline = false, signcolumn = false })
         end
 	end,
 })

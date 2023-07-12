@@ -178,21 +178,5 @@ vim.fn.sign_define(
 	"DapBreakpointCondition",
 	{ text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DapBreakpointSign" }
 )
--- general keymaps
-utils.map("n", "<F5>", function()
-	dap.continue()
-end)
-utils.map("n", "<F4>", function()
-	require('nvim-tree.api').tree.close()
-    -- vim.wait(100, dapui.toggle)
-    dapui.toggle()
-end)
-utils.map("n", "<M-b>", dap.toggle_breakpoint)
-utils.map("n", "<M-S-b>", function()
-	local condition = vim.fn.input("Breakpoint condition: ")
-	if condition then
-		dap.set_breakpoint(condition)
-	end
-end)
 
 return { remove_maps = remove_maps, setup_maps = setup_maps }

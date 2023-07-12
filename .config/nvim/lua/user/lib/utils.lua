@@ -142,32 +142,4 @@ M.toggle_scope_types = function()
 	dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
 end
 
--- used instead of contrast() in nord/util.lua
-M.sidebar = function(opts)
-	vim.opt_local.winhighlight = "Normal:NormalSidebar,SignColumn:NormalSidebar,CursorLine:NormalSidebar"
-		.. (opts.cursorline and "" or ",CursorLine:NormalSidebar")
-	vim.opt_local.signcolumn = opts.signcolumn and "yes" or "no"
-	vim.opt_local.number = false
-	vim.opt_local.relativenumber = false
-	vim.opt_local.cursorline = false
-	vim.opt.cursorlineopt = opts.cursorline and "both" or "number"
-end
-
-M.sidebar_types = {
-	"dap-repl",
-	"dapui_breakpoints",
-	"dapui_console",
-	"dapui_scopes",
-	"dapui_stacks",
-	"dapui_watches",
-	"diff",
-	"help",
-	"qf",
-    "man",
-	"NvimTree",
-	"undotree",
-	"vimtex-toc",
-	"",
-}
-
 return M

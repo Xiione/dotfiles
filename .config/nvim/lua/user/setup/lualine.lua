@@ -3,7 +3,7 @@ if not status_ok then
     return
 end
 
-local utils = require("user.lib.utils")
+local sidebars = require("user.lib.sidebars")
 local colors = require("user.cfg.colorscheme")
 
 local hide_in_width = function()
@@ -139,7 +139,7 @@ lualine.setup({
         theme = mynord,
         component_separators = "",
         section_separators = "",
-        ignore_focus = utils.sidebar_types,
+        ignore_focus = sidebars.sidebar_types,
         disabled_filetypes = {
             "alpha",
             -- "dap-repl",
