@@ -105,15 +105,15 @@ M.toggle = function(sidebar)
 
 	-- first close the sidebar that may be open on the appropriate side
 	for key, val in pairs(M.sidebar_functions) do
-		if key ~= sidebar then
-			if val.is_right_side == is_right_side then
-                -- symbols-outline throws an error when it's 'closed' when it isn't open 
-                pcall(val.close)
+		if val.is_right_side == is_right_side then
+			if key ~= sidebar then
+				-- symbols-outline throws an error when it's 'closed' when it isn't open
+				pcall(val.close)
 			end
 		end
 	end
 
-    -- finally toggle the target sidebar
+	-- finally toggle the target sidebar
 	target.toggle()
 end
 
