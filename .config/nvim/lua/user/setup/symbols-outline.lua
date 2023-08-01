@@ -21,8 +21,8 @@ outline.setup({
 	fold_markers = { "", "" },
 	wrap = false,
 	keymaps = { -- These keymaps can be a string or a table for multiple keys
-		close = { "<Esc>", "q" },
-		goto_location = "<Cr>",
+		close = { "q" },
+		goto_location = "<CR>",
 		focus_location = "<Tab>",
 		hover_symbol = "K",
 		toggle_preview = "<C-Space>",
