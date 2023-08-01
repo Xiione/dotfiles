@@ -1,269 +1,276 @@
 {
-    "cp header": {
-        "prefix": "$cp",
-        "body": [
-            "#include <bits/stdc++.h>",
-            "using namespace std;",
-            "",
-            "#define rep(i, a, b) for (int i = a; i < (b); ++i)",
-            "#define all(x) begin(x), end(x)",
-            "#define sz(x) (int)(x).size()",
-            "",
-            "typedef long long ll;",
-            "typedef pair<int, int> pii;",
-            "typedef vector<int> vi;",
-            "",
-            "int main() {",
-            "  cin.tie(0)->sync_with_stdio(0);",
-            "  cin.exceptions(cin.failbit);",
-            "",
-            "  $0",
-            "}"
-        ],
-        "description": "Header for competitive programming, via kactl"
-    },
-    "cp1 header": {
-        "prefix": "$cpone",
-        "body": [
-            "// Author: Hamilton Wang",
-            "// It is ok to post my anonymized solution",
-            "",
-            "  $0"
-        ],
-        "description": "CP1 hw bonus"
-    },
-    "cp2 header": {
-        "prefix": "$cptwo",
-        "body": [
-            "// Author: Hamilton Wang",
-            "// It is ok to share my code anonymously for educational purposes",
-            "",
-            "$0"
-        ],
-        "description": "CP2 hw bonus"
-    },
-    "long long": {
-        "prefix": "$tdll",
-        "body": [
-            "typedef long long ll;",
-            "$0"
-        ]
-    },
-    "vector<int> +": {
-        "prefix": "$tdvi",
-        "body": [
-            "typedef vector<int> vi;",
-            "typedef vector<vi> vvi;",
-            "typedef vector<vvi> vvvi;",
-            "$0"
-        ]
-    },
-    "pair<int,int> +": {
-        "prefix": "$tdpii",
-        "body": [
-            "typedef pair<int,int> pii;",
-            "typedef vector<pii> vpii;",
-            "typedef vector<vpii> vvpii;",
-            "$0"
-        ]
-    },
-    "frepoen io": {
-        "prefix": "$freopen",
-        "body": [
-            "freopen(\"$1.in\", \"r\", stdin);",
-            "freopen(\"$1.out\", \"r\", stdout);",
-            "$0"
-        ],
-        "description": "file io for cp"
-    },
-    "fast io": {
-        "prefix": "$gcpc",
-        "body": [
-            "#ifdef _WIN32",
-            "#define gc() _getchar_nolock();",
-            "#define pc(c) _putchar_nolock(c);",
-            "#else",
-            "#define gc() getchar_unlocked();",
-            "#define pc(c) putchar_unlocked(c);",
-            "#endif",
-            "$0"
-        ]
-    },
-    "gc intin": {
-        "prefix": "$gcintin",
-        "body": [
-            "inline void intin(int &x) {",
-            "  char c;",
-            "  bool neg = false;",
-            "  do {",
-            "    c = gc();",
-            "    if (c == '-') {",
-            "      neg = true, c = gc();",
-            "      break;",
-            "    }",
-            "  } while (c < '0' || c > '9');",
-            "  x = 0;",
-            "  while (c >= '0' && c <= '9')",
-            "    x *= 10, x += c - '0', c = gc();",
-            "  if (neg)",
-            "    x *= -1;",
-            "}",
-            "$0"
-        ]
-    },
-    "pc intout": {
-        "prefix": "$pcintout",
-        "body": [
-            "inline void intout(int &x) {",
-            "  if (x < 0) {",
-            "    pc('-');",
-            "    x *= -1;",
-            "  }",
-            "  int N = x, rev, ct = 0;",
-            "  rev = N;",
-            "  if (N == 0) {",
-            "    pc('0');",
-            "    pc('\\n');",
-            "    return;",
-            "  }",
-            "  while ((rev % 10) == 0)",
-            "    ct++, rev /= 10;",
-            "  rev = 0;",
-            "  while (N != 0)",
-            "    rev *= 10, rev += N % 10, N /= 10;",
-            "  while (rev != 0) {",
-            "    pc(rev % 10 + '0');",
-            "    rev /= 10;",
-            "  }",
-            "  while (ct--)",
-            "    pc('0');",
-            "}",
-            "$0"
-        ]
-    },
-    "gc llin": {
-        "prefix": "$gcllin",
-        "body": [
-            "inline void llin(ll &x) {",
-            "  char c;",
-            "  bool neg = false;",
-            "  do {",
-            "    c = gc();",
-            "    if (c == '-') {",
-            "      neg = true;",
-            "      c = gc();",
-            "      break;",
-            "    }",
-            "  } while (c < '0' || c > '9');",
-            "  x = 0;",
-            "  while (c >= '0' && c <= '9') {",
-            "    x *= 10;",
-            "    x += c - '0';",
-            "    // x = (x << 3) + (x << 1) + c - '0';",
-            "    // x = x * 10 + c - '0';",
-            "    c = gc();",
-            "  }",
-            "  if (neg)",
-            "    x *= -1;",
-            "}",
-            "$0"
-        ]
-    },
-    "pc llout": {
-        "prefix": "$pcllout",
-        "body": [
-            "inline void llout(long long &x) {",
-            "  if (x < 0) {",
-            "    pc('-');",
-            "    x *= -1;",
-            "  }",
-            "  long long N = x, rev, ct = 0;",
-            "  rev = N;",
-            "  if (N == 0) {",
-            "    pc('0');",
-            "    pc('\\n');",
-            "    return;",
-            "  }",
-            "  while ((rev % 10) == 0)",
-            "    ct++, rev /= 10;",
-            "  rev = 0;",
-            "  while (N != 0)",
-            "    rev *= 10, rev += N % 10, N /= 10;",
-            "  while (rev != 0) {",
-            "    pc(rev % 10 + '0');",
-            "    rev /= 10;",
-            "  }",
-            "  while (ct--)",
-            "    pc('0');",
-            "}",
-            "$0"
-        ]
-    },
-    "gc stin": {
-        "prefix": "$gcstin",
-        "body": [
-            "inline int stin(string &x, int n) {",
-            "  x = \"\";",
-            "  x.reserve(n);",
-            "  char c;",
-            "  do {",
-            "    c = gc();",
-            "  } while (c == ' ' || c == '\\n');",
-            "  while (c != ' ' && c != '\\n' && c != EOF) {",
-            "    x += c;",
-            "    c = gc();",
-            "  }",
-            "",
-            "  if (c == '\\n')",
-            "    return 0;",
-            "  if (c == EOF)",
-            "    return -1;",
-            "  return 1;",
-            "}",
-            "$0"
-        ]
-    },
-    "pc stout": {
-        "prefix": "$pcstout",
-        "body": [
-            "inline void stout(const string &s) {",
-            "  auto e = s.end();",
-            "  for (auto it = s.begin(); it != e; ++it)",
-            "    pc(*it);",
-            "}",
-            "$0"
-        ]
-    },
-    "gc doublein": {
-        "prefix": "$gcdoublein",
-        "body": [
-            "int neg;",
-            "inline int scandigits(double &x, int div) {",
-            "  int c = gc();",
-            "  double pow10 = 1;",
-            "  x = 0;",
-            "  while ( (c < '0' || c > '9') && c != '-' )",
-            "    c = gc();",
-            "  if ( c == '-' )",
-            "    neg = 1, c = gc();",
-            "  while ( !(c < '0' || c > '9') )",
-            "    x *= 10, x += (c - '0'), pow10 *= 10, c = gc();",
-            "  if ( neg )",
-            "    x = -x;",
-            "  if ( div )",
-            "    x /= pow10;",
-            "  return c;",
-            "}",
-            "",
-            "inline void doublein(double &x) {",
-            "  double left, right = 0;",
-            "  neg = 0;",
-            "  int ret = scandigits(left, 0);",
-            "  if ( ret == '.' )",
-            "    scandigits(right, 1);",
-            "  x = left + right;",
-            "}",
-            "$0"
-        ]
-    }
+  "cp header": {
+    "prefix": "$cp",
+    "body": [
+      "#include <bits/stdc++.h>",
+      "using namespace std;",
+      "",
+      "#define rep(i, a, b) for (int i = a; i < (b); ++i)",
+      "#define all(x) begin(x), end(x)",
+      "#define sz(x) (int)(x).size()",
+      "",
+      "typedef long long ll;",
+      "typedef pair<int, int> pii;",
+      "typedef vector<int> vi;",
+      "",
+      "int main() {",
+      "  cin.tie(0)->sync_with_stdio(0);",
+      "  cin.exceptions(cin.failbit);",
+      "",
+      "  $0",
+      "}"
+    ],
+    "description": "Header for competitive programming, via kactl"
+  },
+  "cp1 header": {
+    "prefix": "$cpone",
+    "body": [
+      "// Author: Hamilton Wang",
+      "// It is ok to post my anonymized solution",
+      "",
+      "  $0"
+    ],
+    "description": "CP1 hw bonus"
+  },
+  "cp2 header": {
+    "prefix": "$cptwo",
+    "body": [
+      "// Author: Hamilton Wang",
+      "// It is ok to share my code anonymously for educational purposes",
+      "",
+      "$0"
+    ],
+    "description": "CP2 hw bonus"
+  },
+  "long long": {
+    "prefix": "$tdll",
+    "body": ["typedef long long ll;", "$0"]
+  },
+  "vector<int> +": {
+    "prefix": "$tdvi",
+    "body": [
+      "typedef vector<int> vi;",
+      "typedef vector<vi> vvi;",
+      "typedef vector<vvi> vvvi;",
+      "$0"
+    ]
+  },
+  "pair<int,int> +": {
+    "prefix": "$tdpii",
+    "body": [
+      "typedef pair<int,int> pii;",
+      "typedef vector<pii> vpii;",
+      "typedef vector<vpii> vvpii;",
+      "$0"
+    ]
+  },
+  "frepoen io": {
+    "prefix": "$freopen",
+    "body": [
+      "freopen(\"$1.in\", \"r\", stdin);",
+      "freopen(\"$1.out\", \"r\", stdout);",
+      "$0"
+    ],
+    "description": "file io for cp"
+  },
+  "fast io": {
+    "prefix": "$gcpc",
+    "body": [
+      "#ifdef _WIN32",
+      "#define gc() _getchar_nolock();",
+      "#define pc(c) _putchar_nolock(c);",
+      "#else",
+      "#define gc() getchar_unlocked();",
+      "#define pc(c) putchar_unlocked(c);",
+      "#endif",
+      "$0"
+    ]
+  },
+  "gc intin": {
+    "prefix": "$gcintin",
+    "body": [
+      "inline void intin(int &x) {",
+      "  char c;",
+      "  bool neg = false;",
+      "  do {",
+      "    c = gc();",
+      "    if (c == '-') {",
+      "      neg = true, c = gc();",
+      "      break;",
+      "    }",
+      "  } while (c < '0' || c > '9');",
+      "  x = 0;",
+      "  while (c >= '0' && c <= '9')",
+      "    x *= 10, x += c - '0', c = gc();",
+      "  if (neg)",
+      "    x *= -1;",
+      "}",
+      "$0"
+    ]
+  },
+  "pc intout": {
+    "prefix": "$pcintout",
+    "body": [
+      "inline void intout(int &x) {",
+      "  if (x < 0) {",
+      "    pc('-');",
+      "    x *= -1;",
+      "  }",
+      "  int N = x, rev, ct = 0;",
+      "  rev = N;",
+      "  if (N == 0) {",
+      "    pc('0');",
+      "    pc('\\n');",
+      "    return;",
+      "  }",
+      "  while ((rev % 10) == 0)",
+      "    ct++, rev /= 10;",
+      "  rev = 0;",
+      "  while (N != 0)",
+      "    rev *= 10, rev += N % 10, N /= 10;",
+      "  while (rev != 0) {",
+      "    pc(rev % 10 + '0');",
+      "    rev /= 10;",
+      "  }",
+      "  while (ct--)",
+      "    pc('0');",
+      "}",
+      "$0"
+    ]
+  },
+  "gc llin": {
+    "prefix": "$gcllin",
+    "body": [
+      "inline void llin(ll &x) {",
+      "  char c;",
+      "  bool neg = false;",
+      "  do {",
+      "    c = gc();",
+      "    if (c == '-') {",
+      "      neg = true;",
+      "      c = gc();",
+      "      break;",
+      "    }",
+      "  } while (c < '0' || c > '9');",
+      "  x = 0;",
+      "  while (c >= '0' && c <= '9') {",
+      "    x *= 10;",
+      "    x += c - '0';",
+      "    // x = (x << 3) + (x << 1) + c - '0';",
+      "    // x = x * 10 + c - '0';",
+      "    c = gc();",
+      "  }",
+      "  if (neg)",
+      "    x *= -1;",
+      "}",
+      "$0"
+    ]
+  },
+  "pc llout": {
+    "prefix": "$pcllout",
+    "body": [
+      "inline void llout(long long &x) {",
+      "  if (x < 0) {",
+      "    pc('-');",
+      "    x *= -1;",
+      "  }",
+      "  long long N = x, rev, ct = 0;",
+      "  rev = N;",
+      "  if (N == 0) {",
+      "    pc('0');",
+      "    pc('\\n');",
+      "    return;",
+      "  }",
+      "  while ((rev % 10) == 0)",
+      "    ct++, rev /= 10;",
+      "  rev = 0;",
+      "  while (N != 0)",
+      "    rev *= 10, rev += N % 10, N /= 10;",
+      "  while (rev != 0) {",
+      "    pc(rev % 10 + '0');",
+      "    rev /= 10;",
+      "  }",
+      "  while (ct--)",
+      "    pc('0');",
+      "}",
+      "$0"
+    ]
+  },
+  "gc stin": {
+    "prefix": "$gcstin",
+    "body": [
+      "inline int stin(string &x, int n) {",
+      "  x = \"\";",
+      "  x.reserve(n);",
+      "  char c;",
+      "  do {",
+      "    c = gc();",
+      "  } while (c == ' ' || c == '\\n');",
+      "  while (c != ' ' && c != '\\n' && c != EOF) {",
+      "    x += c;",
+      "    c = gc();",
+      "  }",
+      "",
+      "  if (c == '\\n')",
+      "    return 0;",
+      "  if (c == EOF)",
+      "    return -1;",
+      "  return 1;",
+      "}",
+      "$0"
+    ]
+  },
+  "pc stout": {
+    "prefix": "$pcstout",
+    "body": [
+      "inline void stout(const string &s) {",
+      "  auto e = s.end();",
+      "  for (auto it = s.begin(); it != e; ++it)",
+      "    pc(*it);",
+      "}",
+      "$0"
+    ]
+  },
+  "gc doublein": {
+    "prefix": "$gcdoublein",
+    "body": [
+      "int neg;",
+      "inline int scandigits(double &x, int div) {",
+      "  int c = gc();",
+      "  double pow10 = 1;",
+      "  x = 0;",
+      "  while ( (c < '0' || c > '9') && c != '-' )",
+      "    c = gc();",
+      "  if ( c == '-' )",
+      "    neg = 1, c = gc();",
+      "  while ( !(c < '0' || c > '9') )",
+      "    x *= 10, x += (c - '0'), pow10 *= 10, c = gc();",
+      "  if ( neg )",
+      "    x = -x;",
+      "  if ( div )",
+      "    x /= pow10;",
+      "  return c;",
+      "}",
+      "",
+      "inline void doublein(double &x) {",
+      "  double left, right = 0;",
+      "  neg = 0;",
+      "  int ret = scandigits(left, 0);",
+      "  if ( ret == '.' )",
+      "    scandigits(right, 1);",
+      "  x = left + right;",
+      "}",
+      "$0"
+    ]
+  },
+  "leetcode fast io": {
+    "prefix": "$lcfastio",
+    "body": [
+      "int fastIO = [] {",
+      "  cin.tie(0)->sync_with_stdio(0);",
+      "  return 0;",
+      "}();",
+      "$0"
+    ]
+  }
 }
