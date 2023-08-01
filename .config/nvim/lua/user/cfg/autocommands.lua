@@ -4,47 +4,47 @@ local autocmd = vim.api.nvim_create_autocmd
 local sidebars = require("user.lib.sidebars")
 
 autocmd({ "FileType" }, {
-	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
-	callback = function()
-		vim.cmd([[
-      nnoremap <silent> <buffer> q :close<CR> 
-      set nobuflisted 
+    pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
+    callback = function()
+        vim.cmd([[
+      nnoremap <silent> <buffer> q :close<CR>
+      set nobuflisted
     ]])
-	end,
+    end,
 })
 
 autocmd({ "FileType" }, {
-	pattern = { "markdown", "gitcommit" },
-	callback = function()
-		vim.opt_local.wrap = true
-		vim.opt_local.spell = true
-	end,
+    pattern = { "markdown", "gitcommit" },
+    callback = function()
+        vim.opt_local.wrap = true
+        vim.opt_local.spell = true
+    end,
 })
 
 autocmd({ "BufWinEnter" }, {
-	callback = function()
+    callback = function()
         if vim.bo.filetype:match("dap") then
             sidebars.use_sidebar_hl({ cursorline = false, signcolumn = false })
         end
-	end,
+    end,
 })
 
 autocmd({ "VimResized" }, {
-	callback = function()
-		vim.cmd("tabdo wincmd =")
-	end,
+    callback = function()
+        vim.cmd("tabdo wincmd =")
+    end,
 })
 
 autocmd({ "CmdWinEnter" }, {
-	callback = function()
-		vim.cmd("quit")
-	end,
+    callback = function()
+        vim.cmd("quit")
+    end,
 })
 
 autocmd({ "TextYankPost" }, {
-	callback = function()
-		vim.highlight.on_yank({ higroup = "Search", timeout = 200 })
-	end,
+    callback = function()
+        vim.highlight.on_yank({ higroup = "Search", timeout = 200 })
+    end,
 })
 
 -- autocmd({ "BufWritePost" }, {
@@ -55,9 +55,9 @@ autocmd({ "TextYankPost" }, {
 -- })
 
 autocmd({ "VimEnter" }, {
-	callback = function()
-		vim.cmd("hi link illuminatedWord LspReferenceText")
-	end,
+    callback = function()
+        vim.cmd("hi link illuminatedWord LspReferenceText")
+    end,
 })
 
 -- autocmd({ "BufWinEnter" }, {
@@ -70,11 +70,11 @@ autocmd({ "VimEnter" }, {
 -- })
 
 autocmd({ "FileType" }, {
-    group = augroup("DapRepl", {clear = true}),
-	pattern = { "dap-repl" },
-	callback = function()
+    group = augroup("DapRepl", { clear = true }),
+    pattern = { "dap-repl" },
+    callback = function()
         vim.opt_local.buflisted = false
-	end,
+    end,
 })
 
 -- autocmd({ "ColorScheme" }, {
@@ -83,3 +83,12 @@ autocmd({ "FileType" }, {
 --         require("nord.util").onColorScheme()
 --     end
 -- })
+
+autocmd({ "FileType" }, {
+    pattern = { "*" },
+    callback = function()
+        vim.opt.formatoptions:remove("c")
+        vim.opt.formatoptions:remove("r")
+        vim.opt.formatoptions:remove("o")
+    end,
+})
