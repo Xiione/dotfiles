@@ -6,8 +6,11 @@ end
 local sidebars = require("user.lib.sidebars")
 
 indent_blankline.setup({
-	char = "│",
-    char_blankline = "┆",
+	char = "▏",
+    -- char_blankline = "┆",
+    char_blankline = "▏",
+    context_char = "▏",
+    context_char_blankline = "▏",
 	space_char_blankline = " ",
 	show_trailing_blankline_indent = false,
 	show_first_indent_level = true,
