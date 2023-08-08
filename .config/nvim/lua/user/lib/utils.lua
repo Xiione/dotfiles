@@ -110,7 +110,7 @@ M.setup_build_command = function(mode, mapping, cmd)
 			dir = vim.fn.expand("%:p:h"),
 			open = false,
 		})
-	end)
+	end, nil, vim.fn.bufnr())
 end
 
 M.setup_debug_command = function(mode, mapping, cmd)
@@ -127,7 +127,7 @@ M.setup_debug_command = function(mode, mapping, cmd)
 			open = false,
 		})
 		print("Building...")
-	end)
+	end, nil, vim.fn.bufnr())
 end
 
 M.create_packer_snapshot = function()
