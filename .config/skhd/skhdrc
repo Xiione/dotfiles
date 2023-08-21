@@ -35,10 +35,10 @@ ctrl + alt - l : yabai -m window --focus east || yabai -m window --focus west
 # VBNM
 
 # focus and swap windows in stack
-ctrl + alt - v : yabai -m window --swap stack.prev || yabai -m window --swap stack.last
-ctrl + alt - b : yabai -m window --focus stack.next || yabai -m window --focus stack.first
-ctrl + alt - n : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
-ctrl + alt - m : yabai -m window --swap stack.next || yabai -m window --swap stack.first
+# ctrl + alt - v : yabai -m window --swap stack.prev || yabai -m window --swap stack.last
+# ctrl + alt - b : yabai -m window --focus stack.next || yabai -m window --focus stack.first
+# ctrl + alt - n : yabai -m window --focus stack.prev || yabai -m window --focus stack.last
+# ctrl + alt - m : yabai -m window --swap stack.next || yabai -m window --swap stack.first
 
 # BACKSPACE
 
@@ -264,3 +264,5 @@ ctrl + alt + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # run terminal application
 # ctrl + alt - a : ~/.scripts/.launch $(compgen -bc | choose)
+
+ctrl + alt - f : yabai -m window --toggle native-fullscreen

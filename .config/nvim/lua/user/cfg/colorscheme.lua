@@ -1,4 +1,4 @@
-local set_hl = vim.api.nvim_set_hl
+local set = vim.api.nvim_set_hl
 local get_hl = vim.api.nvim_get_hl
 
 vim.g.nord_contrast = true
@@ -44,102 +44,102 @@ local colors = {
 local normal = get_hl(0, {name = "Normal"})
 normal.bg = "none"
 -- normal.sp = "none"
-set_hl(0, "Normal", normal)
+set(0, "Normal", normal)
 
 local normalFloat = get_hl(0, {name = "NormalFloat"})
 normalFloat.bg = colors.nord17
 normalFloat.sp = colors.nord4
-set_hl(0, "NormalSidebar", normalFloat)
-set_hl(0, "NormalFloat", normalFloat)
-set_hl(0, "HarpoonBorder", normalFloat)
-set_hl(1, "HarpoonWindow", normalFloat)
+set(0, "NormalSidebar", normalFloat)
+set(0, "NormalFloat", normalFloat)
+set(0, "HarpoonBorder", normalFloat)
+set(1, "HarpoonWindow", normalFloat)
 
-set_hl(0, "NormalFloat", normalFloat)
-set_hl(0, "LazyProp", normalFloat)
+set(0, "NormalFloat", normalFloat)
+set(0, "LazyProp", normalFloat)
 
 local cursorLine = get_hl(0, {name = "CursorLine"})
 cursorLine.bg = colors.nord0
-set_hl(0, "CursorLineSidebar", cursorLine)
+set(0, "CursorLineSidebar", cursorLine)
 
-set_hl(0, "NvimTreeEmptyFolderName", { fg = colors.nord10 })
-set_hl(0, "NvimTreeIndentMarker", { fg = colors.nord0 })
-set_hl(0, "NvimTreeWindowPicker", { fg = colors.nord0, bg = colors.nord9 })
+set(0, "NvimTreeEmptyFolderName", { fg = colors.nord10 })
+set(0, "NvimTreeIndentMarker", { fg = colors.nord0 })
+set(0, "NvimTreeWindowPicker", { fg = colors.nord0, bg = colors.nord9 })
 -- set_hl(0, "NvimTreeCursorLine", { bg = colors.nord0 })
 
 
-set_hl(0, "QuickFixLine", { bg = colors.nord0 })
-set_hl(0, "qfLineNr", { fg = colors.nord10 })
+set(0, "QuickFixLine", { bg = colors.nord0 })
+set(0, "qfLineNr", { fg = colors.nord10 })
 
 
-set_hl(0, "DapUIBreakpointsDisabledLine", { fg = colors.nord2 })
-set_hl(0, "DapUIStepOver", { fg = colors.nord8 })
-set_hl(0, "DapUIStepInto", { fg = colors.nord8 })
-set_hl(0, "DapUIStepBack", { fg = colors.nord8 })
-set_hl(0, "DapUIStepOut", { fg = colors.nord8 })
-set_hl(0, "DapUIStop", { fg = colors.nord11 })
-set_hl(0, "DapUIPlayPause", { fg = colors.nord14 })
-set_hl(0, "DapUIRestart", { fg = colors.nord14 })
-set_hl(0, "DapUIUnavailable", { fg = colors.nord2 })
-set_hl(0, "DapUIWinSelect", { fg = colors.nord8 })
+set(0, "DapUIBreakpointsDisabledLine", { fg = colors.nord2 })
+set(0, "DapUIStepOver", { fg = colors.nord8 })
+set(0, "DapUIStepInto", { fg = colors.nord8 })
+set(0, "DapUIStepBack", { fg = colors.nord8 })
+set(0, "DapUIStepOut", { fg = colors.nord8 })
+set(0, "DapUIStop", { fg = colors.nord11 })
+set(0, "DapUIPlayPause", { fg = colors.nord14 })
+set(0, "DapUIRestart", { fg = colors.nord14 })
+set(0, "DapUIUnavailable", { fg = colors.nord2 })
+set(0, "DapUIWinSelect", { fg = colors.nord8 })
 
-set_hl(0, "DapUIStepOverNC", { fg = colors.nord8 })
-set_hl(0, "DapUIStepIntoNC", { fg = colors.nord8 })
-set_hl(0, "DapUIStepBackNC", { fg = colors.nord8 })
-set_hl(0, "DapUIStepOutNC", { fg = colors.nord8 })
-set_hl(0, "DapUIStopNC", { fg = colors.nord11 })
-set_hl(0, "DapUIPlayPauseNC", { fg = colors.nord14 })
-set_hl(0, "DapUIRestartNC", { fg = colors.nord14 })
-set_hl(0, "DapUIUnavailableNC", { fg = colors.nord2 })
+set(0, "DapUIStepOverNC", { fg = colors.nord8 })
+set(0, "DapUIStepIntoNC", { fg = colors.nord8 })
+set(0, "DapUIStepBackNC", { fg = colors.nord8 })
+set(0, "DapUIStepOutNC", { fg = colors.nord8 })
+set(0, "DapUIStopNC", { fg = colors.nord11 })
+set(0, "DapUIPlayPauseNC", { fg = colors.nord14 })
+set(0, "DapUIRestartNC", { fg = colors.nord14 })
+set(0, "DapUIUnavailableNC", { fg = colors.nord2 })
 
-set_hl(0, "DapBreakpointSign", { fg = colors.nord13 })
-
-
-set_hl(0, "BufferLineIndicatorVisible", { fg = colors.nord17, bg = colors.nord17 })
-set_hl(0, "StatusLine", { fg = colors.nord4, bg = colors.nord0 })
-set_hl(0, "StatusLineNC", { fg = colors.nord0, bg = colors.nord0 })
+set(0, "DapBreakpointSign", { fg = colors.nord13 })
 
 
-set_hl(0, "SmoothCursor", { fg = colors.nord13 })
-set_hl(0, "SmoothCursorRed", { fg = colors.nord11 })
-set_hl(0, "SmoothCursorOrange", { fg = colors.nord12 })
-set_hl(0, "SmoothCursorYellow", { fg = colors.nord13 })
-set_hl(0, "SmoothCursorGreen", { fg = colors.nord14 })
-set_hl(0, "SmoothCursorAqua", { fg = colors.nord8 })
-set_hl(0, "SmoothCursorBlue", { fg = colors.nord10 })
-set_hl(0, "SmoothCursorPurple", { fg = colors.nord15 })
+set(0, "BufferLineIndicatorVisible", { fg = colors.nord17, bg = colors.nord17 })
+set(0, "StatusLine", { fg = colors.nord4, bg = colors.nord0 })
+set(0, "StatusLineNC", { fg = colors.nord0, bg = colors.nord0 })
 
-set_hl(0, "SmoothCursor0", { fg = colors.nord0 })
-set_hl(0, "SmoothCursor1", { fg = colors.nord1 })
-set_hl(0, "SmoothCursor2", { fg = colors.nord2 })
-set_hl(0, "SmoothCursor3", { fg = colors.nord3 })
-set_hl(0, "SmoothCursor9", { fg = colors.nord9 })
 
-set_hl(0, "FloatBorder", { bg = colors.nord17 })
-set_hl(0, "LspFloatWinBorder", { bg = colors.nord17 })
-set_hl(0, "LsOutlinePreviewBorder", { bg = colors.nord17 })
-set_hl(0, "LspInfoBorder", { bg = colors.nord17 })
+set(0, "SmoothCursor", { fg = colors.nord13 })
+set(0, "SmoothCursorRed", { fg = colors.nord11 })
+set(0, "SmoothCursorOrange", { fg = colors.nord12 })
+set(0, "SmoothCursorYellow", { fg = colors.nord13 })
+set(0, "SmoothCursorGreen", { fg = colors.nord14 })
+set(0, "SmoothCursorAqua", { fg = colors.nord8 })
+set(0, "SmoothCursorBlue", { fg = colors.nord10 })
+set(0, "SmoothCursorPurple", { fg = colors.nord15 })
 
-set_hl(0, "TelescopeNormal", { bg = colors.nord17 })
-set_hl(0, "TelescopeBorder", { bg = colors.nord17 })
+set(0, "SmoothCursor0", { fg = colors.nord0 })
+set(0, "SmoothCursor1", { fg = colors.nord1 })
+set(0, "SmoothCursor2", { fg = colors.nord2 })
+set(0, "SmoothCursor3", { fg = colors.nord3 })
+set(0, "SmoothCursor9", { fg = colors.nord9 })
 
-set_hl(0, "TelescopePromptNormal", { bg = colors.nord17 })
-set_hl(0, "TelescopePromptBorder", { bg = colors.nord17 })
-set_hl(0, "TelescopePromptTitle", { fg = colors.nord4, bg = colors.nord0 })
-set_hl(0, "TelescopePromptCounter", { bg = colors.nord17 })
+set(0, "FloatBorder", { bg = colors.nord17 })
+set(0, "LspFloatWinBorder", { bg = colors.nord17 })
+set(0, "LsOutlinePreviewBorder", { bg = colors.nord17 })
+set(0, "LspInfoBorder", { bg = colors.nord17 })
 
-set_hl(0, "TelescopeResultsTitle", { bg = colors.nord17 })
-set_hl(0, "TelescopeResultsBorder", { bg = colors.nord17 })
+set(0, "TelescopeNormal", { bg = colors.nord17 })
+set(0, "TelescopeBorder", { bg = colors.nord17 })
 
-set_hl(0, "TelescopePreviewTitle", { fg = colors.nord4, bg = colors.nord0 })
-set_hl(0, "TelescopePreviewBorder", { bg = colors.nord17 })
+set(0, "TelescopePromptNormal", { bg = colors.nord17 })
+set(0, "TelescopePromptBorder", { bg = colors.nord17 })
+set(0, "TelescopePromptTitle", { fg = colors.nord4, bg = colors.nord0 })
+set(0, "TelescopePromptCounter", { bg = colors.nord17 })
 
-set_hl(0, "luaParenError", { link = "none" })
-set_hl(0, "MarkdownError", { link = "None" })
-set_hl(0, "MarkdownLinkText", { sp = colors.nord14 })
-set_hl(0, "luaError", { link = "Structure" })
+set(0, "TelescopeResultsTitle", { bg = colors.nord17 })
+set(0, "TelescopeResultsBorder", { bg = colors.nord17 })
 
-set_hl(0, "EyelinerPrimary", { fg = colors.nord4, underline = true })
-set_hl(0, "EyelinerSecondary", { fg = colors.nord8 })
+set(0, "TelescopePreviewTitle", { fg = colors.nord4, bg = colors.nord0 })
+set(0, "TelescopePreviewBorder", { bg = colors.nord17 })
+
+set(0, "luaParenError", { link = "none" })
+set(0, "MarkdownError", { link = "None" })
+set(0, "MarkdownLinkText", { sp = colors.nord14 })
+set(0, "luaError", { link = "Structure" })
+
+set(0, "EyelinerPrimary", { fg = colors.nord4, underline = true })
+set(0, "EyelinerSecondary", { fg = colors.nord8 })
 
 -- set_hl(0, "TelescopeMatching", { bg = colors.nord17 })
 
@@ -148,22 +148,22 @@ set_hl(0, "EyelinerSecondary", { fg = colors.nord8 })
 
 local spellBad = get_hl(0, {name = "SpellBad"})
 spellBad.sp = colors.nord11;
-set_hl(0, "SpellBad", spellBad)
+set(0, "SpellBad", spellBad)
 
 local spellCap = get_hl(0, {name = "SpellCap"})
 spellCap.sp = colors.nord7;
-set_hl(0, "SpellCap", spellCap)
+set(0, "SpellCap", spellCap)
 
 local spellRare = get_hl(0, {name = "SpellRare"})
 spellRare.sp = colors.nord9;
-set_hl(0, "SpellRare", spellRare)
+set(0, "SpellRare", spellRare)
 
 local spellLocal = get_hl(0, {name = "SpellLocal"})
 spellLocal.sp = colors.nord8;
-set_hl(0, "SpellLocal", spellLocal)
+set(0, "SpellLocal", spellLocal)
 
-set_hl(0, "Quote", { fg = colors.nord4 })
+set(0, "Quote", { fg = colors.nord4 })
 
-set_hl(0, "MatchParen", { fg = colors.nord4, bg = colors.nord3 })
+set(0, "MatchParen", { fg = colors.nord4, bg = colors.nord3 })
 
 return colors;
