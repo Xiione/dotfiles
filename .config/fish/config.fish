@@ -40,7 +40,8 @@ set -g pusshfs_mp ~/code/pussh
 
 function pussh
     set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
-    TERM=xterm-256color expect ~/.local/scripts/exp.sh $pussh_password ssh $pussh_server
+    # TERM=xterm-256color expect ~/.local/scripts/exp.sh $pussh_password ssh $pussh_server
+    TERM=xterm-256color ssh $pussh_server
 end
 
 function pfsum
@@ -50,8 +51,13 @@ end
 
 function pusshfs
     pfsum
-    set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
-    echo $pussh_password | sshfs "$pussh_server:$pusshfs_home" $pusshfs_mp -o password_stdin && 
+    # set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
+    # echo $pussh_password | sshfs "$pussh_server:$pusshfs_home" $pusshfs_mp -o password_stdin && 
+    #     echo "Successfully mounted $pussh_server:$pusshfs_home at $pusshfs_mp" &&
+    #     pussh &&
+    #     pfsum ||
+    #     echo "Mount failed"
+    sshfs "$pussh_server:$pusshfs_home" $pusshfs_mp && 
         echo "Successfully mounted $pussh_server:$pusshfs_home at $pusshfs_mp" &&
         pussh &&
         pfsum ||
