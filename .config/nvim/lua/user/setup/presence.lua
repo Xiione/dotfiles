@@ -4,7 +4,8 @@ if not status_ok then
 end
 
 local blacklist = {
-    "paladin"
+    "paladin",
+    "pussh"
 }
 
 presence.setup({
