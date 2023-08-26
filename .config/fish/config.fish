@@ -39,7 +39,7 @@ set -g pusshfs_home /homes/wang5660/
 set -g pusshfs_mp ~/code/pussh
 
 function pussh
-    if test $(ssh-add -l) = "The agent has no identities."
+    if test "$(ssh-add -l)" = "The agent has no identities."
         echo "The SSH agent has no identities. Aborting..."
         return
     end
@@ -54,7 +54,7 @@ function pfsum
 end
 
 function pusshfs
-    if test $(ssh-add -l) = "The agent has no identities."
+    if test "$(ssh-add -l)" = "The agent has no identities."
         echo "The SSH agent has no identities. Aborting..."
         return
     end
