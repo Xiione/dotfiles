@@ -39,6 +39,10 @@ set -g pusshfs_home /homes/wang5660/
 set -g pusshfs_mp ~/code/pussh
 
 function pussh
+    if test $(ssh-add -l) = "The agent has no identities."
+        echo "The SSH agent has no identities. Aborting..."
+        return
+    end
     set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
     # TERM=xterm-256color expect ~/.local/scripts/exp.sh $pussh_password ssh $pussh_server
     TERM=xterm-256color ssh $pussh_server
@@ -50,6 +54,10 @@ function pfsum
 end
 
 function pusshfs
+    if test $(ssh-add -l) = "The agent has no identities."
+        echo "The SSH agent has no identities. Aborting..."
+        return
+    end
     pfsum
     # set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
     # echo $pussh_password | sshfs "$pussh_server:$pusshfs_home" $pusshfs_mp -o password_stdin && 
