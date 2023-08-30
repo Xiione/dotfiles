@@ -40,7 +40,13 @@ require("lazy").setup({
 	{ "hrsh7th/cmp-nvim-lua" },
 
 	-- snippets
-	{ "L3MON4D3/LuaSnip" }, --snippet engine
+	{
+		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!).
+		build = "make install_jsregexp",
+	}, --snippet engine
 	-- { "rafamadriz/friendly-snippets" }, -- a bunch of snippets to use
 
 	-- LSP
@@ -91,11 +97,7 @@ require("lazy").setup({
 	{ "lervag/vimtex" },
 	{
 		"iurimateus/luasnip-latex-snippets.nvim",
-		dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
-		config = function()
-			require("luasnip-latex-snippets").setup()
-		end,
-		ft = "tex",
+		dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" }
 	},
 
 	{ "folke/neodev.nvim" },
@@ -114,5 +116,5 @@ require("lazy").setup({
 	{ "tpope/vim-abolish" },
 	{ "echasnovski/mini.surround", version = "*" },
 	{ "airblade/vim-matchquote" },
-	{ "simrat39/symbols-outline.nvim" } ,
+	{ "simrat39/symbols-outline.nvim" },
 }, {})
