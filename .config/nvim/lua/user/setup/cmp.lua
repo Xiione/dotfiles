@@ -115,11 +115,9 @@ cmp.setup({
 		},
 	},
 	experimental = {
-		ghost_text = true,
+		ghost_text = false,
 	},
     completion = {
         completeopt = 'menu,menuone,noinsert'
     }
 })
-
-require("luasnip/loaders/from_vscode").lazy_load()
