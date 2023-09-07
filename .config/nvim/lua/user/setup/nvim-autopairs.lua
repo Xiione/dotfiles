@@ -27,6 +27,8 @@ npairs.setup({
 	},
 })
 
+npairs.add_rule(Rule("$$","$$", {"tex", "latex"}))
+
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
