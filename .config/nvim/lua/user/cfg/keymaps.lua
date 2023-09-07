@@ -31,8 +31,8 @@ map({ "i", "c" }, "<M-bs>", "<C-w>", { remap = true })
 
 -- adjustments in insert
 map("i", "<C-h>", "<Left>", silent)
-map("i", "<C-j>", "<Down>", silent)
-map("i", "<C-k>", "<Up>", silent)
+-- map("i", "<C-j>", "<Down>", silent)
+-- map("i", "<C-k>", "<Up>", silent)
 map("i", "<C-l>", "<Right>", silent)
 
 -- Better window navigation
