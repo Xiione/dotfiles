@@ -34,6 +34,7 @@ end
 -- language configurations
 dap.configurations.python = {
 	{
+		name = "python",
 		type = "python",
 		request = "launch",
 		program = "${file}",
@@ -45,6 +46,7 @@ dap.configurations.python = {
 
 dap.configurations.c = {
 	{
+		name = "codelldb",
 		type = "codelldb",
 		request = "launch",
 		cwd = "${workspaceFolder}",
@@ -56,18 +58,7 @@ dap.configurations.c = {
 	},
 }
 
-dap.configurations.cpp = {
-	{
-		type = "codelldb",
-		request = "launch",
-		cwd = "${workspaceFolder}",
-		stopOnEntry = false,
-		program = "${fileDirname}/${fileBasenameNoExtension}",
-		args = {},
-		terminal = "integrated",
-		console = "integratedTerminal",
-	},
-}
+dap.configurations.cpp = dap.configurations.c
 dap.configurations.rust = dap.configurations.cpp
 
 -- repl setup

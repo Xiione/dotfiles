@@ -97,8 +97,11 @@ M.flag_build_success = "NV_BUILD_SUCCESS"
 M.flag_build_fail = "NV_BUILD_FAIL"
 M.flag_ready_debug = "NV_READY_FOR_DEBUG"
 
-M.setup_build_command = function(mode, mapping, cmd)
+M.setup_build_command = function(mode, mapping, cmd, prepare)
 	M.map(mode, mapping, function()
+        if prepare then
+            prepare()
+        end
 		print("Building...")
 		M.send_return()
 		M.exec_cmd({
@@ -113,8 +116,11 @@ M.setup_build_command = function(mode, mapping, cmd)
 	end, nil, vim.fn.bufnr())
 end
 
-M.setup_debug_command = function(mode, mapping, cmd)
+M.setup_debug_command = function(mode, mapping, cmd, prepare)
 	M.map(mode, mapping, function()
+        if prepare then
+            prepare()
+        end
 		print("Building...")
 		M.send_return()
 		M.exec_cmd({
