@@ -47,6 +47,5 @@ yabai -m rule --add label="About This Mac" app="System Information" title="About
 yabai -m rule --add label="Steam" app="Steam" manage=off border=off
 yabai -m rule --add label="Arc" app="Arc" subrole="AXWindow" border=off
 yabai -m rule --add label="Arc C-Tab" app="Arc" subrole="AXDialog" manage=off border=off
-yabai -m rule --add label="Ryujinx" app="^Ryujinx" title="(Settings|ContentDialogOverlay)" manage=off
-
+yabai -m rule --add label="Little Arc" app='^Arc$' title='^Space.*$' manage=off
 echo "yabai configuration loaded.."
