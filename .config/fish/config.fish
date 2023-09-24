@@ -76,3 +76,6 @@ function purgedsstore
     find . -name ".DS_Store" -type f -print -delete
 end
 
+function hydrus
+    sh ~/code/hydrus/hydrus_client.command
+end
