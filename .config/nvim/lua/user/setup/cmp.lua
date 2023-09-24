@@ -1,3 +1,4 @@
+---@diagnostic disable: missing-fields
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
 	return
@@ -36,6 +37,7 @@ local kind_icons = {
 	Variable = " ",
 }
 cmp.setup({
+    enabled = true,
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
@@ -51,9 +53,7 @@ cmp.setup({
 		["<C-f>"] = cmp.mapping.confirm({ select = true }),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if luasnip.expandable() then
-				luasnip.expand()
-			elseif luasnip.expand_or_jumpable() then
+			if luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
 			-- elseif check_backspace() then
 			-- 	fallback()
