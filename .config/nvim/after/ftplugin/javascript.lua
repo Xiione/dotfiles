@@ -3,7 +3,7 @@ if not status_ok then
 	return
 end
 
-virt_column.setup_buffer({ virtcolumn = "80" })
+virt_column.setup_buffer(0, { virtcolumn = "80" })
 
 vim.opt_local.shiftwidth = 2
 vim.opt_local.tabstop = 2
