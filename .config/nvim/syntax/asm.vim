@@ -2066,5 +2066,3 @@ syn sync ccomment
 syn sync linebreaks=1
 
 " vim: ts=8 sw=8 :
-/* vim: ft=gas : 
-*/ 

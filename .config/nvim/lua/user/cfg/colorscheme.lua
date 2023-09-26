@@ -166,4 +166,11 @@ set(0, "Quote", { fg = colors.nord4 })
 
 set(0, "MatchParen", { fg = colors.nord4, bg = colors.nord3 })
 
+-- gas.vim
+set(0, "gasBinaryNumber", { fg = colors.nord15 })
+set(0, "gasOctalNumber", { fg = colors.nord15 })
+set(0, "gasDecimalNumber", { fg = colors.nord15 })
+set(0, "gasHexNumber", { fg = colors.nord15 })
+set(0, "gasSymbolRef", { fg = colors.nord8 })
+
 return colors;
