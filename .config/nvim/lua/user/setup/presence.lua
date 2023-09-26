@@ -5,7 +5,8 @@ end
 
 local blacklist = {
     "paladin",
-    "pussh"
+    "pussh",
+    "tex"
 }
 
 presence.setup({
