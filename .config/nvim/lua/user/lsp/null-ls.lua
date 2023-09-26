@@ -21,6 +21,7 @@ null_ls.setup({
 		formatting.google_java_format,
 		formatting.clang_format,
         formatting.shellharden,
+        formatting.asmfmt,
 		diagnostics.flake8,
 	},
 })

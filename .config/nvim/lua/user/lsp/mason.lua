@@ -9,7 +9,8 @@ local servers = {
 	"yamlls",
 	"jdtls",
 	"clangd",
-    "texlab"
+    "texlab",
+    "asm_lsp"
 }
 local settings = {
 	ui = {
