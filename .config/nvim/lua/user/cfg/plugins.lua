@@ -25,7 +25,7 @@ require("lazy").setup({
 	{ "akinsho/toggleterm.nvim" },
 	{ "ahmedkhalf/project.nvim" },
 	{ "lewis6991/impatient.nvim" },
-	{ "lukas-reineke/indent-blankline.nvim" },
+	{ "lukas-reineke/indent-blankline.nvim", main = "ibl" },
 	{ "goolord/alpha-nvim" },
 
 	-- Colorschemes
@@ -92,7 +92,6 @@ require("lazy").setup({
 		event = "BufReadPre", -- this will only start session saving when an actual file was opened
 	},
 
-	{ "Weissle/persistent-breakpoints.nvim" },
 	{ "eandrju/cellular-automaton.nvim" },
 	{ "lervag/vimtex" },
 	{
