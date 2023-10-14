@@ -50,7 +50,7 @@ end
 
 function pfsum
     echo "Trying unmount"
-    diskutil umount force $pusshfs_mp
+    sudo diskutil umount force $pusshfs_mp
 end
 
 function pusshfs
