@@ -6,11 +6,15 @@ end
 local sidebars = require("user.lib.sidebars")
 
 indent_blankline.setup({
+    exclude = {
+        buftypes = { "terminal", "nofile" },
+        filetypes = sidebars.sidebar_types
+    },
     indent = {
         char = "▏"
     },
-    exclude = {
-        buftypes = { "terminal", "nofile" },
-        filetypes = { sidebars.sidebar_types }
+    scope = {
+        show_start = false,
+        show_end = false
     }
 })
