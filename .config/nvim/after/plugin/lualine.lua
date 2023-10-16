@@ -55,11 +55,11 @@ mynord.normal = {
 mynord.insert = {
     a = {
         fg = afg,
-        bg = colors.nord14,
+        bg = colors.nord9,
         gui = "bold",
     },
     b = {
-        fg = colors.nord14,
+        fg = colors.nord9,
         bg = bbg,
     },
     c = c,
