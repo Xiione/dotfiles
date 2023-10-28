@@ -6,6 +6,11 @@ fish_add_path /opt/homebrew/bin
 fish_add_path /Library/TeX/texbin/latexmk
 fish_add_path ~/.cargo/bin/
 
+fish_add_path /opt/homebrew/opt/llvm/bin
+
+set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib"
+set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
+
 set -g theme_color_scheme nord
 set -gx EDITOR nvim
 set -gx VISUAL nvim
@@ -32,11 +37,10 @@ function ssh
 end
 
 
-set -g pusshfs_mp ~/code/pussh
 set -g pussh_server wang5660@data.cs.purdue.edu
 # set -g pussh_server wang5660@borg01.cs.purdue.edu
 set -g pusshfs_home /homes/wang5660/
-set -g pusshfs_mp ~/code/pussh
+set -g pusshfs_mp ~/pussh
 
 function pussh
     if test "$(ssh-add -l)" = "The agent has no identities."
@@ -69,7 +73,7 @@ function pusshfs
         echo "Successfully mounted $pussh_server:$pusshfs_home at $pusshfs_mp" &&
         pussh &&
         pfsum ||
-        echo "Mount failed"
+        echo "Unmount failed"
 end
 
 function purgedsstore
