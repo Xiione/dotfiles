@@ -7,6 +7,7 @@ My MacOS configuration files.
 <br/><br/>
 <img width="1470" alt="Screenshot 2023-11-13 at 2 11 51 PM" src="https://github.com/Xiione/dotfiles/assets/25933822/aee1b4bb-c3db-4f61-9418-1845a24b13d2">
 <br/><br/>
+<img width="1470" alt="Screenshot 2023-11-13 at 2 19 10 PM" src="https://github.com/Xiione/dotfiles/assets/25933822/40a47364-1577-4331-ae7a-94b1ae5ca5b7">
 
 
 - [kitty](https://sw.kovidgoyal.net/kitty/) (terminal emulator)
