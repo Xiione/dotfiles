@@ -2,6 +2,15 @@
 
 My MacOS configuration files.
 
+
+<img width="1470" alt="Screenshot 2023-11-13 at 2 04 49 PM" src="https://github.com/Xiione/dotfiles/assets/25933822/49c8574f-2fc4-4e99-a818-d48e1796732d">
+<br/><br/>
+<img width="1470" alt="Screenshot 2023-11-13 at 2 11 51 PM" src="https://github.com/Xiione/dotfiles/assets/25933822/aee1b4bb-c3db-4f61-9418-1845a24b13d2">
+<br/><br/>
+<img width="1470" alt="Screenshot 2023-11-13 at 2 07 22 PM" src="https://github.com/Xiione/dotfiles/assets/25933822/933becdb-2f21-4a0b-a62a-a749fe17fb2e">
+<br/><br/>
+
+
 - [kitty](https://sw.kovidgoyal.net/kitty/) (terminal emulator)
 - [fish](https://fishshell.com/) (shell)
 - [Neovim](https://neovim.io/) (editor)
@@ -13,8 +22,6 @@ My MacOS configuration files.
 - [sketchybar](https://felixkratz.github.io/SketchyBar/) (status bar replacement)
   - Configuration installed from a separate repository ([here](https://github.com/Xiione/felixkratz-dotfiles))
 <br/><br/>
-  
-<img width="1470" alt="image" src="https://github.com/Xiione/dotfiles/assets/25933822/b0dbde3a-a8e3-452f-b8d0-cfe45b34c628">
 
 Best effort to use [Nord](https://www.nordtheme.com/) wherever possible
 
