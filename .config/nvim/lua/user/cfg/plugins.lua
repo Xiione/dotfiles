@@ -95,7 +95,7 @@ require("lazy").setup({
 	{ "eandrju/cellular-automaton.nvim" },
 	{ "lervag/vimtex" },
 	{
-		"iurimateus/luasnip-latex-snippets.nvim",
+		"Xiione/luasnip-latex-snippets.nvim",
 		dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" }
 	},
 
@@ -111,7 +111,6 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 		},
 	},
-	{ "andweeb/presence.nvim" },
 	{ "tpope/vim-abolish" },
 	{ "echasnovski/mini.surround", version = "*" },
 	{ "airblade/vim-matchquote" },
