@@ -4,7 +4,8 @@ end
 
 fish_add_path /opt/homebrew/bin
 fish_add_path /Library/TeX/texbin/latexmk
-fish_add_path ~/.cargo/bin/
+fish_add_path ~/.cargo/bin
+fish_add_path ~/Library/Python/3.11/bin
 
 fish_add_path /opt/homebrew/opt/llvm/bin
 
