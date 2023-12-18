@@ -37,18 +37,21 @@ local vimtex_toc_open = false
 
 M.sidebar_functions = {
 	dapui = {
+		exclusive = true,
 		is_right_side = false,
 		toggle = dapui.toggle,
 		open = dapui.open,
 		close = dapui.close,
 	},
 	nvimtree = {
+		exclusive = false,
 		is_right_side = false,
 		toggle = nvim_tree.tree.toggle,
 		open = nvim_tree.tree.open,
 		close = nvim_tree.tree.close,
 	},
 	undotree = {
+		exclusive = false,
 		is_right_side = true,
 		toggle = function()
 			vim.cmd("UndotreeToggle")
@@ -68,6 +71,7 @@ M.sidebar_functions = {
 		end,
 	},
 	vimtex_toc = {
+		exclusive = false,
 		is_right_side = false,
 		toggle = function()
 			vim.cmd("VimtexTocToggle")
@@ -85,6 +89,7 @@ M.sidebar_functions = {
 		end,
 	},
 	symbols_outline = {
+		exclusive = false,
 		is_right_side = true,
 		toggle = function()
 			vim.cmd("SymbolsOutline")
@@ -105,7 +110,7 @@ M.toggle = function(sidebar)
 
 	-- first close the sidebar that may be open on the appropriate side
 	for key, val in pairs(M.sidebar_functions) do
-		if val.is_right_side == is_right_side then
+		if target.exclusive or val.exclusive or val.is_right_side == is_right_side then
 			if key ~= sidebar then
 				-- symbols-outline throws an error when it's 'closed' when it isn't open
 				pcall(val.close)
