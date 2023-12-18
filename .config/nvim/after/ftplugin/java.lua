@@ -36,7 +36,7 @@ local config = {
 		-- 💀
 		"-jar",
 		home
-			.. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar",
+			.. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.600.v20231012-1237.jar",
 		-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
 		-- Must point to the                                                     Change this to
 		-- eclipse.jdt.ls installation                                           the actual version
