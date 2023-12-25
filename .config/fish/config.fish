@@ -16,6 +16,8 @@ set -g theme_color_scheme nord
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 
+source ~/.config/fish/ssh_vars.fish
+
 function brew -d "Update outdated packages after running brew commands"
     command brew $argv
     if test $argv[1] = 'upgrade'
@@ -38,17 +40,12 @@ function ssh
 end
 
 
-set -g pussh_server wang5660@data.cs.purdue.edu
-# set -g pussh_server wang5660@borg01.cs.purdue.edu
-set -g pusshfs_home /homes/wang5660/
-set -g pusshfs_mp ~/pussh
-
 function pussh
     if test "$(ssh-add -l)" = "The agent has no identities."
         echo "The SSH agent has no identities. Aborting..."
         return
     end
-    set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
+    # set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
     # TERM=xterm-256color expect ~/.local/scripts/exp.sh $pussh_password ssh $pussh_server
     TERM=xterm-256color ssh $pussh_server
 end
@@ -73,6 +70,32 @@ function pusshfs
     sshfs "$pussh_server:$pusshfs_home" $pusshfs_mp && 
         echo "Successfully mounted $pussh_server:$pusshfs_home at $pusshfs_mp" &&
         pussh &&
+        pfsum ||
+        echo "Unmount failed"
+end
+
+function irssh
+    if test "$(ssh-add -l)" = "The agent has no identities."
+        echo "The SSH agent has no identities. Aborting..."
+        return
+    end
+    TERM=xterm-256color ssh $irssh_server
+end
+
+function ifsum
+    echo "Trying unmount"
+    sudo diskutil umount force $irsshfs_mp
+end
+
+function irsshfs
+    if test "$(ssh-add -l)" = "The agent has no identities."
+        echo "The SSH agent has no identities. Aborting..."
+        return
+    end
+    pfsum
+    sshfs "$irssh_server:$irsshfs_home" $irsshfs_mp && 
+        echo "Successfully mounted $irssh_server:$irsshfs_home at $irsshfs_mp" &&
+        irssh &&
         pfsum ||
         echo "Unmount failed"
 end

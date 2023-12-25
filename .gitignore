@@ -3,3 +3,4 @@ old/
 .config/nvim/lazy-lock.json
 .config/sketchybar/
 .config/fish/fish_variables
+.config/fish/ssh_vars.fish
