@@ -167,7 +167,7 @@ ctrl + shift - t : yabai -m space --create && \
                   set -l index "$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
                   yabai -m window --space $index && \
                   yabai -m space --focus $index && \
-                  sketchybar -m --trigger space_change
+                  sketchybar -m --trigger space_change && sketchybar -m --trigger windows_on_spaces
 
 # destroy desktop
 ctrl + alt - w : yabai -m space --destroy && yabai -m window --focus recent && sketchybar -m --trigger space_change
@@ -256,8 +256,7 @@ alt - tab : yabai -m space --focus recent
 # alt + shift - tab : (yabai -m display --focus prev) || (yabai -m display --focus last) && sketchybar -m --trigger space_change
 
 # reload yabai and skhdrc
-ctrl + alt + shift - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai" && sudo yabai --load-sa && skhd --reload && \
-       sketchybar -m --update
+ctrl + alt + shift - r : yabai --restart-service && skhd --restart-service && sketchybar -m --update
 
 # open terminal
 # ctrl - return : ~/.scripts/.terminal
