@@ -65,7 +65,7 @@ end
 M.exec_cmd = function(args)
 	vim.cmd("wall")
 	if type(args) == "string" then
-		toggleterm.exec(vim.fn.expandcmd(args), vim.v.count, nil, nil, nil, nil, nil)
+		toggleterm.exec(args, vim.v.count, nil, nil, nil, nil, nil)
 	else
 		if not initalized then
 			local Terminal = require("toggleterm.terminal").Terminal
@@ -76,7 +76,7 @@ M.exec_cmd = function(args)
 			})
 			initalized = true
 		else
-			toggleterm.exec(vim.fn.expandcmd(args.cmd), vim.v.count, nil, args.dir, nil, nil, args.open)
+			toggleterm.exec(args.cmd, vim.v.count, nil, args.dir, nil, nil, args.open)
 		end
 	end
 end
