@@ -49,7 +49,7 @@ toggleterm.setup({
             if (term:is_open()) then
                 term:close()
             end
-            dap.continue()
+            vim.fn.jobstart({'sleep', '0.005'}, {on_exit = function () dap.continue() end})
         end
     end,
 })
