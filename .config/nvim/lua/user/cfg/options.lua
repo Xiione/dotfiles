@@ -103,9 +103,12 @@ vim.g["undotree_TreeSplitShape"] = "╱"
 
 -- Some annoying plugin messages, they seem to work fine regardless
 local ignore_messages = {
+    -- lsp issue?
     "warning: multiple different client offset_encodings",
+    -- dap messages
     "Debug adapter reported a frame at line",
-    "Resolved locations:"
+    "Resolved locations:",
+    "No configuration found for"
 }
 local notify = vim.notify
 vim.notify = function(msg, ...)
