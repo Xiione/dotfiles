@@ -173,4 +173,26 @@ set(0, "gasDecimalNumber", { fg = colors.nord15 })
 set(0, "gasHexNumber", { fg = colors.nord15 })
 set(0, "gasSymbolRef", { fg = colors.nord8 })
 
+-- semantic tokens 'fix'
+local links = {
+  ['@lsp.type.namespace'] = '@namespace',
+  ['@lsp.type.type'] = '@type',
+  ['@lsp.type.class'] = '@type',
+  ['@lsp.type.enum'] = '@type',
+  ['@lsp.type.interface'] = '@type',
+  ['@lsp.type.struct'] = '@structure',
+  ['@lsp.type.parameter'] = '@parameter',
+  -- ['@lsp.type.variable'] = '@variable',
+  ['@lsp.type.property'] = '@property',
+  ['@lsp.type.enumMember'] = '@constant',
+  ['@lsp.type.function'] = '@function',
+  ['@lsp.type.method'] = '@method',
+  ['@lsp.type.macro'] = '@macro',
+  ['@lsp.type.decorator'] = '@function',
+}
+for newgroup, oldgroup in pairs(links) do
+  set(0, newgroup, { link = oldgroup, default = true })
+end
+set(0, "@type", { fg = colors.nord10 })
+
 return colors;
