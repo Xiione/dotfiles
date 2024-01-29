@@ -28,8 +28,7 @@ M.sidebar_types = {
 	"man",
 	"NvimTree",
 	"undotree",
-	"vimtex-toc",
-	"",
+	"vimtex-toc"
 }
 
 local undo_tree_open = false
