@@ -12,7 +12,7 @@ yabai -m signal --add event=window_destroyed action="sketchybar --trigger window
 
 yabai -m config debug_output               off              \
                 layout                     bsp              \
-                external_bar               main:1:0         \
+                external_bar               main:0:0         \
                 window_border              off               \
                 mouse_follows_focus        off              \
                 focus_follows_mouse        off              \
