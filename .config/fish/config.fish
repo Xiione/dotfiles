@@ -107,3 +107,5 @@ end
 function hydrus
     sh ~/code/hydrus/hydrus_client.command
 end
+
+zoxide init fish | source
