@@ -22,12 +22,12 @@ nvim_tree.setup({
         root_folder_modifier = ":~",
         icons = {
             webdev_colors = true,
-            git_placement = "signcolumn",
+            git_placement = "after",
             show = {
                 file = true,
                 folder = true,
                 folder_arrow = false,
-                git = false,
+                git = true,
                 modified = true,
             },
             glyphs = {
@@ -43,12 +43,12 @@ nvim_tree.setup({
                 },
                 git = {
                     unstaged = "󰄱",
-                    staged = "",
+                    staged = "󰡖",
                     unmerged = "",
-                    renamed = "➜",
+                    renamed = "󰏫",
                     untracked = "",
-                    deleted = "✖",
-                    ignored = "",
+                    deleted = "D",
+                    ignored = "󰛑",
                 },
             },
         },
@@ -142,12 +142,10 @@ nvim_tree.setup({
 
 
         -- Mappings migrated from view.mappings.list
-        --
-        -- You will need to insert "your code goes here" for any mappings with a custom action_cb
+
         vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
         vim.keymap.set('n', '.', api.tree.change_root_to_node, opts('CD'))
         vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
-        vim.keymap.set('n', 'v', api.node.open.vertical, opts('Open: Vertical Split'))
         vim.keymap.set('n', 'K', api.node.show_info_popup, opts('Info'))
     end,
     view = {

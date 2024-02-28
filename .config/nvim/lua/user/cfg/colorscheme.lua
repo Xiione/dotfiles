@@ -195,4 +195,8 @@ for newgroup, oldgroup in pairs(links) do
 end
 set(0, "@type", { fg = colors.nord10 })
 
+set(0, "NvimTreeGitNew", { fg = colors.nord11 })
+set(0, "NvimTreeGitStaged", { fg = colors.nord14 })
+set(0, "NvimTreeGitDirty", { fg = colors.nord11 })
+
 return colors;
