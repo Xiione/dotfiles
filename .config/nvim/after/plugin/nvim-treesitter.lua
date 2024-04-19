@@ -9,6 +9,7 @@ if not status_ok then
 end
 
 configs.setup({
+    auto_install = true,
 	ensure_installed = {
 		"lua",
 		"markdown",
@@ -20,6 +21,7 @@ configs.setup({
 		"javascript",
 		"typescript",
 		"tsx",
+        "rust"
 	}, -- put the language you want in this array
 	-- ensure_installed = "all", -- one of "all" or a list of languages
 	ignore_install = { "" }, -- List of parsers to ignore installing
@@ -43,4 +45,5 @@ configs.setup({
 			node_decremental = "<S-TAB>",
 		},
 	},
+    modules = {}
 })

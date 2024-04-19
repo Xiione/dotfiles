@@ -22,22 +22,6 @@ dashboard.section.buttons.val = {
     dashboard.button("q", " " .. " Quit", "<CMD>qa<CR>"),
 }
 
-local quotes = {
-    "Pain is weakness leaving the body",
-    "Life is a banquet, and most poor suckers are starving to death !",
-    "Waiting for something to happen?",
-    "Maybe you have some bird ideas. Maybe that’s the best you can do.",
-    "'I can figure this out.'",
-    "10 years ago or today, life is worth living",
-    "all I understand is that I don't understand"
-}
-local function footer()
-    math.randomseed(os.time())
-    return quotes[math.random(1, #quotes)]
-end
-
-dashboard.section.footer.val = footer()
-
 dashboard.section.footer.opts.hl = "Type"
 dashboard.section.header.opts.hl = "Include"
 dashboard.section.buttons.opts.hl = "Keyword"
