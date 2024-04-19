@@ -10,7 +10,8 @@ local servers = {
 	"jdtls",
 	"clangd",
     "texlab",
-    "asm_lsp"
+    "asm_lsp",
+    "marksman"
 }
 local settings = {
 	ui = {
