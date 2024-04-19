@@ -96,7 +96,7 @@ require("lazy").setup({
 	{ "lervag/vimtex" },
 	{
 		"Xiione/luasnip-latex-snippets.nvim",
-		dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" }
+		dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" },
 	},
 
 	{ "folke/neodev.nvim" },
@@ -115,4 +115,11 @@ require("lazy").setup({
 	{ "echasnovski/mini.surround", version = "*" },
 	{ "airblade/vim-matchquote" },
 	{ "simrat39/symbols-outline.nvim" },
+
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^4", -- Recommended
+		ft = { "rust" },
+	},
+    { "nvim-neotest/nvim-nio"}
 }, {})
