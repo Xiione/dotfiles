@@ -28,7 +28,7 @@ M.sidebar_types = {
 	"man",
 	"NvimTree",
 	"undotree",
-	"vimtex-toc"
+	"vimtex-toc",
 }
 
 local undo_tree_open = false
@@ -55,18 +55,18 @@ M.sidebar_functions = {
 		toggle = function()
 			vim.cmd("UndotreeToggle")
 			undo_tree_open = not undo_tree_open
+            if undo_tree_open then
+                vim.cmd("UndotreeFocus")
+            end
 		end,
 		open = function()
-			if not undo_tree_open then
-				vim.cmd("UndotreeToggle")
-				undo_tree_open = true
-			end
+            vim.cmd("UndotreeShow")
+            vim.cmd("UndotreeFocus")
+            undo_tree_open = true
 		end,
 		close = function()
-			if undo_tree_open then
-				vim.cmd("UndotreeToggle")
-				undo_tree_open = false
-			end
+            vim.cmd("UndotreeHide")
+            undo_tree_open = false
 		end,
 	},
 	vimtex_toc = {
