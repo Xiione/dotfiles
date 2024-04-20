@@ -41,10 +41,10 @@ local colors = {
 	nord15 = "#B48EAD",
 }
 
-local normal = get_hl(0, {name = "Normal"})
-normal.bg = "none"
--- normal.sp = "none"
-set(0, "Normal", normal)
+-- local normal = get_hl(0, {name = "Normal"})
+-- normal.bg = "none"
+-- -- normal.sp = "none"
+-- set(0, "Normal", normal)
 
 local normalFloat = get_hl(0, {name = "NormalFloat"})
 normalFloat.bg = colors.nord17
