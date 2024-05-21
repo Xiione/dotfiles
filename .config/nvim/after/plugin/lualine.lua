@@ -34,97 +34,34 @@ local spaces = function()
     return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
 end
 
+
 local mynord = require("lualine.themes.nord")
-
-local c = { fg = colors.nord4, bg = colors.nord0 }
-local afg = colors.nord0
-local bbg = colors.nord1
-
-mynord.normal = {
-    a = {
-        fg = afg,
-        bg = colors.nord4,
-        gui = "bold",
-    },
-    b = {
-        fg = colors.nord4,
-        bg = bbg,
-    },
-    c = c,
-}
-mynord.insert = {
-    a = {
-        fg = afg,
-        bg = colors.nord9,
-        gui = "bold",
-    },
-    b = {
-        fg = colors.nord9,
-        bg = bbg,
-    },
-    c = c,
-}
-mynord.visual = {
-    a = {
-        fg = afg,
-        bg = colors.nord7,
-        gui = "bold",
-    },
-    b = {
-        fg = colors.nord7,
-        bg = bbg,
-    },
-    c = c,
-}
-mynord.replace = {
-    a = {
-        fg = afg,
-        bg = colors.nord13,
-        gui = "bold",
-    },
-    b = {
-        fg = colors.nord13,
-        bg = bbg,
-    },
-    c = c,
-}
-mynord.command = {
-    a = {
-        fg = afg,
-        bg = colors.nord12,
-        gui = "bold",
-    },
-    b = {
-        fg = colors.nord12,
-        bg = bbg,
-    },
-    c = c,
+local mode_colors = {
+    normal = colors.nord4,
+    insert = colors.nord9,
+    visual = colors.nord7,
+    replace = colors.nord13,
+    command = colors.nord12,
+    terminal = colors.nord15,
+    select = colors.nord10,
 }
 
-mynord.terminal = {
+for mode, color in pairs(mode_colors) do
+    mynord[mode] = {
     a = {
-        fg = afg,
-        bg = colors.nord15,
+        fg = colors.nord0,
+        bg = color,
         gui = "bold",
     },
     b = {
-        fg = colors.nord15,
-        bg = bbg,
-    },
-    c = c,
+        fg = color,
+        bg = colors.nord1,
+    }
+,
+    c = { fg = colors.nord4, bg = colors.nord0 },
 }
-mynord.select = {
-    a = {
-        fg = afg,
-        bg = colors.nord10,
-        gui = "bold",
-    },
-    b = {
-        fg = colors.nord10,
-        bg = bbg,
-    },
-    c = c,
-}
+end
+
 mynord.inactive = {
     c = {
         fg = colors.nord3,
@@ -155,7 +92,8 @@ lualine.setup({
     sections = {
         lualine_a = { { "mode", padding = 1 } },
         lualine_b = { diagnostics },
-        lualine_c = { diff },
+        -- lualine_c = { diff },
+        lualine_c = { "grapple" },
         lualine_x = {
             "filetype" },
         lualine_y = { { "progress", padding = 1 } },

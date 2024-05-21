@@ -100,16 +100,6 @@ map("t", "<C-l>", "<C-\\><C-n><C-W>l", silent)
 -- lsp formatter
 map("n", "<leader>lf", "<CMD>lua vim.lsp.buf.format{ async = true }<CR>", silent)
 
-map("n", "<leader>a", function()
-	local marks = require("harpoon").get_mark_config().marks
-	local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
-	local ct_before = #marks
-	require("harpoon.mark").add_file()
-	if #marks ~= ct_before then
-		vim.api.nvim_echo({ { ('"%s" successfully marked with index %d'):format(bufname, #marks) } }, false, {})
-	end
-end, silent)
-
 -- Plugins
 
 -- NvimTree/NeoTree
@@ -149,17 +139,30 @@ end)
 
 -- Undotree
 map("n", "<leader>u", function()
-    sidebars.toggle("undotree")
+	sidebars.toggle("undotree")
 end, silent)
 
--- Harpoon
-map("n", "<leader>m", function()
-	require("harpoon.ui").toggle_quick_menu()
-end, silent)
+-- Harpoon/Grapple
+map("n", "<leader>a", require("grapple").toggle)
+-- function()
+	-- local marks = require("harpoon").get_mark_config().marks
+	-- local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+	-- local ct_before = #marks
+	-- require("harpoon.mark").add_file()
+	-- if #marks ~= ct_before then
+	-- 	vim.api.nvim_echo({ { ('"%s" successfully marked with index %d'):format(bufname, #marks) } }, false, {})
+	-- end
+-- end, silent)
+
+map("n", "<leader>m", require("grapple").toggle_tags)
+-- function()
+	-- require("harpoon.ui").toggle_quick_menu()
+-- end, silent)
 
 for i = 1, 9 do
 	map("n", string.format("<leader>%d", i), function()
-		require("harpoon.ui").nav_file(i)
+		require("grapple").select({ index = i })
+		-- require("harpoon.ui").nav_file(i)
 	end, silent)
 end
 
@@ -167,6 +170,13 @@ end
 map("n", "<leader>A", "<CMD>Alpha<CR>", silent)
 
 -- Symbols outline
-map("n", "<leader>o", function ()
-    sidebars.toggle("symbols_outline")
+map("n", "<leader>o", function()
+	sidebars.toggle("symbols_outline")
 end, silent)
+
+-- Change trackpad scroll to move window instead of cursor
+map("n", "<Up>", "<C-y>", silent)
+map("n", "<Down>", "<C-e>", silent)
+-- I'm pretty sure you can't use the trackpad for left and right anyways
+map("n", "<Left>", "zh", silent)
+map("n", "<Right>", "zl", silent)
