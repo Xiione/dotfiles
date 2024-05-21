@@ -182,7 +182,7 @@ local links = {
   ['@lsp.type.interface'] = '@type',
   ['@lsp.type.struct'] = '@structure',
   ['@lsp.type.parameter'] = '@parameter',
-  -- ['@lsp.type.variable'] = '@variable',
+  ['@lsp.type.variable'] = '@variable',
   ['@lsp.type.property'] = '@property',
   ['@lsp.type.enumMember'] = '@constant',
   ['@lsp.type.function'] = '@function',
@@ -193,7 +193,8 @@ local links = {
 for newgroup, oldgroup in pairs(links) do
   set(0, newgroup, { link = oldgroup, default = true })
 end
-set(0, "@type", { fg = colors.nord10 })
+-- set(0, "@type", { fg = colors.nord10 })
+set(0, "@namespace", { fg = colors.nord10 })
 
 set(0, "NvimTreeGitNew", { fg = colors.nord11 })
 set(0, "NvimTreeGitStaged", { fg = colors.nord14 })
