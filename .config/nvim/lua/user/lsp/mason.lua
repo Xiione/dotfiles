@@ -11,7 +11,8 @@ local servers = {
 	"clangd",
     "texlab",
     "asm_lsp",
-    "marksman"
+    "marksman",
+    "cmake",
 }
 local settings = {
 	ui = {

@@ -22,6 +22,7 @@ null_ls.setup({
 		formatting.clang_format,
         formatting.shellharden,
         formatting.asmfmt,
-        formatting.rustfmt
+        formatting.rustfmt,
+        formatting.cmake_format,
 	},
 })
