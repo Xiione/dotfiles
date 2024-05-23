@@ -97,7 +97,7 @@ dapui.setup({
 			elements = {
 				{ id = "console", size = 1.0 },
 			},
-			size = 0.24,
+			size = 0.25,
 			position = "bottom",
 		},
 	},
