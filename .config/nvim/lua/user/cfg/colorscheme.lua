@@ -51,6 +51,7 @@ normalFloat.bg = colors.nord17
 normalFloat.sp = colors.nord4
 set(0, "NormalSidebar", normalFloat)
 set(0, "NormalFloat", normalFloat)
+
 set(0, "HarpoonBorder", normalFloat)
 set(1, "HarpoonWindow", normalFloat)
 
@@ -199,5 +200,13 @@ set(0, "@namespace", { fg = colors.nord10 })
 set(0, "NvimTreeGitNew", { fg = colors.nord11 })
 set(0, "NvimTreeGitStaged", { fg = colors.nord14 })
 set(0, "NvimTreeGitDirty", { fg = colors.nord11 })
+
+-- changed in 0.10?
+set(0, "WinSeparator", { fg = colors.nord0 })
+set(0, "WinBar", { bg = colors.nord16 })
+set(0, "WinBarNC", { bg = colors.nord16 })
+
+-- for lsp_signature
+set(0, "LspSignatureActiveParameter", { link = "Visual" })
 
 return colors;

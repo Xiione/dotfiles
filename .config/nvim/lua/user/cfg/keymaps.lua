@@ -180,3 +180,6 @@ map("n", "<Down>", "<C-e>", silent)
 -- I'm pretty sure you can't use the trackpad for left and right anyways
 map("n", "<Left>", "zh", silent)
 map("n", "<Right>", "zl", silent)
+
+-- Add :Inspect to insert mode for weird customization case for lsp_signature
+map("i", "<C-i>", "<CMD>Inspect<CR>", silent)

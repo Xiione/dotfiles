@@ -132,6 +132,10 @@ require("lazy").setup({
 		dependencies = {
 			{ "nvim-tree/nvim-web-devicons", lazy = true },
 		},
-        event = { "BufReadPost", "BufNewFile" },
+		event = { "BufReadPost", "BufNewFile" },
+	},
+	{
+		"ray-x/lsp_signature.nvim",
+		event = "VeryLazy",
 	},
 }, {})
