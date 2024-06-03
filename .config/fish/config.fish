@@ -104,8 +104,51 @@ function purgedsstore
     find . -name ".DS_Store" -type f -print -delete
 end
 
-function hydrus
-    sh ~/code/hydrus/hydrus_client.command
+function newcpprob
+    argparse 'X' -- $argv
+    or begin
+        echo "Usage: newcpprob problem_name [-X] "
+        return 1
+    end
+
+    if test (count $argv) -eq 0
+        echo "Usage: newcpprob problem_name [-X] "
+        return 1
+    end
+
+    set -l probname $argv[1]
+    set -l probpath "./$probname"
+    mkdir $probpath
+    or begin
+        echo "Failed to create directory $probpath"
+        return 1
+    end
+
+    cp "$__fish_config_dir/newcpprob.makefile" "$probpath/Makefile"
+    or begin
+        echo "Failed to create Makefile"
+        return 1
+    end
+
+    set -l probsrc "$probname.cpp"
+
+    sed -i "" "s/{{EXECUTABLE}}/$probname/g" "$probpath/Makefile"
+    sed -i "" "s/{{SOURCE}}/$probsrc/g" "$probpath/Makefile"
+    or begin
+        echo "Failed to initialize Makefile template"
+        return 1
+    end
+
+    touch "$probpath/$probsrc"
+    or begin
+        echo "Failed to create $probsrc"
+        return 1
+    end
+
+    if not set -q _flag_x
+        cd $probpath
+        nvim "./$probsrc"
+    end
 end
 
 zoxide init fish | source
