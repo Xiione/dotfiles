@@ -134,8 +134,6 @@ require("lazy").setup({
 		},
 		event = { "BufReadPost", "BufNewFile" },
 	},
-	{
-		"ray-x/lsp_signature.nvim",
-		event = "VeryLazy",
-	},
+	-- { "ray-x/lsp_signature.nvim" },
+	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 }, {})
