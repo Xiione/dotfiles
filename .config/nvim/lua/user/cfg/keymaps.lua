@@ -1,5 +1,6 @@
 local utils = require("user.lib.utils")
 local sidebars = require("user.lib.sidebars")
+local term = require("user.lib.term")
 local map = utils.map
 
 local dap_status_ok, dap = pcall(require, "dap")
@@ -29,11 +30,13 @@ vim.g.mapleader = " "
 -- stole from william - delete a word at a time
 map({ "i", "c" }, "<M-bs>", "<C-w>", { remap = true })
 
--- adjustments in insert
+-- adjustments in insert and cmd
 map("i", "<C-h>", "<Left>", silent)
 -- map("i", "<C-j>", "<Down>", silent)
 -- map("i", "<C-k>", "<Up>", silent)
 map("i", "<C-l>", "<Right>", silent)
+map("c", "<C-h>", "<Left>", { remap = true })
+map("c", "<C-l>", "<Right>", { remap = true })
 
 -- Better window navigation
 map("n", "<C-h>", "<C-w>h", silent)
@@ -136,6 +139,9 @@ map("n", "<M-S-b>", function()
 		dap.set_breakpoint(condition)
 	end
 end)
+term.set_global_build_cmd("<M-c>", "make build")
+term.set_global_debug_cmd("<M-d>", "make build")
+term.set_global_term_cmd("<M-r>", "make run")
 
 -- Undotree
 map("n", "<leader>u", function()

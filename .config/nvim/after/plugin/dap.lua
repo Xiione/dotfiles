@@ -9,9 +9,14 @@ end
 
 local core = require("user.lib.core")
 local utils = require("user.lib.utils")
+local sidebars = require("user.lib.sidebars")
+local mason_path = vim.fn.glob(vim.fn.stdpath("data")) .. "/mason"
+local mason_bin_path = mason_path .. "/bin"
 
 -- servers launched internally in neovim
 local internal_servers = { codelldb = "codelldb server" }
+
+local M = {}
 
 -- adapters
 dap.adapters.python = {
@@ -20,16 +25,14 @@ dap.adapters.python = {
 	args = { "-m", "debugpy.adapter" },
 }
 
-dap.adapters.codelldb = function(callback, _)
-	utils.exec_cmd({
-		cmd = "codelldb --port 13000",
-		dir = vim.fn.expand("%:p:h"),
-		open = false,
-	})
-	vim.defer_fn(function()
-		callback({ type = "server", host = "127.0.0.1", port = 13000 })
-	end, 150)
-end
+dap.adapters.codelldb = {
+	type = "server",
+	port = "${port}",
+	executable = {
+		command = mason_bin_path .. "/codelldb",
+		args = { "--port", "${port}" },
+	},
+}
 
 -- language configurations
 dap.configurations.python = {
@@ -72,7 +75,7 @@ dap.repl.commands = vim.tbl_extend("force", dap.repl.commands, {
 
 -- dapui setup
 dapui.setup({
-	icons = { expanded = "", collapsed = "", circular = "" },
+	icons = { expanded = "", collapsed = "", circular = "", current_frame = "" },
 	mappings = {
 		expand = { "<CR>", "l" },
 		open = "o",
@@ -84,13 +87,13 @@ dapui.setup({
 	layouts = {
 		{
 			elements = {
-				{ id = "scopes", size = 0.33 },
-				{ id = "breakpoints", size = 0.17 },
-				{ id = "stacks", size = 0.125 },
-				{ id = "watches", size = 0.125 },
+				{ id = "scopes", size = 0.45 },
+				{ id = "breakpoints", size = 0.1 },
+				{ id = "stacks", size = 0.1 },
+				{ id = "watches", size = 0.1 },
 				{ id = "repl", size = 0.25 },
 			},
-			size = 40,
+			size = 80,
 			position = "left",
 		},
 		{
@@ -101,49 +104,61 @@ dapui.setup({
 			position = "bottom",
 		},
 	},
-	floating = { border = "solid", mappings = { close = { "q", "<esc>" } } },
+	floating = { border = "none", mappings = { close = { "q", "<esc>" } } },
+	element_mappings = {},
+	expand_lines = true,
+	force_buffers = true,
+	controls = {
+		element = "repl",
+		enabled = true,
+		icons = {
+			disconnect = "",
+			pause = "",
+			play = "",
+			run_last = "",
+			step_back = "",
+			step_into = "",
+			step_out = "",
+			step_over = "",
+			terminate = "",
+		},
+	},
+	render = {
+		indent = 2,
+		max_value_lines = 100,
+		max_type_length = 12,
+	},
 })
 
-local types_enabled = false
-dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
-
 -- remove debugging keymaps
-local function remove_maps()
+M.remove_maps = function()
 	-- utils.unmap("n", "<M-b>")
 	-- utils.unmap("n", "<M-S-b>")
 	utils.unmap({ "n", "v" }, "<M-k>")
 	utils.unmap("n", "<M-1>")
 	utils.unmap("n", "<M-2>")
 	utils.unmap("n", "<M-3>")
+	utils.unmap("n", "<M-4>")
+	utils.unmap("n", "<M-5>")
 end
 
 -- setup debugging keymaps
-local function setup_maps()
+M.setup_maps = function()
 	utils.map({ "n", "v" }, "<M-k>", dapui.eval)
 	utils.map("n", "<M-1>", dap.continue)
 	utils.map("n", "<M-2>", dap.step_over)
 	utils.map("n", "<M-3>", dap.terminate)
 	utils.map("n", "<M-4>", dap.step_into)
-
-	-- utils.map("n", "<m-q>", function()
-	-- 	remove_maps()
-	-- 	dap.close()
-	-- end)
-	--
-	-- utils.map("n", "<f4>", dapui.toggle)
+	utils.map("n", "<M-5>", dap.run_last)
 end
 
 local function start_session()
-	setup_maps()
-	require("nvim-tree.api").tree.close()
-	dapui.open()
-
-	-- force local statusline
-	-- require("user.lib.misc").toggle_global_statusline(true)
+	M.setup_maps()
+    sidebars.open("dapui")
 end
 
 local function terminate_session()
-	remove_maps()
+	M.remove_maps()
 end
 
 -- dap events
@@ -169,5 +184,3 @@ vim.fn.sign_define(
 	"DapBreakpointCondition",
 	{ text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DapBreakpointSign" }
 )
-
-return { remove_maps = remove_maps, setup_maps = setup_maps }

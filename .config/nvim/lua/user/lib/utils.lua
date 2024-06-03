@@ -99,9 +99,9 @@ M.flag_ready_debug = "NV_READY_FOR_DEBUG"
 
 M.setup_build_command = function(mode, mapping, cmd, prepare)
 	M.map(mode, mapping, function()
-        if prepare then
-            prepare()
-        end
+		if prepare then
+			prepare()
+		end
 		print("Building...")
 		M.send_return()
 		M.exec_cmd({
@@ -118,9 +118,9 @@ end
 
 M.setup_debug_command = function(mode, mapping, cmd, prepare)
 	M.map(mode, mapping, function()
-        if prepare then
-            prepare()
-        end
+		if prepare then
+			prepare()
+		end
 		print("Building...")
 		M.send_return()
 		M.exec_cmd({
@@ -149,12 +149,22 @@ M.toggle_scope_types = function()
 end
 
 local session_dap_executable
-M.get_dap_executable = function ()
-    if not session_dap_executable then
-        session_dap_executable = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        return session_dap_executable
-    end
-    return session_dap_executable
+M.get_dap_executable = function()
+	local makefile = io.open("./Makefile")
+	if makefile then
+		local executable
+		for line in makefile:lines() do
+			executable = line:match("^EXECUTABLE%s*=%s*(.+)")
+			if executable then
+                session_dap_executable = executable
+			end
+		end
+	end
+	if not session_dap_executable then
+		session_dap_executable = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		return session_dap_executable
+	end
+	return session_dap_executable
 end
 
 return M

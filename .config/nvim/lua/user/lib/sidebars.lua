@@ -121,4 +121,24 @@ M.toggle = function(sidebar)
 	target.toggle()
 end
 
+M.open = function(sidebar)
+	local target = M.sidebar_functions[sidebar]
+	local is_right_side = target.is_right_side
+
+	for key, val in pairs(M.sidebar_functions) do
+		if target.exclusive or val.exclusive or val.is_right_side == is_right_side then
+			if key ~= sidebar then
+				pcall(val.close)
+			end
+		end
+	end
+
+	pcall(target.open)
+end
+
+M.close = function(sidebar)
+	local target = M.sidebar_functions[sidebar]
+	pcall(target.close)
+end
+
 return M

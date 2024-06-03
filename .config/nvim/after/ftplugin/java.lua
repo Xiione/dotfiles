@@ -2,6 +2,10 @@ local status_ok, virt_column = pcall(require, "virt-column")
 if not status_ok then
 	return
 end
+local dap_status_ok, dap = pcall(require, "dap")
+if not dap_status_ok then
+	return
+end
 
 virt_column.setup_buffer(0, { virtcolumn = "80" })
 
@@ -98,7 +102,7 @@ require("jdtls").start_or_attach(config)
 
 -- rest of the stuff
 -- local tmux_send_cmd = require("utils.tmux").tmux_send_cmd
-local utils = require("user.lib.utils")
+local term = require("user.lib.term")
 
 local prepare_dapconfigs = function ()
     require('jdtls.dap').setup_dap_main_class_configs()
@@ -107,22 +111,9 @@ end
 if vim.fn.filereadable("build.gradle") == 1 then
     local cmd_build = "./gradlew assemble"
 
-    utils.setup_build_command("n", "<M-c>", cmd_build, prepare_dapconfigs)
-    utils.setup_debug_command("n", "<M-d>", cmd_build, prepare_dapconfigs)
-
-    -- test
-    -- utils.map('n', "<leader>B", function()
-    --     local cmd = "./gradlew build"
-    --     utils.send_cmd(cmd)
-    -- end)
-else
-    local cmd_build = "javac " .. utils.resolve_spaces(vim.fn.expand('%:p'))
-
-    utils.setup_build_command("n", "<M-c>", cmd_build, prepare_dapconfigs)
-    utils.setup_debug_command("n", "<M-d>", cmd_build, prepare_dapconfigs)
-
-    -- utils.map('n', "<leader>R", function()
-    --     local cmd = "java " .. utils.resolve_spaces(vim.fn.expand('%:p'))
-    --     utils.send_cmd(cmd)
-    -- end)
+    term.set_build_cmd("<M-b>", cmd_build)
+    term.set_debug_cmd("<M-d>", cmd_build, function ()
+        prepare_dapconfigs()
+        dap.continue()
+    end)
 end

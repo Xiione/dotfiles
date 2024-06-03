@@ -3,4 +3,6 @@ if not status_ok then
 	return
 end
 
-neodev.setup({})
+require("neodev").setup({
+  library = { plugins = { "nvim-dap-ui" }, types = true },
+})
