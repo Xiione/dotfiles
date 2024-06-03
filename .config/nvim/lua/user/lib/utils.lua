@@ -148,4 +148,13 @@ M.toggle_scope_types = function()
 	dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
 end
 
+local session_dap_executable
+M.get_dap_executable = function ()
+    if not session_dap_executable then
+        session_dap_executable = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        return session_dap_executable
+    end
+    return session_dap_executable
+end
+
 return M
