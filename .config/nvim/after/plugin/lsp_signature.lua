@@ -9,6 +9,6 @@ lsp_signature.setup({
 	handler_opts = {
 		border = "solid",
 	},
-	hi_parameter = "LspSignatureActiveParameter", -- how your parameter will be highlight
+	hi_parameter = "LspSignatureActiveParameter",
 	hint_enable = false,
 })

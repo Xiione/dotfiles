@@ -1,4 +1,3 @@
----@diagnostic disable: missing-fields
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
 	return
@@ -10,31 +9,31 @@ if not snip_status_ok then
 end
 
 local kind_icons = {
-	Class = " ",
-	Color = " ",
-	Constant = " ",
-	Constructor = " ",
-	Enum = " ",
-	EnumMember = " ",
-	Event = " ",
-	Field = " ",
-	File = " ",
-	Folder = " ",
-	Function = "󰊕 ",
-	Interface = " ",
-	Keyword = " ",
-	Method = " ",
-	Module = " ",
-	Operator = " ",
-	Property = " ",
-	Reference = " ",
-	Snippet = " ",
-	Struct = " ",
-	Text = "󰉿 ",
-	TypeParameter = " ",
-	Unit = " ",
-	Value = " ",
-	Variable = " ",
+	Class = "",
+	Color = "",
+	Constant = "",
+	Constructor = "",
+	Enum = "",
+	EnumMember = "",
+	Event = "",
+	Field = "",
+	File = "",
+	Folder = "",
+	Function = "󰊕",
+	Interface = "",
+	Keyword = "",
+	Method = "󰊕",
+	Module = "",
+	Operator = "",
+	Property = "",
+	Reference = "",
+	Snippet = "",
+	Struct = "",
+	Text = " ",
+	TypeParameter = "",
+	Unit = "",
+	Value = "",
+	Variable = "",
 }
 cmp.setup({
     enabled = true,
@@ -81,9 +80,9 @@ cmp.setup({
 			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
 			vim_item.menu = ({
-				nvim_lsp = "󰘦 ",
+				nvim_lsp = " ",
 				luasnip = "  ",
-				buffer = "󰦪 ",
+				buffer = "󰉿 ",
 				path = "  ",
 			})[entry.source.name]
 			return vim_item
@@ -95,6 +94,7 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
+        { name = 'nvim_lsp_signature_help' },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,

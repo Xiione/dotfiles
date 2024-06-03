@@ -35,7 +35,7 @@ barbecue.setup({
 		Function = "󰊕",
 		Interface = "",
 		Key = "",
-		Method = "",
+		Method = "󰊕",
 		Module = "",
 		Namespace = "",
 		Null = "",
