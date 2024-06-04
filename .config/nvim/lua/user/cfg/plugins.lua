@@ -23,8 +23,8 @@ require("lazy").setup({
 	{ "moll/vim-bbye" },
 	{ "nvim-lualine/lualine.nvim" },
 	{ "akinsho/toggleterm.nvim" },
-	{ "ahmedkhalf/project.nvim" },
-	{ "lewis6991/impatient.nvim" },
+	-- { "ahmedkhalf/project.nvim" },
+	-- { "lewis6991/impatient.nvim" },
 	{ "lukas-reineke/indent-blankline.nvim", main = "ibl" },
 	{ "goolord/alpha-nvim" },
 
@@ -82,11 +82,9 @@ require("lazy").setup({
 		lazy = false,
 	},
 	{ "mfussenegger/nvim-jdtls" },
-	-- "rcarriga/nvim-notify",
 	{ "lukas-reineke/virt-column.nvim" },
 	{ "mbbill/undotree" },
 	{ "norcalli/nvim-colorizer.lua" },
-	-- "glepnir/lspsaga.nvim",
 	{
 		"folke/persistence.nvim",
 		event = "BufReadPre", -- this will only start session saving when an actual file was opened
@@ -101,7 +99,6 @@ require("lazy").setup({
 
 	{ "folke/neodev.nvim" },
 	{ "gen740/SmoothCursor.nvim" },
-	-- { "ThePrimeagen/harpoon" },
 	{
 		"utilyre/barbecue.nvim",
 		name = "barbecue",
@@ -134,6 +131,6 @@ require("lazy").setup({
 		},
 		event = { "BufReadPost", "BufNewFile" },
 	},
-	-- { "ray-x/lsp_signature.nvim" },
 	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
+	{ "Weissle/persistent-breakpoints.nvim" },
 }, {})

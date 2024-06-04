@@ -4,14 +4,9 @@ local term = require("user.lib.term")
 local map = utils.map
 local unmap = utils.unmap
 
-local dap_status_ok, dap = pcall(require, "dap")
-if not dap_status_ok then
-	return
-end
-local dap_ui_status_ok, dapui = pcall(require, "dapui")
-if not dap_ui_status_ok then
-	return
-end
+local dap = require("dap")
+local dapui = require("dapui")
+local pbreakpoints = require("persistent-breakpoints.api")
 
 local M = {}
 
@@ -78,6 +73,8 @@ map("n", "<C-u>", "<C-u>zz", silent)
 -- qf navigation
 map("n", "<leader>k", "<cmd>cprev<CR>zz")
 map("n", "<leader>j", "<cmd>cnext<CR>zz")
+-- close quickfix
+map("n", "<leader>q", "<CMD>cclose<CR>", silent)
 
 -- fixing that stupid typo when trying to [save]exit
 vim.cmd([[
@@ -135,11 +132,11 @@ end)
 map("n", "<F4>", function()
 	sidebars.toggle("dapui")
 end)
-map("n", "<M-b>", dap.toggle_breakpoint)
+map("n", "<M-b>", pbreakpoints.toggle_breakpoint)
 map("n", "<M-S-b>", function()
 	local condition = vim.fn.input(" Breakpoint condition: ")
 	if condition then
-		dap.set_breakpoint(condition)
+		pbreakpoints.set_conditional_breakpoint(condition)
 	end
 end)
 term.set_global_build_cmd("<M-c>", "make build")
@@ -193,7 +190,7 @@ map("n", "<Right>", "zl", silent)
 -- Add :Inspect to insert mode for weird customization case for lsp_signature
 map("i", "<C-i>", "<CMD>Inspect<CR>", silent)
 
--- move it here
+-- move it here, no harm done
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
 M.lsp_keymaps = function(bufnr, client)
 	local opts = { noremap = true, silent = true }

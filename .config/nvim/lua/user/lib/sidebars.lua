@@ -29,6 +29,8 @@ M.sidebar_types = {
 	"NvimTree",
 	"undotree",
 	"vimtex-toc",
+    "TelescopeResults",
+    "TelescopePrompt",
 }
 
 local undo_tree_open = false

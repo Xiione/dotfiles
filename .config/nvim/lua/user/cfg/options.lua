@@ -126,3 +126,6 @@ command("OP", "silent !open .", {})
 command("Hitest", function ()
     vim.cmd("silent so " .. vim.fn.expand("$VIMRUNTIME/syntax/hitest.vim"))
 end, {})
+
+-- replaces impatient.nvim
+vim.loader.enable()
