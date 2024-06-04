@@ -103,7 +103,7 @@ M.spawn_cmd = function(cmd, on_success)
 			local height = math.floor(vim.o.lines * 0.4)
 			vim.cmd("botright copen " .. height)
 		else
-			print(string.format("Exited with code %d 󰄬", exit_code))
+			print(string.format("󰄬 Exited with code %d", exit_code))
 			if on_success then
 				on_success()
 			end

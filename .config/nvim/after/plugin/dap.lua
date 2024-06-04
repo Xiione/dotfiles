@@ -10,6 +10,7 @@ end
 local core = require("user.lib.core")
 local utils = require("user.lib.utils")
 local sidebars = require("user.lib.sidebars")
+local keymaps = require("user.cfg.keymaps")
 local mason_path = vim.fn.glob(vim.fn.stdpath("data")) .. "/mason"
 local mason_bin_path = mason_path .. "/bin"
 
@@ -104,7 +105,7 @@ dapui.setup({
 			position = "bottom",
 		},
 	},
-	floating = { border = "none", mappings = { close = { "q", "<esc>" } } },
+	floating = { border = "solid", mappings = { close = { "q", "<esc>" } } },
 	element_mappings = {},
 	expand_lines = true,
 	force_buffers = true,
@@ -130,35 +131,13 @@ dapui.setup({
 	},
 })
 
--- remove debugging keymaps
-M.remove_maps = function()
-	-- utils.unmap("n", "<M-b>")
-	-- utils.unmap("n", "<M-S-b>")
-	utils.unmap({ "n", "v" }, "<M-k>")
-	utils.unmap("n", "<M-1>")
-	utils.unmap("n", "<M-2>")
-	utils.unmap("n", "<M-3>")
-	utils.unmap("n", "<M-4>")
-	utils.unmap("n", "<M-5>")
-end
-
--- setup debugging keymaps
-M.setup_maps = function()
-	utils.map({ "n", "v" }, "<M-k>", dapui.eval)
-	utils.map("n", "<M-1>", dap.continue)
-	utils.map("n", "<M-2>", dap.step_over)
-	utils.map("n", "<M-3>", dap.terminate)
-	utils.map("n", "<M-4>", dap.step_into)
-	utils.map("n", "<M-5>", dap.run_last)
-end
-
 local function start_session()
-	M.setup_maps()
+	keymaps.setup_dap_maps()
     sidebars.open("dapui")
 end
 
 local function terminate_session()
-	M.remove_maps()
+	keymaps.remove_dap_maps()
 end
 
 -- dap events

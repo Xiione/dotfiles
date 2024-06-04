@@ -209,4 +209,7 @@ set(0, "WinBarNC", { bg = colors.nord16 })
 -- for lsp_signature
 set(0, "LspSignatureActiveParameter", { link = "Visual" })
 
+-- dapui float boarder
+set(0, "DapUIFloatBorder", { link = "FloatBorder" })
+
 return colors;

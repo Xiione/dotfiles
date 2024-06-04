@@ -19,39 +19,22 @@ toggleterm.setup({
 	auto_scroll = true,
 	float_opts = {
 		border = "solid",
-        -- winblend = 5
+		-- winblend = 5
 	},
 	highlights = {
-        Normal = {
-            link = "NormalFloat",
-            sp = "None"
-        },
-        NormalFloat = {
-            link = "NormalFloat",
-            sp = "None"
-        },
+		Normal = {
+			link = "NormalFloat",
+			sp = "None",
+		},
+		NormalFloat = {
+			link = "NormalFloat",
+			sp = "None",
+		},
 		FloatBorder = {
-            link = "FloatBorder",
-            sp = "None"
+			link = "FloatBorder",
+			sp = "None",
 		},
 	},
-    -- on_stdout = function(term, job, data, name)
-    --     -- if term:is_open() then
-    --     --     return
-    --     -- end
-    --
-    --     local str = data[1]
-    --     if (str:match(utils.flag_build_success)) then
-    --         print("Build success")
-    --     elseif (str:match(utils.flag_build_fail)) then
-    --         term:open()
-    --     elseif (str:match(utils.flag_ready_debug)) then
-    --         if (term:is_open()) then
-    --             term:close()
-    --         end
-    --         vim.fn.jobstart({'sleep', '0.005'}, {on_exit = dap.continue})
-    --     end
-    -- end,
 })
 
 local Terminal = require("toggleterm.terminal").Terminal

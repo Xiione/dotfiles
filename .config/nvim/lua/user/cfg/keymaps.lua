@@ -2,6 +2,7 @@ local utils = require("user.lib.utils")
 local sidebars = require("user.lib.sidebars")
 local term = require("user.lib.term")
 local map = utils.map
+local unmap = utils.unmap
 
 local dap_status_ok, dap = pcall(require, "dap")
 if not dap_status_ok then
@@ -11,6 +12,8 @@ local dap_ui_status_ok, dapui = pcall(require, "dapui")
 if not dap_ui_status_ok then
 	return
 end
+
+local M = {}
 
 local silent = { silent = true }
 
@@ -134,7 +137,7 @@ map("n", "<F4>", function()
 end)
 map("n", "<M-b>", dap.toggle_breakpoint)
 map("n", "<M-S-b>", function()
-	local condition = vim.fn.input("Breakpoint condition: ")
+	local condition = vim.fn.input(" Breakpoint condition: ")
 	if condition then
 		dap.set_breakpoint(condition)
 	end
@@ -151,18 +154,18 @@ end, silent)
 -- Harpoon/Grapple
 map("n", "<leader>a", require("grapple").toggle)
 -- function()
-	-- local marks = require("harpoon").get_mark_config().marks
-	-- local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
-	-- local ct_before = #marks
-	-- require("harpoon.mark").add_file()
-	-- if #marks ~= ct_before then
-	-- 	vim.api.nvim_echo({ { ('"%s" successfully marked with index %d'):format(bufname, #marks) } }, false, {})
-	-- end
+-- local marks = require("harpoon").get_mark_config().marks
+-- local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
+-- local ct_before = #marks
+-- require("harpoon.mark").add_file()
+-- if #marks ~= ct_before then
+-- 	vim.api.nvim_echo({ { ('"%s" successfully marked with index %d'):format(bufname, #marks) } }, false, {})
+-- end
 -- end, silent)
 
 map("n", "<leader>m", require("grapple").toggle_tags)
 -- function()
-	-- require("harpoon.ui").toggle_quick_menu()
+-- require("harpoon.ui").toggle_quick_menu()
 -- end, silent)
 
 for i = 1, 9 do
@@ -189,3 +192,63 @@ map("n", "<Right>", "zl", silent)
 
 -- Add :Inspect to insert mode for weird customization case for lsp_signature
 map("i", "<C-i>", "<CMD>Inspect<CR>", silent)
+
+-- move it here
+map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+M.lsp_keymaps = function(bufnr, client)
+	local opts = { noremap = true, silent = true }
+	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
+	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts, bufnr)
+	map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts, bufnr)
+	map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts, bufnr)
+	map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts, bufnr)
+
+	if client.name ~= "texlab" then
+		map("n", "<leader>li", "<cmd>LspInfo<cr>", opts, bufnr)
+		-- map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>", opts, bufnr)
+		map("n", "<leader>lI", "<cmd>Mason<cr>", opts, bufnr)
+		map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts, bufnr)
+		map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts, bufnr)
+		map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts, bufnr)
+		map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts, bufnr)
+		map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, bufnr)
+		map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
+	end
+end
+
+local original_mappings = {}
+M.push_map = function(mode, key, new_mapping, bufnr)
+	original_mappings[key] = { mapping = vim.fn.maparg(key, "n"), new_mode = mode }
+    unmap("n", "K", bufnr)
+    map(mode, key, new_mapping, silent, bufnr)
+end
+
+M.pop_map = function(key)
+	if original_mappings[key] then
+        unmap(original_mappings[key].new_mode, key)
+        map("n", key, original_mappings[key].mapping, silent)
+		original_mappings[key] = nil
+	end
+end
+
+M.remove_dap_maps = function()
+    M.pop_map("K")
+	unmap("n", "<M-1>")
+	unmap("n", "<M-S-1>")
+	unmap("n", "<M-2>")
+	unmap("n", "<M-S-2>")
+	unmap("n", "<M-3>")
+	unmap("n", "<M-4>")
+end
+
+M.setup_dap_maps = function()
+    M.push_map({ "n", "v" }, "K", dapui.eval)
+	map("n", "<M-1>", dap.continue)
+	map("n", "<M-S-1>", dap.run_to_cursor)
+	map("n", "<M-2>", dap.step_over)
+	map("n", "<M-S-2>", dap.step_into)
+	map("n", "<M-3>", dap.terminate)
+	map("n", "<M-4>", dap.run_last)
+end
+
+return M

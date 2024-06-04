@@ -9,9 +9,6 @@ local commands = {
 	callbacks = {},
 }
 
--- toggleterm needs to be opened at least once for silent/non-open commands to execute properly
-local initalized = false
-
 M.map = function(mode, lhs, rhs, opts, bufnr)
 	local options = { noremap = true }
 	if opts then
@@ -32,6 +29,8 @@ M.unmap = function(mode, lhs, bufnr)
 	-- vim.keymap.del(mode, lhs, options)
 	pcall(vim.keymap.del, mode, lhs, options)
 end
+
+
 
 -- add custom command
 M.add_command = function(key, callback, cmd_opts, also_custom)
@@ -61,6 +60,9 @@ end
 M.resolve_spaces = function(str)
 	return string.gsub(str, "%s", "\\ ")
 end
+
+-- toggleterm needs to be opened at least once for silent/non-open commands to execute properly
+local initalized = false
 
 M.exec_cmd = function(args)
 	vim.cmd("wall")
@@ -161,7 +163,7 @@ M.get_dap_executable = function()
 		end
 	end
 	if not session_dap_executable then
-		session_dap_executable = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		session_dap_executable = vim.fn.input(" Path to executable: ", vim.fn.getcwd() .. "/", "file")
 		return session_dap_executable
 	end
 	return session_dap_executable
