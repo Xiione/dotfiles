@@ -63,6 +63,31 @@ mynord.inactive = {
 	},
 }
 
+local winbar_settings = {
+	lualine_a = {},
+	lualine_b = {},
+	lualine_c = {
+		{
+			"filetype",
+			padding = { left = 1, right = 0 },
+			icon_only = true,
+			color = { bg = "bg" },
+		},
+		{
+			"filename",
+			padding = 0,
+			path = 0,
+			color = { fg = "fg", bg = "bg" },
+			symbols = {
+				modified = "[+]",
+			},
+		},
+	},
+	lualine_x = {},
+	lualine_y = {},
+	lualine_z = {},
+}
+
 lualine.setup({
 	options = {
 		globalstatus = false,
@@ -73,7 +98,7 @@ lualine.setup({
 		ignore_focus = sidebars.sidebar_types,
 		disabled_filetypes = {
 			statusline = { "alpha" },
-			winbar = sidebars.sidebar_types,
+			winbar = vim.tbl_extend("force", sidebars.sidebar_types, { "alpha" }),
 		},
 	},
 	sections = {
@@ -95,4 +120,5 @@ lualine.setup({
 		lualine_y = {},
 		lualine_z = {},
 	},
+	winbar = winbar_settings,
 })

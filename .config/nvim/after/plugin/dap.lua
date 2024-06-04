@@ -14,11 +14,6 @@ local keymaps = require("user.cfg.keymaps")
 local mason_path = vim.fn.glob(vim.fn.stdpath("data")) .. "/mason"
 local mason_bin_path = mason_path .. "/bin"
 
--- servers launched internally in neovim
-local internal_servers = { codelldb = "codelldb server" }
-
-local M = {}
-
 -- adapters
 dap.adapters.python = {
 	type = "executable",

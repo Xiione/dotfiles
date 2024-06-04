@@ -90,7 +90,7 @@ require("lazy").setup({
 		event = "BufReadPre", -- this will only start session saving when an actual file was opened
 	},
 
-	{ "eandrju/cellular-automaton.nvim" },
+	-- { "eandrju/cellular-automaton.nvim" },
 	{ "lervag/vimtex" },
 	{
 		"Xiione/luasnip-latex-snippets.nvim",
@@ -99,15 +99,15 @@ require("lazy").setup({
 
 	{ "folke/neodev.nvim" },
 	{ "gen740/SmoothCursor.nvim" },
-	{
-		"utilyre/barbecue.nvim",
-		name = "barbecue",
-		version = "*",
-		dependencies = {
-			"SmiteshP/nvim-navic",
-			"nvim-tree/nvim-web-devicons",
-		},
-	},
+	-- {
+	-- 	"utilyre/barbecue.nvim",
+	-- 	name = "barbecue",
+	-- 	version = "*",
+	-- 	dependencies = {
+	-- 		"SmiteshP/nvim-navic",
+	-- 		"nvim-tree/nvim-web-devicons",
+	-- 	},
+	-- },
 	{ "tpope/vim-abolish" },
 	{ "echasnovski/mini.surround", version = "*" },
 	{ "airblade/vim-matchquote" },
@@ -133,4 +133,5 @@ require("lazy").setup({
 	},
 	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 	{ "Weissle/persistent-breakpoints.nvim" },
-}, {})
+}, {
+})
