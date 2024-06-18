@@ -31,6 +31,7 @@ M.sidebar_types = {
 	"vimtex-toc",
     "TelescopeResults",
     "TelescopePrompt",
+    "toggleterm",
 }
 
 local undo_tree_open = false

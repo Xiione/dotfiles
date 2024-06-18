@@ -15,6 +15,7 @@ local M = {}
 M.set_build_cmd = function(mapping, cmd)
 	map("n", mapping, function()
 		vim.cmd("wall")
+		sidebars.close("dapui")
 		M.spawn_cmd(vim.fn.expandcmd(cmd))
 	end, { buffer = true })
 end
@@ -38,6 +39,7 @@ end
 M.set_global_build_cmd = function(mapping, cmd)
 	map("n", mapping, function()
 		vim.cmd("wall")
+		sidebars.close("dapui")
 		M.spawn_cmd(vim.fn.expandcmd(cmd))
 	end)
 end
