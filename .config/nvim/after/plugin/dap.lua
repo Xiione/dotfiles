@@ -71,7 +71,7 @@ dap.repl.commands = vim.tbl_extend("force", dap.repl.commands, {
 
 -- dapui setup
 dapui.setup({
-	icons = { expanded = "", collapsed = "", circular = "", current_frame = "" },
+	icons = { expanded = "", collapsed = "", circular = "", current_frame = "" },
 	mappings = {
 		expand = { "<CR>", "l" },
 		open = "o",
@@ -89,7 +89,7 @@ dapui.setup({
 				{ id = "watches", size = 0.1 },
 				{ id = "repl", size = 0.25 },
 			},
-			size = 60,
+			size = 55,
 			position = "left",
 		},
 		{

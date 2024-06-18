@@ -30,8 +30,6 @@ map({ "i", "c" }, "<M-bs>", "<C-w>", { remap = true })
 
 -- adjustments in insert and cmd
 map("i", "<C-h>", "<Left>", silent)
--- map("i", "<C-j>", "<Down>", silent)
--- map("i", "<C-k>", "<Up>", silent)
 map("i", "<C-l>", "<Right>", silent)
 map("c", "<C-h>", "<Left>", { remap = true })
 map("c", "<C-l>", "<Right>", { remap = true })
@@ -190,6 +188,10 @@ map("n", "<Right>", "zl", silent)
 -- Add :Inspect to insert mode for weird customization case for lsp_signature
 map("i", "<C-i>", "<CMD>Inspect<CR>", silent)
 
+-- ufo
+map("n", "zR", require("ufo").openAllFolds)
+map("n", "zM", require("ufo").closeAllFolds)
+
 -- move it here, no harm done
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
 M.lsp_keymaps = function(bufnr, client)
@@ -216,20 +218,20 @@ end
 local original_mappings = {}
 M.push_map = function(mode, key, new_mapping, bufnr)
 	original_mappings[key] = { mapping = vim.fn.maparg(key, "n"), new_mode = mode }
-    unmap("n", "K", bufnr)
-    map(mode, key, new_mapping, silent, bufnr)
+	unmap("n", "K", bufnr)
+	map(mode, key, new_mapping, silent, bufnr)
 end
 
 M.pop_map = function(key)
 	if original_mappings[key] then
-        unmap(original_mappings[key].new_mode, key)
-        map("n", key, original_mappings[key].mapping, silent)
+		unmap(original_mappings[key].new_mode, key)
+		map("n", key, original_mappings[key].mapping, silent)
 		original_mappings[key] = nil
 	end
 end
 
 M.remove_dap_maps = function()
-    M.pop_map("K")
+	M.pop_map("K")
 	unmap("n", "<M-1>")
 	unmap("n", "<M-S-1>")
 	unmap("n", "<M-2>")
@@ -239,7 +241,7 @@ M.remove_dap_maps = function()
 end
 
 M.setup_dap_maps = function()
-    M.push_map({ "n", "v" }, "K", dapui.eval)
+	M.push_map({ "n", "v" }, "K", dapui.eval)
 	map("n", "<M-1>", dap.continue)
 	map("n", "<M-S-1>", dap.run_to_cursor)
 	map("n", "<M-2>", dap.step_over)

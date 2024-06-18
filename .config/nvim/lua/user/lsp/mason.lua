@@ -13,6 +13,7 @@ local servers = {
     "asm_lsp",
     "marksman",
     "cmake",
+    "svelte",
 }
 local settings = {
 	ui = {

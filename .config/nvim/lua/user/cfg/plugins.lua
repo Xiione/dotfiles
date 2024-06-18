@@ -98,7 +98,7 @@ require("lazy").setup({
 	},
 
 	{ "folke/neodev.nvim" },
-	{ "gen740/SmoothCursor.nvim" },
+	-- { "gen740/SmoothCursor.nvim" },
 	-- {
 	-- 	"utilyre/barbecue.nvim",
 	-- 	name = "barbecue",
@@ -133,5 +133,7 @@ require("lazy").setup({
 	},
 	{ "hrsh7th/cmp-nvim-lsp-signature-help" },
 	{ "Weissle/persistent-breakpoints.nvim" },
-}, {
-})
+	{ "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" } },
+	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
+    { "luukvbaal/statuscol.nvim" }
+}, {})

@@ -212,4 +212,7 @@ set(0, "LspSignatureActiveParameter", { link = "Visual" })
 -- dapui float boarder
 set(0, "DapUIFloatBorder", { link = "FloatBorder" })
 
+-- ufo
+set(0, "FoldColumn", { fg = colors.nord3 })
+
 return colors;

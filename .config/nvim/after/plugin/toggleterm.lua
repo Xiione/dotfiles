@@ -16,7 +16,7 @@ toggleterm.setup({
 	direction = "float",
 	close_on_exit = true,
 	shell = vim.o.shell,
-	auto_scroll = true,
+	auto_scroll = false,
 	float_opts = {
 		border = "solid",
 		-- winblend = 5
