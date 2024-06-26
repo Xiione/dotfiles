@@ -73,8 +73,8 @@ dap.repl.commands = vim.tbl_extend("force", dap.repl.commands, {
 dapui.setup({
 	icons = { expanded = "", collapsed = "", circular = "", current_frame = "" },
 	mappings = {
-		expand = { "<CR>", "l" },
-		open = "o",
+		expand = "l",
+		open = {"<CR>", "o", "<2-LeftMouse>"},
 		remove = "d",
 		edit = "e",
 		repl = "r",
@@ -84,12 +84,12 @@ dapui.setup({
 		{
 			elements = {
 				{ id = "scopes", size = 0.45 },
-				{ id = "breakpoints", size = 0.1 },
-				{ id = "stacks", size = 0.1 },
-				{ id = "watches", size = 0.1 },
+				{ id = "breakpoints", size = 0.15 },
+				{ id = "stacks", size = 0.15 },
+				-- { id = "watches", size = 0.1 },
 				{ id = "repl", size = 0.25 },
 			},
-			size = 55,
+			size = 40,
 			position = "left",
 		},
 		{
