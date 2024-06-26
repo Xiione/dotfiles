@@ -12,6 +12,7 @@ M.use_sidebar_hl = function(opts)
 	vim.opt_local.relativenumber = false
 	vim.opt_local.cursorline = false
 	vim.opt.cursorlineopt = opts.cursorline and "both" or "number"
+    vim.opt_local.statuscolumn = "%="
 end
 
 M.sidebar_types = {

@@ -72,12 +72,6 @@ M.on_attach = function(client, bufnr)
     end
 
     keymaps.lsp_keymaps(bufnr, client)
-
-    -- if not vim.tbl_contains({
-    --         'null-ls'
-    --     }, client.name) then -- blacklist lsp
-    --     require("lsp_signature").on_attach({}, bufnr)
-    -- end
 end
 
 return M
