@@ -8,9 +8,11 @@ if not snip_status_ok then
 	return
 end
 
+local lspkind = require("lspkind")
+
 local kind_icons = {
 	Class = "",
-	Color = "",
+	Color = "󰝤",
 	Constant = "",
 	Constructor = "",
 	Enum = "",
@@ -26,17 +28,18 @@ local kind_icons = {
 	Module = "",
 	Operator = "",
 	Property = "",
-	Reference = "",
+	Reference = "󰈇",
 	Snippet = "",
 	Struct = "",
 	Text = " ",
 	TypeParameter = "",
-	Unit = "",
+	Unit = "󰑭",
 	Value = "",
 	Variable = "",
 }
+
 cmp.setup({
-    enabled = true,
+	enabled = true,
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
@@ -54,8 +57,8 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
-			-- elseif check_backspace() then
-			-- 	fallback()
+				-- elseif check_backspace() then
+				-- 	fallback()
 			else
 				fallback()
 			end
@@ -75,18 +78,28 @@ cmp.setup({
 		}),
 	}),
 	formatting = {
-		fields = { "kind", "abbr", "menu" },
-		format = function(entry, vim_item)
-			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
-			vim_item.menu = ({
-				nvim_lsp = " ",
-				luasnip = "  ",
-				buffer = "󰉿 ",
-				path = "  ",
-			})[entry.source.name]
-			return vim_item
-		end,
+		fields = { "abbr", "kind", "menu" },
+		-- format = function(entry, vim_item)
+		-- 	vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+		-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
+		-- 	vim_item.menu = ({
+		-- 		nvim_lsp = " ",
+		-- 		luasnip = "  ",
+		-- 		buffer = "󰉿 ",
+		-- 		path = "  ",
+		-- 	})[entry.source.name]
+		-- 	return vim_item
+		-- end,
+		-- })
+		format = lspkind.cmp_format({
+			mode = "symbol",
+			preset = "default",
+			maxwidth = 40,
+			ellipsis_char = "...",
+			show_labelDetails = true,
+			before = require("tailwind-tools.cmp").lspkind_format,
+            symbol_map = kind_icons,
+		}),
 	},
 	sources = {
 		{ name = "nvim_lsp" },
@@ -94,7 +107,7 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
-        { name = 'nvim_lsp_signature_help' },
+		{ name = "nvim_lsp_signature_help" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
@@ -105,19 +118,19 @@ cmp.setup({
 			winhighlight = "Normal:NormalSidebar,CursorLine:CursorLineSidebar",
 			side_padding = 1,
 			col_offset = 1,
-            max_width = 40,
-            max_height = 10
+			max_width = 40,
+			max_height = 10,
 		},
 		documentation = {
 			winhighlight = "Normal:NormalSidebar,MarkdownError:none,luaParenError:none",
-            max_width = 40,
-            max_height = 10
+			max_width = 40,
+			max_height = 10,
 		},
 	},
 	experimental = {
 		ghost_text = false,
 	},
-    completion = {
-        completeopt = 'menu,menuone,noinsert'
-    }
+	completion = {
+		completeopt = "menu,menuone,noinsert",
+	},
 })

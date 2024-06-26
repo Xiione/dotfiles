@@ -32,7 +32,13 @@ require("lazy").setup({
 	{ "Xiione/nord.nvim" },
 
 	-- cmp plugins
-	{ "hrsh7th/nvim-cmp" }, -- The completion plugin
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			"luckasRanarison/tailwind-tools.nvim",
+			"onsails/lspkind-nvim",
+		},
+	}, -- The completion plugin
 	{ "hrsh7th/cmp-buffer" }, -- buffer completions
 	{ "hrsh7th/cmp-path" }, -- path completions
 	{ "saadparwaiz1/cmp_luasnip" }, -- snippet completions
@@ -135,5 +141,7 @@ require("lazy").setup({
 	{ "Weissle/persistent-breakpoints.nvim" },
 	{ "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" } },
 	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
-    { "luukvbaal/statuscol.nvim" }
+	{ "luukvbaal/statuscol.nvim" },
+	"luckasRanarison/tailwind-tools.nvim",
+	dependencies = { "nvim-treesitter/nvim-treesitter" },
 }, {})

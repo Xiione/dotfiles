@@ -18,9 +18,8 @@ null_ls.setup({
 		formatting.black.with({ extra_args = { "--fast" } }),
 		formatting.stylua,
 		formatting.google_java_format,
-		formatting.clang_format.with({
-		}),
-		formatting.shellharden,
+		formatting.clang_format,
+        formatting.shellharden,
 		formatting.asmfmt,
 		formatting.rustfmt,
 		formatting.cmake_format,

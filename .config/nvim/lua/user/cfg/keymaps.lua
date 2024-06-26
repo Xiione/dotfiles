@@ -213,6 +213,15 @@ M.lsp_keymaps = function(bufnr, client)
 		map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, bufnr)
 		map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
 	end
+
+    if client.name == "tailwindcss" then
+		map("n", "<leader>tf", "<cmd>TailwindSort<CR>", opts, bufnr)
+		-- map("v", "<leader>tf", "<cmd>TailwindSortSelection<CR>", opts, bufnr)
+
+		map("n", "<leader>tt", "<cmd>TailwindConcealToggle<CR>", opts, bufnr)
+		map("n", "<leader>tc", "<cmd>TailwindConcealEnable<CR>", opts, bufnr)
+		map("n", "<leader>to", "<cmd>TailwindConcealDisable<CR>", opts, bufnr)
+    end
 end
 
 local original_mappings = {}
