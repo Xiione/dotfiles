@@ -5,3 +5,4 @@ old/
 .config/fish/fish_variables
 .config/fish/ssh_vars.fish
 .ssh
+.config/nvim/lua/.luarc.json
