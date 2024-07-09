@@ -105,19 +105,19 @@ require("lazy").setup({
 
 	{ "folke/neodev.nvim" },
 	-- { "gen740/SmoothCursor.nvim" },
-	-- {
-	-- 	"utilyre/barbecue.nvim",
-	-- 	name = "barbecue",
-	-- 	version = "*",
-	-- 	dependencies = {
-	-- 		"SmiteshP/nvim-navic",
-	-- 		"nvim-tree/nvim-web-devicons",
-	-- 	},
-	-- },
+	{
+		"adonespitogo/barbecue.nvim",
+		name = "barbecue",
+		version = "*",
+		dependencies = {
+			"SmiteshP/nvim-navic",
+			"nvim-tree/nvim-web-devicons",
+		},
+	},
 	{ "tpope/vim-abolish" },
 	{ "echasnovski/mini.surround", version = "*" },
 	{ "airblade/vim-matchquote" },
-	{ "simrat39/symbols-outline.nvim" },
+	{ "hedyhli/outline.nvim" },
 
 	{
 		"mrcjkb/rustaceanvim",

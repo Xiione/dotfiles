@@ -10,6 +10,8 @@ if not pb_status_ok then
 end
 
 statuscol.setup({
+	foldfunc = "builtin",
+	setopt = true,
 	ft_ignore = require("user.lib.sidebars").sidebar_types,
 	segments = {
 		{ text = { "%s" }, click = "v:lua.ScSa" },

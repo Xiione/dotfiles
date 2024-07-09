@@ -3,16 +3,20 @@ local M = {}
 local dapui = require("dapui")
 local nvim_tree = require("nvim-tree.api")
 
+M.make_winhighlight = function(opts)
+	return "Normal:NormalSidebar,SignColumn:NormalSidebar,CursorLine:NormalSidebar"
+		.. (opts.cursorline and "" or ",CursorLine:NormalSidebar")
+end
+
 -- used instead of contrast() in nord/util.lua
 M.use_sidebar_hl = function(opts)
-	vim.opt_local.winhighlight = "Normal:NormalSidebar,SignColumn:NormalSidebar,CursorLine:NormalSidebar"
-		.. (opts.cursorline and "" or ",CursorLine:NormalSidebar")
-	vim.opt_local.signcolumn = opts.signcolumn and "yes" or "no"
+	vim.opt_local.winhighlight = M.make_winhighlight(opts)
+    vim.opt_local.signcolumn = opts.signcolumn and "yes" or "no"
 	vim.opt_local.number = false
 	vim.opt_local.relativenumber = false
 	vim.opt_local.cursorline = false
 	vim.opt.cursorlineopt = opts.cursorline and "both" or "number"
-    vim.opt_local.statuscolumn = "%="
+	vim.opt_local.statuscolumn = "%="
 end
 
 M.sidebar_types = {
@@ -30,9 +34,9 @@ M.sidebar_types = {
 	"NvimTree",
 	"undotree",
 	"vimtex-toc",
-    "TelescopeResults",
-    "TelescopePrompt",
-    "toggleterm",
+	"TelescopeResults",
+	"TelescopePrompt",
+	"toggleterm",
 }
 
 local undo_tree_open = false
@@ -59,18 +63,18 @@ M.sidebar_functions = {
 		toggle = function()
 			vim.cmd("UndotreeToggle")
 			undo_tree_open = not undo_tree_open
-            if undo_tree_open then
-                vim.cmd("UndotreeFocus")
-            end
+			if undo_tree_open then
+				vim.cmd("UndotreeFocus")
+			end
 		end,
 		open = function()
-            vim.cmd("UndotreeShow")
-            vim.cmd("UndotreeFocus")
-            undo_tree_open = true
+			vim.cmd("UndotreeShow")
+			vim.cmd("UndotreeFocus")
+			undo_tree_open = true
 		end,
 		close = function()
-            vim.cmd("UndotreeHide")
-            undo_tree_open = false
+			vim.cmd("UndotreeHide")
+			undo_tree_open = false
 		end,
 	},
 	vimtex_toc = {
@@ -95,13 +99,13 @@ M.sidebar_functions = {
 		exclusive = false,
 		is_right_side = true,
 		toggle = function()
-			vim.cmd("SymbolsOutline")
+			vim.cmd("Outline")
 		end,
 		open = function()
-			vim.cmd("SymbolsOutlineOpen")
+			vim.cmd("OutlineOpen")
 		end,
 		close = function()
-			vim.cmd("SymbolsOutlineClose")
+			vim.cmd("OutlineClose")
 		end,
 	},
 }

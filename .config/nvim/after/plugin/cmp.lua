@@ -10,34 +10,6 @@ end
 
 local lspkind = require("lspkind")
 
-local kind_icons = {
-	Class = "",
-	Color = "󰝤",
-	Constant = "",
-	Constructor = "",
-	Enum = "",
-	EnumMember = "",
-	Event = "",
-	Field = "",
-	File = "",
-	Folder = "",
-	Function = "󰊕",
-	Interface = "",
-	Keyword = "",
-	Method = "󰊕",
-	Module = "",
-	Operator = "",
-	Property = "",
-	Reference = "󰈇",
-	Snippet = "",
-	Struct = "",
-	Text = " ",
-	TypeParameter = "",
-	Unit = "󰑭",
-	Value = "",
-	Variable = "",
-}
-
 cmp.setup({
 	enabled = true,
 	snippet = {
@@ -98,7 +70,7 @@ cmp.setup({
 			ellipsis_char = "...",
 			show_labelDetails = true,
 			before = require("tailwind-tools.cmp").lspkind_format,
-            symbol_map = kind_icons,
+            symbol_map = require("user.lib.utils").lspkind_icons,
 		}),
 	},
 	sources = {

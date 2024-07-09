@@ -30,8 +30,6 @@ M.unmap = function(mode, lhs, bufnr)
 	pcall(vim.keymap.del, mode, lhs, options)
 end
 
-
-
 -- add custom command
 M.add_command = function(key, callback, cmd_opts, also_custom)
 	-- opts defined, create user command
@@ -158,7 +156,7 @@ M.get_dap_executable = function()
 		for line in makefile:lines() do
 			executable = line:match("^EXECUTABLE%s*=%s*(.+)")
 			if executable then
-                session_dap_executable = executable
+				session_dap_executable = executable
 			end
 		end
 	end
@@ -168,5 +166,44 @@ M.get_dap_executable = function()
 	end
 	return session_dap_executable
 end
+
+M.lspkind_icons = {
+	Array = "",
+	Boolean = "",
+	Class = "",
+	Component = "",
+	Color = "󰝤",
+	Constant = "",
+	Constructor = "",
+	Enum = "",
+	EnumMember = "",
+	Event = "",
+	Field = "",
+	File = "",
+	Folder = "",
+	Fragment = "󰊕",
+	Function = "󰊕",
+	Interface = "",
+	Key = "",
+	Keyword = "",
+	Method = "󰊕",
+	Module = "",
+	Namespace = "",
+	Null = "󰟢",
+	Number = "",
+	Object = "",
+	Operator = "",
+	Package = "󰅩",
+	Property = "",
+	Reference = "󰈇",
+	Snippet = "",
+	String = "",
+	Struct = "",
+	Text = " ",
+	TypeParameter = "",
+	Unit = "󰑭",
+	Value = "",
+	Variable = "",
+}
 
 return M

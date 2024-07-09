@@ -120,5 +120,5 @@ lualine.setup({
 		lualine_y = {},
 		lualine_z = {},
 	},
-	winbar = winbar_settings,
+	-- winbar = winbar_settings,
 })
