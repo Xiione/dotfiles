@@ -4,7 +4,13 @@ if not status_ok then
 end
 
 grapple.setup({
-    win_opts = {
-        border = "solid"
-    }
+	icons = true,
+	win_opts = {
+		border = "solid",
+	},
+	statusline = {
+		icon = "",
+		active = "%s",
+		inactive = " %s ",
+	},
 })

@@ -11,7 +11,7 @@ fish_add_path ~/emsdk/upstream/emscripten
 
 fish_add_path /opt/homebrew/opt/llvm/bin
 
-set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib"
+set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
 set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
 
 set -g theme_color_scheme nord
