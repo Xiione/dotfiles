@@ -1,4 +1,4 @@
-local colors = require("user.cfg.colorscheme")
+local colors = require("user.cfg.colors")
 
 if vim.g.neovide then
 	-- Helper function for transparency formatting

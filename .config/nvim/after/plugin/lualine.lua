@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 local sidebars = require("user.lib.sidebars")
-local colors = require("user.cfg.colorscheme")
+local colors = require("user.cfg.colors")
 
 local hide_in_width = function()
 	return vim.fn.winwidth(0) > 80

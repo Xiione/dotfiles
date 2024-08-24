@@ -5,5 +5,6 @@ end
 
 eyeliner.setup({
 	highlight_on_key = true,
-    dim = true
+    dim = true,
+    default_keymaps = true,
 })

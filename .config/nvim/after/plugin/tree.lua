@@ -10,7 +10,7 @@ nvim_tree.setup({
         update_root = false,
         -- ignore_list = {"help"}
     },
-    sync_root_with_cwd = false,
+    sync_root_with_cwd = true,
     actions = {
         file_popup = {
             open_win_config = {

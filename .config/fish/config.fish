@@ -37,6 +37,10 @@ function nv
     nvim $argv
 end
 
+function lzg
+    lazygit $argv
+end
+
 function ssh
     TERM=xterm-256color command ssh $argv
 end

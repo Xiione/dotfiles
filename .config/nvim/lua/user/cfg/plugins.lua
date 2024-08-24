@@ -17,7 +17,7 @@ require("lazy").setup({
 	{ "numToStr/Comment.nvim" },
 	{ "JoosepAlviste/nvim-ts-context-commentstring" },
 	{ "nvim-tree/nvim-web-devicons" },
-	{ "nvim-tree/nvim-tree.lua", version = "1.2" },
+	{ "nvim-tree/nvim-tree.lua", version = "1.6" },
 	-- use { "nvim-neo-tree/neo-tree.nvim" } }
 	-- { "akinsho/bufferline.nvim", tag = "v3.1.0" },
 	{ "moll/vim-bbye" },
@@ -86,6 +86,7 @@ require("lazy").setup({
 	{
 		"jinh0/eyeliner.nvim",
 		lazy = false,
+		commit = "4438411",
 	},
 	{ "mfussenegger/nvim-jdtls" },
 	{ "lukas-reineke/virt-column.nvim" },
@@ -117,8 +118,7 @@ require("lazy").setup({
 	{ "tpope/vim-abolish" },
 	{ "echasnovski/mini.surround", version = "*" },
 	{ "airblade/vim-matchquote" },
-	{ "hedyhli/outline.nvim" },
-
+	-- { "hedyhli/outline.nvim" },
 	{
 		"mrcjkb/rustaceanvim",
 		version = "^4", -- Recommended
@@ -142,6 +142,10 @@ require("lazy").setup({
 	{ "windwp/nvim-ts-autotag", event = { "BufReadPre", "BufNewFile" } },
 	{ "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
 	{ "luukvbaal/statuscol.nvim" },
-	"luckasRanarison/tailwind-tools.nvim",
-	dependencies = { "nvim-treesitter/nvim-treesitter" },
+	{
+		"luckasRanarison/tailwind-tools.nvim",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+	},
+	-- { "sunjon/shade.nvim" },
+	{ "nvim-telescope/telescope-ui-select.nvim" },
 }, {})

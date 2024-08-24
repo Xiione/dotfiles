@@ -1,3 +1,5 @@
+local colors = require("user.cfg.colors");
+
 vim.opt.backup = false -- creates a backup file
 -- vim.opt.clipboard = "unnamed"                -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 1 -- more space in the neovim command line for displaying messages
@@ -36,7 +38,6 @@ vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would sh
 vim.opt.wrap = false -- display lines as one long line
 vim.opt.scrolloff = 8 -- minimal number of screen lines to keep above and below the cursor
 vim.opt.sidescrolloff = 8 -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
-vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 vim.opt.shortmess:append("c") -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 vim.opt.iskeyword:append("-") -- treats words with `-` as single words
 -- vim.opt.formatoptions:remove("c")            -- Moved to aucmds
@@ -139,3 +140,31 @@ end, {})
 
 -- replaces impatient.nvim
 vim.loader.enable()
+
+-- neogui
+if vim.g.neogui then
+  vim.g.neogui_opts = {
+    window = {
+      vsync = true,
+      high_dpi = true,
+      borderless = true,
+      blur = 20,
+    },
+    margins = {
+      top = 0,
+      bottom = 0,
+      left = 0,
+      right = 0,
+    },
+    multigrid = true,
+    mac_opt_is_meta = true,
+    cursor_idle_time = 10,
+    scroll_speed = 1,
+
+    bg_color = tonumber(colors.nord16:sub(2), 16),
+    opacity = 1.0,
+    max_fps = 60,
+  }
+end
+
+vim.opt.guifont = "Meslo LG S,PingFang TC,MesloLGS Nerd Font:h12" -- the font used in graphical neovim applications

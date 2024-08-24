@@ -3,7 +3,7 @@ if not status_ok then
 	return
 end
 
-local colors = require("user.cfg.colorscheme")
+local colors = require("user.cfg.colors")
 
 tailwindtools.setup({
 	document_color = {

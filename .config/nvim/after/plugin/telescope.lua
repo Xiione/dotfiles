@@ -8,10 +8,10 @@ local actions = require("telescope.actions")
 telescope.setup({
 	defaults = {
 		prompt_prefix = " ",
-		selection_caret = " ",
+		-- selection_caret = " ",
+		selection_caret = "  ",
 		path_display = { "smart" },
-		file_ignore_patterns = { ".git/", "node_modules" },
-
+		file_ignore_patterns = { "^%.git/", "^%.git$", ".DS_Store", "node_modules" },
 		dynamic_preview_title = true,
 		results_title = false,
 
@@ -22,6 +22,7 @@ telescope.setup({
 
 		mappings = {
 			i = {
+				["<Esc>"] = actions.close,
 				["<Down>"] = actions.cycle_history_next,
 				["<Up>"] = actions.cycle_history_prev,
 				["<C-j>"] = actions.move_selection_next,
@@ -39,4 +40,27 @@ telescope.setup({
 			"--hidden",
 		},
 	},
+	pickers = {
+		find_files = {
+			hidden = true,
+		},
+		live_grep = {
+			additional_args = { "--hidden" },
+		},
+		buffers = {
+			sort_lastused = true,
+		},
+		oldfiles = {
+			cwd_only = true,
+		},
+	},
+	extensions = {
+		["ui-select"] = {
+			require("telescope.themes").get_dropdown({
+				borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+			}),
+		},
+	},
 })
+
+require("telescope").load_extension("ui-select")

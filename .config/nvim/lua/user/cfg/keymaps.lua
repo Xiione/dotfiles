@@ -39,15 +39,16 @@ map("n", "<C-h>", "<C-w>h", silent)
 map("n", "<C-j>", "<C-w>j", silent)
 map("n", "<C-k>", "<C-w>k", silent)
 map("n", "<C-l>", "<C-w>l", silent)
-map("n", "<C-q>", "<CMD>Bdelete!<CR><C-w>q", silent)
+map("n", "<leader>wq", "<cmd>Bdelete!<CR><C-w>q", silent)
+-- <leader>ws: shade.nvim toggle (in shade.lua)
 --
 -- Resize with arrows
-map("n", "<C-Up>", "<CMD>resize -2<CR>", silent)
-map("n", "<C-Down>", "<CMD>resize +2<CR>", silent)
-map("n", "<C-Left>", "<CMD>vertical resize -2<CR>", silent)
-map("n", "<C-Right>", "<CMD>vertical resize +2<CR>", silent)
+map("n", "<C-Up>", "<cmd>resize -2<CR>", silent)
+map("n", "<C-Down>", "<cmd>resize +2<CR>", silent)
+map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", silent)
+map("n", "<C-Right>", "<cmd>vertical resize +2<CR>", silent)
 
--- CMD-A select all
+-- cmd-A select all
 map("n", "<M-a>", "ggVG", { remap = true })
 
 -- No overwrite paste and system clipboard paste
@@ -72,7 +73,7 @@ map("n", "<C-u>", "<C-u>zz", silent)
 map("n", "<leader>k", "<cmd>cprev<CR>zz")
 map("n", "<leader>j", "<cmd>cnext<CR>zz")
 -- close quickfix
-map("n", "<leader>q", "<CMD>cclose<CR>", silent)
+map("n", "<leader>q", "<cmd>cclose<CR>", silent)
 
 -- fixing that stupid typo when trying to [save]exit
 vim.cmd([[
@@ -99,43 +100,47 @@ map("t", "<C-k>", "<C-\\><C-n><C-W>k", silent)
 map("t", "<C-l>", "<C-\\><C-n><C-W>l", silent)
 
 -- lsp formatter
-map("n", "<leader>lf", "<CMD>lua vim.lsp.buf.format{ async = true }<CR>", silent)
+map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>", silent)
 
 -- Plugins
 
 -- NvimTree/NeoTree
 map("n", "<leader>e", function()
-	sidebars.toggle("nvimtree")
+    sidebars.toggle("nvimtree")
 end, silent)
 
 -- Telescope
-map("n", "<leader>ff", "<CMD>lua require('telescope.builtin').find_files({hidden=true})<CR>", silent)
-map("n", "<leader>ft", "<CMD>lua require('telescope.builtin').live_grep()<CR>", silent)
-map("n", "<leader>fp", "<CMD>lua require('telescope').extensions.projects.projects()<CR>", silent)
-map("n", "<leader>fb", "<CMD>lua require('telescope.builtin').buffers()<CR>", silent)
-map("n", "<leader>fr", "<CMD>lua require('telescope.builtin').oldfiles()<CR>", silent)
+map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>", silent)
+map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", silent)
+map("n", "<leader>fT", "<cmd>lua require('telescope.builtin').live_grep()<CR>", silent)
+map("n", "<leader>fp", "<cmd>Telescope<CR>", silent)
+-- map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", silent)
+map("n", "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", silent)
+
+map("n", "<leader>o", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", silent)
+map("n", "<leader>O", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", silent)
 
 -- Git
-map("n", "<leader>gg", "<CMD>lua _LAZYGIT_TOGGLE()<CR>", silent)
-map("n", "<leader>gs", "<CMD>Gitsigns toggle_signs<CR>", silent)
+map("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", silent)
+map("n", "<leader>gs", "<cmd>Gitsigns toggle_signs<CR>", silent)
 
 -- Comment
-map("n", "<leader>/", "<CMD>lua require('Comment.api').toggle.linewise.current()<CR>", silent)
-map("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
+map("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", silent)
+map("x", "<leader>/", '<ESC><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
 
 -- DAP
 map("n", "<F5>", function()
-	dap.continue()
+    dap.continue()
 end)
 map("n", "<F4>", function()
-	sidebars.toggle("dapui")
+    sidebars.toggle("dapui")
 end)
 map("n", "<M-b>", pbreakpoints.toggle_breakpoint)
 map("n", "<M-S-b>", function()
-	local condition = vim.fn.input(" Breakpoint condition: ")
-	if condition then
-		pbreakpoints.set_conditional_breakpoint(condition)
-	end
+    local condition = vim.fn.input(" Breakpoint condition: ")
+    if condition then
+        pbreakpoints.set_conditional_breakpoint(condition)
+    end
 end)
 term.set_global_build_cmd("<M-c>", "make build")
 term.set_global_debug_cmd("<M-d>", "make build")
@@ -143,7 +148,7 @@ term.set_global_term_cmd("<M-r>", "make run")
 
 -- Undotree
 map("n", "<leader>u", function()
-	sidebars.toggle("undotree")
+    sidebars.toggle("undotree")
 end, silent)
 
 -- Harpoon/Grapple
@@ -164,19 +169,21 @@ map("n", "<leader>m", require("grapple").toggle_tags)
 -- end, silent)
 
 for i = 1, 9 do
-	map("n", string.format("<leader>%d", i), function()
-		require("grapple").select({ index = i })
-		-- require("harpoon.ui").nav_file(i)
-	end, silent)
+    map("n", string.format("<leader>%d", i), function()
+        require("grapple").select({ index = i })
+        -- require("harpoon.ui").nav_file(i)
+    end, silent)
 end
 
 -- Alpha
-map("n", "<leader>A", "<CMD>Alpha<CR>", silent)
+map("n", "<leader>A", "<cmd>Alpha<CR>", silent)
 
 -- Symbols outline
-map("n", "<leader>o", function()
-	sidebars.toggle("symbols_outline")
-end, silent)
+-- replaced with telescope picker
+
+-- map("n", "<leader>o", function()
+-- 	sidebars.toggle("symbols_outline")
+-- end, silent)
 
 -- Change trackpad scroll to move window instead of cursor
 map("n", "<Up>", "<C-y>", silent)
@@ -186,7 +193,7 @@ map("n", "<Left>", "zh", silent)
 map("n", "<Right>", "zl", silent)
 
 -- Add :Inspect to insert mode for weird customization case for lsp_signature
-map("i", "<C-i>", "<CMD>Inspect<CR>", silent)
+map("i", "<C-i>", "<cmd>Inspect<CR>", silent)
 
 -- ufo
 map("n", "zR", require("ufo").openAllFolds)
@@ -195,68 +202,115 @@ map("n", "zM", require("ufo").closeAllFolds)
 -- move it here, no harm done
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
 M.lsp_keymaps = function(bufnr, client)
-	local opts = { noremap = true, silent = true }
-	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
-	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts, bufnr)
-	map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts, bufnr)
-	map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts, bufnr)
-	map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts, bufnr)
+    local opts = { noremap = true, silent = true }
+    map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
+    map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts, bufnr)
+    map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts, bufnr)
+    map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts, bufnr)
+    map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts, bufnr)
 
-	if client.name ~= "texlab" then
-		map("n", "<leader>li", "<cmd>LspInfo<cr>", opts, bufnr)
-		-- map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>", opts, bufnr)
-		map("n", "<leader>lI", "<cmd>Mason<cr>", opts, bufnr)
-		map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts, bufnr)
-		map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>", opts, bufnr)
-		map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>", opts, bufnr)
-		map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts, bufnr)
-		map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, bufnr)
-		map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
-	end
+    if client.name ~= "texlab" then
+        map("n", "<leader>li", "<cmd>LspInfo<CR>", opts, bufnr)
+        -- map("n", "<leader>lI", "<cmd>LspInstallInfo<CR>", opts, bufnr)
+        map("n", "<leader>lI", "<cmd>Mason<CR>", opts, bufnr)
+        map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts, bufnr)
+        map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", opts, bufnr)
+        map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", opts, bufnr)
+        map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts, bufnr)
+        map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, bufnr)
+        map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
+
+        map("n", "<leader>llR", "<cmd>LspRestart<CR>", opts, bufnr)
+    end
 
     if client.name == "tailwindcss" then
-		map("n", "<leader>tf", "<cmd>TailwindSort<CR>", opts, bufnr)
-		-- map("v", "<leader>tf", "<cmd>TailwindSortSelection<CR>", opts, bufnr)
+        map("n", "<leader>tf", "<cmd>TailwindSort<CR>", opts, bufnr)
+        -- map("v", "<leader>tf", "<cmd>TailwindSortSelection<CR>", opts, bufnr)
 
-		map("n", "<leader>tt", "<cmd>TailwindConcealToggle<CR>", opts, bufnr)
-		map("n", "<leader>tc", "<cmd>TailwindConcealEnable<CR>", opts, bufnr)
-		map("n", "<leader>to", "<cmd>TailwindConcealDisable<CR>", opts, bufnr)
+        map("n", "<leader>tt", "<cmd>TailwindConcealToggle<CR>", opts, bufnr)
+        map("n", "<leader>tc", "<cmd>TailwindConcealEnable<CR>", opts, bufnr)
+        map("n", "<leader>to", "<cmd>TailwindConcealDisable<CR>", opts, bufnr)
+    end
+end
+
+-- neogui
+if vim.g.neogui then
+    -- all modes
+    local mode = { "", "!", "t", "l" }
+    map(mode, "<D-l>", "<cmd>NeoguiSession prev<CR>")
+    map(mode, "<D-r>", "<cmd>NeoguiSession select sort=time<CR>")
+    M.neogui_open_session_picker = function()
+        local cmd = [[
+    echo "$(begin;
+      echo ~/;
+      echo ~/dotfiles;
+      find ~/code -mindepth 2 -maxdepth 2 -type d;
+    end;)"
+    ]]
+        local output = vim.fn.system(cmd)
+
+        local dirs = {}
+        for dir in string.gmatch(output, "([^\n]+)") do
+            table.insert(dirs, dir)
+        end
+
+        vim.ui.select(dirs, {
+            prompt = "Choose a directory:",
+            -- format_item = function(item)
+            --   return "(" .. item.id .. ") - " .. item.name
+            -- end
+        }, function(choice)
+            if choice == nil then
+                return
+            end
+            local dir = choice
+            local fmod = vim.fn.fnamemodify
+            local name = fmod(fmod(dir, ":h"), ":t") .. "/" .. fmod(dir, ":t")
+            vim.cmd(string.format("NeoguiSession new dir=%s name=%s", dir, name))
+        end)
+    end
+    map(mode, "<D-f>", M.neogui_open_session_picker)
+
+    if vim.g.neogui then
+        map({ "n", "v" }, "<D-v>", '"+p')
+        map({ "i", "c", "t" }, "<D-v>", "<C-r>+")
+        -- map({ "i", "c", "t" }, "<D-bs>", "<C-u>")
     end
 end
 
 local original_mappings = {}
 M.push_map = function(mode, key, new_mapping, bufnr)
-	original_mappings[key] = { mapping = vim.fn.maparg(key, "n"), new_mode = mode }
-	unmap("n", "K", bufnr)
-	map(mode, key, new_mapping, silent, bufnr)
+    original_mappings[key] = { mapping = vim.fn.maparg(key, "n"), new_mode = mode }
+    unmap("n", "K", bufnr)
+    map(mode, key, new_mapping, silent, bufnr)
 end
 
 M.pop_map = function(key)
-	if original_mappings[key] then
-		unmap(original_mappings[key].new_mode, key)
-		map("n", key, original_mappings[key].mapping, silent)
-		original_mappings[key] = nil
-	end
+    if original_mappings[key] then
+        unmap(original_mappings[key].new_mode, key)
+        map("n", key, original_mappings[key].mapping, silent)
+        original_mappings[key] = nil
+    end
 end
 
 M.remove_dap_maps = function()
-	M.pop_map("K")
-	unmap("n", "<M-1>")
-	unmap("n", "<M-S-1>")
-	unmap("n", "<M-2>")
-	unmap("n", "<M-S-2>")
-	unmap("n", "<M-3>")
-	unmap("n", "<M-4>")
+    M.pop_map("K")
+    unmap("n", "<M-1>")
+    unmap("n", "<M-S-1>")
+    unmap("n", "<M-2>")
+    unmap("n", "<M-S-2>")
+    unmap("n", "<M-3>")
+    unmap("n", "<M-4>")
 end
 
 M.setup_dap_maps = function()
-	M.push_map({ "n", "v" }, "K", dapui.eval)
-	map("n", "<M-1>", dap.continue)
-	map("n", "<M-S-1>", dap.run_to_cursor)
-	map("n", "<M-2>", dap.step_over)
-	map("n", "<M-S-2>", dap.step_into)
-	map("n", "<M-3>", dap.terminate)
-	map("n", "<M-4>", dap.run_last)
+    M.push_map({ "n", "v" }, "K", dapui.eval)
+    map("n", "<M-1>", dap.continue)
+    map("n", "<M-S-1>", dap.run_to_cursor)
+    map("n", "<M-2>", dap.step_over)
+    map("n", "<M-S-2>", dap.step_into)
+    map("n", "<M-3>", dap.terminate)
+    map("n", "<M-4>", dap.run_last)
 end
 
 return M
