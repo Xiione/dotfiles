@@ -25,26 +25,45 @@ local colors = require("user.cfg.colors")
 -- -- normal.sp = "none"
 -- set(0, "Normal", normal)
 
-local normalFloat = get_hl(0, { name = "NormalFloat" })
-normalFloat.bg = colors.nord17
-normalFloat.sp = colors.nord4
+local update = function(ns_id, name, opts)
+	local hl = get_hl(ns_id, { name = name })
+	for k, v in pairs(opts) do
+		hl[k] = v
+	end
+	set(ns_id, name, hl)
+	return hl
+end
+
+local update_from = function(ns_id, name, from, opts)
+	local hl = get_hl(ns_id, { name = from })
+	for k, v in pairs(opts) do
+		hl[k] = v
+	end
+	set(ns_id, name, hl)
+	return hl
+end
+
+local normalFloat = update(0, "NormalFloat", { bg = colors.nord17, sp = colors.nord4 })
 set(0, "NormalSidebar", normalFloat)
 set(0, "NormalFloat", normalFloat)
-
 set(0, "HarpoonBorder", normalFloat)
 set(1, "HarpoonWindow", normalFloat)
-
 set(0, "NormalFloat", normalFloat)
 set(0, "LazyProp", normalFloat)
 
-local cursorLine = get_hl(0, { name = "CursorLine" })
-cursorLine.bg = colors.nord0
-set(0, "CursorLineSidebar", cursorLine)
+local cursorLineBg = colors.nord0
+
+-- update(0, "CursorLine", { bg = cursorLineBg })
+update_from(0, "CursorLineSidebar", "CursorLine", { bg = colors.nord1 })
+-- update_from(0, "CursorLineSign", "CursorLine", { bg = cursorLineBg })
+-- update(0, "CursorLineNr", { bg = cursorLineBg })
+-- update(0, "CursorLineFold", { bg = cursorLineBg })
+-- update(0, "CursorLineSign", { bg = cursorLineBg })
 
 set(0, "NvimTreeEmptyFolderName", { fg = colors.nord10 })
 set(0, "NvimTreeIndentMarker", { fg = colors.nord0 })
 set(0, "NvimTreeWindowPicker", { fg = colors.nord0, bg = colors.nord9 })
--- set_hl(0, "NvimTreeCursorLine", { bg = colors.nord0 })
+update(0, "NvimTreeCursorLine", { bg = colors.nord1 })
 
 set(0, "QuickFixLine", { bg = colors.nord0 })
 set(0, "qfLineNr", { fg = colors.nord10 })
@@ -122,21 +141,10 @@ set(0, "EyelinerSecondary", { fg = colors.nord8 })
 -- vim.api.nvim_set_hl(0, "FloatShadow", { fg = colors.nord0 })
 -- vim.api.nvim_set_hl(0, "FloatShadowThrough", { fg = colors.nord0 })
 
-local spellBad = get_hl(0, { name = "SpellBad" })
-spellBad.sp = colors.nord11
-set(0, "SpellBad", spellBad)
-
-local spellCap = get_hl(0, { name = "SpellCap" })
-spellCap.sp = colors.nord7
-set(0, "SpellCap", spellCap)
-
-local spellRare = get_hl(0, { name = "SpellRare" })
-spellRare.sp = colors.nord9
-set(0, "SpellRare", spellRare)
-
-local spellLocal = get_hl(0, { name = "SpellLocal" })
-spellLocal.sp = colors.nord8
-set(0, "SpellLocal", spellLocal)
+update(0, "SpellBad", { sp = colors.nord11 })
+update(0, "SpellCap", { sp = colors.nord7 })
+update(0, "SpellRare", { sp = colors.nord9 })
+update(0, "SpellLocal", { sp = colors.nord8 })
 
 set(0, "Quote", { fg = colors.nord4 })
 
@@ -198,3 +206,20 @@ set(0, "CmpItemAbbrMatchFuzzy", { fg = colors.nord8 })
 -- tailwind-tools
 -- this also in the tailwind-tools config itself
 -- set(0, "TailwindConceal", { link = "Comment" })
+
+-- gitsign cursorline
+-- for _, name in ipairs({
+-- 	"GitSignsAdd",
+-- 	"GitSignsChange",
+-- 	"GitSignsDelete",
+-- 	"GitSignsChangedelete",
+-- 	"GitSignsTopdelete",
+-- 	"GitSignsUntracked",
+-- }) do
+-- 	update_from(0, name .. "Cul", name, { bg = cursorLineBg, link = "" })
+-- end
+
+update(0, "DiffDelete", { bg = "None" })
+update(0, "DiffChange", { bg = "None" })
+update(0, "DiffAdd", { bg = "None" })
+update(0, "DiffText", { bg = "None" })
