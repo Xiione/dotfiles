@@ -27,7 +27,7 @@ gitsigns.setup({
 	status_formatter = nil, -- Use default
 	preview_config = {
 		-- Options passed to nvim_open_win
-		border = "single",
+		border = "solid",
 		style = "minimal",
 		relative = "cursor",
 		row = 0,
