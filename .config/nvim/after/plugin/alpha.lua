@@ -12,10 +12,11 @@ local keymaps = require("user.cfg.keymaps")
 
 dashboard.section.header.val = header()
 dashboard.section.buttons.val = {
-	(
-		vim.g.neogui and dashboard.button("p", "󰃅 " .. " Create session", keymaps.neogui_open_session_picker)
-		or dashboard.button("p", " " .. " Restore session", "<cmd>lua require('persistence').load()<CR>")
-	),
+	-- (
+	-- 	vim.g.neogui and dashboard.button("p", "󰃅 " .. " Create session", keymaps.neogui_open_session_picker)
+	-- 	or dashboard.button("p", " " .. " Restore session", "<cmd>lua require('persistence').load()<CR>")
+	-- ),
+	dashboard.button("p", " " .. " Restore session", "<cmd>lua require('persistence').load()<CR>"),
 	dashboard.button("e", "󰙅 " .. " Browse files", "<cmd>lua require('nvim-tree.api').tree.toggle()<CR>"),
 	dashboard.button(
 		"f",
