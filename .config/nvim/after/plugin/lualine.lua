@@ -97,8 +97,8 @@ lualine.setup({
 		section_separators = "",
 		ignore_focus = sidebars.sidebar_types,
 		disabled_filetypes = {
-			statusline = { "alpha" },
-			winbar = vim.tbl_extend("force", sidebars.sidebar_types, { "alpha" }),
+			-- statusline = { "alpha" },
+			-- winbar = vim.tbl_extend("force", sidebars.sidebar_types, { "alpha" }),
 		},
 	},
 	sections = {

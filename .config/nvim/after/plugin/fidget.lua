@@ -11,8 +11,13 @@ fidget.setup({
 	},
 	notification = {
 		window = {
-            -- normal_hl = "Normal",
-			winblend = 100,
+			normal_hl = "Normal",
+			winblend = 0,
+		},
+	},
+	integration = {
+		["nvim-tree"] = {
+			enable = true, -- Integrate with nvim-tree/nvim-tree.lua (if installed)
 		},
 	},
 })

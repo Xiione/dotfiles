@@ -51,9 +51,11 @@ set(1, "HarpoonWindow", normalFloat)
 set(0, "NormalFloat", normalFloat)
 set(0, "LazyProp", normalFloat)
 
+-- update_from(0, "NormalFidget", "Normal", { bg = "None" })
+
 local cursorLineBg = colors.nord0
 
--- update(0, "CursorLine", { bg = cursorLineBg })
+update(0, "CursorLine", { bg = cursorLineBg })
 update_from(0, "CursorLineSidebar", "CursorLine", { bg = colors.nord1 })
 -- update_from(0, "CursorLineSign", "CursorLine", { bg = cursorLineBg })
 -- update(0, "CursorLineNr", { bg = cursorLineBg })

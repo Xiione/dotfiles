@@ -11,6 +11,7 @@ local pbreakpoints = require("persistent-breakpoints.api")
 local M = {}
 
 local silent = { silent = true }
+local remap = { remap = true }
 
 --Remap space as leader key
 map("", "<Space>", "<Nop>", silent)
@@ -244,7 +245,7 @@ if vim.g.neogui then
             echo "$(begin;
               echo ~/;
               echo ~/dotfiles;
-              find ~/code -mindepth 2 -maxdepth 2 -type d;
+              find ~/code -mindepth 0 -maxdepth 2 -type d;
             end;)"
         ]]
 		local output = vim.fn.system(cmd)
@@ -255,7 +256,7 @@ if vim.g.neogui then
 		end
 
 		vim.ui.select(dirs, {
-			prompt = "Choose a directory:",
+			prompt = "Create a session",
 			-- format_item = function(item)
 			--   return "(" .. item.id .. ") - " .. item.name
 			-- end
@@ -278,8 +279,9 @@ if vim.g.neogui then
 		M.neogui_open_session_finder(false)
 	end)
 
-	map({ "n", "v" }, "<D-v>", '"+p')
-	map({ "i", "c", "t" }, "<D-v>", "<C-r>+")
+	map({ "n", "v" }, "<D-v>", '"+p', silent)
+	map({ "i", "c" }, "<D-v>", "<C-r>+", silent)
+	map("t", "<D-v>", "<C-\\><C-N><D-v>i", remap)
 	-- map({ "i", "c", "t" }, "<D-bs>", "<C-u>")
 
 	vim.g.neogui_startup = function()

@@ -9,7 +9,7 @@ local utils = require("user.lib.utils")
 
 toggleterm.setup({
 	size = 13,
-	open_mapping = [[<C-\>]],
+	open_mapping = [[<C-]>]],
 	hide_numbers = true,
 	start_in_insert = true,
 	persist_size = false,
