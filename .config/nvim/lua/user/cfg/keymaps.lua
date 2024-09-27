@@ -238,8 +238,8 @@ end
 if vim.g.neogui then
 	-- all modes
 	local mode = { "", "!", "t", "l" }
-	map(mode, "<D-l>", "<cmd>NeoguiSession prev<CR>")
-	map(mode, "<D-m>", "<cmd>NeoguiSession select sort=time<CR>")
+	map(mode, "<D-l>", "<cmd>Neogui session_prev<CR>")
+	map(mode, "<D-m>", "<cmd>Neogui session_select sort=time<CR>")
 	M.neogui_open_session_finder = function(init)
 		local cmd = [[
             echo "$(begin;
@@ -267,10 +267,10 @@ if vim.g.neogui then
 			local dir = choice
 			local fmod = vim.fn.fnamemodify
 			local name = fmod(fmod(dir, ":h"), ":t") .. "/" .. fmod(dir, ":t")
-			vim.g.neogui_session("new", { dir = dir, name = name, switch_to = not init })
+			vim.g.neogui_cmd("session_new", { dir = dir, name = name, switch_to = not init })
 
 			if init then
-				vim.g.neogui_session("kill")
+				vim.g.neogui_cmd("session_kill")
 			end
 		end)
 	end
