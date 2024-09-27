@@ -106,3 +106,7 @@ cmp.setup({
 		completeopt = "menu,menuone,noinsert",
 	},
 })
+
+cmp.setup.filetype({ 'TelescopePrompt' }, {
+sources = { }
+})
