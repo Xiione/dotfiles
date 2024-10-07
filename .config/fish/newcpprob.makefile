@@ -1,7 +1,7 @@
 .PHONY: build clean run
 
 CC = g++
-CFLAGS = -g -std=gnu++17 -D DLOCAL -Og
+CFLAGS = -g -std=gnu++17 -D DLOCAL
 
 EXECUTABLE = {{EXECUTABLE}}
 SOURCE = {{SOURCE}}

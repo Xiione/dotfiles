@@ -131,7 +131,7 @@ function newcpprob
         return 1
     end
 
-    cp "$__fish_config_dir/newcpprob.makefile" "$probpath/Makefile"
+    ln "$__fish_config_dir/newcpprob.makefile" "$probpath/Makefile"
     or begin
         echo "Failed to create Makefile"
         return 1
@@ -152,9 +152,14 @@ function newcpprob
         return 1
     end
 
-    if not set -q _flag_x
-        cd $probpath
-        nvim "./$probsrc"
+    # if not set -q _flag_x
+    #     cd $probpath
+    #     nvim "./$probsrc"
+    # end
+    cd "$probpath"
+    or begin
+        echo "Failed to change directory to $probpath"
+        return 1
     end
 end
 
