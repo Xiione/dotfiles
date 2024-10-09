@@ -141,9 +141,9 @@ end, {})
 -- replaces impatient.nvim
 vim.loader.enable()
 
--- neogui
-if vim.g.neogui then
-  vim.g.neogui_opts = {
+-- neogurt
+if vim.g.neogurt then
+  vim.g.neogurt_opts = {
     window = {
       vsync = true,
       high_dpi = true,

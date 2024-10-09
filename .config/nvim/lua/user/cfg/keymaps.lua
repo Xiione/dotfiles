@@ -234,13 +234,13 @@ M.lsp_keymaps = function(bufnr, client)
 	end
 end
 
--- neogui
-if vim.g.neogui then
+-- neogurt
+if vim.g.neogurt then
 	-- all modes
 	local mode = { "", "!", "t", "l" }
-	map(mode, "<D-l>", "<cmd>Neogui session_prev<CR>")
-	map(mode, "<D-m>", "<cmd>Neogui session_select sort=time<CR>")
-	M.neogui_open_session_finder = function(init)
+	map(mode, "<D-l>", "<cmd>Neogurt session_prev<CR>")
+	map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<CR>")
+	M.neogurt_open_session_finder = function(init)
 		local cmd = [[
             echo "$(begin;
               echo ~/;
@@ -267,16 +267,16 @@ if vim.g.neogui then
 			local dir = choice
 			local fmod = vim.fn.fnamemodify
 			local name = fmod(fmod(dir, ":h"), ":t") .. "/" .. fmod(dir, ":t")
-			vim.g.neogui_cmd("session_new", { dir = dir, name = name, switch_to = not init })
+			vim.g.neogurt_cmd("session_new", { dir = dir, name = name, switch_to = not init })
 
 			if init then
-				vim.g.neogui_cmd("session_kill")
+				vim.g.neogurt_cmd("session_kill")
 			end
 		end)
 	end
 
 	map(mode, "<D-s>", function()
-		M.neogui_open_session_finder(false)
+		M.neogurt_open_session_finder(false)
 	end)
 
 	map({ "n", "v" }, "<D-v>", '"+p', silent)
@@ -284,8 +284,8 @@ if vim.g.neogui then
 	map("t", "<D-v>", "<C-\\><C-N><D-v>i", remap)
 	-- map({ "i", "c", "t" }, "<D-bs>", "<C-u>")
 
-	vim.g.neogui_startup = function()
-		M.neogui_open_session_finder(true)
+	vim.g.neogurt_startup = function()
+		M.neogurt_open_session_finder(true)
 	end
 end
 
