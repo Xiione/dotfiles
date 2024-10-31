@@ -1,7 +1,7 @@
 CompileFlags:
-  Add: [
-    -std=c++17,
-    -Wall,
-    -pedantic,
-    -I/usr/local/include,
-  ]
+  Add: [-Wall, -pedantic, -I/usr/local/include]
+---
+If:
+  PathExclude: [.*\.c$, .*\.h$]
+CompileFlags:
+  Add: [-std=c++17]
