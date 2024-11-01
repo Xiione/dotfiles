@@ -43,7 +43,7 @@ local update_from = function(ns_id, name, from, opts)
 	return hl
 end
 
-local normalFloat = update(0, "NormalFloat", { bg = colors.nord17, sp = colors.nord4 })
+local normalFloat = update(0, "NormalFloat", { bg = colors.nord18, sp = colors.nord4 })
 set(0, "NormalSidebar", normalFloat)
 set(0, "NormalFloat", normalFloat)
 set(0, "HarpoonBorder", normalFloat)
@@ -111,24 +111,24 @@ set(0, "SmoothCursor2", { fg = colors.nord2 })
 set(0, "SmoothCursor3", { fg = colors.nord3 })
 set(0, "SmoothCursor9", { fg = colors.nord9 })
 
-set(0, "FloatBorder", { bg = colors.nord17 })
-set(0, "LspFloatWinBorder", { bg = colors.nord17 })
-set(0, "LsOutlinePreviewBorder", { bg = colors.nord17 })
-set(0, "LspInfoBorder", { bg = colors.nord17 })
+set(0, "FloatBorder", { bg = colors.nord18 })
+set(0, "LspFloatWinBorder", { bg = colors.nord18 })
+set(0, "LsOutlinePreviewBorder", { bg = colors.nord18 })
+set(0, "LspInfoBorder", { bg = colors.nord18 })
 
-set(0, "TelescopeNormal", { bg = colors.nord17 })
-set(0, "TelescopeBorder", { bg = colors.nord17 })
+set(0, "TelescopeNormal", { bg = colors.nord18 })
+set(0, "TelescopeBorder", { bg = colors.nord18 })
 
-set(0, "TelescopePromptNormal", { bg = colors.nord17 })
-set(0, "TelescopePromptBorder", { bg = colors.nord17 })
+set(0, "TelescopePromptNormal", { bg = colors.nord18 })
+set(0, "TelescopePromptBorder", { bg = colors.nord18 })
 set(0, "TelescopePromptTitle", { fg = colors.nord4, bg = colors.nord0 })
-set(0, "TelescopePromptCounter", { bg = colors.nord17 })
+set(0, "TelescopePromptCounter", { bg = colors.nord18 })
 
-set(0, "TelescopeResultsTitle", { bg = colors.nord17 })
-set(0, "TelescopeResultsBorder", { bg = colors.nord17 })
+set(0, "TelescopeResultsTitle", { bg = colors.nord18 })
+set(0, "TelescopeResultsBorder", { bg = colors.nord18 })
 
 set(0, "TelescopePreviewTitle", { fg = colors.nord4, bg = colors.nord0 })
-set(0, "TelescopePreviewBorder", { bg = colors.nord17 })
+set(0, "TelescopePreviewBorder", { bg = colors.nord18 })
 
 set(0, "luaParenError", { link = "none" })
 set(0, "MarkdownError", { link = "None" })

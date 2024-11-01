@@ -1,6 +1,7 @@
 return {
-	nord17 = "#1e2128", -- custom
-	nord16 = "#272c36", -- custom
+	nord18 = "#191D24", -- custom
+	nord17 = "#1E2128", -- custom
+	nord16 = "#222630", -- custom
 	nord0 = "#2E3440",
 	-- nord0o = "#2E3441", -- i think the nord nvim theme takes all bgs with the nord0 color "none"
 	nord1 = "#3B4252",

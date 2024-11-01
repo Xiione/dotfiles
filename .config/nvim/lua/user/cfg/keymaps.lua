@@ -239,7 +239,12 @@ if vim.g.neogurt then
 	-- all modes
 	local mode = { "", "!", "t", "l" }
 	map(mode, "<D-l>", "<cmd>Neogurt session_prev<CR>")
-	map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<CR>")
+    map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<CR>")
+
+	map(mode, "<D-=>", "<cmd>Neogurt font_size_change 1 all=false<cr>")
+	map(mode, "<D-->", "<cmd>Neogurt font_size_change -1 all=false<cr>")
+	map(mode, "<D-0>", "<cmd>Neogurt font_size_reset all=false<cr>")
+
 	M.neogurt_open_session_finder = function(init)
 		local cmd = [[
             echo "$(begin;
