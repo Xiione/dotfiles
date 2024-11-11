@@ -10,7 +10,7 @@ fish_add_path ~/emsdk
 fish_add_path ~/emsdk/upstream/emscripten
 fish_add_path /usr/local/bin
 
-fish_add_path /opt/homebrew/opt/llvm/bin
+fish_add_path /usr/local/opt/llvm/bin
 
 set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
 set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
@@ -54,7 +54,7 @@ function pussh
     end
     # set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
     # TERM=xterm-256color expect ~/.local/scripts/exp.sh $pussh_password ssh $pussh_server
-    TERM=xterm-256color ssh $pussh_server
+    ssh data
 end
 
 function pfsum
@@ -74,35 +74,9 @@ function pusshfs
     #     pussh &&
     #     pfsum ||
     #     echo "Mount failed"
-    sshfs "$pussh_server:$pusshfs_home" $pusshfs_mp && 
+    sshfs "data:$pusshfs_home" $pusshfs_mp && 
         echo "Successfully mounted $pussh_server:$pusshfs_home at $pusshfs_mp" &&
         pussh &&
-        pfsum ||
-        echo "Unmount failed"
-end
-
-function irssh
-    if test "$(ssh-add -l)" = "The agent has no identities."
-        echo "The SSH agent has no identities. Aborting..."
-        return
-    end
-    TERM=xterm-256color ssh $irssh_server
-end
-
-function ifsum
-    echo "Trying unmount"
-    sudo diskutil umount force $irsshfs_mp
-end
-
-function irsshfs
-    if test "$(ssh-add -l)" = "The agent has no identities."
-        echo "The SSH agent has no identities. Aborting..."
-        return
-    end
-    pfsum
-    sshfs "$irssh_server:$irsshfs_home" $irsshfs_mp && 
-        echo "Successfully mounted $irssh_server:$irsshfs_home at $irsshfs_mp" &&
-        irssh &&
         pfsum ||
         echo "Unmount failed"
 end
