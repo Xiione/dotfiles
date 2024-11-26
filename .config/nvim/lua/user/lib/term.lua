@@ -10,6 +10,11 @@ end
 
 local sidebars = require("user.lib.sidebars")
 
+local terms_status_ok, terms = pcall(require, "toggleterm.terminal")
+if not tt_status_ok then
+	return
+end
+
 local M = {}
 
 M.set_build_cmd = function(mapping, cmd)
@@ -141,6 +146,12 @@ M.close_current_make_term = function()
 	if Current_cmd_term then
 		Current_cmd_term:close()
 	end
+end
+
+M.kill_term = function ()
+    local num = terms.get_toggled_id()
+    local term = terms.get_or_create_term(num)
+    term:shutdown()
 end
 
 -- Current_make_term = nil

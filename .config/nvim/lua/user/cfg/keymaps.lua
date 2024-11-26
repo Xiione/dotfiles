@@ -147,6 +147,21 @@ term.set_global_build_cmd("<M-c>", "make build")
 term.set_global_debug_cmd("<M-d>", "make build")
 term.set_global_term_cmd("<M-r>", "make run")
 
+-- newcpprob
+map("n", "<M-o>", function()
+    vim.cmd("cd ..")
+    vim.notify(vim.fn.getcwd())
+end)
+map("n", "<M-p>", function()
+	local probname = vim.fn.input(" Enter problem name (ESC to cancel): ")
+	if not probname:match("^%s*$") then
+		vim.fn.system("newcpprob " .. probname)
+		vim.fn.chdir(probname)
+		term.kill_term()
+		vim.cmd("edit " .. probname .. ".cpp")
+	end
+end)
+
 -- Undotree
 map("n", "<leader>u", function()
 	sidebars.toggle("undotree")
@@ -239,7 +254,7 @@ if vim.g.neogurt then
 	-- all modes
 	local mode = { "", "!", "t", "l" }
 	map(mode, "<D-l>", "<cmd>Neogurt session_prev<CR>")
-    map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<CR>")
+	map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<CR>")
 
 	map(mode, "<D-=>", "<cmd>Neogurt font_size_change 1 all=false<cr>")
 	map(mode, "<D-->", "<cmd>Neogurt font_size_change -1 all=false<cr>")
@@ -322,9 +337,9 @@ end
 M.setup_dap_maps = function()
 	M.push_map({ "n", "v" }, "K", dapui.eval)
 	map("n", "<M-1>", dap.continue)
-	map("n", "<M-S-1>", dap.run_to_cursor)
+	map("n", "<M-Q>", dap.run_to_cursor)
 	map("n", "<M-2>", dap.step_over)
-	map("n", "<M-S-2>", dap.step_into)
+	map("n", "<M-W>", dap.step_into)
 	map("n", "<M-3>", dap.terminate)
 	map("n", "<M-4>", dap.run_last)
 end

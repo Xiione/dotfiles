@@ -157,11 +157,16 @@ M.get_dap_executable = function()
 			executable = line:match("^EXECUTABLE%s*=%s*(.+)")
 			if executable then
 				session_dap_executable = executable
+            else
+                local cwdbasename = vim.fs.basename(vim.fn.getcwd())
+                if io.open(cwdbasename) and os.execute("test -x " .. cwdbasename) == 0 then
+                    session_dap_executable = cwdbasename
+                end
 			end
 		end
 	end
 	if not session_dap_executable then
-		session_dap_executable = vim.fn.input(" Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		session_dap_executable = vim.fn.input("  Path to executable: ", vim.fn.getcwd() .. "/", "file")
 		return session_dap_executable
 	end
 	return session_dap_executable

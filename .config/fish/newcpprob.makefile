@@ -1,10 +1,11 @@
 .PHONY: build clean run
 
-CC = g++
-CFLAGS = -g -std=gnu++17 -D DLOCAL
+CC := g++
+CFLAGS := -g -std=gnu++17 -D DLOCAL
 
-EXECUTABLE = {{EXECUTABLE}}
-SOURCE = {{SOURCE}}
+PROBNAME := $(shell basename $(CURDIR))
+EXECUTABLE := $(PROBNAME)
+SOURCE := $(PROBNAME).cpp
 
 build: $(EXECUTABLE)
 
