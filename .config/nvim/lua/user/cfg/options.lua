@@ -55,6 +55,7 @@ vim.opt.incsearch = true
 vim.opt.colorcolumn = ""
 vim.opt.autoindent = true
 vim.opt.mousemoveevent = false
+vim.opt.sessionoptions = "buffers,curdir,folds,help,winsize,terminal"
 
 -- ufo
 vim.o.foldcolumn = "1" -- '0' is not bad
