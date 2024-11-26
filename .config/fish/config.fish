@@ -1,6 +1,6 @@
-if status is-login
-    neofetch
-end
+# if status is-login
+#     neofetch
+# end
 
 fish_add_path /opt/homebrew/bin
 fish_add_path /Library/TeX/texbin
@@ -46,12 +46,30 @@ function ssh
     TERM=xterm-256color command ssh $argv
 end
 
+function checkidentities
+    test "$(ssh-add -l)" != "The agent has no identities."
+    and return 0
+    # echo "The SSH agent has no identities. Aborting..."
+
+    # hit enter to switch spaces to 4, 
+    echo "Hit enter to switch to space 4 for keepass, any other key to cancel..."
+    read -n1 key
+
+    # enter gives empty
+    test -z key
+    and return 1
+    
+    yabai -m space --focus 4
+
+    echo "Hit any key to proceed..."
+    read -n1 key
+
+    return 0
+end
 
 function pussh
-    if test "$(ssh-add -l)" = "The agent has no identities."
-        echo "The SSH agent has no identities. Aborting..."
-        return
-    end
+    checkidentities 
+    or return 1
     # set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
     # TERM=xterm-256color expect ~/.local/scripts/exp.sh $pussh_password ssh $pussh_server
     ssh data
@@ -63,10 +81,8 @@ function pfsum
 end
 
 function pusshfs
-    if test "$(ssh-add -l)" = "The agent has no identities."
-        echo "The SSH agent has no identities. Aborting..."
-        return
-    end
+    checkidentities 
+    or return 1
     pfsum
     # set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
     # echo $pussh_password | sshfs "$pussh_server:$pusshfs_home" $pusshfs_mp -o password_stdin && 
@@ -99,6 +115,12 @@ function newcpprob
 
     set -l probname $argv[1]
     set -l probpath "./$probname"
+
+    if test -e ./$probpath && test -d ./$probpath
+        echo "Directory $probpath exists"
+        return 1
+    end
+
     mkdir $probpath
     or begin
         echo "Failed to create directory $probpath"
@@ -112,13 +134,6 @@ function newcpprob
     end
 
     set -l probsrc "$probname.cpp"
-
-    sed -i "" "s/{{EXECUTABLE}}/$probname/g" "$probpath/Makefile"
-    sed -i "" "s/{{SOURCE}}/$probsrc/g" "$probpath/Makefile"
-    or begin
-        echo "Failed to initialize Makefile template"
-        return 1
-    end
 
     touch "$probpath/$probsrc"
     or begin
