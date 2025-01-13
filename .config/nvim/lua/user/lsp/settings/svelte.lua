@@ -14,6 +14,11 @@ return {
 				},
 				svelte = {
 					defaultScriptLanguage = "ts",
+                    format = {
+                        config = {
+                            svelteStrictMode = true,
+                        }
+                    }
 				},
 			},
 		},

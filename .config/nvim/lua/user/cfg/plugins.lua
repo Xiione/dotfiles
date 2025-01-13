@@ -17,7 +17,8 @@ require("lazy").setup({
 	{ "numToStr/Comment.nvim" },
 	{ "JoosepAlviste/nvim-ts-context-commentstring" },
 	{ "nvim-tree/nvim-web-devicons" },
-	{ "nvim-tree/nvim-tree.lua", version = "1.2" },
+	-- { "nvim-tree/nvim-tree.lua", version = "1.2" },
+	{ "nvim-tree/nvim-tree.lua" },
 	-- use { "nvim-neo-tree/neo-tree.nvim" } }
 	-- { "akinsho/bufferline.nvim", tag = "v3.1.0" },
 	{ "moll/vim-bbye" },

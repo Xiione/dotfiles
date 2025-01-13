@@ -149,8 +149,8 @@ term.set_global_term_cmd("<M-r>", "make run")
 
 -- newcpprob
 map("n", "<M-o>", function()
-    vim.cmd("cd ..")
-    vim.notify(vim.fn.getcwd())
+	vim.cmd("cd ..")
+	vim.notify(vim.fn.getcwd())
 end)
 map("n", "<M-p>", function()
 	local probname = vim.fn.input(" Enter problem name (ESC to cancel): ")
@@ -287,10 +287,13 @@ if vim.g.neogurt then
 			local dir = choice
 			local fmod = vim.fn.fnamemodify
 			local name = fmod(fmod(dir, ":h"), ":t") .. "/" .. fmod(dir, ":t")
-			vim.g.neogurt_cmd("session_new", { dir = dir, name = name, switch_to = not init })
 
 			if init then
-				vim.g.neogurt_cmd("session_kill")
+				local currId = vim.g.neogurt_cmd("session_info").id
+				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
+				vim.g.neogurt_cmd("session_kill", { id = currId })
+			else
+				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
 			end
 		end)
 	end
@@ -312,7 +315,7 @@ end
 local original_mappings = {}
 M.push_map = function(mode, key, new_mapping, bufnr)
 	original_mappings[key] = { mapping = vim.fn.maparg(key, "n"), new_mode = mode }
-	unmap("n", "K", bufnr)
+	unmap("n", key, bufnr)
 	map(mode, key, new_mapping, silent, bufnr)
 end
 
