@@ -44,7 +44,7 @@ vim.opt.iskeyword:append("-") -- treats words with `-` as single words
 -- vim.opt.formatoptions:remove("r")
 -- vim.opt.formatoptions:remove("o")
 vim.opt.linebreak = true
-vim.opt.guicursor = "v-r-cr:hor50,i:ver50,a:blinkwait100-blinkoff700-blinkon700" -- Underscore visual select cursor
+vim.opt.guicursor = "v-r-cr:hor15,i:ver20,a:blinkwait100-blinkoff700-blinkon700" -- Underscore visual select cursor
 
 vim.opt.relativenumber = true
 vim.opt.hlsearch = false
