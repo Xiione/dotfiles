@@ -2,13 +2,13 @@
 #     neofetch
 # end
 
+fish_add_path /usr/local/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /Library/TeX/texbin
 fish_add_path ~/.cargo/bin
 fish_add_path ~/Library/Python/3.11/bin
 fish_add_path ~/emsdk
 fish_add_path ~/emsdk/upstream/emscripten
-fish_add_path /usr/local/bin
 
 fish_add_path /usr/local/opt/llvm/bin
 
@@ -34,13 +34,10 @@ function ll
     ls -a $argv
 end
 
-function nv 
-    nvim $argv
-end
-
-function lzg
-    lazygit $argv
-end
+# aliases
+alias nv="nvim" 
+alias lzg="lazygit"
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 function ssh
     TERM=xterm-256color command ssh $argv
