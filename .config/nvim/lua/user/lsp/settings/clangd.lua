@@ -3,7 +3,7 @@ return {
 		"clangd",
         "--enable-config",
 		"--background-index",
-		"--query-driver=/usr/local/opt/llvm/bin/clang,/usr/local/opt/llvm/bin/clang++",
+		"--query-driver=/opt/homebrew/opt/llvm/bin/clang,/opt/homebrew/opt/llvm/bin/clang++",
 		-- "--query-driver=/opt/homebrew/bin/gcc-14,/opt/homebrew/bin/g++-14,/opt/homebrew/opt/llvm/bin/clang,/opt/homebrew/opt/llvm/bin/clang++",
         -- "--query-driver=/usr/bin/**/clang-*,/bin/clang,/bin/clang++,/usr/bin/gcc,/usr/bin/g++",
 		"--clang-tidy",

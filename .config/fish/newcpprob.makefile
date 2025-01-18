@@ -1,7 +1,7 @@
 .PHONY: build clean run
 
 CC := g++
-CFLAGS := -g -std=gnu++17 -D DLOCAL
+CFLAGS := -g -std=gnu++17 -D DLOCAL -I/Library/Developer/CommandLineTools/usr/include
 
 PROBNAME := $(shell basename $(CURDIR))
 EXECUTABLE := $(PROBNAME)
