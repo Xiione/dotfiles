@@ -149,4 +149,9 @@ require("lazy").setup({
 	},
 	-- { "sunjon/shade.nvim" },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
+	"scalameta/nvim-metals",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+	},
+	ft = { "scala", "sbt", "java" },
 }, {})

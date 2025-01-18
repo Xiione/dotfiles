@@ -247,6 +247,10 @@ M.lsp_keymaps = function(bufnr, client)
 		map("n", "<leader>tc", "<cmd>TailwindConcealEnable<CR>", opts, bufnr)
 		map("n", "<leader>to", "<cmd>TailwindConcealDisable<CR>", opts, bufnr)
 	end
+
+    if client.name == "metals" then
+		map("n", "<leader>fc", "<cmd>lua require('telescope').extensions.metals.commands()<CR>", opts, bufnr)
+    end
 end
 
 -- neogurt

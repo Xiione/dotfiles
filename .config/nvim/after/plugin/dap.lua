@@ -60,6 +60,26 @@ dap.configurations.c = {
 dap.configurations.cpp = dap.configurations.c
 dap.configurations.rust = dap.configurations.cpp
 
+dap.configurations.scala = {
+	{
+		type = "scala",
+		request = "launch",
+		name = "RunOrTest",
+		metals = {
+			runType = "runOrTestFile",
+			--args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
+		},
+	},
+	{
+		type = "scala",
+		request = "launch",
+		name = "Test Target",
+		metals = {
+			runType = "testTarget",
+		},
+	},
+}
+
 -- repl setup
 dap.repl.commands = vim.tbl_extend("force", dap.repl.commands, {
 	exit = { "q", "exit" },
@@ -74,7 +94,7 @@ dapui.setup({
 	icons = { expanded = "", collapsed = "", circular = "", current_frame = "" },
 	mappings = {
 		expand = "l",
-		open = {"<CR>", "o", "<2-LeftMouse>"},
+		open = { "<CR>", "o", "<2-LeftMouse>" },
 		remove = "d",
 		edit = "e",
 		repl = "r",
@@ -128,7 +148,7 @@ dapui.setup({
 
 local function start_session()
 	keymaps.setup_dap_maps()
-    sidebars.open("dapui")
+	sidebars.open("dapui")
 end
 
 local function terminate_session()

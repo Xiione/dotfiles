@@ -14,6 +14,7 @@ local servers = {
     "marksman",
     "cmake",
     "svelte",
+    "semgrep",
 }
 local settings = {
     ui = {
@@ -29,10 +30,10 @@ local settings = {
 }
 
 require("mason").setup(settings)
-require("mason-lspconfig").setup({
-    ensure_installed = servers,
-    automatic_installation = true,
-})
+-- require("mason-lspconfig").setup({
+--     ensure_installed = servers,
+--     automatic_installation = true,
+-- })
 
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status_ok then
@@ -54,7 +55,7 @@ for _, server in pairs(servers) do
         opts = vim.tbl_deep_extend("force", conf_opts, opts)
     end
 
-    if server ~= "jdtls" then
+    if server ~= "jdtls" and server ~= "semgrep" then
         lspconfig[server].setup(opts)
     end
 end
