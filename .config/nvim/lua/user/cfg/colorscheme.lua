@@ -202,7 +202,8 @@ set(0, "FoldColumn", { fg = colors.nord3L })
 
 -- cmp match colors
 set(0, "CmpItemAbbr", { fg = colors.nord4 })
-set(0, "CmpItemAbbrMatch", { fg = colors.nord4, sp = colors.nord4, underline = true })
+-- set(0, "CmpItemAbbrMatch", { fg = colors.nord4, sp = colors.nord4, underline = true })
+set(0, "CmpItemAbbrMatch", { fg = colors.nord4 })
 set(0, "CmpItemAbbrMatchFuzzy", { fg = colors.nord8 })
 
 -- tailwind-tools
@@ -225,3 +226,5 @@ update(0, "DiffDelete", { bg = "None" })
 update(0, "DiffChange", { bg = "None" })
 update(0, "DiffAdd", { bg = "None" })
 update(0, "DiffText", { bg = "None" })
+
+set(0, "CmpItemKindSupermaven", { fg = colors.nord15 })

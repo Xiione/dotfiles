@@ -204,6 +204,7 @@ M.lspkind_icons = {
 	Snippet = "",
 	String = "",
 	Struct = "",
+    Supermaven = "",
 	Text = " ",
 	TypeParameter = "",
 	Unit = "󰑭",

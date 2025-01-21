@@ -50,7 +50,7 @@ cmp.setup({
 		}),
 	}),
 	formatting = {
-		fields = { "abbr", "kind", "menu" },
+		fields = { "kind", "abbr", "menu" },
 		-- format = function(entry, vim_item)
 		-- 	vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
 		-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind)
@@ -75,11 +75,12 @@ cmp.setup({
 	},
 	sources = {
 		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp_signature_help" },
+        { name = "supermaven" },
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
-		{ name = "nvim_lsp_signature_help" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
