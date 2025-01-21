@@ -112,8 +112,8 @@ end, silent)
 
 -- Telescope
 map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>", silent)
-map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", silent)
-map("n", "<leader>fT", "<cmd>lua require('telescope.builtin').live_grep()<CR>", silent)
+map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').live_grep()<CR>", silent)
+map("n", "<leader>fT", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", silent)
 map("n", "<leader>fp", "<cmd>Telescope<CR>", silent)
 -- map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", silent)
 map("n", "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", silent)
@@ -315,6 +315,8 @@ if vim.g.neogurt then
 		M.neogurt_open_session_finder(true)
 	end
 end
+
+-- supermaven/copilot
 
 local original_mappings = {}
 M.push_map = function(mode, key, new_mapping, bufnr)
