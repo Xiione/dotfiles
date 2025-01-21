@@ -87,8 +87,8 @@ function pusshfs
     #     pussh &&
     #     pfsum ||
     #     echo "Mount failed"
-    sshfs "data:$pusshfs_home" $pusshfs_mp && 
-        echo "Successfully mounted $pussh_server:$pusshfs_home at $pusshfs_mp" &&
+    sshfs -o noapplexattr,noappledouble "data:$pusshfs_home" $pusshfs_mp && 
+        echo "Successfully mounted $pusshfs_home at $pusshfs_mp" &&
         pussh &&
         pfsum ||
         echo "Unmount failed"
@@ -126,7 +126,12 @@ function newcpprob
 
     ln "$__fish_config_dir/newcpprob.makefile" "$probpath/Makefile"
     or begin
-        echo "Failed to create Makefile"
+        echo "Failed to symlink Makefile"
+        return 1
+    end
+    ln "$__fish_config_dir/cpprob.yaml" "$probpath/.clangd"
+    or begin
+        echo "Failed to symlink clangd config"
         return 1
     end
 
@@ -150,6 +155,7 @@ function newcpprob
 end
 
 zoxide init fish | source
+fzf --fish | source
 
 # pnpm
 set -gx PNPM_HOME "/Users/hamilton/Library/pnpm"
