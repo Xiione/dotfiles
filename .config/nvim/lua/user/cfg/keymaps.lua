@@ -317,6 +317,7 @@ if vim.g.neogurt then
 end
 
 -- supermaven/copilot
+map("n", "<leader>C", "<cmd>SupermavenToggle<CR>")
 
 local original_mappings = {}
 M.push_map = function(mode, key, new_mapping, bufnr)
