@@ -3,7 +3,7 @@
 My MacOS configuration files.
 
 
-<img width="1470" alt="image" src="https://github.com/user-attachments/assets/ec88c4b0-20b9-4ca2-a323-fdd3383dfd65" />
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/e68d5cf0-d412-4de6-b99c-fa2cb404bab8" />
 <br/><br/>
 <img width="1470" alt="image" src="https://github.com/user-attachments/assets/77ff669c-8bf7-4faf-89e9-37329907903f" />
 <br/><br/>
