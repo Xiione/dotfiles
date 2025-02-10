@@ -3,11 +3,12 @@
 My MacOS configuration files.
 
 
-<img width="1470" alt="Screenshot 2023-11-13 at 2 04 49 PM" src="https://github.com/Xiione/dotfiles/assets/25933822/49c8574f-2fc4-4e99-a818-d48e1796732d">
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/ec88c4b0-20b9-4ca2-a323-fdd3383dfd65" />
 <br/><br/>
-<img width="1470" alt="Screenshot 2023-11-13 at 2 11 51 PM" src="https://github.com/Xiione/dotfiles/assets/25933822/aee1b4bb-c3db-4f61-9418-1845a24b13d2">
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/77ff669c-8bf7-4faf-89e9-37329907903f" />
 <br/><br/>
-<img width="1470" alt="Screenshot 2023-11-13 at 2 19 10 PM" src="https://github.com/Xiione/dotfiles/assets/25933822/40a47364-1577-4331-ae7a-94b1ae5ca5b7">
+<img width="1470" alt="image" src="https://github.com/user-attachments/assets/8afa0be9-f09a-4165-80c2-bdf343eda938" />
+
 
 
 - [kitty](https://sw.kovidgoyal.net/kitty/) (terminal emulator)
