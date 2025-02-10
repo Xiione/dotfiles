@@ -10,11 +10,11 @@ My MacOS configuration files.
 <img width="1470" alt="image" src="https://github.com/user-attachments/assets/8afa0be9-f09a-4165-80c2-bdf343eda938" />
 
 
-
+- [Neogurt](https://github.com/williamhCode/neogurt) (native Neovim frontend)
+- [Neovim](https://neovim.io/) (editor)
 - [kitty](https://sw.kovidgoyal.net/kitty/) (terminal emulator)
 - [fish](https://fishshell.com/) (shell)
-- [Neovim](https://neovim.io/) (editor)
-- [Sioyek](https://sioyek.info/) (pdf viewer)
+- [Sioyek](https://sioyek.info/) (pdf viewer with vimtex sync)
 - [yabai](https://github.com/koekeishiya/yabai) (window manager)
   - Pasted from [FelixKratz/dotfiles](https://github.com/FelixKratz/dotfiles)
 - [skhd](https://github.com/koekeishiya/skhd) (hotkey daemon)
