@@ -5,6 +5,7 @@ end
 
 local sidebars = require("user.lib.sidebars")
 local colors = require("user.cfg.colors")
+local supermaven = require("supermaven-nvim.api")
 
 local hide_in_width = function()
 	return vim.fn.winwidth(0) > 80
@@ -19,6 +20,7 @@ local diagnostics = {
 	always_visible = true,
 }
 
+
 local diff = {
 	"diff",
 	colored = true,
@@ -29,6 +31,11 @@ local filetype = {
 	"filetype",
 	icons_enabled = true,
 }
+
+local supermaven_status = function()
+    return supermaven.is_running() and "" or ""
+end
+
 
 local mynord = require("lualine.themes.nord")
 local mode_colors = {
@@ -107,6 +114,7 @@ lualine.setup({
 		-- lualine_c = { diff },
 		lualine_c = { "grapple" },
 		lualine_x = {
+            supermaven_status,
 			"filetype",
 		},
 		lualine_y = { { "progress", padding = 1 } },
