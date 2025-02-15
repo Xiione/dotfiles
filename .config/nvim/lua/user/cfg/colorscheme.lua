@@ -202,7 +202,7 @@ set(0, "FoldColumn", { fg = colors.nord3L })
 
 -- cmp match colors
 set(0, "CmpItemAbbr", { fg = colors.nord4 })
--- set(0, "CmpItemAbbrMatch", { fg = colors.nord4, sp = colors.nord4, underline = true })
+set(0, "CmpItemAbbrMatch", { fg = colors.nord4, sp = colors.nord4, underline = true })
 set(0, "CmpItemAbbrMatch", { fg = colors.nord4 })
 set(0, "CmpItemAbbrMatchFuzzy", { fg = colors.nord8 })
 
