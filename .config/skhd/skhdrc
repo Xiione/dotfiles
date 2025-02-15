@@ -5,6 +5,8 @@ ctrl + alt - h : yabai -m window --focus west || yabai -m window --focus east
 ctrl + alt - j : yabai -m window --focus south || yabai -m window --focus north
 ctrl + alt - k : yabai -m window --focus north || yabai -m window --focus south
 ctrl + alt - l : yabai -m window --focus east || yabai -m window --focus west
+# focus window under mouse
+ctrl + alt - m : yabai -m window --focus mouse
 
 # move window
 # ctrl + shift - h : (yabai -m window --warp west || yabai -m window --warp east) || yabai -m window --move rel:-40:0
@@ -262,4 +264,4 @@ ctrl + alt + shift - r : yabai --restart-service && skhd --restart-service && sk
 # run terminal application
 # ctrl + alt - a : ~/.scripts/.launch $(compgen -bc | choose)
 
-ctrl + alt - f : yabai -m window --toggle native-fullscreen
+ctrl + alt - f : yabai -m window --toggle native-fullscreen && sketchybar --trigger windows_on_spaces
