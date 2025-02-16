@@ -63,8 +63,8 @@ vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to de
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
--- vim.opt.winblend = 8
--- vim.opt.pumblend = 8
+vim.opt.winblend = 5
+vim.opt.pumblend = 5
 
 -- vim.opt.fillchars = {
 --     horiz = '─',

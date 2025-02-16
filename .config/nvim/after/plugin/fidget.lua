@@ -12,7 +12,7 @@ fidget.setup({
 	notification = {
 		window = {
 			normal_hl = "Normal",
-			winblend = 0,
+			winblend = 5,
 		},
 	},
 	integration = {
