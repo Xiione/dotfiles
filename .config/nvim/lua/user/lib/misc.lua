@@ -228,6 +228,14 @@ local function random_colors()
     end
 end
 
+local to_set = function (array)
+    local set = {}
+    for _, v in ipairs(array) do
+        set[v] = true
+    end
+    return set
+end
+
 return {
 	fzf_to_qf = fzf_to_qf,
 	strip_fname = strip_fname,
@@ -249,4 +257,5 @@ return {
 	show_command = show_command,
 
     random_colors = random_colors,
+    to_set = to_set,
 }

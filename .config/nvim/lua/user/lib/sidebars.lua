@@ -1,3 +1,5 @@
+local misc = require("user.lib.misc")
+
 local M = {}
 
 local dapui = require("dapui")
@@ -38,6 +40,7 @@ M.sidebar_types = {
 	"TelescopePrompt",
 	"toggleterm",
 }
+M.sidebar_types_set = misc.to_set(M.sidebar_types)
 
 local undo_tree_open = false
 local vimtex_toc_open = false

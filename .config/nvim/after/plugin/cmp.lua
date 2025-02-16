@@ -9,6 +9,7 @@ if not snip_status_ok then
 end
 
 local lspkind = require("lspkind")
+local sidebars = require("user.lib.sidebars")
 
 cmp.setup({
 	enabled = true,
@@ -70,16 +71,31 @@ cmp.setup({
 			ellipsis_char = "...",
 			show_labelDetails = true,
 			before = require("tailwind-tools.cmp").lspkind_format,
-            symbol_map = require("user.lib.utils").lspkind_icons,
+			symbol_map = require("user.lib.utils").lspkind_icons,
 		}),
 	},
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lsp_signature_help" },
-        { name = "supermaven" },
+		{ name = "supermaven" },
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
-		{ name = "buffer" },
+		{
+			name = "buffer",
+			option = {
+				get_bufnrs = function()
+					local bufs = {}
+					for _, win in ipairs(vim.api.nvim_list_wins()) do
+                        local bufnr = vim.api.nvim_win_get_buf(win)
+                        local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+                        if sidebars.sidebar_types_set[ft] == nil then
+                            bufs[bufnr] = true
+                        end
+					end
+					return vim.tbl_keys(bufs)
+				end,
+			},
+		},
 		{ name = "path" },
 	},
 	confirm_opts = {
@@ -108,6 +124,6 @@ cmp.setup({
 	},
 })
 
-cmp.setup.filetype({ 'TelescopePrompt' }, {
-sources = { }
+cmp.setup.filetype({ "TelescopePrompt" }, {
+	sources = {},
 })
