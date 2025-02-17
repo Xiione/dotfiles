@@ -19,7 +19,7 @@ null_ls.setup({
 		formatting.stylua,
 		formatting.google_java_format,
 		formatting.clang_format,
-        formatting.shellharden,
+		formatting.shellharden,
 		formatting.asmfmt,
 		formatting.rustfmt,
 		formatting.cmake_format,

@@ -2,6 +2,7 @@ local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then
 	return
 end
+local utils                = require("user.lib.utils")
 
 local actions = require("telescope.actions")
 
@@ -16,7 +17,7 @@ telescope.setup({
 		results_title = false,
 
 		border = true,
-		borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+		borderchars = utils.borderchars,
 		color_devicons = true,
 
 		mappings = {
@@ -56,7 +57,7 @@ telescope.setup({
 	extensions = {
 		["ui-select"] = {
 			require("telescope.themes").get_dropdown({
-				borderchars = { " ", " ", " ", " ", " ", " ", " ", " " },
+				borderchars = utils.borderchars
 			}),
 		},
 	},

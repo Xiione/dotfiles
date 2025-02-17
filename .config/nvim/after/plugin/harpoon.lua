@@ -1,4 +1,5 @@
 local status_ok, harpoon = pcall(require, "harpoon")
+local utils              = require("user.lib.utils")
 if not status_ok then
 	return
 end
@@ -24,6 +25,6 @@ harpoon.setup({
 		mark_branch = false,
 	},
     menu = {
-        borderchars = {" ", " ", " ", " ", " ", " ", " ", " "}
+        borderchars = utils.borderchars
     }
 })

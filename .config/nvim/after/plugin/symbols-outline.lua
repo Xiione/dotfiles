@@ -3,8 +3,9 @@ if not status_ok then
 	return
 end
 
-local kinds = require("user.lib.utils").lspkind_icons
 local sidebars = require("user.lib.sidebars")
+local utils = require("user.lib.utils")
+local kinds = utils.lspkind_icons
 
 outline.setup({
 	guides = {
@@ -36,11 +37,11 @@ outline.setup({
 		show_relative_numbers = false,
 		width = 40,
 		wrap = false,
-        winhl = sidebars.make_winhighlight({ cursorline = true })
+		winhl = sidebars.make_winhighlight({ cursorline = true }),
 	},
 	preview_window = {
 		auto_preview = false,
-		border = "solid",
+		border = utils.window_border,
 		winhl = "Normal:NormalSidebar",
 	},
 	provider = {

@@ -3,6 +3,8 @@ if not status_ok then
 	return
 end
 
+local utils = require("user.lib.utils")
+
 nvim_tree.setup({
 	disable_netrw = true,
 	update_focused_file = {
@@ -14,7 +16,7 @@ nvim_tree.setup({
 	actions = {
 		file_popup = {
 			open_win_config = {
-				border = "solid",
+				border = utils.window_border,
 			},
 		},
 	},

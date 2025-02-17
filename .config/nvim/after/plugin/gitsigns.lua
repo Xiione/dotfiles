@@ -3,6 +3,8 @@ if not status_ok then
 	return
 end
 
+local utils = require("user.lib.utils")
+
 gitsigns.setup({
 	signs = {
 		add = { text = "▎" },
@@ -27,7 +29,7 @@ gitsigns.setup({
 	status_formatter = nil, -- Use default
 	preview_config = {
 		-- Options passed to nvim_open_win
-		border = "solid",
+		border = utils.window_border,
 		style = "minimal",
 		relative = "cursor",
 		row = 0,

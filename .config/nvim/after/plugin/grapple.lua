@@ -3,10 +3,12 @@ if not status_ok then
 	return
 end
 
+local utils = require("user.lib.utils")
+
 grapple.setup({
 	icons = true,
 	win_opts = {
-		border = "solid",
+		border = utils.window_border,
 	},
 	statusline = {
 		icon = "",

@@ -3,7 +3,9 @@ if not status_ok then
 	return
 end
 
-require('lspconfig.ui.windows').default_options.border = 'solid'
+local utils = require("user.lib.utils")
+
+require("lspconfig.ui.windows").default_options.border = utils.window_border
 
 require("user.lsp.mason")
 require("user.lsp.handlers").setup()
