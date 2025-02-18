@@ -249,9 +249,9 @@ M.lsp_keymaps = function(bufnr, client)
 		map("n", "<leader>to", "<cmd>TailwindConcealDisable<CR>", opts, bufnr)
 	end
 
-    if client.name == "metals" then
+	if client.name == "metals" then
 		map("n", "<leader>fc", "<cmd>lua require('telescope').extensions.metals.commands()<CR>", opts, bufnr)
-    end
+	end
 end
 
 -- neogurt
@@ -327,6 +327,20 @@ map("n", "<leader>C", "<cmd>SupermavenToggle<CR>")
 --     vim.cmd("SupermavenStart")
 -- 	-- vim.notify("Supermaven on")
 -- end)
+
+-- spectre-nvim, from default config
+vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
+	desc = "Toggle Spectre",
+})
+vim.keymap.set("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+	desc = "Search current word",
+})
+vim.keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+	desc = "Search current word",
+})
+vim.keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+	desc = "Search on current file",
+})
 
 local original_mappings = {}
 M.push_map = function(mode, key, new_mapping, bufnr)

@@ -158,4 +158,5 @@ require("lazy").setup({
 		ft = { "scala", "sbt", "java" },
 	},
 	{ "supermaven-inc/supermaven-nvim" },
+	{ "nvim-pack/nvim-spectre" },
 }, {})

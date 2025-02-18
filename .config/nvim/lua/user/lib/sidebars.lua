@@ -39,6 +39,7 @@ M.sidebar_types = {
 	"TelescopeResults",
 	"TelescopePrompt",
 	"toggleterm",
+    "spectre_panel"
 }
 M.sidebar_types_set = misc.to_set(M.sidebar_types)
 
