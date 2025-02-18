@@ -19,7 +19,7 @@ local servers = {
 }
 local settings = {
 	ui = {
-		border = utils.window_border,
+		border = "solid",
 		icons = {
 			package_installed = "◍",
 			package_pending = "◍",

@@ -8,7 +8,7 @@ local utils = require("user.lib.utils")
 grapple.setup({
 	icons = true,
 	win_opts = {
-		border = utils.window_border,
+		border = "solid",
 	},
 	statusline = {
 		icon = "",

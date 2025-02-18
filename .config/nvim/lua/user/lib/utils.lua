@@ -212,8 +212,11 @@ M.lspkind_icons = {
 	Variable = "",
 }
 
-M.borderchars = { " ", "▕", " ", "▏", "▏", "▕", "▕", "▏" }
+-- M.borderchars = { " ", "▕", " ", "▏", "▏", "▕", "▕", "▏" }
+-- M.borderchars = { " ", " ", " ", "▏", "▏", " ", " ", "▏" }
+M.borderchars = { " ", " ", " ", " ", " ", " ", " ", " " }
 -- ▕x▏
-M.window_border = { "▏", " ", "▕", "▕", "▕", " ", "▏", "▏" }
+-- M.window_border = { "▏", " ", "▕", "▕", "▕", " ", "▏", "▏" }
+M.window_border = { "▎", " ", " ", " ", " ", " ", "▎", "▎" }
 
 return M

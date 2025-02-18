@@ -18,7 +18,7 @@ toggleterm.setup({
 	shell = vim.o.shell,
 	auto_scroll = false,
 	float_opts = {
-		border = utils.window_border,
+		border = "solid",
 		winblend = 5,
 	},
 	highlights = {
