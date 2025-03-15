@@ -16,6 +16,7 @@ local servers = {
 	"cmake",
 	"svelte",
 	"semgrep",
+	"sourcekit",
 }
 local settings = {
 	ui = {

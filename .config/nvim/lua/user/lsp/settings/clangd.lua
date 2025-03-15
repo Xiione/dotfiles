@@ -1,4 +1,7 @@
 return {
+    filetypes = {
+        "c", "cpp", "cuda", "proto"
+    },
 	cmd = {
 		"clangd",
         "--enable-config",
