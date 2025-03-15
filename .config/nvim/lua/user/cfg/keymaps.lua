@@ -14,6 +14,167 @@ local M = {}
 local silent = { silent = true }
 local remap = { remap = true }
 
+-- move it here, no harm done
+map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+M.lsp_keymaps = function(bufnr, client)
+	local opts = { noremap = true, silent = true }
+	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
+	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts, bufnr)
+	map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts, bufnr)
+	map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts, bufnr)
+	map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts, bufnr)
+
+	if client.name ~= "texlab" then
+		map("n", "<leader>li", "<cmd>LspInfo<CR>", opts, bufnr)
+		-- map("n", "<leader>lI", "<cmd>LspInstallInfo<CR>", opts, bufnr)
+		map("n", "<leader>lI", "<cmd>Mason<CR>", opts, bufnr)
+		map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts, bufnr)
+		map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", opts, bufnr)
+		map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", opts, bufnr)
+		map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts, bufnr)
+		map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, bufnr)
+		map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
+
+		map("n", "<leader>llR", "<cmd>LspRestart<CR>", opts, bufnr)
+	end
+
+	if client.name == "tailwindcss" then
+		map("n", "<leader>tf", "<cmd>TailwindSort<CR>", opts, bufnr)
+		-- map("v", "<leader>tf", "<cmd>TailwindSortSelection<CR>", opts, bufnr)
+
+		map("n", "<leader>tt", "<cmd>TailwindConcealToggle<CR>", opts, bufnr)
+		map("n", "<leader>tc", "<cmd>TailwindConcealEnable<CR>", opts, bufnr)
+		map("n", "<leader>to", "<cmd>TailwindConcealDisable<CR>", opts, bufnr)
+	end
+
+	if client.name == "metals" then
+		map("n", "<leader>fc", "<cmd>lua require('telescope').extensions.metals.commands()<CR>", opts, bufnr)
+	end
+end
+
+-- neogurt
+if vim.g.neogurt then
+	-- all modes
+	local mode = { "", "!", "t", "l" }
+	map(mode, "<D-l>", "<cmd>Neogurt session_prev<CR>")
+	map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<CR>")
+
+	map(mode, "<D-=>", "<cmd>Neogurt font_size_change 1 all=false<cr>")
+	map(mode, "<D-->", "<cmd>Neogurt font_size_change -1 all=false<cr>")
+	map(mode, "<D-0>", "<cmd>Neogurt font_size_reset all=false<cr>")
+
+	M.neogurt_open_session_finder = function(init)
+		local cmd = [[
+            echo "$(begin;
+              echo ~/;
+              echo ~/dotfiles;
+              find ~/code -mindepth 0 -maxdepth 2 -type d;
+            end;)"
+        ]]
+		local output = vim.fn.system(cmd)
+
+		local dirs = {}
+		for dir in string.gmatch(output, "([^\n]+)") do
+			table.insert(dirs, dir)
+		end
+
+		vim.ui.select(dirs, {
+			prompt = "Create a session",
+			-- format_item = function(item)
+			--   return "(" .. item.id .. ") - " .. item.name
+			-- end
+		}, function(choice)
+			if choice == nil then
+				return
+			end
+			local dir = choice
+			local fmod = vim.fn.fnamemodify
+			local name = fmod(fmod(dir, ":h"), ":t") .. "/" .. fmod(dir, ":t")
+
+			if init then
+				local currId = vim.g.neogurt_cmd("session_info").id
+				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
+				vim.g.neogurt_cmd("session_kill", { id = currId })
+			else
+				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
+			end
+		end)
+	end
+
+	map(mode, "<D-s>", function()
+		M.neogurt_open_session_finder(false)
+	end)
+
+	map({ "n", "v" }, "<D-v>", '"+p', silent)
+	map({ "i", "c" }, "<D-v>", "<C-r>+", silent)
+	map("t", "<D-v>", "<C-\\><C-N><D-v>i", remap)
+	-- map({ "i", "c", "t" }, "<D-bs>", "<C-u>")
+
+	vim.g.neogurt_startup = function()
+		M.neogurt_open_session_finder(true)
+	end
+end
+
+-- supermaven/copilot
+map("n", "<leader>C", "<cmd>SupermavenToggle<CR>")
+-- map("n", "<leader>c", function ()
+--     vim.cmd("SupermavenStop")
+-- 	-- vim.notify("Supermaven off")
+-- end)
+-- map("n", "<leader>C", function ()
+--     vim.cmd("SupermavenStart")
+-- 	-- vim.notify("Supermaven on")
+-- end)
+
+-- spectre-nvim, from default config
+vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
+	desc = "Toggle Spectre",
+})
+vim.keymap.set("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+	desc = "Search current word",
+})
+vim.keymap.set("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+	desc = "Search current word",
+})
+vim.keymap.set("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+	desc = "Search on current file",
+})
+
+local original_mappings = {}
+M.push_map = function(mode, key, new_mapping, bufnr)
+	original_mappings[key] = { mapping = vim.fn.maparg(key, "n"), new_mode = mode }
+	unmap("n", key, bufnr)
+	map(mode, key, new_mapping, silent, bufnr)
+end
+
+M.pop_map = function(key)
+	if original_mappings[key] then
+		unmap(original_mappings[key].new_mode, key)
+		map("n", key, original_mappings[key].mapping, silent)
+		original_mappings[key] = nil
+	end
+end
+
+M.remove_dap_maps = function()
+	M.pop_map("K")
+	unmap("n", "<M-1>")
+	unmap("n", "<M-S-1>")
+	unmap("n", "<M-2>")
+	unmap("n", "<M-S-2>")
+	unmap("n", "<M-3>")
+	unmap("n", "<M-4>")
+end
+
+M.setup_dap_maps = function()
+	M.push_map({ "n", "v" }, "K", dapui.eval)
+	map("n", "<M-1>", dap.continue)
+	map("n", "<M-Q>", dap.run_to_cursor)
+	map("n", "<M-2>", dap.step_over)
+	map("n", "<M-W>", dap.step_into)
+	map("n", "<M-3>", dap.terminate)
+	map("n", "<M-4>", dap.run_last)
+end
+
 --Remap space as leader key
 map("", "<Space>", "<Nop>", silent)
 vim.g.mapleader = " "
@@ -216,165 +377,6 @@ map("i", "<C-i>", "<cmd>Inspect<CR>", silent)
 map("n", "zR", require("ufo").openAllFolds)
 map("n", "zM", require("ufo").closeAllFolds)
 
--- move it here, no harm done
-map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
-M.lsp_keymaps = function(bufnr, client)
-	local opts = { noremap = true, silent = true }
-	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
-	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts, bufnr)
-	map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts, bufnr)
-	map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts, bufnr)
-	map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts, bufnr)
-
-	if client.name ~= "texlab" then
-		map("n", "<leader>li", "<cmd>LspInfo<CR>", opts, bufnr)
-		-- map("n", "<leader>lI", "<cmd>LspInstallInfo<CR>", opts, bufnr)
-		map("n", "<leader>lI", "<cmd>Mason<CR>", opts, bufnr)
-		map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts, bufnr)
-		map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", opts, bufnr)
-		map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", opts, bufnr)
-		map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts, bufnr)
-		map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, bufnr)
-		map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
-
-		map("n", "<leader>llR", "<cmd>LspRestart<CR>", opts, bufnr)
-	end
-
-	if client.name == "tailwindcss" then
-		map("n", "<leader>tf", "<cmd>TailwindSort<CR>", opts, bufnr)
-		-- map("v", "<leader>tf", "<cmd>TailwindSortSelection<CR>", opts, bufnr)
-
-		map("n", "<leader>tt", "<cmd>TailwindConcealToggle<CR>", opts, bufnr)
-		map("n", "<leader>tc", "<cmd>TailwindConcealEnable<CR>", opts, bufnr)
-		map("n", "<leader>to", "<cmd>TailwindConcealDisable<CR>", opts, bufnr)
-	end
-
-	if client.name == "metals" then
-		map("n", "<leader>fc", "<cmd>lua require('telescope').extensions.metals.commands()<CR>", opts, bufnr)
-	end
-end
-
--- neogurt
-if vim.g.neogurt then
-	-- all modes
-	local mode = { "", "!", "t", "l" }
-	map(mode, "<D-l>", "<cmd>Neogurt session_prev<CR>")
-	map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<CR>")
-
-	map(mode, "<D-=>", "<cmd>Neogurt font_size_change 1 all=false<cr>")
-	map(mode, "<D-->", "<cmd>Neogurt font_size_change -1 all=false<cr>")
-	map(mode, "<D-0>", "<cmd>Neogurt font_size_reset all=false<cr>")
-
-	M.neogurt_open_session_finder = function(init)
-		local cmd = [[
-            echo "$(begin;
-              echo ~/;
-              echo ~/dotfiles;
-              find ~/code -mindepth 0 -maxdepth 2 -type d;
-            end;)"
-        ]]
-		local output = vim.fn.system(cmd)
-
-		local dirs = {}
-		for dir in string.gmatch(output, "([^\n]+)") do
-			table.insert(dirs, dir)
-		end
-
-		vim.ui.select(dirs, {
-			prompt = "Create a session",
-			-- format_item = function(item)
-			--   return "(" .. item.id .. ") - " .. item.name
-			-- end
-		}, function(choice)
-			if choice == nil then
-				return
-			end
-			local dir = choice
-			local fmod = vim.fn.fnamemodify
-			local name = fmod(fmod(dir, ":h"), ":t") .. "/" .. fmod(dir, ":t")
-
-			if init then
-				local currId = vim.g.neogurt_cmd("session_info").id
-				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
-				vim.g.neogurt_cmd("session_kill", { id = currId })
-			else
-				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
-			end
-		end)
-	end
-
-	map(mode, "<D-s>", function()
-		M.neogurt_open_session_finder(false)
-	end)
-
-	map({ "n", "v" }, "<D-v>", '"+p', silent)
-	map({ "i", "c" }, "<D-v>", "<C-r>+", silent)
-	map("t", "<D-v>", "<C-\\><C-N><D-v>i", remap)
-	-- map({ "i", "c", "t" }, "<D-bs>", "<C-u>")
-
-	vim.g.neogurt_startup = function()
-		M.neogurt_open_session_finder(true)
-	end
-end
-
--- supermaven/copilot
-map("n", "<leader>C", "<cmd>SupermavenToggle<CR>")
--- map("n", "<leader>c", function ()
---     vim.cmd("SupermavenStop")
--- 	-- vim.notify("Supermaven off")
--- end)
--- map("n", "<leader>C", function ()
---     vim.cmd("SupermavenStart")
--- 	-- vim.notify("Supermaven on")
--- end)
-
--- spectre-nvim, from default config
-vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
-	desc = "Toggle Spectre",
-})
-vim.keymap.set("n", "<leader>sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-	desc = "Search current word",
-})
-vim.keymap.set("v", "<leader>sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-	desc = "Search current word",
-})
-vim.keymap.set("n", "<leader>sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-	desc = "Search on current file",
-})
-
-local original_mappings = {}
-M.push_map = function(mode, key, new_mapping, bufnr)
-	original_mappings[key] = { mapping = vim.fn.maparg(key, "n"), new_mode = mode }
-	unmap("n", key, bufnr)
-	map(mode, key, new_mapping, silent, bufnr)
-end
-
-M.pop_map = function(key)
-	if original_mappings[key] then
-		unmap(original_mappings[key].new_mode, key)
-		map("n", key, original_mappings[key].mapping, silent)
-		original_mappings[key] = nil
-	end
-end
-
-M.remove_dap_maps = function()
-	M.pop_map("K")
-	unmap("n", "<M-1>")
-	unmap("n", "<M-S-1>")
-	unmap("n", "<M-2>")
-	unmap("n", "<M-S-2>")
-	unmap("n", "<M-3>")
-	unmap("n", "<M-4>")
-end
-
-M.setup_dap_maps = function()
-	M.push_map({ "n", "v" }, "K", dapui.eval)
-	map("n", "<M-1>", dap.continue)
-	map("n", "<M-Q>", dap.run_to_cursor)
-	map("n", "<M-2>", dap.step_over)
-	map("n", "<M-W>", dap.step_into)
-	map("n", "<M-3>", dap.terminate)
-	map("n", "<M-4>", dap.run_last)
-end
+map("n", "<leader>apm", function() require("vim-apm"):toggle_monitor() end)
 
 return M

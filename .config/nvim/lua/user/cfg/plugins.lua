@@ -98,7 +98,7 @@ require("lazy").setup({
 		event = "BufReadPre", -- this will only start session saving when an actual file was opened
 	},
 
-	-- { "eandrju/cellular-automaton.nvim" },
+	{ "eandrju/cellular-automaton.nvim" },
 	{ "lervag/vimtex" },
 	{
 		"Xiione/luasnip-latex-snippets.nvim",
@@ -159,4 +159,5 @@ require("lazy").setup({
 	},
 	{ "supermaven-inc/supermaven-nvim" },
 	{ "nvim-pack/nvim-spectre" },
+    { "Xiione/vim-apm" }
 }, {})
