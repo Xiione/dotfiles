@@ -7,8 +7,6 @@ fish_add_path /opt/homebrew/bin
 fish_add_path /Library/TeX/texbin
 fish_add_path ~/.cargo/bin
 fish_add_path ~/Library/Python/3.11/bin
-fish_add_path ~/emsdk
-fish_add_path ~/emsdk/upstream/emscripten
 
 fish_add_path /usr/local/opt/llvm/bin
 
