@@ -11,7 +11,7 @@ fidget.setup({
 	},
 	notification = {
 		window = {
-			normal_hl = "Normal",
+			normal_hl = "NormalFloat",
 			winblend = 5,
 		},
 	},

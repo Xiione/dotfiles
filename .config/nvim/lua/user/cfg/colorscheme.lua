@@ -43,6 +43,7 @@ local update_from = function(ns_id, name, from, opts)
 	return hl
 end
 
+update(0, "Normal", { sp = "none" })
 local normalFloat = update(0, "NormalFloat", { bg = colors.nord18, sp = colors.nord4 })
 local floatBorder = update(0, "FloatBorder", { fg = colors.nord8, bg = colors.nord18, sp = colors.nord4 })
 set(0, "NormalSidebar", normalFloat)
