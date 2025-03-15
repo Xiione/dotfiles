@@ -168,4 +168,4 @@ if vim.g.neogurt then
     }
 end
 
-vim.opt.guifont = "Meslo LG S,PingFang TC,MesloLGS Nerd Font:h12" -- the font used in graphical neovim applications
+vim.opt.guifont = "Meslo LG S,PingFang TC,MesloLGS Nerd Font,Apple Color Emoji:h12" -- the font used in graphical neovim applications
