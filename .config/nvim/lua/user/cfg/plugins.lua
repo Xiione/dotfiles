@@ -159,5 +159,10 @@ require("lazy").setup({
 	},
 	{ "supermaven-inc/supermaven-nvim" },
 	{ "nvim-pack/nvim-spectre" },
-    { "Xiione/vim-apm" }
+	{ "Xiione/vim-apm" },
+	-- { dir = "~/code/me/vim-apm/" },
+	-- {
+	-- 	"vyfor/cord.nvim",
+	-- 	build = ":Cord update",
+	-- },
 }, {})
