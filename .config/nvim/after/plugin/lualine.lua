@@ -20,7 +20,6 @@ local diagnostics = {
 	always_visible = true,
 }
 
-
 local diff = {
 	"diff",
 	colored = true,
@@ -33,9 +32,8 @@ local filetype = {
 }
 
 local supermaven_status = function()
-    return supermaven.is_running() and "" or ""
+	return supermaven.is_running() and "" or ""
 end
-
 
 local mynord = require("lualine.themes.nord")
 local mode_colors = {
@@ -64,9 +62,24 @@ for mode, color in pairs(mode_colors) do
 end
 
 mynord.inactive = {
-	c = {
+	a = {
+		fg = colors.nord2,
+		bg = colors.nord2,
+		gui = "bold",
+	},
+	b = {
+		fg = colors.nord1,
+		bg = colors.nord1,
+	},
+	c = { fg = colors.nord4, bg = colors.nord0 },
+	y = {
 		fg = colors.nord3,
-		bg = colors.nord0,
+		bg = colors.nord1,
+	},
+	z = {
+		fg = colors.nord0,
+		bg = colors.nord2,
+		gui = "bold",
 	},
 }
 
@@ -114,19 +127,19 @@ lualine.setup({
 		-- lualine_c = { diff },
 		lualine_c = { "grapple" },
 		lualine_x = {
-            supermaven_status,
+			supermaven_status,
 			"filetype",
 		},
 		lualine_y = { { "progress", padding = 1 } },
 		lualine_z = { { "location", padding = 1 } },
 	},
 	inactive_sections = {
-		lualine_a = {},
-		lualine_b = {},
+		lualine_a = { { "mode", padding = 1 } },
+		lualine_b = { diagnostics },
 		lualine_c = {},
 		lualine_x = {},
-		lualine_y = {},
-		lualine_z = {},
+		lualine_y = { { "progress", padding = 1 } },
+		lualine_z = { { "location", padding = 1 } },
 	},
 	-- winbar = winbar_settings,
 })
