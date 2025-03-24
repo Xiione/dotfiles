@@ -17,6 +17,8 @@ local servers = {
 	"svelte",
 	"semgrep",
 	"sourcekit",
+    "glsl_analyzer",
+    "tailwindcss",
 }
 local settings = {
 	ui = {
