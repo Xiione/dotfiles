@@ -234,3 +234,8 @@ set(0, "CmpItemKindSupermaven", { fg = colors.nord15 })
 set(0, "IblRainbowRed", { fg = colors.nord11 })
 set(0, "IblRainbowYellow", { fg = colors.nord13 })
 set(0, "IblRainbowCyan", { fg = colors.nord8 })
+
+-- diff
+set(0, "Added", { link = "DiffAdd" })
+set(0, "Removed", { link = "DiffDelete" })
+set(0, "Changed", { link = "DiffChange" })

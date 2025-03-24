@@ -19,14 +19,14 @@ cmp.setup({
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
-		["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-		["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+		["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
+		["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { "i" }),
 		["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
 		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		["<C-c>"] = cmp.mapping(cmp.mapping.abort(), { "i", "c" }),
-		["<C-f>"] = cmp.mapping.confirm({ select = true }),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<C-f>"] = cmp.mapping(cmp.mapping.confirm({ select = true }), { "i", "c" }),
+		["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = true }), { "i" }),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if luasnip.expand_or_locally_jumpable() then
 				luasnip.expand_or_jump()
@@ -86,11 +86,11 @@ cmp.setup({
 				get_bufnrs = function()
 					local bufs = {}
 					for _, win in ipairs(vim.api.nvim_list_wins()) do
-                        local bufnr = vim.api.nvim_win_get_buf(win)
-                        local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
-                        if sidebars.sidebar_types_set[ft] == nil then
-                            bufs[bufnr] = true
-                        end
+						local bufnr = vim.api.nvim_win_get_buf(win)
+						local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+						if sidebars.sidebar_types_set[ft] == nil then
+							bufs[bufnr] = true
+						end
 					end
 					return vim.tbl_keys(bufs)
 				end,
@@ -98,7 +98,7 @@ cmp.setup({
 		},
 		{ name = "path" },
 	},
-	confirm_opts = {
+	confirmation = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = true,
 	},
@@ -122,8 +122,61 @@ cmp.setup({
 	completion = {
 		completeopt = "menu,menuone,noinsert",
 	},
+	performance = {
+		throttle = 0,
+	},
 })
 
 cmp.setup.filetype({ "TelescopePrompt" }, {
 	sources = {},
 })
+
+local cmdline_opts = {
+	view = {
+		entries = {
+			name = "custom",
+			selection_order = "bottom_up",
+			follow_cursor = false,
+		},
+	},
+	completion = {
+		completeopt = "menu,menuone,noselect",
+	},
+	formatting = {
+		fields = { "abbr", "menu" },
+    }
+}
+
+local cmdline_mappings = {
+	["<C-k>"] = { c = cmp.mapping.select_next_item() },
+	["<C-j>"] = { c = cmp.mapping.select_prev_item() },
+}
+-- `/`, `?` cmdline setup.
+cmp.setup.cmdline(
+	{ "/", "?" },
+	vim.tbl_extend("force", {
+		mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
+		sources = {
+			{ name = "buffer" },
+		},
+	}, cmdline_opts)
+)
+
+-- `:` cmdline setup.
+cmp.setup.cmdline(
+	":",
+	vim.tbl_extend("force", {
+		mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
+		sources = cmp.config.sources({
+			{ name = "path" },
+		}, {
+			{
+				name = "cmdline",
+				option = {
+					ignore_cmds = { "Man", "!" },
+				},
+			},
+		}),
+		matching = { disallow_symbol_nonprefix_matching = false },
+	}, cmdline_opts)
+)
