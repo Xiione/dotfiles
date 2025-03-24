@@ -115,17 +115,6 @@ if vim.g.neogurt then
 	end
 end
 
--- supermaven/copilot
-map("n", "<leader>C", "<cmd>SupermavenToggle<CR>")
--- map("n", "<leader>c", function ()
---     vim.cmd("SupermavenStop")
--- 	-- vim.notify("Supermaven off")
--- end)
--- map("n", "<leader>C", function ()
---     vim.cmd("SupermavenStart")
--- 	-- vim.notify("Supermaven on")
--- end)
-
 -- spectre-nvim, from default config
 vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
 	desc = "Toggle Spectre",
@@ -378,5 +367,16 @@ map("n", "zR", require("ufo").openAllFolds)
 map("n", "zM", require("ufo").closeAllFolds)
 
 map("n", "<leader>APM", function() require("vim-apm"):toggle_monitor() end)
+
+-- supermaven/copilot
+map("n", "<leader>C", "<cmd>SupermavenToggle<CR>", silent)
+-- map("n", "<leader>c", function ()
+--     vim.cmd("SupermavenStop")
+-- 	-- vim.notify("Supermaven off")
+-- end)
+-- map("n", "<leader>C", function ()
+--     vim.cmd("SupermavenStart")
+-- 	-- vim.notify("Supermaven on")
+-- end)
 
 return M
