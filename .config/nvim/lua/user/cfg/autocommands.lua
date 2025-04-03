@@ -14,7 +14,7 @@ autocmd({ "FileType" }, {
 })
 
 autocmd({ "FileType" }, {
-    pattern = { "markdown", "gitcommit" },
+    pattern = { "gitcommit" },
     callback = function()
         vim.opt_local.wrap = true
         vim.opt_local.spell = true
@@ -54,11 +54,11 @@ autocmd({ "TextYankPost" }, {
 -- 	end,
 -- })
 
-autocmd({ "VimEnter" }, {
-    callback = function()
-        vim.cmd("hi link illuminatedWord LspReferenceText")
-    end,
-})
+-- autocmd({ "VimEnter" }, {
+--     callback = function()
+--         vim.cmd("hi link illuminatedWord LspReferenceText")
+--     end,
+-- })
 
 -- autocmd({ "BufWinEnter" }, {
 -- 	callback = function()

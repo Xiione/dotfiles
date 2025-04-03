@@ -9,7 +9,7 @@ vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 -- vim.opt.hlsearch = true                         -- highlight all matches on previous search pattern
 -- vim.opt.ignorecase = true                       -- ignore case in search patterns
 vim.opt.mouse = "a" -- allow the mouse to be used in neovim
-vim.opt.pumheight = 10 -- pop up menu height
+vim.opt.pumheight = 5 -- pop up menu height
 vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
 vim.opt.showtabline = 0 -- always show tabs
 -- vim.opt.smartcase = true                        -- smart case
@@ -65,6 +65,7 @@ vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 vim.opt.winblend = 5
+vim.opt.winborder = "solid"
 vim.opt.pumblend = 5
 
 -- vim.opt.fillchars = {

@@ -107,13 +107,11 @@ cmp.setup({
 			winhighlight = "Normal:NormalSidebar,CursorLine:CursorLineSidebar",
 			side_padding = 1,
 			col_offset = 1,
-			max_width = 40,
-			max_height = 10,
 		},
 		documentation = {
 			winhighlight = "Normal:NormalSidebar,MarkdownError:none,luaParenError:none",
 			max_width = 40,
-			max_height = 10,
+			max_height = 15,
 		},
 	},
 	experimental = {
@@ -135,7 +133,8 @@ local cmdline_opts = {
 	view = {
 		entries = {
 			name = "custom",
-			selection_order = "bottom_up",
+			-- selection_order = "bottom_up",
+			selection_order = "top_down",
 			follow_cursor = false,
 		},
 	},
@@ -148,8 +147,8 @@ local cmdline_opts = {
 }
 
 local cmdline_mappings = {
-	["<C-k>"] = { c = cmp.mapping.select_next_item() },
-	["<C-j>"] = { c = cmp.mapping.select_prev_item() },
+	["<C-j>"] = { c = cmp.mapping.select_next_item() },
+	["<C-k>"] = { c = cmp.mapping.select_prev_item() },
 }
 -- `/`, `?` cmdline setup.
 cmp.setup.cmdline(

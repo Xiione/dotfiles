@@ -62,7 +62,7 @@ require("lazy").setup({
 	{ "neovim/nvim-lspconfig" }, -- enable LSP
 	{ "williamboman/mason.nvim" },
 	{ "williamboman/mason-lspconfig.nvim" },
-	{ "jose-elias-alvarez/null-ls.nvim" }, -- for formatters and linters
+	{ "nvimtools/none-ls.nvim" }, -- for formatters and linters
 	-- use { "RRethy/vim-illuminate" }
 
 	-- Telescope
