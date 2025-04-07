@@ -4,47 +4,47 @@ local autocmd = vim.api.nvim_create_autocmd
 local sidebars = require("user.lib.sidebars")
 
 autocmd({ "FileType" }, {
-    pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
-    callback = function()
-        vim.cmd([[
+	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
+	callback = function()
+		vim.cmd([[
       nnoremap <silent> <buffer> q :close<CR>
       set nobuflisted
     ]])
-    end,
+	end,
 })
 
 autocmd({ "FileType" }, {
-    pattern = { "gitcommit" },
-    callback = function()
-        vim.opt_local.wrap = true
-        vim.opt_local.spell = true
-    end,
+	pattern = { "gitcommit" },
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+	end,
 })
 
 autocmd({ "BufWinEnter" }, {
-    callback = function()
-        if vim.bo.filetype:match("dap") then
-            sidebars.use_sidebar_hl({ cursorline = false, signcolumn = false })
-        end
-    end,
+	callback = function()
+		if vim.bo.filetype:match("dap") then
+			sidebars.use_sidebar_hl({ cursorline = false, signcolumn = false })
+		end
+	end,
 })
 
 autocmd({ "VimResized" }, {
-    callback = function()
-        vim.cmd("tabdo wincmd =")
-    end,
+	callback = function()
+		vim.cmd("tabdo wincmd =")
+	end,
 })
 
 autocmd({ "CmdWinEnter" }, {
-    callback = function()
-        vim.cmd("quit")
-    end,
+	callback = function()
+		vim.cmd("quit")
+	end,
 })
 
 autocmd({ "TextYankPost" }, {
-    callback = function()
-        vim.highlight.on_yank({ higroup = "Search", timeout = 200 })
-    end,
+	callback = function()
+		vim.highlight.on_yank({ higroup = "Search", timeout = 200 })
+	end,
 })
 
 -- autocmd({ "BufWritePost" }, {
@@ -70,11 +70,11 @@ autocmd({ "TextYankPost" }, {
 -- })
 
 autocmd({ "FileType" }, {
-    group = augroup("DapRepl", { clear = true }),
-    pattern = { "dap-repl" },
-    callback = function()
-        vim.opt_local.buflisted = false
-    end,
+	group = augroup("DapRepl", { clear = true }),
+	pattern = { "dap-repl" },
+	callback = function()
+		vim.opt_local.buflisted = false
+	end,
 })
 
 -- autocmd({ "ColorScheme" }, {
@@ -85,24 +85,39 @@ autocmd({ "FileType" }, {
 -- })
 
 autocmd({ "FileType" }, {
-    pattern = { "*" },
-    callback = function()
-        vim.opt.formatoptions:remove("c")
-        vim.opt.formatoptions:remove("r")
-        vim.opt.formatoptions:remove("o")
-    end,
+	pattern = { "*" },
+	callback = function()
+		vim.opt.formatoptions:remove("c")
+		vim.opt.formatoptions:remove("r")
+		vim.opt.formatoptions:remove("o")
+	end,
 })
 
-local luasnip = require('luasnip')
+local luasnip = require("luasnip")
 
-autocmd('ModeChanged', {
-  pattern = '*',
-  callback = function()
-    if ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
-        and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
-        and not luasnip.session.jump_active
-    then
-      luasnip.unlink_current()
-    end
-  end
+autocmd("ModeChanged", {
+	pattern = "*",
+	callback = function()
+		if
+			((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
+			and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]
+			and not luasnip.session.jump_active
+		then
+			luasnip.unlink_current()
+		end
+	end,
+})
+
+-- fixes telescope winborder until plenary merges winborder fixes
+autocmd("User", {
+	pattern = "TelescopeFindPre",
+	callback = function()
+		vim.opt_local.winborder = "none"
+		vim.api.nvim_create_autocmd("WinLeave", {
+			once = true,
+			callback = function()
+				vim.opt_local.winborder = "solid"
+			end,
+		})
+	end,
 })
