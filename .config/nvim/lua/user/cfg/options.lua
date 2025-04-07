@@ -146,28 +146,26 @@ vim.loader.enable()
 
 -- neogurt
 if vim.g.neogurt then
-	vim.g.neogurt_opts = {
-		window = {
-			vsync = true,
-			high_dpi = true,
-			borderless = true,
-			blur = 20,
-		},
-		margins = {
-			top = 0,
-			bottom = 0,
-			left = 0,
-			right = 0,
-		},
-		multigrid = true,
+	vim.g.neogurt_cmd("option_set", {
+		titlebar = "transparent",
+		show_title = true,
+		blur = 20,
+		gamma = 1.7,
+		vsync = true,
+		fps = 60,
+
+		margin_top = 0,
+		margin_bottom = 0,
+		margin_left = 0,
+		margin_right = 0,
+
 		macos_option_is_meta = "both",
 		cursor_idle_time = 10,
 		scroll_speed = 1,
 
 		bg_color = tonumber(colors.nord17:sub(2), 16),
-		opacity = 1.00,
-		max_fps = 60,
-	}
+		opacity = 1.0,
+	})
 end
 
 -- filetypes

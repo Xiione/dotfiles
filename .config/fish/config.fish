@@ -153,7 +153,7 @@ function newcpprob
 end
 
 function rehash_yabai
-    echo "$(whoami) ALL=(root) NOPASSWD:SETENV: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" > /private/etc/sudoers.d/yabai
+    echo "$(whoami) ALL=(root) NOPASSWD:SETENV: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
 end
 
 zoxide init fish | source

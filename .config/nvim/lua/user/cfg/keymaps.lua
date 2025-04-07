@@ -56,62 +56,81 @@ end
 if vim.g.neogurt then
 	-- all modes
 	local mode = { "", "!", "t", "l" }
-	map(mode, "<D-l>", "<cmd>Neogurt session_prev<CR>")
-	map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<CR>")
 
+	-- change font size
 	map(mode, "<D-=>", "<cmd>Neogurt font_size_change 1 all=false<cr>")
 	map(mode, "<D-->", "<cmd>Neogurt font_size_change -1 all=false<cr>")
 	map(mode, "<D-0>", "<cmd>Neogurt font_size_reset all=false<cr>")
 
-	M.neogurt_open_session_finder = function(init)
-		local cmd = [[
-            echo "$(begin;
-              echo ~/;
-              echo ~/dotfiles;
-              find ~/code -mindepth 0 -maxdepth 2 -type d;
-            end;)"
-        ]]
-		local output = vim.fn.system(cmd)
-
-		local dirs = {}
-		for dir in string.gmatch(output, "([^\n]+)") do
-			table.insert(dirs, dir)
-		end
-
-		vim.ui.select(dirs, {
-			prompt = "Create a session",
-			-- format_item = function(item)
-			--   return "(" .. item.id .. ") - " .. item.name
-			-- end
-		}, function(choice)
-			if choice == nil then
-				return
-			end
-			local dir = choice
-			local fmod = vim.fn.fnamemodify
-			local name = fmod(fmod(dir, ":h"), ":t") .. "/" .. fmod(dir, ":t")
-
-			if init then
-				local currId = vim.g.neogurt_cmd("session_info").id
-				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
-				vim.g.neogurt_cmd("session_kill", { id = currId })
-			else
-				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
-			end
-		end)
-	end
-
-	map(mode, "<D-s>", function()
-		M.neogurt_open_session_finder(false)
-	end)
+	-- session mappings
+	map(mode, "<D-l>", "<cmd>Neogurt session_prev<cr>")
+	map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<cr>")
+	map(mode, "<D-R>", "<cmd>Neogurt session_restart<cr>")
 
 	map({ "n", "v" }, "<D-v>", '"+p', silent)
 	map({ "i", "c" }, "<D-v>", "<C-r>+", silent)
 	map("t", "<D-v>", "<C-\\><C-N><D-v>i", remap)
 	-- map({ "i", "c", "t" }, "<D-bs>", "<C-u>")
 
+	-- sessionizer (create or select session)
+	local choose_session = function(startup)
+		local curr_id = vim.g.neogurt_cmd("session_info").id
+		local session_list = vim.g.neogurt_cmd("session_list", { sort = "time" })
+
+		local cmd = [[
+            echo "$(begin;
+              echo ~/;
+              echo ~/dotfiles;
+              find ~/code -mindepth 0 -maxdepth 2 -type d;
+            end;)"
+            ]]
+		local output = vim.fn.system(cmd)
+
+		for dir in string.gmatch(output, "([^\n]+)") do
+			table.insert(session_list, { dir = dir })
+		end
+
+		vim.ui.select(session_list, {
+			prompt = "New session",
+			format_item = function(session)
+				if session.id ~= nil then
+					if session.id == curr_id then
+						return "* " .. session.name
+					else
+						return "- " .. session.name
+					end
+				else
+					return session.dir
+				end
+			end,
+		}, function(choice)
+			if choice == nil then
+				return
+			end
+
+			if choice.id ~= nil then
+				vim.g.neogurt_cmd("session_switch", { id = choice.id })
+			else
+				local fmod = vim.fn.fnamemodify
+				local dir = fmod(choice.dir, ":p")
+				local name = fmod(dir, ":h:h:t") .. "/" .. fmod(dir, ":h:t")
+
+				if startup then
+					vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
+					vim.g.neogurt_cmd("session_kill")
+				else
+					vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
+				end
+			end
+		end)
+	end
+
+	map(mode, "<D-s>", function()
+		choose_session(false)
+	end)
+
 	vim.g.neogurt_startup = function()
-		M.neogurt_open_session_finder(true)
+		choose_session(true)
 	end
 end
 
@@ -366,7 +385,9 @@ map("i", "<C-i>", "<cmd>Inspect<CR>", silent)
 map("n", "zR", require("ufo").openAllFolds)
 map("n", "zM", require("ufo").closeAllFolds)
 
-map("n", "<leader>APM", function() require("vim-apm"):toggle_monitor() end)
+map("n", "<leader>APM", function()
+	require("vim-apm"):toggle_monitor()
+end)
 
 -- supermaven/copilot
 map("n", "<leader>C", "<cmd>SupermavenToggle<CR>", silent)
