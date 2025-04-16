@@ -1,9 +1,14 @@
 return {
-    capabilities = {
-        workspace = {
-            didChangeWatchedFiles = {
-                dynamicRegistration = true,
-            },
-        },
-    },
+	capabilities = {
+		workspace = {
+			didChangeWatchedFiles = {
+				dynamicRegistration = true,
+			},
+		},
+	},
+	filetypes = {
+		"swift",
+		"objc",
+		"objcpp",
+	},
 }
