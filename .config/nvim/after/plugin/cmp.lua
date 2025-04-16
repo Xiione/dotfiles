@@ -104,11 +104,13 @@ cmp.setup({
 	},
 	window = {
 		completion = {
+			border = "none",
 			winhighlight = "Normal:NormalSidebar,CursorLine:CursorLineSidebar",
 			side_padding = 1,
 			col_offset = 1,
 		},
 		documentation = {
+			border = "none",
 			winhighlight = "Normal:NormalSidebar,MarkdownError:none,luaParenError:none",
 			max_width = 40,
 			max_height = 15,
@@ -143,7 +145,7 @@ local cmdline_opts = {
 	},
 	formatting = {
 		fields = { "abbr", "menu" },
-    }
+	},
 }
 
 local cmdline_mappings = {

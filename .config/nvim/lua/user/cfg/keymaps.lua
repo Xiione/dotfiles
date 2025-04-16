@@ -50,6 +50,16 @@ M.lsp_keymaps = function(bufnr, client)
 	if client.name == "metals" then
 		map("n", "<leader>fc", "<cmd>lua require('telescope').extensions.metals.commands()<CR>", opts, bufnr)
 	end
+
+	if client.name == "rust-analyzer" then
+		map("n", "<leader>la", function()
+			vim.cmd.RustLsp("codeAction") -- supports rust-analyzer's grouping
+			-- or vim.lsp.buf.codeAction() if you don't want grouping.
+		end, opts, bufnr)
+		map("n", "K", function()
+			vim.cmd.RustLsp({ "hover", "actions" }) -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
+		end, opts, bufnr)
+	end
 end
 
 -- neogurt
@@ -81,6 +91,7 @@ if vim.g.neogurt then
             echo "$(begin;
               echo ~/;
               echo ~/dotfiles;
+              echo ~/Documents;
               find ~/code -mindepth 0 -maxdepth 2 -type d;
             end;)"
             ]]
@@ -91,13 +102,13 @@ if vim.g.neogurt then
 		end
 
 		vim.ui.select(session_list, {
-			prompt = "New session",
+			prompt = "Create or select a session",
 			format_item = function(session)
 				if session.id ~= nil then
 					if session.id == curr_id then
-						return "* " .. session.name
+						return " " .. session.name
 					else
-						return "- " .. session.name
+						return " " .. session.name
 					end
 				else
 					return session.dir
