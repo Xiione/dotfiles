@@ -1,5 +1,3 @@
-local colors = require("user.cfg.colors")
-
 vim.opt.backup = false -- creates a backup file
 -- vim.opt.clipboard = "unnamed"                -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 1 -- more space in the neovim command line for displaying messages
@@ -143,30 +141,6 @@ end, {})
 
 -- replaces impatient.nvim
 vim.loader.enable()
-
--- neogurt
-if vim.g.neogurt then
-	vim.g.neogurt_cmd("option_set", {
-		titlebar = "transparent",
-		show_title = true,
-		blur = 20,
-		gamma = 1.7,
-		vsync = true,
-		fps = 60,
-
-		margin_top = 0,
-		margin_bottom = 0,
-		margin_left = 0,
-		margin_right = 0,
-
-		macos_option_is_meta = "both",
-		cursor_idle_time = 10,
-		scroll_speed = 1,
-
-		bg_color = tonumber(colors.nord17:sub(2), 16),
-		opacity = 1.0,
-	})
-end
 
 -- filetypes
 vim.filetype.add({
