@@ -115,10 +115,9 @@ lualine.setup({
 		theme = mynord,
 		component_separators = "",
 		section_separators = "",
-		ignore_focus = sidebars.sidebar_types,
+		-- ignore_focus = sidebars.sidebar_types,
 		disabled_filetypes = {
-			-- statusline = { "alpha" },
-			-- winbar = vim.tbl_extend("force", sidebars.sidebar_types, { "alpha" }),
+			statusline = sidebars.sidebar_types,
 		},
 	},
 	sections = {

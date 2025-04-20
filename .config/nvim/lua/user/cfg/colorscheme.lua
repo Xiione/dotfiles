@@ -190,6 +190,8 @@ set(0, "NvimTreeGitDirty", { fg = colors.nord11 })
 
 -- changed in 0.10?
 set(0, "WinSeparator", { fg = colors.nord0, bg = colors.nord0 })
+set(0, "VertSplit", { fg = colors.nord0, bg = colors.nord0 })
+set(0, "lualine_transparent", { fg = colors.nord0, bg = colors.nord0 })
 set(0, "WinBar", { bg = colors.nord16 })
 set(0, "WinBarNC", { bg = colors.nord16 })
 
