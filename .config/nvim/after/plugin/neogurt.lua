@@ -40,15 +40,16 @@ local choose_session = function(startup)
 	local curr_id = vim.g.neogurt_cmd("session_info").id
 	local session_list = vim.g.neogurt_cmd("session_list", { sort = "time" })
 
-	local cmd = [[
-            echo "$(begin;
-              echo ~/;
-              echo ~/dotfiles;
-              echo ~/Documents;
-              find ~/code -mindepth 0 -maxdepth 2 -type d;
-            end;)"
-            ]]
-	local output = vim.fn.system(cmd)
+	local script = [[
+    echo ~/
+    echo ~/dotfiles
+    echo ~/Documents
+    find ~/code -mindepth 0 -maxdepth 2 -type d
+    ]]
+	local cmd = "/bin/bash -c " .. vim.fn.shellescape(script)
+	local fh = io.popen(cmd, "r")
+	local output = fh:read("*a")
+	fh:close()
 
 	for dir in string.gmatch(output, "([^\n]+)") do
 		table.insert(session_list, { dir = dir })
