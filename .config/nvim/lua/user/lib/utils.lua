@@ -157,11 +157,11 @@ M.get_dap_executable = function()
 			executable = line:match("^EXECUTABLE%s*=%s*(.+)")
 			if executable then
 				session_dap_executable = executable
-            else
-                local cwdbasename = vim.fs.basename(vim.fn.getcwd())
-                if io.open(cwdbasename) and os.execute("test -x " .. cwdbasename) == 0 then
-                    session_dap_executable = cwdbasename
-                end
+			else
+				local cwdbasename = vim.fs.basename(vim.fn.getcwd())
+				if io.open(cwdbasename) and os.execute("test -x " .. cwdbasename) == 0 then
+					session_dap_executable = cwdbasename
+				end
 			end
 		end
 	end
@@ -204,7 +204,7 @@ M.lspkind_icons = {
 	Snippet = "",
 	String = "",
 	Struct = "",
-    Supermaven = "",
+	Supermaven = "",
 	Text = " ",
 	TypeParameter = "",
 	Unit = "󰑭",
@@ -218,5 +218,25 @@ M.borderchars = { " ", " ", " ", " ", " ", " ", " ", " " }
 -- ▕x▏
 -- M.window_border = { "▏", " ", "▕", "▕", "▕", " ", "▏", "▏" }
 M.window_border = { "▎", " ", " ", " ", " ", " ", "▎", "▎" }
+
+M.table_filter = function(t, filter)
+	local out = {}
+	for k, v in pairs(t) do
+		if filter(v, k, t) then
+			out[k] = v
+		end
+	end
+	return out
+end
+
+M.array_filter = function(a, filter)
+	local out = {}
+	for k, v in pairs(a) do
+		if filter(v, k, a) then
+		    table.insert(out, v)
+		end
+	end
+	return out
+end
 
 return M

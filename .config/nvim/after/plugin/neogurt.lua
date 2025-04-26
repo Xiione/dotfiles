@@ -37,32 +37,36 @@ vim.g.neogurt_cmd("option_set", {
 -- sessionizer (create or select session)
 -- from wiliam config
 local choose_session = function(startup)
-	local curr_id = vim.g.neogurt_cmd("session_info").id
-	local session_list = vim.g.neogurt_cmd("session_list", { sort = "time" })
+	local curr_id = not startup and vim.g.neogurt_cmd("session_info").id or -1
+	local session_list = not startup
+			-- and utils.array_filter(vim.g.neogurt_cmd("session_list", { sort = "time" }), function(sess)
+			-- 	return sess.id ~= curr_id
+			-- end)
+			and vim.g.neogurt_cmd("session_list", { sort = "time" })
+		or {}
 
-	local script = [[
-    echo ~/
-    echo ~/dotfiles
-    echo ~/Documents
-    find ~/code -mindepth 0 -maxdepth 2 -type d
-    ]]
-	local cmd = "/bin/bash -c " .. vim.fn.shellescape(script)
-	local fh = io.popen(cmd, "r")
-	local output = fh:read("*a")
-	fh:close()
+	local cmd = [[
+             echo "$(begin;
+               echo ~/;
+               echo ~/dotfiles;
+               echo ~/Documents;
+               find ~/code -mindepth 0 -maxdepth 2 -type d;
+             end;)"
+             ]]
+	local output = vim.fn.system(cmd)
 
 	for dir in string.gmatch(output, "([^\n]+)") do
 		table.insert(session_list, { dir = dir })
 	end
 
 	vim.ui.select(session_list, {
-		prompt = "Create or select a session",
+		prompt = not startup and "Select a session" or "Welcome back :)",
 		format_item = function(session)
 			if session.id ~= nil then
 				if session.id == curr_id then
 					return " " .. session.name
 				else
-					return " " .. session.name
+					return " " .. session.name
 				end
 			else
 				return session.dir
@@ -104,7 +108,7 @@ map({ "n", "v" }, "<D-v>", '"+p', silent)
 map({ "i", "c" }, "<D-v>", "<C-r>+", silent)
 map("t", "<D-v>", "<C-\\><C-N><D-v>i", remap)
 
-map(mode, "<D-m>", function()
+map(mode, "<D-t>", function()
 	choose_session(false)
 end)
 
