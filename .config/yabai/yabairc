@@ -47,4 +47,6 @@ yabai -m rule --add label="About This Mac" app="System Information" title="About
 yabai -m rule --add label="Steam" app="Steam" manage=off border=off
 yabai -m rule --add label="Little Arc" app="Arc" title="^$" manage=off
 yabai -m rule --add label="Calendar Popup" app="Calendar" title="^$" manage=off
+yabai -m rule --add label="Nicotine+" app="Nicotine+" title="^$" manage=off
+yabai -m rule --add label="Feishin" app="Feishin" title="^$" manage=off
 echo "yabai configuration loaded.."

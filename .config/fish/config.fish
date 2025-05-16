@@ -158,6 +158,10 @@ function rehash_yabai
     echo "$(whoami) ALL=(root) NOPASSWD:SETENV: sha256:$(shasum -a 256 $(which yabai) | cut -d " " -f 1) $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
 end
 
+function gamemode
+    $__fish_config_dir/functions/gamemode.sh
+end
+
 zoxide init fish | source
 fzf --fish | source
 

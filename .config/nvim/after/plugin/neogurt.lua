@@ -108,7 +108,11 @@ map({ "n", "v" }, "<D-v>", '"+p', silent)
 map({ "i", "c" }, "<D-v>", "<C-r>+", silent)
 map("t", "<D-v>", "<C-\\><C-N><D-v>i", remap)
 
-map(mode, "<D-t>", function()
+-- whatever
+map(mode, "<D-s>", function()
+	choose_session(false)
+end)
+map(mode, "<D-m>", function()
 	choose_session(false)
 end)
 
