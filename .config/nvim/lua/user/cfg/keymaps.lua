@@ -7,7 +7,6 @@ local unmap = utils.unmap
 local dap = require("dap")
 local dapui = require("dapui")
 local pbreakpoints = require("persistent-breakpoints.api")
-local supermaven = require("supermaven-nvim.api")
 
 local M = {}
 
@@ -317,8 +316,6 @@ map("n", "<leader>APM", function()
 	require("vim-apm"):toggle_monitor()
 end)
 
--- supermaven/copilot
-map("n", "<leader>C", "<cmd>SupermavenToggle<CR>", silent)
 -- map("n", "<leader>c", function ()
 --     vim.cmd("SupermavenStop")
 -- 	-- vim.notify("Supermaven off")

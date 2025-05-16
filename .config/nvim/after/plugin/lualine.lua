@@ -5,7 +5,7 @@ end
 
 local sidebars = require("user.lib.sidebars")
 local colors = require("user.cfg.colors")
-local supermaven = require("supermaven-nvim.api")
+-- local supermaven = require("supermaven-nvim.api")
 
 local hide_in_width = function()
 	return vim.fn.winwidth(0) > 80
@@ -32,7 +32,8 @@ local filetype = {
 }
 
 local supermaven_status = function()
-	return supermaven.is_running() and "" or ""
+	-- return supermaven.is_running() and "" or ""
+    return ""
 end
 
 local mynord = require("lualine.themes.nord")

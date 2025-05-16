@@ -158,7 +158,7 @@ require("lazy").setup({
 		},
 		ft = { "scala", "sbt", "java" },
 	},
-	{ "supermaven-inc/supermaven-nvim" },
+	-- { "supermaven-inc/supermaven-nvim" },
 	{ "nvim-pack/nvim-spectre" },
 	{ "Xiione/vim-apm" },
 	-- { dir = "~/code/me/vim-apm/" },
@@ -166,4 +166,8 @@ require("lazy").setup({
 	-- 	"vyfor/cord.nvim",
 	-- 	build = ":Cord update",
 	-- },
+	{
+		"dundalek/bloat.nvim",
+		cmd = "Bloat",
+	},
 }, {})
