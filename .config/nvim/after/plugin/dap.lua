@@ -80,6 +80,9 @@ dap.configurations.scala = {
 	},
 }
 
+-- nvim-dap-go manages go config
+require("dap-go").setup()
+
 -- repl setup
 dap.repl.commands = vim.tbl_extend("force", dap.repl.commands, {
 	exit = { "q", "exit" },

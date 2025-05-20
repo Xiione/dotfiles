@@ -19,8 +19,9 @@ local servers = {
 	"sourcekit",
     "glsl_analyzer",
     "tailwindcss",
-    "denols"
+    "denols",
     -- "shellcheck"
+    "gopls"
 }
 local settings = {
 	ui = {
