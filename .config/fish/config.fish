@@ -16,6 +16,7 @@ set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -
 set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
 
 set -g theme_color_scheme nord
+set -g theme_vcs_ignore_paths "$HOME/co/backend"
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 
@@ -171,3 +172,5 @@ if not string match -q -- $PNPM_HOME $PATH
   set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+direnv hook fish | source
