@@ -4,31 +4,28 @@ launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist >
 
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
-yabai -m signal --add event=display_added action="sleep 1 && $HOME/.config/yabai/create_spaces.sh"
-yabai -m signal --add event=display_removed action="sleep 1 && $HOME/.config/yabai/create_spaces.sh"
 yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
 yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
 
+yabai -m signal --add event=display_created action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=display_removed action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=mission_control_exit action="sketchybar --trigger windows_on_spaces; sketchybar --trigger mission_control_exit"
+
 yabai -m config debug_output               off              \
                 layout                     bsp              \
-                external_bar               all:30:0         \
-                window_border              off              \
+                external_bar               all:40:0         \
                 mouse_follows_focus        off              \
                 focus_follows_mouse        off              \
                 window_topmost             off              \
                 window_shadow              float            \
                 window_placement           second_child     \
-                window_border_width        1                \
-                window_border_radius       11               \
                 window_animation_duration  0.0              \
                 window_border_hidpi        on               \
-                normal_window_border_color 0xff272C36       \
-                active_window_border_color 0xff2E3440       \
-                insert_feedback_color      0xffA3BE8C       \
+                window_animation_duration  0.2              \
+                insert_feedback_color      0xff5E81AC       \
                 split_ratio                0.50             \
                 auto_balance               off              \
-                mouse_modifier             fn               \
+                mouse_modifier             alt              \
                 mouse_action1              move             \
                 mouse_action2              resize           \
                 mouse_drop_action          swap             \
@@ -36,8 +33,8 @@ yabai -m config debug_output               off              \
                 top_padding                0                \
                 bottom_padding             0                \
                 left_padding               0                \
-                right_padding              0                \
-                window_gap                 4                \
+                right_padding              8                \
+                window_gap                 0                \
 
 # Exclude problematic apps from being managed:
 yabai -m rule --add app="^(LuLu|Vimac|Calculator|Software Update|Dictionary|VLC|System (Preferences|Information)|System Settings|zoom.us|Photo Booth|Archive Utility|LibreOffice|App Store|Steam|Alfred|Activity Monitor|QuickTime Player|Hatate)$" manage=off
@@ -45,8 +42,9 @@ yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info
 yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
 yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
 yabai -m rule --add label="Steam" app="Steam" manage=off border=off
-yabai -m rule --add label="Little Arc" app="Arc" title="^$" manage=off
+yabai -m rule --add label="Subsequent Arcs" app="Arc" manage=off
+yabai -m rule --add --one-shot label="Main Arc window" app="Arc" manage=on
 yabai -m rule --add label="Calendar Popup" app="Calendar" title="^$" manage=off
-yabai -m rule --add label="Nicotine+" app="Nicotine+" title="^$" manage=off
-yabai -m rule --add label="Feishin" app="Feishin" title="^$" manage=off
+yabai -m rule --add label="Nicotine+" app="Nicotine+" manage=off
+yabai -m rule --add label="Feishin" app="Feishin" manage=off
 echo "yabai configuration loaded.."
