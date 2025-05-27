@@ -18,10 +18,6 @@ sbar.exec("yabai -m query --displays --display | jq -r '.index'", function(resul
 	end
 end)
 
-local function log_debug(msg)
-	os.execute(string.format('echo "[%s] %s" >> /tmp/sketchybar_debug.log', os.date("%Y-%m-%d %H:%M:%S"), msg))
-end
-
 local spaces = {}
 local space_brackets = {}
 local spaces_initialized = {}
@@ -116,7 +112,7 @@ for i = 1, 10, 1 do
 			color = colors.grey,
 			highlight_color = colors.white,
 			font = "sketchybar-app-font:Regular:16.0",
-            string = empty_string,
+			string = empty_string,
 			y_offset = 0,
 		},
 		padding_right = 1,
@@ -231,13 +227,13 @@ for i = 1, 10, 1 do
 	-- we must refresh every space's highlights since we can't keep track of swaps
 	space:subscribe("mission_control_exit", function(env)
 		sbar.exec("yabai -m query --spaces --space " .. env.SID, function(result)
-            local sid = tonumber(env.SID)
+			local sid = tonumber(env.SID)
 			if result["has-focus"] then
 				current_space = sid
-                hl_space_selected(sid)
+				hl_space_selected(sid)
 				current_spaces["display-" .. result["display"]] = sid
-            else
-                hl_space_default(sid)
+			else
+				hl_space_default(sid)
 			end
 		end)
 	end)

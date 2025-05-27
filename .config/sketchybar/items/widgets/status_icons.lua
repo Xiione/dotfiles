@@ -59,7 +59,7 @@ local brew = sbar.add("item", "widgets.status_icons.brew", {
 local tailscale = sbar.add("alias", "Tailscale,Item-0", {
 	display = 1,
 	position = "e",
-	padding_left = 0,
+	padding_left = -8,
 	padding_right = 0,
 	icon = { drawing = false },
 	label = { drawing = false },
