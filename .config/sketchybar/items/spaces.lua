@@ -337,3 +337,7 @@ end)
 spaces_indicator:subscribe("mouse.clicked", function(env)
 	sbar.trigger("swap_menus_and_spaces")
 end)
+
+sbar.delay(1, function()
+	sbar.trigger("windows_on_spaces")
+end)
