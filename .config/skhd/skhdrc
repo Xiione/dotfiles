@@ -55,6 +55,12 @@ ctrl + lalt - 4 : set skhdrc_spaces (yabai -m query --displays --display | jq '.
                   and yabai -m window --space $skhdrc_spaces[4]; \
                   and sketchybar --trigger windows_on_spaces
 
+# Moving windows between displays
+ctrl + lalt - h : yabai -m window --display west; and sketchybar --trigger windows_on_spaces
+ctrl + lalt - j : yabai -m window --display south; and sketchybar --trigger windows_on_spaces
+ctrl + lalt - k : yabai -m window --display north; and sketchybar --trigger windows_on_spaces
+ctrl + lalt - l : yabai -m window --display east; and sketchybar --trigger windows_on_spaces
+
 # shift + lalt - p : yabai -m window --space prev && yabai -m space --focus prev
 # shift + lalt - n : yabai -m window --space next && yabai -m space --focus next
 lalt - tab : yabai -m space --focus recent
