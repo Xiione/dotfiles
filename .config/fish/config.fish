@@ -163,6 +163,11 @@ function gamemode
     $__fish_config_dir/functions/gamemode.sh
 end
 
+function devbox_run
+    cd ~/co/backend/; and direnv reload; and bin/taskrunner devbox/run
+end
+
+docker completion fish > ~/.config/fish/completions/docker.fish
 zoxide init fish | source
 fzf --fish | source
 

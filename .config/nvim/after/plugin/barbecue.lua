@@ -10,7 +10,7 @@ barbecue.setup({
     attach_navic = true,
 	exclude_filetypes = sidebars.sidebar_types,
 	theme = {
-		normal = { fg = colors.nord3, bg = colors.nord17 },
+		normal = { fg = colors.nord3L, bg = colors.nord18 },
 		-- dirname = { fg = colors.nord3 },
 		basename = { fg = colors.nord4 },
         separator = { fg = colors.nord3 }

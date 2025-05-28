@@ -44,8 +44,8 @@ local update_from = function(ns_id, name, from, opts)
 end
 
 update(0, "Normal", { sp = "none" })
-local normalFloat = update(0, "NormalFloat", { bg = colors.nord18, sp = colors.nord4 })
-local floatBorder = update(0, "FloatBorder", { fg = colors.nord8, bg = colors.nord18, sp = colors.nord4 })
+local normalFloat = update(0, "NormalFloat", { bg = colors.nord18 })
+local floatBorder = update(0, "FloatBorder", { fg = colors.nord8, bg = colors.nord18 })
 set(0, "NormalSidebar", normalFloat)
 set(0, "NormalFloat", normalFloat)
 set(0, "HarpoonBorder", floatBorder)
@@ -241,3 +241,8 @@ set(0, "IblRainbowCyan", { fg = colors.nord8 })
 set(0, "Added", { link = "DiffAdd" })
 set(0, "Removed", { link = "DiffDelete" })
 set(0, "Changed", { link = "DiffChange" })
+
+-- treesittercontext
+update_from(0, "TreesitterContext", "NormalFloat", { bg = colors.nord17 })
+update_from(0, "TreesitterContextLineNumber", "LineNr", { fg = colors.nord2, bg = colors.nord17 })
+update_from(0, "TreesitterContextBottom", "TreesitterContext", { fg = "None", underdouble = true, sp = colors.nord2 })

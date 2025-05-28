@@ -11,12 +11,18 @@ local current_display = nil
 local current_spaces = {}
 local windows_on_spaces = {}
 
+local total_spaces = 12
+
 -- Initialize current_display with yabai query
 sbar.exec("yabai -m query --displays --display | jq -r '.index'", function(result)
 	if result then
 		current_display = tonumber(result)
 	end
 end)
+
+local function log_debug(s)
+	-- os.execute("echo '" .. s .. "' >> /tmp/sketchybar_debug.log")
+end
 
 local spaces = {}
 local space_brackets = {}
@@ -96,7 +102,7 @@ local spaces_indicator = sbar.add("item", {
 	},
 })
 
-for i = 1, 10, 1 do
+for i = 1, total_spaces, 1 do
 	local space = sbar.add("space", "space." .. i, {
 		space = i,
 		icon = {
@@ -189,40 +195,6 @@ for i = 1, 10, 1 do
 		end
 	end)
 
-	windows_on_spaces[i] = ""
-	space:subscribe("windows_on_spaces", function(env)
-		local sid = tonumber(env.SID)
-		sbar.exec(
-			"yabai -m query --windows --space "
-				.. env.SID
-				.. [[ | jq 'sort_by(.["stack-index"], .frame.x, .frame.y, .id) | map(.app)']],
-			function(result)
-				local icon_line = ""
-				local no_app = true
-				for _, app in ipairs(result) do
-					no_app = false
-					local lookup = app_icons[app]
-					local icon = ((lookup == nil) and app_icons["default"] or lookup)
-					icon_line = icon_line .. icon
-				end
-
-				if no_app then
-					icon_line = empty_string
-				end
-
-				-- lazy update
-				if windows_on_spaces[sid] ~= icon_line then
-					windows_on_spaces[sid] = icon_line
-				else
-					return
-				end
-
-				sbar.animate("tanh", 10, function()
-					spaces[sid]:set({ label = icon_line })
-				end)
-			end
-		)
-	end)
 
 	-- we must refresh every space's highlights since we can't keep track of swaps
 	space:subscribe("mission_control_exit", function(env)
@@ -251,6 +223,8 @@ for i = 1, 10, 1 do
 	space:subscribe("mouse.exited", function(_)
 		space:set({ popup = { drawing = false } })
 	end)
+
+	windows_on_spaces[i] = {}
 end
 
 local space_window_observer = sbar.add("item", {
@@ -298,6 +272,42 @@ space_window_observer:subscribe("display_change", function(env)
 
 	current_space = cur_display_sid
 	hl_space_selected(cur_display_sid)
+end)
+
+space_window_observer:subscribe("windows_on_spaces", function(env)
+	for i = 1, total_spaces, 1 do
+		log_debug(string.format("windows_on_spaces: SID %s", i))
+		local sid = i
+		sbar.exec(
+			"yabai -m query --windows --space "
+				.. sid
+				.. [[ | jq 'sort_by(.["stack-index"], .frame.x, .frame.y, .id) | map(.app)']],
+			function(result)
+                -- lazy update
+				if #windows_on_spaces[sid] ~= #result then
+					windows_on_spaces[sid] = result
+				elseif #result ~= 0 then
+					return
+				end
+
+				local icon_line = ""
+				local no_app = true
+				for _, app in ipairs(result) do
+					no_app = false
+					local lookup = app_icons[app]
+					local icon = ((lookup == nil) and app_icons["default"] or lookup)
+					icon_line = icon_line .. icon
+				end
+
+				if no_app then
+					icon_line = "—"
+				end
+				sbar.animate("tanh", 10, function()
+					spaces[sid]:set({ label = icon_line })
+				end)
+			end
+		)
+	end
 end)
 
 spaces_indicator:subscribe("swap_menus_and_spaces", function(env)

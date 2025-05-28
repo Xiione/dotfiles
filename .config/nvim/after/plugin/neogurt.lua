@@ -19,7 +19,7 @@ vim.g.neogurt_cmd("option_set", {
 	blur = 20,
 	gamma = 1.7,
 	vsync = true,
-	fps = 60,
+	fps = 120,
 
 	margin_top = 0,
 	margin_bottom = 0,
@@ -51,6 +51,7 @@ local choose_session = function(startup)
                echo ~/dotfiles;
                echo ~/Documents;
                find ~/code -mindepth 0 -maxdepth 2 -type d;
+               find ~/co -mindepth 0 -maxdepth 1 -type d;
              end;)"
              ]]
 	local output = vim.fn.system(cmd)
