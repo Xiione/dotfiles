@@ -39,9 +39,9 @@ require("lazy").setup({
             "luckasRanarison/tailwind-tools.nvim",
             "onsails/lspkind-nvim",
         },
-    },                              -- The completion plugin
-    { "hrsh7th/cmp-buffer" },       -- buffer completions
-    { "hrsh7th/cmp-path" },         -- path completions
+    },                           -- The completion plugin
+    { "hrsh7th/cmp-buffer" },    -- buffer completions
+    { "hrsh7th/cmp-path" },      -- path completions
     { "saadparwaiz1/cmp_luasnip" }, -- snippet completions
     { "hrsh7th/cmp-nvim-lsp" },
     { "hrsh7th/cmp-nvim-lua" },
@@ -141,8 +141,14 @@ require("lazy").setup({
     },
     { "hrsh7th/cmp-nvim-lsp-signature-help" },
     { "Weissle/persistent-breakpoints.nvim" },
-    { "windwp/nvim-ts-autotag",             event = { "BufReadPre", "BufNewFile" } },
-    { "kevinhwang91/nvim-ufo",              dependencies = "kevinhwang91/promise-async" },
+    {
+        "windwp/nvim-ts-autotag",
+        event = { "BufReadPre", "BufNewFile" },
+    },
+    {
+        "kevinhwang91/nvim-ufo",
+        dependencies = "kevinhwang91/promise-async",
+    },
     { "luukvbaal/statuscol.nvim" },
     {
         "luckasRanarison/tailwind-tools.nvim",
@@ -160,7 +166,7 @@ require("lazy").setup({
     },
     -- { "supermaven-inc/supermaven-nvim" },
     { "nvim-pack/nvim-spectre" },
-    { "Xiione/vim-apm" },
+    -- { "Xiione/vim-apm" },
     -- { dir = "~/code/me/vim-apm/" },
     -- {
     -- 	"vyfor/cord.nvim",
@@ -170,5 +176,9 @@ require("lazy").setup({
         "dundalek/bloat.nvim",
         cmd = "Bloat",
     },
-    { "leoluz/nvim-dap-go" }
+    { "leoluz/nvim-dap-go" },
+    {
+        "nosduco/remote-sshfs.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" },
+    },
 }, {})
