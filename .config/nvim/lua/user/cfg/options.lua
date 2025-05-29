@@ -106,9 +106,9 @@ vim.g.loaded_netrwPlugin = 1
 vim.g["undotree_SplitWidth"] = 40
 vim.g["undotree_WindowLayout"] = 3
 vim.g["undotree_HelpLine"] = 0
-vim.g["Undotree_CustomMap"] = function()
-	vim.cmd("nmap <buffer>l <plug>UndotreeEnter")
-end
+-- vim.g["Undotree_CustomMap"] = function()
+-- 	vim.cmd("nmap <buffer>l <plug>UndotreeEnter")
+-- end
 
 vim.g["undotree_TreeNodeShape"] = "◍"
 vim.g["undotree_TreeReturnShape"] = "╲"
@@ -117,20 +117,16 @@ vim.g["undotree_TreeSplitShape"] = "╱"
 
 -- Some annoying plugin messages, they seem to work fine regardless
 local ignore_messages = {
-	-- lsp issue?
-	"warning: multiple different client offset_encodings",
-	-- dap messages
-	"Debug adapter reported a frame at line",
-	"Resolved locations:",
-	"No configuration found for",
+	["warning: multiple different client offset_encodings"] = true,
+	["Debug adapter reported a frame at line"] = true,
+	["Resolved locations:"] = true,
+	["No configuration found for"] = true,
 }
 local notify = vim.notify
 vim.notify = function(msg, ...)
-	for _, value in ipairs(ignore_messages) do
-		if msg:match(value) then
-			return
-		end
-	end
+    if ignore_messages[msg] then
+        return
+    end
 
 	notify(msg, ...)
 end

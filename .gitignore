@@ -2,7 +2,7 @@ old/
 .DS_Store
 .config/nvim/lazy-lock.json
 .config/fish/fish_variables
-.config/fish/ssh_vars.fish
+.config/fish/secrets.fish
 .ssh
 .config/nvim/lua/.luarc.json
 .config/fish/completions/docker.fish
