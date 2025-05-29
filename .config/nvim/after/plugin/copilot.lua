@@ -12,7 +12,7 @@ copilot.setup({
 		auto_trigger = true,
 		trigger_on_accept = true,
 		keymap = {
-			accept = "<M-l>",
+			accept = "<tab>",
 			accept_word = false,
 			accept_line = false,
 			next = "<M-]>",

@@ -44,7 +44,6 @@ M.sidebar_types = {
 }
 M.sidebar_types_set = misc.to_set(M.sidebar_types)
 
-local undo_tree_open = false
 local vimtex_toc_open = false
 local avante_open = false
 
@@ -68,19 +67,12 @@ M.sidebar_functions = {
 		is_right_side = true,
 		toggle = function()
 			vim.cmd("UndotreeToggle")
-			undo_tree_open = not undo_tree_open
-			if undo_tree_open then
-				vim.cmd("UndotreeFocus")
-			end
 		end,
 		open = function()
 			vim.cmd("UndotreeShow")
-			vim.cmd("UndotreeFocus")
-			undo_tree_open = true
 		end,
 		close = function()
 			vim.cmd("UndotreeHide")
-			undo_tree_open = false
 		end,
 	},
 	vimtex_toc = {

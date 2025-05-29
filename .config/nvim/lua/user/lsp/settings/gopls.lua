@@ -14,10 +14,10 @@ return {
             },
             staticcheck = true,
             -- Formatting configuration
-            formatting = {
-                gofumpt = false,  -- Explicitly disable gofumpt
-                use_local_gofmt = true,     -- Use local version of gofmt (from Go installation)
-            },
+            -- formatting = {
+            --     gofumpt = false,  -- Explicitly disable gofumpt
+            --     use_local_gofmt = true,     -- Use local version of gofmt (from Go installation)
+            -- },
             -- Environment settings (uncomment if you need to override system env vars)
             -- env = {
             --     GOFLAGS = "-tags=host",
