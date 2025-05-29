@@ -244,5 +244,11 @@ set(0, "Changed", { link = "DiffChange" })
 
 -- treesittercontext
 update_from(0, "TreesitterContext", "NormalFloat", { bg = colors.nord17 })
-update_from(0, "TreesitterContextLineNumber", "LineNr", { fg = colors.nord2, bg = colors.nord17 })
+update_from(0, "TreesitterContextLineNumber", "LineNr", { bg = colors.nord17 })
 update_from(0, "TreesitterContextBottom", "TreesitterContext", { fg = "None", underdouble = true, sp = colors.nord2 })
+update_from(
+	0,
+	"TreesitterContextLineNumberBottom",
+	"TreesitterContextLineNumber",
+	{ fg = "None", underdouble = true, sp = colors.nord2 }
+)

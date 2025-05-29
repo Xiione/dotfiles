@@ -39,12 +39,14 @@ M.sidebar_types = {
 	"TelescopeResults",
 	"TelescopePrompt",
 	"toggleterm",
-    "spectre_panel"
+    "spectre_panel",
+    "Avante",
 }
 M.sidebar_types_set = misc.to_set(M.sidebar_types)
 
 local undo_tree_open = false
 local vimtex_toc_open = false
+local avante_open = false
 
 M.sidebar_functions = {
 	dapui = {
@@ -99,19 +101,39 @@ M.sidebar_functions = {
 			end
 		end,
 	},
-	symbols_outline = {
-		exclusive = false,
-		is_right_side = true,
-		toggle = function()
-			vim.cmd("Outline")
-		end,
-		open = function()
-			vim.cmd("OutlineOpen")
-		end,
-		close = function()
-			vim.cmd("OutlineClose")
-		end,
-	},
+	-- symbols_outline = {
+	-- 	exclusive = false,
+	-- 	is_right_side = true,
+	-- 	toggle = function()
+	-- 		vim.cmd("Outline")
+	-- 	end,
+	-- 	open = function()
+	-- 		vim.cmd("OutlineOpen")
+	-- 	end,
+	-- 	close = function()
+	-- 		vim.cmd("OutlineClose")
+	-- 	end,
+	-- },
+    avante = {
+        exclusive = false,
+        is_right_side = true,
+        toggle = function()
+            vim.cmd("AvanteToggle")
+            avante_open = not avante_open
+        end,
+        open = function()
+            if not avante_open then
+                vim.cmd("AvanteToggle")
+                avante_open = true
+            end
+        end,
+        close = function()
+            if avante_open then
+                vim.cmd("AvanteToggle")
+                avante_open = false
+            end
+        end,
+    },
 }
 
 M.toggle = function(sidebar)

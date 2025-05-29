@@ -20,7 +20,7 @@ set -g theme_vcs_ignore_paths "$HOME/co/backend"
 set -gx EDITOR nvim
 set -gx VISUAL nvim
 
-source ~/.config/fish/ssh_vars.fish
+source ~/.config/fish/secrets.fish
 
 function brew -d "Update outdated packages after running brew commands"
     command brew $argv
