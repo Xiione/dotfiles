@@ -21,7 +21,8 @@ local servers = {
     "tailwindcss",
     "denols",
     -- "shellcheck"
-    "gopls"
+    "gopls",
+    "protols",
 }
 local settings = {
 	ui = {
