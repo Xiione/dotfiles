@@ -1,6 +1,6 @@
 return {
     filetypes = {
-        "c", "cpp", "cuda", "proto"
+        "c", "cpp", "cuda"
     },
 	cmd = {
 		"clangd",
