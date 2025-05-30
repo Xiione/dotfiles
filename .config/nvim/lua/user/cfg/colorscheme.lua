@@ -21,8 +21,8 @@ end
 local colors = require("user.cfg.colors")
 
 -- local normal = get_hl(0, {name = "Normal"})
--- normal.bg = "none"
--- -- normal.sp = "none"
+-- normal.bg = "None"
+-- -- normal.sp = "None"
 -- set(0, "Normal", normal)
 
 local update = function(ns_id, name, opts)
@@ -43,7 +43,7 @@ local update_from = function(ns_id, name, from, opts)
 	return hl
 end
 
-update(0, "Normal", { sp = "none" })
+update(0, "Normal", { sp = "None" })
 update(0, "NormalFloat", { bg = colors.nord18 })
 update(0, "FloatBorder", { fg = colors.nord8, bg = colors.nord18 })
 set(0, "NormalSidebar", { link = "NormalFloat" })
@@ -111,7 +111,6 @@ set(0, "SmoothCursor2", { fg = colors.nord2 })
 set(0, "SmoothCursor3", { fg = colors.nord3 })
 set(0, "SmoothCursor9", { fg = colors.nord9 })
 
-set(0, "FloatBorder", floatBorder)
 set(0, "LspFloatWinBorder", { link = "FloatBorder" })
 set(0, "LsOutlinePreviewBorder", { link = "FloatBorder" })
 set(0, "LspInfoBorder", { link = "FloatBorder" })
@@ -130,7 +129,7 @@ set(0, "TelescopeResultsBorder", { link = "FloatBorder" })
 set(0, "TelescopePreviewTitle", { fg = colors.nord4, bg = colors.nord0 })
 set(0, "TelescopePreviewBorder", { link = "FloatBorder" })
 
-set(0, "luaParenError", { link = "none" })
+set(0, "luaParenError", { link = "None" })
 set(0, "MarkdownError", { link = "None" })
 set(0, "MarkdownLinkText", { sp = colors.nord14 })
 set(0, "luaError", { link = "Structure" })
