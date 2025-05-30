@@ -44,14 +44,12 @@ local update_from = function(ns_id, name, from, opts)
 end
 
 update(0, "Normal", { sp = "none" })
-local normalFloat = update(0, "NormalFloat", { bg = colors.nord18 })
-local floatBorder = update(0, "FloatBorder", { fg = colors.nord8, bg = colors.nord18 })
-set(0, "NormalSidebar", normalFloat)
-set(0, "NormalFloat", normalFloat)
-set(0, "HarpoonBorder", floatBorder)
-set(1, "HarpoonWindow", normalFloat)
-set(0, "NormalFloat", normalFloat)
-set(0, "LazyProp", normalFloat)
+update(0, "NormalFloat", { bg = colors.nord18 })
+update(0, "FloatBorder", { fg = colors.nord8, bg = colors.nord18 })
+set(0, "NormalSidebar", { link = "NormalFloat" })
+set(0, "HarpoonBorder", { link = "FloatBorder" })
+set(1, "HarpoonWindow", { link = "NormalFloat" })
+set(0, "LazyProp", { link = "NormalFloat" })
 
 -- update_from(0, "NormalFidget", "Normal", { bg = "None" })
 
