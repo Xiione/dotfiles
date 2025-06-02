@@ -1,1 +1,52 @@
-{"mcpServers":{}}
+{
+  "nativeMCPServers": {
+    "mcphub": {
+      "disabled_prompts": [
+        "create_native_server"
+      ]
+    },
+    "neovim": {
+      "disabled_prompts": [
+        "parrot"
+      ],
+      "autoApprove": [
+        "find_files",
+        "list_directory",
+        "read_file",
+        "replace_in_file",
+        "write_file"
+      ]
+    }
+  },
+  "mcpServers": {
+    "atlassian": {
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.atlassian.com/v1/sse"
+      ],
+      "disabled": false,
+      "command": "npx",
+      "autoApprove": [
+        "atlassianUserInfo",
+        "getAccessibleAtlassianResources",
+        "getConfluenceSpaces",
+        "getConfluencePage",
+        "getPagesInConfluenceSpace",
+        "getConfluencePageAncestors",
+        "getConfluencePageFooterComments",
+        "getConfluencePageInlineComments",
+        "getConfluencePageDescendants",
+        "searchConfluenceUsingCql",
+        "getJiraIssue",
+        "getTransitionsForJiraIssue",
+        "transitionJiraIssue",
+        "lookupJiraAccountId",
+        "searchJiraIssuesUsingJql",
+        "getJiraIssueRemoteIssueLinks",
+        "getVisibleJiraProjects",
+        "getJiraProjectIssueTypesMetadata"
+      ]
+    }
+  }
+}

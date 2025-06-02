@@ -205,6 +205,7 @@ require("lazy").setup({
 			"zbirenbaum/copilot.lua", -- for providers='copilot'
 			"HakonHarnes/img-clip.nvim",
 			"MeanderingProgrammer/render-markdown.nvim",
+			"ravitemer/mcphub.nvim",
 		},
 	}),
 	spec("HakonHarnes/img-clip.nvim", {
@@ -219,7 +220,7 @@ require("lazy").setup({
 	spec("zbirenbaum/copilot.lua"),
 	{ "AndreM222/copilot-lualine" },
 	spec("ravitemer/mcphub.nvim", {
-        build = "npm install -g mcp-hub@latest",
+		build = "npm install -g mcp-hub@latest",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 		},

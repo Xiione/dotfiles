@@ -35,7 +35,7 @@ vim.opt.numberwidth = 4 -- minimal number of columns to use for the line number 
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 vim.opt.wrap = false -- display lines as one long line
 vim.opt.scrolloff = 8 -- minimal number of screen lines to keep above and below the cursor
-vim.opt.mousescroll = { "ver:1", "hor:3" }
+vim.opt.mousescroll = { "ver:3", "hor:3" }
 vim.opt.sidescrolloff = 3 -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
 vim.opt.shortmess:append("c") -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 vim.opt.iskeyword:append("-") -- treats words with `-` as single words

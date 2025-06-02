@@ -24,10 +24,10 @@ return {
 		auto_set_keymaps = true,
 		auto_apply_diff_after_generation = true,
 		jump_result_buffer_on_finish = true,
-		support_paste_from_clipboard = false,
+		support_paste_from_clipboard = true,
 		minimize_diff = true,
 		enable_token_counting = true,
-        enable_cursor_planning_mode = true,
+		enable_cursor_planning_mode = true,
 		use_cwd_as_project_root = false,
 		auto_focus_on_diff_view = false,
 	},
@@ -35,7 +35,7 @@ return {
 		enabled = true,
 	},
 	mappings = {
-        ask = "<D-i>",
+		ask = "<D-i>",
 		focus = "<D-i>",
 		edit = "<D-k>",
 		stop = "<leader>as",
@@ -58,7 +58,29 @@ return {
 		},
 		toggle = {
 			default = "<leader>aa",
-            suggestion = "<leader>aS"
+			suggestion = "<leader>aS",
 		},
+	},
+
+	system_prompt = function()
+		local hub = require("mcphub").get_hub_instance()
+		return hub and hub:get_active_servers_prompt() or ""
+	end,
+	custom_tools = function()
+		return {
+			require("mcphub.extensions.avante").mcp_tool(),
+		}
+	end,
+	disabled_tools = { -- mcphub provides these
+		"list_files", -- Built-in file operations
+		"search_files",
+		"read_file",
+		"create_file",
+		"rename_file",
+		"delete_file",
+		"create_dir",
+		"rename_dir",
+		"delete_dir",
+		"bash", -- Built-in terminal access
 	},
 }
