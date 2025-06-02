@@ -11,62 +11,7 @@ end
 local lspkind = require("lspkind")
 local sidebars = require("user.lib.sidebars")
 
-cmp.setup.filetype({ "TelescopePrompt" }, {
-	sources = {},
-})
-
-local cmdline_opts = {
-	view = {
-		entries = {
-			name = "custom",
-			-- selection_order = "bottom_up",
-			selection_order = "top_down",
-			follow_cursor = false,
-		},
-	},
-	completion = {
-		completeopt = "menu,menuone,noselect",
-	},
-	formatting = {
-		fields = { "abbr", "menu" },
-	},
-}
-
-local cmdline_mappings = {
-	["<C-j>"] = { c = cmp.mapping.select_next_item() },
-	["<C-k>"] = { c = cmp.mapping.select_prev_item() },
-}
--- `/`, `?` cmdline setup.
-cmp.setup.cmdline(
-	{ "/", "?" },
-	vim.tbl_extend("force", {
-		mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
-		sources = {
-			{ name = "buffer" },
-		},
-	}, cmdline_opts)
-)
-
--- `:` cmdline setup.
-cmp.setup.cmdline(
-	":",
-	vim.tbl_extend("force", {
-		mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
-		sources = cmp.config.sources({
-			{ name = "path" },
-		}, {
-			{
-				name = "cmdline",
-				option = {
-					ignore_cmds = { "Man", "!" },
-				},
-			},
-		}),
-		matching = { disallow_symbol_nonprefix_matching = false },
-	}, cmdline_opts)
-)
-
-return {
+cmp.setup({
 	enabled = true,
 	snippet = {
 		expand = function(args)
@@ -180,4 +125,59 @@ return {
 	performance = {
 		throttle = 0,
 	},
+})
+
+cmp.setup.filetype({ "TelescopePrompt" }, {
+	sources = {},
+})
+
+local cmdline_opts = {
+	view = {
+		entries = {
+			name = "custom",
+			-- selection_order = "bottom_up",
+			selection_order = "top_down",
+			follow_cursor = false,
+		},
+	},
+	completion = {
+		completeopt = "menu,menuone,noselect",
+	},
+	formatting = {
+		fields = { "abbr", "menu" },
+	},
 }
+
+local cmdline_mappings = {
+	["<C-j>"] = { c = cmp.mapping.select_next_item() },
+	["<C-k>"] = { c = cmp.mapping.select_prev_item() },
+}
+-- `/`, `?` cmdline setup.
+cmp.setup.cmdline(
+	{ "/", "?" },
+	vim.tbl_extend("force", {
+		mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
+		sources = {
+			{ name = "buffer" },
+		},
+	}, cmdline_opts)
+)
+
+-- `:` cmdline setup.
+cmp.setup.cmdline(
+	":",
+	vim.tbl_extend("force", {
+		mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
+		sources = cmp.config.sources({
+			{ name = "path" },
+		}, {
+			{
+				name = "cmdline",
+				option = {
+					ignore_cmds = { "Man", "!" },
+				},
+			},
+		}),
+		matching = { disallow_symbol_nonprefix_matching = false },
+	}, cmdline_opts)
+)

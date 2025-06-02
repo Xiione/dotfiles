@@ -246,7 +246,6 @@ update_from(
 	{ fg = "None", underdouble = true, sp = colors.nord2 }
 )
 
--- avante
 set(0, "AvantePromptInput", { link = "NormalFloat" })
 set(0, "AvantePromptInputBorder", { link = "FloatBorder" })
 
@@ -264,8 +263,6 @@ set(0, "AvanteReversedThirdTitle", { fg = colors.nord2 })
 -- set(0, "AvanteAnnotation", { link = "Comment" })
 set(0, "AvantePopupHint", { link = "Comment" })
 set(0, "AvanteInlineHint", { link = "Comment" })
-set(0, "AvanteToBeDeleted", { bg = colors.nord11, strikethrough = true })
-set(0, "AvanteToBeDeletedWOStrikethrough", { bg = colors.nord11 })
 set(0, "AvanteConfirmTitle", { fg = colors.nord0, bg = colors.nord11 })
 set(0, "AvanteButtonDefault", { fg = colors.nord0, bg = colors.nord4 })
 set(0, "AvanteButtonDefaultHover", { fg = colors.nord0, bg = colors.nord14 })
@@ -282,9 +279,3 @@ set(0, "AvanteStateSpinnerSucceeded", { fg = colors.nord0, bg = colors.nord14 })
 set(0, "AvanteStateSpinnerSearching", { fg = colors.nord0, bg = colors.nord15 })
 set(0, "AvanteStateSpinnerThinking", { fg = colors.nord0, bg = colors.nord15 })
 set(0, "AvanteStateSpinnerCompacting", { fg = colors.nord0, bg = colors.nord15 })
-
--- Conflict highlights
-set(0, "AvanteConflictCurrent", { bg = colors.nord11, bold = true })
-set(0, "AvanteConflictCurrentLabel", { bg = colors.nord11 })
-set(0, "AvanteConflictIncoming", { bg = colors.nord10, bold = true })
-set(0, "AvanteConflictIncomingLabel", { bg = colors.nord10 })

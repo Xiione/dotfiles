@@ -58,12 +58,13 @@ require("lazy").setup({
 	{ "Xiione/nord.nvim" },
 
 	-- cmp plugins
-	spec("hrsh7th/nvim-cmp", {
+	{
+		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"luckasRanarison/tailwind-tools.nvim",
 			"onsails/lspkind-nvim",
 		},
-	}), -- The completion plugin
+	}, -- The completion plugin
 	{ "hrsh7th/cmp-buffer" }, -- buffer completions
 	{ "hrsh7th/cmp-path" }, -- path completions
 	{ "saadparwaiz1/cmp_luasnip" }, -- snippet completions
@@ -133,7 +134,7 @@ require("lazy").setup({
 		},
 	}),
 	{ "tpope/vim-abolish" },
-	{ "echasnovski/mini.surround", version = "*" },
+	{ "echasnovski/mini.surround", version = "*", opts = {} },
 	{ "airblade/vim-matchquote" },
 	-- { "hedyhli/outline.nvim" },
 	{
@@ -185,11 +186,9 @@ require("lazy").setup({
 	{ "leoluz/nvim-dap-go" },
 	{ "nosduco/remote-sshfs.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
 	{ "nvim-treesitter/nvim-treesitter-context" },
-	{
-		"yetone/avante.nvim",
+	spec("yetone/avante.nvim", {
 		event = "VeryLazy",
 		version = false, -- Never set this value to "*"! Never!
-		opts = {},
 		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 		build = "make",
 		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
@@ -207,11 +206,13 @@ require("lazy").setup({
 			"HakonHarnes/img-clip.nvim",
 			"MeanderingProgrammer/render-markdown.nvim",
 		},
-	},
+	}),
 	spec("HakonHarnes/img-clip.nvim", {
 		event = "VeryLazy",
 	}),
 	spec("MeanderingProgrammer/render-markdown.nvim", {
 		ft = { "markdown", "Avante" },
 	}),
+	spec("folke/snacks.nvim"),
+	{ "stevearc/dressing.nvim", opts = {} },
 }, {})

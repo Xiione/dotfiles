@@ -23,10 +23,11 @@ return {
 		auto_set_highlight_group = true,
 		auto_set_keymaps = true,
 		auto_apply_diff_after_generation = true,
-		jump_result_buffer_on_finish = false,
+		jump_result_buffer_on_finish = true,
 		support_paste_from_clipboard = false,
 		minimize_diff = true,
 		enable_token_counting = true,
+        enable_cursor_planning_mode = true,
 		use_cwd_as_project_root = false,
 		auto_focus_on_diff_view = false,
 	},
@@ -34,6 +35,7 @@ return {
 		enabled = true,
 	},
 	mappings = {
+        ask = "<D-i>",
 		focus = "<D-i>",
 		edit = "<D-k>",
 		stop = "<leader>as",
@@ -43,7 +45,7 @@ return {
 			all_theirs = "<D-CR>",
 		},
 		cancel = {
-			insert = { "<C-d>" },
+			insert = { "<C-c>" },
 		},
 		submit = {
 			insert = "<CR>",
@@ -51,11 +53,12 @@ return {
 		sidebar = {
 			apply_all = "<D-CR>",
 			close_from_input = {
-				insert = "<C-d>",
+				insert = "<C-c>",
 			},
 		},
 		toggle = {
 			default = "<leader>aa",
+            suggestion = "<leader>aS"
 		},
 	},
 }
