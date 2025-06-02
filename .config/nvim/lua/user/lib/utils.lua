@@ -1,7 +1,3 @@
-local dap = require("dap")
-local dapui = require("dapui")
-local toggleterm = require("toggleterm")
-
 local M = {}
 
 local commands = {
@@ -65,7 +61,7 @@ local initalized = false
 M.exec_cmd = function(args)
 	vim.cmd("wall")
 	if type(args) == "string" then
-		toggleterm.exec(args, vim.v.count, nil, nil, nil, nil, nil)
+		require("toggleterm").exec(args, vim.v.count, nil, nil, nil, nil, nil)
 	else
 		if not initalized then
 			local Terminal = require("toggleterm.terminal").Terminal
@@ -76,7 +72,7 @@ M.exec_cmd = function(args)
 			})
 			initalized = true
 		else
-			toggleterm.exec(args.cmd, vim.v.count, nil, args.dir, nil, nil, args.open)
+			require("toggleterm").exec(args.cmd, vim.v.count, nil, args.dir, nil, nil, args.open)
 		end
 	end
 end
@@ -145,7 +141,7 @@ end
 local types_enabled = false
 M.toggle_scope_types = function()
 	types_enabled = not types_enabled
-	dapui.update_render({ max_type_length = types_enabled and -1 or 0 })
+	require("dapui").update_render({ max_type_length = types_enabled and -1 or 0 })
 end
 
 local session_dap_executable

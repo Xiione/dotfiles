@@ -3,10 +3,6 @@ if not status_ok then
 	return
 end
 
-local dap = require("dap")
-
-local utils = require("user.lib.utils")
-
 toggleterm.setup({
 	size = 13,
 	open_mapping = [[<C-]>]],

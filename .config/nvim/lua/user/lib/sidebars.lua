@@ -2,9 +2,6 @@ local misc = require("user.lib.misc")
 
 local M = {}
 
-local dapui = require("dapui")
-local nvim_tree = require("nvim-tree.api")
-
 M.make_winhighlight = function(opts)
 	return "Normal:NormalSidebar,SignColumn:NormalSidebar,CursorLine:NormalSidebar"
 		.. (opts.cursorline and "" or ",CursorLine:NormalSidebar")
@@ -41,6 +38,9 @@ M.sidebar_types = {
 	"toggleterm",
     "spectre_panel",
     "Avante",
+    "AvanteInput",
+    "AvantePromptInput",
+    "AvanteSelectedFiles",
 }
 M.sidebar_types_set = misc.to_set(M.sidebar_types)
 
@@ -51,16 +51,16 @@ M.sidebar_functions = {
 	dapui = {
 		exclusive = true,
 		is_right_side = false,
-		toggle = dapui.toggle,
-		open = dapui.open,
-		close = dapui.close,
+		toggle = function() return require("dapui").toggle() end,
+		open = function() return require("dapui").open() end,
+		close = function() return require("dapui").close() end,
 	},
 	nvimtree = {
 		exclusive = false,
 		is_right_side = false,
-		toggle = nvim_tree.tree.toggle,
-		open = nvim_tree.tree.open,
-		close = nvim_tree.tree.close,
+		toggle = function() return require("nvim-tree.api").tree.toggle() end,
+		open = function() return require("nvim-tree.api").tree.open() end,
+		close = function() return require("nvim-tree.api").tree.close() end,
 	},
 	undotree = {
 		exclusive = false,

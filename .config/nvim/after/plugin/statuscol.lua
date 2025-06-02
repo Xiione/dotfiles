@@ -4,11 +4,6 @@ if not status_ok then
 end
 local builtin = require("statuscol.builtin")
 
-local pb_status_ok, pbreakpoints = pcall(require, "persistent-breakpoints")
-if not pb_status_ok then
-	return
-end
-
 statuscol.setup({
 	foldfunc = "builtin",
 	setopt = true,

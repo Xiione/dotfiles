@@ -1,1 +1,0 @@
-require('remote-sshfs').setup()

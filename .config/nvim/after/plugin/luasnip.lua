@@ -11,4 +11,3 @@ if not status_ok_ls then
 end
 
 config.setup({ enable_autosnippets = true })
-

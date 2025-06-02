@@ -27,18 +27,14 @@ local colors = require("user.cfg.colors")
 
 local update = function(ns_id, name, opts)
 	local hl = get_hl(ns_id, { name = name })
-	for k, v in pairs(opts) do
-		hl[k] = v
-	end
+	hl = vim.tbl_extend("force", hl, opts)
 	set(ns_id, name, hl)
 	return hl
 end
 
 local update_from = function(ns_id, name, from, opts)
 	local hl = get_hl(ns_id, { name = from })
-	for k, v in pairs(opts) do
-		hl[k] = v
-	end
+	hl = vim.tbl_extend("force", hl, opts)
 	set(ns_id, name, hl)
 	return hl
 end
@@ -46,7 +42,7 @@ end
 update(0, "Normal", { sp = "None" })
 update(0, "NormalFloat", { bg = colors.nord18 })
 update(0, "FloatBorder", { fg = colors.nord8, bg = colors.nord18 })
-set(0, "NormalSidebar", { link = "NormalFloat" })
+set(0, "NormalSidebar", { bg = colors.nord17 })
 set(0, "HarpoonBorder", { link = "FloatBorder" })
 set(1, "HarpoonWindow", { link = "NormalFloat" })
 set(0, "LazyProp", { link = "NormalFloat" })
@@ -249,3 +245,46 @@ update_from(
 	"TreesitterContextLineNumber",
 	{ fg = "None", underdouble = true, sp = colors.nord2 }
 )
+
+-- avante
+set(0, "AvantePromptInput", { link = "NormalFloat" })
+set(0, "AvantePromptInputBorder", { link = "FloatBorder" })
+
+set(0, "AvanteSidebarNormal", { link = "NormalSidebar" })
+set(0, "AvanteSidebarWinSeparator", { link = "WinSeparator" })
+update(0, "AvanteSidebarWinHorizontalSeparator", { fg = colors.nord18, bg = colors.nord18 })
+
+set(0, "AvanteTitle", { fg = colors.nord0, bg = colors.nord14 })
+set(0, "AvanteReversedTitle", { fg = colors.nord14 })
+set(0, "AvanteSubtitle", { fg = colors.nord0, bg = colors.nord8 })
+set(0, "AvanteReversedSubtitle", { fg = colors.nord8 })
+set(0, "AvanteThirdTitle", { fg = colors.nord4, bg = colors.nord2 })
+set(0, "AvanteReversedThirdTitle", { fg = colors.nord2 })
+-- set(0, "AvanteSuggestion", { link = "Comment" })
+-- set(0, "AvanteAnnotation", { link = "Comment" })
+set(0, "AvantePopupHint", { link = "Comment" })
+set(0, "AvanteInlineHint", { link = "Comment" })
+set(0, "AvanteToBeDeleted", { bg = colors.nord11, strikethrough = true })
+set(0, "AvanteToBeDeletedWOStrikethrough", { bg = colors.nord11 })
+set(0, "AvanteConfirmTitle", { fg = colors.nord0, bg = colors.nord11 })
+set(0, "AvanteButtonDefault", { fg = colors.nord0, bg = colors.nord4 })
+set(0, "AvanteButtonDefaultHover", { fg = colors.nord0, bg = colors.nord14 })
+set(0, "AvanteButtonPrimary", { fg = colors.nord0, bg = colors.nord4 })
+set(0, "AvanteButtonPrimaryHover", { fg = colors.nord0, bg = colors.nord8 })
+set(0, "AvanteButtonDanger", { fg = colors.nord0, bg = colors.nord4 })
+set(0, "AvanteButtonDangerHover", { fg = colors.nord0, bg = colors.nord11 })
+-- set(0, "AvanteCommentFg", { fg_link = "Comment" })
+set(0, "AvanteReversedNormal", { fg = colors.nord0, bg = colors.nord4 })
+set(0, "AvanteStateSpinnerGenerating", { fg = colors.nord0, bg = colors.nord15 })
+set(0, "AvanteStateSpinnerToolCalling", { fg = colors.nord0, bg = colors.nord8 })
+set(0, "AvanteStateSpinnerFailed", { fg = colors.nord0, bg = colors.nord11 })
+set(0, "AvanteStateSpinnerSucceeded", { fg = colors.nord0, bg = colors.nord14 })
+set(0, "AvanteStateSpinnerSearching", { fg = colors.nord0, bg = colors.nord15 })
+set(0, "AvanteStateSpinnerThinking", { fg = colors.nord0, bg = colors.nord15 })
+set(0, "AvanteStateSpinnerCompacting", { fg = colors.nord0, bg = colors.nord15 })
+
+-- Conflict highlights
+set(0, "AvanteConflictCurrent", { bg = colors.nord11, bold = true })
+set(0, "AvanteConflictCurrentLabel", { bg = colors.nord11 })
+set(0, "AvanteConflictIncoming", { bg = colors.nord10, bold = true })
+set(0, "AvanteConflictIncomingLabel", { bg = colors.nord10 })

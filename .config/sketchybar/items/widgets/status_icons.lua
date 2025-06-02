@@ -93,7 +93,7 @@ local function create_notification_item(notification, counter)
 	local title = notification.subject.title:gsub("^'", ""):gsub("'$", "")
 	local repo = notification.repository.name:gsub("^'", ""):gsub("'$", "")
 	local type = notification.subject.type:gsub("^'", ""):gsub("'$", "")
-	local url = notification.subject.url
+	local url = notification.subject.html_url
 
 	local color = colors.blue
 	local icon = "􀍷" -- Default to issue icon

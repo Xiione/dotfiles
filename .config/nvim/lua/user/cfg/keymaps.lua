@@ -227,7 +227,7 @@ map("n", "<leader>gs", "<cmd>Gitsigns toggle_signs<CR>", silent)
 
 -- Comment
 map("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", silent)
-map("x", "<leader>/", '<ESC><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
+map("x", "<leader>/", '<ESC><cmd>lua require("Comment.api").toggle.blockwise(vim.fn.visualmode())<CR>')
 
 -- DAP
 map("n", "<F5>", function()
@@ -268,7 +268,7 @@ map("n", "<leader>u", function()
 end, silent)
 
 -- Harpoon/Grapple
-map("n", "<leader>a", require("grapple").toggle)
+map("n", "<leader>A", require("grapple").toggle)
 -- function()
 -- local marks = require("harpoon").get_mark_config().marks
 -- local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
@@ -292,7 +292,7 @@ for i = 1, 9 do
 end
 
 -- Alpha
-map("n", "<leader>A", "<cmd>Alpha<CR>", silent)
+-- map("n", "<leader>A", "<cmd>Alpha<CR>", silent)
 
 -- Symbols outline
 -- replaced with telescope picker
