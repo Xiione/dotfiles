@@ -268,7 +268,7 @@ map("n", "<leader>u", function()
 end, silent)
 
 -- Harpoon/Grapple
-map("n", "<leader>A", require("grapple").toggle)
+map("n", "<leader>g", require("grapple").toggle)
 -- function()
 -- local marks = require("harpoon").get_mark_config().marks
 -- local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
@@ -315,9 +315,9 @@ map("i", "<C-i>", "<cmd>Inspect<CR>", silent)
 map("n", "zR", require("ufo").openAllFolds)
 map("n", "zM", require("ufo").closeAllFolds)
 
-map("n", "<leader>APM", function()
+--[[ map("n", "<leader>APM", function()
     require("vim-apm"):toggle_monitor()
-end)
+end) ]]
 
 -- map("n", "<leader>c", function ()
 --     vim.cmd("SupermavenStop")

@@ -127,8 +127,8 @@ cmp.setup({
 	},
 })
 
-cmp.setup.filetype({ "TelescopePrompt" }, {
-	sources = {},
+cmp.setup.filetype({ "TelescopePrompt", "snacks_input" }, {
+    enabled = false
 })
 
 local cmdline_opts = {

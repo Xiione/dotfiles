@@ -211,8 +211,10 @@ require("lazy").setup({
 		event = "VeryLazy",
 	}),
 	spec("MeanderingProgrammer/render-markdown.nvim", {
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
 		ft = { "markdown", "Avante" },
 	}),
 	spec("folke/snacks.nvim"),
 	{ "stevearc/dressing.nvim", opts = {} },
+    spec("zbirenbaum/copilot.lua")
 }, {})

@@ -279,3 +279,7 @@ set(0, "AvanteStateSpinnerSucceeded", { fg = colors.nord0, bg = colors.nord14 })
 set(0, "AvanteStateSpinnerSearching", { fg = colors.nord0, bg = colors.nord15 })
 set(0, "AvanteStateSpinnerThinking", { fg = colors.nord0, bg = colors.nord15 })
 set(0, "AvanteStateSpinnerCompacting", { fg = colors.nord0, bg = colors.nord15 })
+
+set(0, "RenderMarkdownCode", { fg = "None", bg = colors.nord18 })
+set(0, "RenderMarkdownQuote", { fg = colors.nord3L })
+set(0, "@markup.quote.markdown", { fg = colors.nord10 })
