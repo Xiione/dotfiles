@@ -62,7 +62,7 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
-	if client.name == "sumneko_lua" then
+	if client.name == "lua-language-server" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
