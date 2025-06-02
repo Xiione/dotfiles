@@ -8,7 +8,7 @@ local whitelist = {
 }
 
 local media_cover = sbar.add("item", {
-	position = "right",
+	position = "q",
 	background = {
 		image = {
 			string = "media.artwork",
@@ -27,7 +27,7 @@ local media_cover = sbar.add("item", {
 })
 
 local media_artist = sbar.add("item", {
-	position = "right",
+	position = "q",
 	drawing = false,
 	padding_left = 3,
 	padding_right = 0,
@@ -43,9 +43,9 @@ local media_artist = sbar.add("item", {
 })
 
 local media_title = sbar.add("item", {
-	position = "right",
+	position = "q",
 	drawing = false,
-	padding_left = 3,
+	padding_left = 0,
 	padding_right = 0,
 	icon = { drawing = false },
 	label = {
