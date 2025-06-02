@@ -16,13 +16,8 @@ if not status_ok then
 	return
 end
 
--- require("nord")
 
 local colors = require("user.cfg.colors")
-
--- local normal = get_hl(0, {name = "Normal"})
--- normal.bg = "None"
--- -- normal.sp = "None"
 -- set(0, "Normal", normal)
 
 local update = function(ns_id, name, opts)
@@ -45,15 +40,10 @@ update(0, "FloatBorder", { fg = colors.nord8, bg = colors.nord18 })
 set(0, "NormalSidebar", { bg = colors.nord17 })
 set(0, "HarpoonBorder", { link = "FloatBorder" })
 set(1, "HarpoonWindow", { link = "NormalFloat" })
-set(0, "LazyProp", { link = "NormalFloat" })
 
 -- update_from(0, "NormalFidget", "Normal", { bg = "None" })
 
 local cursorLineBg = colors.nord0o
-
-update(0, "CursorLine", { bg = cursorLineBg })
-update_from(0, "CursorLineSidebar", "CursorLine", { bg = colors.nord1 })
--- update_from(0, "CursorLineSign", "CursorLine", { bg = cursorLineBg })
 -- update(0, "CursorLineNr", { bg = cursorLineBg })
 -- update(0, "CursorLineFold", { bg = cursorLineBg })
 -- update(0, "CursorLineSign", { bg = cursorLineBg })
@@ -130,9 +120,6 @@ set(0, "MarkdownError", { link = "None" })
 set(0, "MarkdownLinkText", { sp = colors.nord14 })
 set(0, "luaError", { link = "Structure" })
 
-set(0, "EyelinerPrimary", { fg = colors.nord4, sp = colors.nord4, underline = true })
-set(0, "EyelinerSecondary", { fg = colors.nord8 })
-
 -- set_hl(0, "TelescopeMatching", { bg = colors.nord17 })
 
 -- vim.api.nvim_set_hl(0, "FloatShadow", { fg = colors.nord0 })
@@ -196,20 +183,6 @@ set(0, "DapUIFloatBorder", { link = "FloatBorder" })
 
 -- ufo
 set(0, "FoldColumn", { fg = colors.nord3L })
-
--- cmp match colors
-set(0, "CmpItemAbbr", { fg = colors.nord4 })
-set(0, "CmpItemAbbrMatch", { fg = colors.nord4, sp = colors.nord4, underline = true })
-set(0, "CmpItemAbbrMatchFuzzy", { fg = colors.nord8 })
-
--- tailwind-tools
--- this also in the tailwind-tools config itself
--- set(0, "TailwindConceal", { link = "Comment" })
-
--- gitsign cursorline
--- for _, name in ipairs({
--- 	"GitSignsAdd",
--- 	"GitSignsChange",
 -- 	"GitSignsDelete",
 -- 	"GitSignsChangedelete",
 -- 	"GitSignsTopdelete",
@@ -251,8 +224,6 @@ set(0, "AvantePromptInputBorder", { link = "FloatBorder" })
 
 set(0, "AvanteSidebarNormal", { link = "NormalSidebar" })
 set(0, "AvanteSidebarWinSeparator", { link = "WinSeparator" })
-update(0, "AvanteSidebarWinHorizontalSeparator", { fg = colors.nord18, bg = colors.nord18 })
-
 set(0, "AvanteTitle", { fg = colors.nord0, bg = colors.nord14 })
 set(0, "AvanteReversedTitle", { fg = colors.nord14 })
 set(0, "AvanteSubtitle", { fg = colors.nord0, bg = colors.nord8 })
@@ -261,7 +232,6 @@ set(0, "AvanteThirdTitle", { fg = colors.nord4, bg = colors.nord2 })
 set(0, "AvanteReversedThirdTitle", { fg = colors.nord2 })
 -- set(0, "AvanteSuggestion", { link = "Comment" })
 -- set(0, "AvanteAnnotation", { link = "Comment" })
-set(0, "AvantePopupHint", { link = "Comment" })
 set(0, "AvanteInlineHint", { link = "Comment" })
 set(0, "AvanteConfirmTitle", { fg = colors.nord0, bg = colors.nord11 })
 set(0, "AvanteButtonDefault", { fg = colors.nord0, bg = colors.nord4 })

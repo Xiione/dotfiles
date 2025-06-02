@@ -33,8 +33,37 @@ local filetype = {
 
 local supermaven_status = function()
 	-- return supermaven.is_running() and "" or ""
-    return ""
+	return ""
 end
+
+local copilot = {
+	"copilot",
+
+	-- Default values
+	symbols = {
+		status = {
+			icons = {
+				enabled = "",
+				sleep = "", -- auto-trigger disabled
+				disabled = "",
+				warning = "",
+				unknown = "",
+			},
+			hl = {
+				enabled = colors.nord10,
+				sleep = colors.nord14,
+				disabled = colors.nord3L,
+				warning = colors.nord12,
+				unknown = colors.nord11,
+			},
+		},
+		-- spinners = {"·", "✢", "✳", "∗", "✻", "✽"}, -- taken from avante source code
+		spinners = "dots",
+		spinner_color = colors.nord10,
+	},
+	show_colors = true,
+	show_loading = true,
+}
 
 local mynord = require("lualine.themes.nord")
 local mode_colors = {
@@ -127,7 +156,7 @@ lualine.setup({
 		-- lualine_c = { diff },
 		lualine_c = { "grapple" },
 		lualine_x = {
-			supermaven_status,
+			copilot,
 			"filetype",
 		},
 		lualine_y = { { "progress", padding = 1 } },

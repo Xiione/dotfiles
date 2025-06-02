@@ -1,3 +1,21 @@
+local sidebars = require("user.lib.sidebars")
+
+local disabled = {
+  yaml = false,
+  markdown = false,
+  help = false,
+  gitcommit = false,
+  gitrebase = false,
+  hgcommit = false,
+  svn = false,
+  cvs = false,
+  ["."] = false,
+}
+for _, ft in ipairs(sidebars.sidebar_types) do
+  disabled[ft] = false
+end
+local filetypes = disabled
+
 return {
 	panel = {
 		enabled = false,
@@ -15,15 +33,5 @@ return {
 			dismiss = "<C-]>",
 		},
 	},
-	filetypes = {
-		yaml = false,
-		markdown = false,
-		help = false,
-		gitcommit = false,
-		gitrebase = false,
-		hgcommit = false,
-		svn = false,
-		cvs = false,
-		["."] = false,
-	},
+	filetypes = filetypes,
 }

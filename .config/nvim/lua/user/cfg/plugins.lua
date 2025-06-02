@@ -216,5 +216,6 @@ require("lazy").setup({
 	}),
 	spec("folke/snacks.nvim"),
 	{ "stevearc/dressing.nvim", opts = {} },
-    spec("zbirenbaum/copilot.lua")
+    spec("zbirenbaum/copilot.lua"),
+    {"AndreM222/copilot-lualine"}
 }, {})

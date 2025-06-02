@@ -328,4 +328,8 @@ end) ]]
 -- 	-- vim.notify("Supermaven on")
 -- end)
 
+map("n", "<leader>c",function ()
+    require("copilot.suggestion").toggle_auto_trigger()
+end, silent)
+
 return M
