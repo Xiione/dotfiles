@@ -211,11 +211,17 @@ require("lazy").setup({
 		event = "VeryLazy",
 	}),
 	spec("MeanderingProgrammer/render-markdown.nvim", {
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		ft = { "markdown", "Avante" },
 	}),
 	spec("folke/snacks.nvim"),
 	{ "stevearc/dressing.nvim", opts = {} },
-    spec("zbirenbaum/copilot.lua"),
-    {"AndreM222/copilot-lualine"}
+	spec("zbirenbaum/copilot.lua"),
+	{ "AndreM222/copilot-lualine" },
+	spec("ravitemer/mcphub.nvim", {
+        build = "npm install -g mcp-hub@latest",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	}),
 }, {})
