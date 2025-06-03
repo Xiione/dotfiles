@@ -6,27 +6,21 @@
       ]
     },
     "neovim": {
-      "disabled_prompts": [
-        "parrot"
-      ],
       "autoApprove": [
         "find_files",
         "list_directory",
         "read_file",
         "replace_in_file",
         "write_file"
-      ]
+      ],
+      "disabled_prompts": [
+        "parrot"
+      ],
+      "disabled": true
     }
   },
   "mcpServers": {
     "atlassian": {
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://mcp.atlassian.com/v1/sse"
-      ],
-      "disabled": false,
-      "command": "npx",
       "autoApprove": [
         "atlassianUserInfo",
         "getAccessibleAtlassianResources",
@@ -46,7 +40,14 @@
         "getJiraIssueRemoteIssueLinks",
         "getVisibleJiraProjects",
         "getJiraProjectIssueTypesMetadata"
-      ]
+      ],
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.atlassian.com/v1/sse"
+      ],
+      "disabled": false,
+      "command": "npx"
     }
   }
 }

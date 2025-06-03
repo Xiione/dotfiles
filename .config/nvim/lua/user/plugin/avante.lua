@@ -1,3 +1,4 @@
+local utils = require("user.lib.utils")
 return {
 	provider = "copilot",
 	providers = {
@@ -65,6 +66,23 @@ return {
 			suggestion = "<leader>aS",
 		},
 	},
+	windows = {
+		input = {
+			prefix = "▋ ",
+		},
+        edit = {
+            border = utils.window_border,
+        },
+        ask = {
+            border = utils.window_border,
+        },
+	},
+    file_selector = {
+        provider = "telescope",
+    },
+    selector = {
+        provider = "telescope",
+    },
 
 	system_prompt = function()
 		local hub = require("mcphub").get_hub_instance()
@@ -75,16 +93,4 @@ return {
 			require("mcphub.extensions.avante").mcp_tool(),
 		}
 	end,
-	disabled_tools = { -- mcphub provides these
-		"list_files", -- Built-in file operations
-		"search_files",
-		"read_file",
-		"create_file",
-		"rename_file",
-		"delete_file",
-		"create_dir",
-		"rename_dir",
-		"delete_dir",
-		"bash", -- Built-in terminal access
-	},
 }
