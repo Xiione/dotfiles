@@ -95,17 +95,21 @@ require("lazy").setup({
 
 	{
 		"nvim-treesitter/nvim-treesitter",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-		},
+		branch = "master",
+		lazy = false,
+		build = ":TSUpdate",
 	},
+	{ "nvim-treesitter/nvim-treesitter-textobjects", dependencies = { "nvim-treesitter/nvim-treesitter" } },
 
 	-- Git
 	spec("lewis6991/gitsigns.nvim"),
 
 	-- DAP
 	{ "mfussenegger/nvim-dap" },
-	{ "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" } },
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+	},
 	{ "ravenxrz/DAPInstall.nvim" },
 
 	-- mine :)
