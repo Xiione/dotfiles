@@ -1,7 +1,9 @@
+local utils = require("user.lib.utils")
+
 return {
 	styles = {
 		input = {
-			border = "solid",
+			border = utils.window_border,
 			relative = "cursor",
 			wo = {
 				winhighlight = "",

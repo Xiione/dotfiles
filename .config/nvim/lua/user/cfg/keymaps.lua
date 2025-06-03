@@ -14,7 +14,9 @@ local silent = { silent = true }
 local remap = { remap = true }
 
 -- move it here, no harm done
-map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+map("n", "K", function()
+	vim.lsp.buf.hover({ border = utils.window_border})
+end, { noremap = true, silent = true })
 M.lsp_keymaps = function(bufnr, client)
 	local opts = { noremap = true, silent = true }
 	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
@@ -31,7 +33,9 @@ M.lsp_keymaps = function(bufnr, client)
 		map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", opts, bufnr)
 		map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", opts, bufnr)
 		map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts, bufnr)
-		map("n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts, bufnr)
+		map("n", "<leader>ls", function()
+			vim.lsp.buf.signature_help({ border = utils.window_border })
+		end, opts, bufnr)
 		map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
 
 		map("n", "<leader>llR", "<cmd>LspRestart<CR>", opts, bufnr)
