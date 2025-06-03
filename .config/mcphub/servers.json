@@ -1,10 +1,5 @@
 {
   "nativeMCPServers": {
-    "mcphub": {
-      "disabled_prompts": [
-        "create_native_server"
-      ]
-    },
     "neovim": {
       "autoApprove": [
         "find_files",
@@ -13,14 +8,26 @@
         "replace_in_file",
         "write_file"
       ],
+      "disabled": false,
       "disabled_prompts": [
         "parrot"
-      ],
-      "disabled": true
+      ]
+    },
+    "mcphub": {
+      "disabled_prompts": [
+        "create_native_server"
+      ]
     }
   },
   "mcpServers": {
     "atlassian": {
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://mcp.atlassian.com/v1/sse"
+      ],
+      "disabled": false,
+      "command": "npx",
       "autoApprove": [
         "atlassianUserInfo",
         "getAccessibleAtlassianResources",
@@ -40,14 +47,7 @@
         "getJiraIssueRemoteIssueLinks",
         "getVisibleJiraProjects",
         "getJiraProjectIssueTypesMetadata"
-      ],
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://mcp.atlassian.com/v1/sse"
-      ],
-      "disabled": false,
-      "command": "npx"
+      ]
     }
   }
 }

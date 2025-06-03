@@ -33,7 +33,7 @@ return {
         minimize_diff = true,
         enable_token_counting = true,
         enable_cursor_planning_mode = true,
-        use_cwd_as_project_root = false,
+        use_cwd_as_project_root = true,
         auto_focus_on_diff_view = false,
     },
     hints = {
