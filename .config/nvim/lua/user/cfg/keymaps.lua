@@ -63,6 +63,24 @@ M.lsp_keymaps = function(bufnr, client)
 			vim.cmd.RustLsp({ "hover", "actions" }) -- Override Neovim's built-in hover keymap with rustaceanvim's hover actions
 		end, opts, bufnr)
 	end
+
+
+	if client.name == "gopls" then
+		-- Go DAP Testing
+		-- To debug the closest method above the cursor, use:
+		--   :lua require('dap-go').debug_test()
+		-- Keymap: <leader>dt
+		map("n", "<F6>", function()
+			require('dap-go').debug_test()
+		end, { noremap = true, silent = true, desc = "Debug nearest test (Go)" }, bufnr)
+
+		-- Once a test was run, you can simply run it again from anywhere:
+		--   :lua require('dap-go').debug_last_test()
+		-- Keymap: <leader>dl
+		map("n", "<F7>", function()
+			require('dap-go').debug_last_test()
+		end, { noremap = true, silent = true, desc = "Debug last test (Go)" }, bufnr)
+	end
 end
 
 -- spectre-nvim, from default config
