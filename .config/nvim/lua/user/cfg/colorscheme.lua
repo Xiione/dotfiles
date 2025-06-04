@@ -291,3 +291,6 @@ set(1, "AvanteSidebarNormal", { link = "Normal" })
 set(1, "RenderMarkdownCode", { fg = "None", bg = colors.nord16 })
 set(1, "RenderMarkdownQuote", { fg = colors.nord3L })
 set(1, "@markup.quote.markdown", { fg = colors.nord10 })
+
+-- go semantic tokens
+set(0, "@lsp.type.string.go", { link = "None" })
