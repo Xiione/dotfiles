@@ -50,8 +50,8 @@ local choose_session = function(startup)
                echo ~/;
                echo ~/dotfiles;
                echo ~/Documents;
-               find ~/code -mindepth 0 -maxdepth 2 -type d;
-               find ~/co -mindepth 0 -maxdepth 1 -type d;
+               find ~/code -mindepth 0 -maxdepth 2 -type d 2>/dev/null;
+               find ~/co -mindepth 0 -maxdepth 1 -type d 2>/dev/null;
              end;)"
              ]]
 	local output = vim.fn.system(cmd)
