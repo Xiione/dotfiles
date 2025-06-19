@@ -41,6 +41,7 @@ M.sidebar_types = {
     "AvanteInput",
     "AvantePromptInput",
     "AvanteSelectedFiles",
+    "AvanteTodos",
 }
 M.sidebar_types_set = misc.to_set(M.sidebar_types)
 

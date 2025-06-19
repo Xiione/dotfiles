@@ -83,7 +83,7 @@ return {
     selector = {
         provider = "telescope",
     },
-    disabled_tools = { -- mcphub provides these already
+    --[[ disabled_tools = { -- mcphub provides these already
         "list_files", -- Built-in file operations
         "search_files",
         "read_file",
@@ -94,7 +94,7 @@ return {
         "rename_dir",
         "delete_dir",
         "bash", -- Built-in terminal access
-    },
+    }, ]]
     system_prompt = function()
         local hub = require("mcphub").get_hub_instance()
         return hub and hub:get_active_servers_prompt() or ""
