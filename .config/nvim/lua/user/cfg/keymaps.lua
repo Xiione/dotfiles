@@ -249,7 +249,8 @@ map("n", "<leader>gs", "<cmd>Gitsigns toggle_signs<CR>", silent)
 
 -- Comment
 map("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", silent)
-map("x", "<leader>/", '<ESC><cmd>lua require("Comment.api").toggle.blockwise(vim.fn.visualmode())<CR>')
+map("x", "<leader>/", '<ESC><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
+map("x", "<leader>?", '<ESC><cmd>lua require("Comment.api").toggle.blockwise(vim.fn.visualmode())<CR>')
 
 -- DAP
 map("n", "<F5>", function()
