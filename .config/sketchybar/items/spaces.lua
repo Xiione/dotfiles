@@ -284,11 +284,11 @@ space_window_observer:subscribe("windows_on_spaces", function(env)
 				.. [[ | jq 'sort_by(.["stack-index"], .frame.x, .frame.y, .id) | map(.app) | unique']],
 			function(result)
                 -- lazy update
-				if #windows_on_spaces[sid] ~= #result then
-					windows_on_spaces[sid] = result
-				elseif #result ~= 0 then
-					return
-				end
+				-- if #windows_on_spaces[sid] ~= #result then
+				-- 	windows_on_spaces[sid] = result
+				-- elseif #result ~= 0 then
+				-- 	return
+				-- end
 
 				local icon_line = ""
 				local no_app = true
