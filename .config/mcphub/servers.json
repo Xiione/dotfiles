@@ -1,6 +1,14 @@
 {
   "nativeMCPServers": {
+    "mcphub": {
+      "disabled_prompts": [
+        "create_native_server"
+      ]
+    },
     "neovim": {
+      "disabled_prompts": [
+        "parrot"
+      ],
       "autoApprove": [
         "find_files",
         "list_directory",
@@ -8,26 +16,18 @@
         "replace_in_file",
         "write_file"
       ],
-      "disabled": false,
-      "disabled_prompts": [
-        "parrot"
-      ]
-    },
-    "mcphub": {
-      "disabled_prompts": [
-        "create_native_server"
-      ]
+      "disabled": true
     }
   },
   "mcpServers": {
     "atlassian": {
+      "command": "npx",
+      "disabled": false,
       "args": [
         "-y",
         "mcp-remote",
         "https://mcp.atlassian.com/v1/sse"
       ],
-      "disabled": false,
-      "command": "npx",
       "autoApprove": [
         "atlassianUserInfo",
         "getAccessibleAtlassianResources",
