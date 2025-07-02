@@ -103,7 +103,7 @@ map(mode, "<D-0>", "<cmd>Neogurt font_size_reset all=false<cr>")
 -- session mappings
 map(mode, "<D-l>", "<cmd>Neogurt session_prev<cr>")
 -- map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<cr>")
-map(mode, "<D-R>", "<cmd>Neogurt session_restart<cr>")
+map(mode, "<D-R>", "<cmd>doautocmd VimLeavePre<cr><cmd>Neogurt session_restart<cr>")
 
 map({ "n", "v" }, "<D-v>", '"+p', silent)
 map({ "i", "c" }, "<D-v>", "<C-r>+", silent)
