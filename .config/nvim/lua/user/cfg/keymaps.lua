@@ -15,7 +15,7 @@ local remap = { remap = true }
 
 -- move it here, no harm done
 map("n", "K", function()
-	vim.lsp.buf.hover({ border = utils.window_border})
+	vim.lsp.buf.hover({ border = utils.window_border })
 end, { noremap = true, silent = true })
 M.lsp_keymaps = function(bufnr, client)
 	local opts = { noremap = true, silent = true }
@@ -64,21 +64,20 @@ M.lsp_keymaps = function(bufnr, client)
 		end, opts, bufnr)
 	end
 
-
 	if client.name == "gopls" then
 		-- Go DAP Testing
 		-- To debug the closest method above the cursor, use:
 		--   :lua require('dap-go').debug_test()
 		-- Keymap: <leader>dt
 		map("n", "<F6>", function()
-			require('dap-go').debug_test()
+			require("dap-go").debug_test()
 		end, { noremap = true, silent = true, desc = "Debug nearest test (Go)" }, bufnr)
 
 		-- Once a test was run, you can simply run it again from anywhere:
 		--   :lua require('dap-go').debug_last_test()
 		-- Keymap: <leader>dl
 		map("n", "<F7>", function()
-			require('dap-go').debug_last_test()
+			require("dap-go").debug_last_test()
 		end, { noremap = true, silent = true, desc = "Debug last test (Go)" }, bufnr)
 	end
 end
@@ -291,7 +290,7 @@ map("n", "<leader>u", function()
 end, silent)
 
 -- Harpoon/Grapple
-map("n", "<leader>g", require("grapple").toggle)
+map("n", "<leader>G", require("grapple").toggle)
 -- function()
 -- local marks = require("harpoon").get_mark_config().marks
 -- local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
@@ -359,5 +358,10 @@ end, silent)
 map("n", "[c", function()
 	require("treesitter-context").go_to_context(vim.v.count1)
 end, silent)
+
+-- avante
+map("v", "<D-i>", "<cmd>AvanteAsk<cr><esc><cmd>AvanteFocus<cr>", { remap = true })
+-- clear selected code
+map("n", "<leader>ad", "<cmd>AvanteToggle<cr><cmd>AvanteToggle<cr>", silent)
 
 return M

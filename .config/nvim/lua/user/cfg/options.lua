@@ -116,20 +116,20 @@ vim.g["undotree_TreeVertShape"] = "▕"
 vim.g["undotree_TreeSplitShape"] = "╱"
 
 -- Some annoying plugin messages, they seem to work fine regardless
-local ignore_messages = {
-	["warning: multiple different client offset_encodings"] = true,
-	["Debug adapter reported a frame at line"] = true,
-	["Resolved locations:"] = true,
-	["No configuration found for"] = true,
-}
-local notify = vim.notify
-vim.notify = function(msg, ...)
-    if ignore_messages[msg] then
-        return
-    end
-
-	notify(msg, ...)
-end
+-- local ignore_messages = {
+-- 	["warning: multiple different client offset_encodings"] = true,
+-- 	["Debug adapter reported a frame at line"] = true,
+-- 	["Resolved locations:"] = true,
+-- 	["No configuration found for"] = true,
+-- }
+-- local notify = vim.notify
+-- vim.notify = function(msg, ...)
+--     if ignore_messages[msg] then
+--         return
+--     end
+--
+-- 	notify(msg, ...)
+-- end
 
 local command = vim.api.nvim_create_user_command
 command("OP", "silent !open .", {})
@@ -148,3 +148,6 @@ vim.filetype.add({
 	},
 })
 
+vim.treesitter.language.register("markdown", "Avante")
+vim.treesitter.language.register("markdown", "markdown")
+vim.treesitter.language.register("go", "go")

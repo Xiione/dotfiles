@@ -10,3 +10,4 @@ vim.opt_local.tabstop = 2
 
 -- vim.cmd("compiler tsc")
 -- vim.opt_local.errorformat = [[%+A\ %#%f\ %#(%l\\\,%c):\ %m,%C%m]]
+vim.treesitter.start(0)

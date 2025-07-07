@@ -95,11 +95,15 @@ require("lazy").setup({
 
 	{
 		"nvim-treesitter/nvim-treesitter",
-		branch = "master",
+		branch = "main",
 		lazy = false,
 		build = ":TSUpdate",
 	},
-	{ "nvim-treesitter/nvim-treesitter-textobjects", dependencies = { "nvim-treesitter/nvim-treesitter" } },
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+	},
 
 	-- Git
 	spec("lewis6991/gitsigns.nvim"),
@@ -216,7 +220,7 @@ require("lazy").setup({
 		event = "VeryLazy",
 	}),
 	spec("MeanderingProgrammer/render-markdown.nvim", {
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 		ft = { "markdown", "Avante" },
 	}),
 	spec("folke/snacks.nvim"),

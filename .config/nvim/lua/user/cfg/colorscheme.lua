@@ -279,6 +279,7 @@ set(0, "AvanteStateSpinnerSucceeded", { fg = colors.nord0, bg = colors.nord14 })
 set(0, "AvanteStateSpinnerSearching", { fg = colors.nord0, bg = colors.nord15 })
 set(0, "AvanteStateSpinnerThinking", { fg = colors.nord0, bg = colors.nord15 })
 set(0, "AvanteStateSpinnerCompacting", { fg = colors.nord0, bg = colors.nord15 })
+set(0, "AvanteThinking", { fg = colors.nord15 })
 
 set(0, "AvanteConflictCurrent", { bg = "#562C30", bold = false })
 -- set(0,  "AvanteConflictCurrentLabel", { link = "AvanteConflictCurrent" }) -- shade_link not a valid property in set_hl
@@ -288,7 +289,7 @@ set(0, "AvanteConflictIncoming", { bg = "#314753", bold = false })
 -- Avante ft
 set(1, "Normal", { bg = colors.nord17 })
 set(1, "AvanteSidebarNormal", { link = "Normal" })
-set(1, "RenderMarkdownCode", { fg = "None", bg = colors.nord16 })
+-- set(1, "RenderMarkdownCode", { fg = "None", bg = colors.nord16 })
 set(1, "RenderMarkdownQuote", { fg = colors.nord3L })
 set(1, "@markup.quote.markdown", { fg = colors.nord10 })
 
