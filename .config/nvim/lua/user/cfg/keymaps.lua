@@ -362,6 +362,6 @@ end, silent)
 -- avante
 map("v", "<D-i>", "<cmd>AvanteAsk<cr><esc><cmd>AvanteFocus<cr>", { remap = true })
 -- clear selected code
-map("n", "<leader>ad", "<cmd>AvanteToggle<cr><cmd>AvanteToggle<cr>", silent)
+map("n", "<leader>aD", "<cmd>AvanteToggle<cr><cmd>AvanteToggle<cr>", silent)
 
 return M

@@ -66,34 +66,11 @@
                 },
                 {
                     "identifiers": {
-                        "is_keyboard": true,
-                        "product_id": 57,
-                        "vendor_id": 12431
-                    },
-                    "simple_modifications": [
-                        {
-                            "from": { "key_code": "left_command" },
-                            "to": [{ "key_code": "left_option" }]
-                        },
-                        {
-                            "from": { "key_code": "left_option" },
-                            "to": [{ "key_code": "left_command" }]
-                        }
-                    ]
-                },
-                {
-                    "identifiers": {
                         "is_pointing_device": true,
                         "product_id": 57,
                         "vendor_id": 12431
                     },
-                    "ignore": false,
-                    "simple_modifications": [
-                        {
-                            "from": { "key_code": "mute" },
-                            "to": [{ "consumer_key_code": "play_or_pause" }]
-                        }
-                    ]
+                    "ignore": false
                 }
             ],
             "name": "Vim",
