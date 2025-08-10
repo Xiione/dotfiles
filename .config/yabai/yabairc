@@ -45,6 +45,4 @@ yabai -m rule --add label="Steam" app="Steam" manage=off border=off
 yabai -m rule --add label="Subsequent Arcs" app="Arc" manage=off
 yabai -m rule --add --one-shot label="Main Arc window" app="Arc" manage=on
 yabai -m rule --add label="Calendar Popup" app="Calendar" title="^$" manage=off
-yabai -m rule --add label="Nicotine+" app="Nicotine+" manage=off
-yabai -m rule --add label="Feishin" app="Feishin" manage=off
 echo "yabai configuration loaded.."
