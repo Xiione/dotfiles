@@ -105,7 +105,7 @@ local function setup_device_hover(item)
 	item:subscribe("mouse.entered", function(_)
 		item:set({
 			background = {
-				drawing = true,
+                color = colors.grey
 			},
 		})
 	end)
@@ -113,7 +113,7 @@ local function setup_device_hover(item)
 	item:subscribe("mouse.exited", function(_)
 		item:set({
 			background = {
-				drawing = false,
+                color = colors.black
 			},
 		})
 	end)
@@ -145,9 +145,8 @@ local function volume_toggle_details(env)
 						align = "center",
 						label = { string = device, color = color },
 						background = {
-							drawing = false,
 							border_width = 0,
-							color = colors.grey,
+							color = colors.black,
 							corner_radius = 3,
 							height = 28,
 						},
@@ -155,7 +154,7 @@ local function volume_toggle_details(env)
 						click_script = 'SwitchAudioSource -s "'
 							.. device
 							.. '" && sketchybar --set /volume.device\\.*/ label.color='
-							.. colors.grey
+							.. colors.lightest_grey
 							.. " --set $NAME label.color="
 							.. colors.white
 							.. ' && current_audio_device="'
