@@ -281,7 +281,7 @@ space_window_observer:subscribe("windows_on_spaces", function(env)
 		sbar.exec(
 			"yabai -m query --windows --space "
 				.. sid
-				.. [[ | jq 'sort_by(.["stack-index"], .frame.x, .frame.y, .id) | map(.app) | unique']],
+				.. [[ | jq 'sort_by(.["stack-index"]) | map(.app) | unique']],
 			function(result)
                 -- lazy update
 				-- if #windows_on_spaces[sid] ~= #result then

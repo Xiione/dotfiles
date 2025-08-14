@@ -125,12 +125,12 @@ function newcpprob
         return 1
     end
 
-    ln "$__fish_config_dir/newcpprob.makefile" "$probpath/Makefile"
+    ln -sfn "$__fish_config_dir/newcpprob.makefile" "$probpath/Makefile"
     or begin
         echo "Failed to symlink Makefile"
         return 1
     end
-    ln "$__fish_config_dir/cpprob.yaml" "$probpath/.clangd"
+    ln -sfn "$__fish_config_dir/cpprob.yaml" "$probpath/.clangd"
     or begin
         echo "Failed to symlink clangd config"
         return 1

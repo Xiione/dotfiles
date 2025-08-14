@@ -6,14 +6,14 @@ CompileFlags:
       -D DLOCAL,
       -I/Library/Developer/CommandLineTools/usr/include,
     ]
----
-If:
-  PathExclude: [.*\.c$, .*\.h$]
-  # PathExclude: [.*\.c$]
-CompileFlags:
-  Add: [-std=c++2b]
----
-If:
-  PathMatch: [.*\.h]
-CompileFlags:
-  Add: [-x, c-header]
+# ---
+# If:
+#   # PathExclude: [.*\.c$, .*\.h$]
+#   PathExclude: [.*\.c$]
+# CompileFlags:
+#   Add: [-std=c++2b]
+# ---
+# If:
+#   PathMatch: [.*\.h]
+# CompileFlags:
+#   Add: [-x, c-header]

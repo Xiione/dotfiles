@@ -149,5 +149,3 @@ vim.filetype.add({
 })
 
 vim.treesitter.language.register("markdown", "Avante")
-vim.treesitter.language.register("markdown", "markdown")
-vim.treesitter.language.register("go", "go")
