@@ -13,7 +13,7 @@ $(EXECUTABLE): $(SOURCE)
 	$(CC) $(CFLAGS) -o $@ $^
 
 run: $(EXECUTABLE)
-	./$(EXECUTABLE) | grep --color=always -e ".*" 
+	./$(EXECUTABLE) 2>&1 | grep --color=always -e ".*" 
 
 clean:
 	rm -f $(EXECUTABLE)
