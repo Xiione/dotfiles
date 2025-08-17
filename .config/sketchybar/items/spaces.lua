@@ -81,6 +81,7 @@ local function hl_space_selected(sid)
 end
 
 local spaces_indicator = sbar.add("item", {
+    drawing = false,
 	padding_left = -2,
 	padding_right = 4,
 	icon = {
@@ -281,7 +282,7 @@ space_window_observer:subscribe("windows_on_spaces", function(env)
 		sbar.exec(
 			"yabai -m query --windows --space "
 				.. sid
-				.. [[ | jq 'sort_by(.["stack-index"]) | map(.app) | unique']],
+				.. [[ | jq 'sort_by(.["stack-index"], .frame.x, .frame.y, .id) | map(.app)']],
 			function(result)
                 -- lazy update
 				-- if #windows_on_spaces[sid] ~= #result then

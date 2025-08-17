@@ -24,6 +24,7 @@ local media_cover = sbar.add("item", {
 		align = "center",
 		horizontal = true,
 	},
+	padding_right = -1,
 })
 
 local media_artist = sbar.add("item", {
@@ -83,6 +84,12 @@ local function animate_detail(detail)
 	if interrupt > 0 and not detail then
 		return
 	end
+
+    if detail then
+        sbar.trigger("media_info_hovered")
+    else
+        sbar.trigger("media_info_unhovered")
+    end
 
 	sbar.animate("tanh", 30, function()
 		media_artist:set({ label = { width = detail and "dynamic" or 0 } })
