@@ -334,8 +334,8 @@ map("n", "<Right>", "zl", silent)
 map("i", "<C-i>", "<cmd>Inspect<CR>", silent)
 
 -- ufo
-map("n", "zR", require("ufo").openAllFolds)
-map("n", "zM", require("ufo").closeAllFolds)
+-- map("n", "zR", require("ufo").openAllFolds)
+-- map("n", "zM", require("ufo").closeAllFolds)
 
 --[[ map("n", "<leader>APM", function()
     require("vim-apm"):toggle_monitor()

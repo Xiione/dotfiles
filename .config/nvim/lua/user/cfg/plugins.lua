@@ -161,7 +161,7 @@ require("lazy").setup({
 	}),
 	{ "Weissle/persistent-breakpoints.nvim" },
 	spec("windwp/nvim-ts-autotag", { event = { "BufReadPre", "BufNewFile" } }),
-	spec("kevinhwang91/nvim-ufo", { dependencies = "kevinhwang91/promise-async" }),
+	-- spec("kevinhwang91/nvim-ufo", { dependencies = "kevinhwang91/promise-async" }),
 	{ "luukvbaal/statuscol.nvim" },
 	spec("luckasRanarison/tailwind-tools.nvim", {
 		dependencies = {

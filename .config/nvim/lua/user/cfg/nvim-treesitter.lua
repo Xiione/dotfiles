@@ -1,34 +1,63 @@
-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-if not status_ok then
-	return
-end
+local ensure_installed = {
+	"asm",
+	"bash",
+	"bibtex",
+	"c",
+	"cmake",
+	"cpp",
+	"css",
+	"csv",
+	"d",
+	"diff",
+	"dockerfile",
+	"editorconfig",
+	"faust",
+	"fish",
+	"git_config",
+	"gitcommit",
+	"gitignore",
+	"glsl",
+	"go",
+	"gomod",
+	"html",
+	"ini",
+	"java",
+	"javascript",
+	"json",
+	"jsonc",
+	"latex",
+	"lua",
+	"make",
+	"markdown",
+	"markdown_inline",
+	"matlab",
+	"objc",
+	"perl",
+	"python",
+	"query",
+	"r",
+	"rescript",
+	"ruby",
+	"rust",
+	"scala",
+	"sql",
+	"ssh_config",
+	"starlark",
+	"strace",
+	"svelte",
+	"swift",
+	"tcl",
+	"toml",
+	"tsx",
+	"typescript",
+	"verilog",
+	"vim",
+	"vimdoc",
+	"xml",
+	"yaml",
+}
 
-configs.setup({
-	auto_install = true,
-	ignore_install = { "latex" }, -- List of parsers to ignore installing
-	sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-	ensure_installed = {
-		"cpp",
-	},
-
-	highlight = {
-		enable = true, -- false will disable the whole extension
-		disable = { "css", "latex" }, -- list of language that will be disabled
-		additional_vim_regex_highlighting = false,
-	},
-	autopairs = {
-		enable = true,
-	},
-	indent = { enable = true, disable = { "python", "css" } },
-
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "<CR>",
-			scope_incremental = "<CR>",
-			node_incremental = "<TAB>",
-			node_decremental = "<S-TAB>",
-		},
-	},
-	modules = {},
-})
+vim.defer_fn(function()
+	require("nvim-treesitter").install(ensure_installed)
+end, 1000)
+require("nvim-treesitter").update()

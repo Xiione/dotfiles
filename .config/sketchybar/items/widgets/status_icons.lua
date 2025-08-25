@@ -7,8 +7,8 @@ sbar.add("event", "brew_update")
 local keepass = sbar.add("alias", "KeePassXC,Item-0", {
 	display = 1,
 	position = "e",
-	padding_left = -3,
-	padding_right = -2,
+	padding_left = 0,
+	padding_right = -5,
 	icon = { drawing = false },
 	label = { drawing = false },
 	width = "dynamic",
@@ -23,8 +23,8 @@ local keepass = sbar.add("alias", "KeePassXC,Item-0", {
 local github = sbar.add("item", "widgets.status_icons.github", {
 	display = 1,
 	position = "e",
-	padding_left = 0,
-	padding_right = 6,
+	padding_left = 2,
+	padding_right = 2,
 	icon = {
 		string = icons.bell,
 		font = {
@@ -43,8 +43,8 @@ local github = sbar.add("item", "widgets.status_icons.github", {
 local brew = sbar.add("item", "widgets.status_icons.brew", {
 	display = 1,
 	position = "e",
-	padding_left = 0,
-	padding_right = 6,
+	padding_left = 2,
+	padding_right = 2,
 	icon = {
 		string = "􀐛",
 		color = colors.white,
@@ -59,7 +59,7 @@ local brew = sbar.add("item", "widgets.status_icons.brew", {
 local tailscale = sbar.add("alias", "Tailscale,Item-0", {
 	display = 1,
 	position = "e",
-	padding_left = -8,
+	padding_left = -5,
 	padding_right = 0,
 	icon = { drawing = false },
 	label = { drawing = false },

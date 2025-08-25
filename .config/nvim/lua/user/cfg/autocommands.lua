@@ -90,8 +90,6 @@ autocmd({ "FileType" }, {
 		vim.opt.formatoptions:remove("c")
 		vim.opt.formatoptions:remove("r")
 		vim.opt.formatoptions:remove("o")
-
-        vim.cmd("TSEnable highlight")
 	end,
 })
 
@@ -121,5 +119,20 @@ autocmd("User", {
 				vim.opt_local.winborder = "solid"
 			end,
 		})
+	end,
+})
+
+-- https://www.reddit.com/r/neovim/comments/1kuj9xm/comment/mv93w7h/
+autocmd("FileType", {
+	desc = "User: enable treesitter highlighting",
+	callback = function(ctx)
+		-- highlights
+		local hasStarted = pcall(vim.treesitter.start) -- errors for filetypes with no parser
+
+		-- indent
+		local noIndent = {}
+		if hasStarted and not vim.list_contains(noIndent, ctx.match) then
+			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+		end
 	end,
 })

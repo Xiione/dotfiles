@@ -49,15 +49,14 @@ function checkidentities
     and return 0
     # echo "The SSH agent has no identities. Aborting..."
 
-    # hit enter to switch spaces to 4, 
-    echo "Hit enter to switch to space 4 for keepass, any other key to cancel..."
+    echo "Hit enter to switch keepass, any other key to cancel..."
     read -n1 key
 
     # enter gives empty
     test -z key
     and return 1
     
-    yabai -m space --focus 4
+    open /Applications/KeePassXC.app
 
     echo "Hit any key to proceed..."
     read -n1 key
