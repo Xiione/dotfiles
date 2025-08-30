@@ -126,6 +126,11 @@ autocmd("User", {
 autocmd("FileType", {
 	desc = "User: enable treesitter highlighting",
 	callback = function(ctx)
+		local noHl = { "tex" }
+		if vim.list_contains(noHl, ctx.match) then
+			return
+		end
+
 		-- highlights
 		local hasStarted = pcall(vim.treesitter.start) -- errors for filetypes with no parser
 
