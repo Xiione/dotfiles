@@ -86,7 +86,7 @@ require("lazy").setup({
 	-- LSP
 	-- use { "williamboman/nvim-lsp-installer" } -- simple to use language server installer
 	{ "neovim/nvim-lspconfig" }, -- enable LSP
-	{ "williamboman/mason.nvim" },
+	spec("williamboman/mason.nvim"),
 	{ "williamboman/mason-lspconfig.nvim" },
 	{ "nvimtools/none-ls.nvim" }, -- for formatters and linters
 	-- use { "RRethy/vim-illuminate" }
@@ -129,7 +129,7 @@ require("lazy").setup({
 
 	{ "eandrju/cellular-automaton.nvim" },
 	{ "lervag/vimtex" },
-	{ "Xiione/luasnip-latex-snippets.nvim", dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" } },
+	spec("Xiione/luasnip-latex-snippets.nvim", { dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" } }),
 
 	spec("folke/neodev.nvim"),
 	-- { "gen740/SmoothCursor.nvim" },
@@ -233,4 +233,9 @@ require("lazy").setup({
 			"nvim-lua/plenary.nvim",
 		},
 	}),
+	{
+		"jbyuki/nabla.nvim",
+		dependencies = { "williamboman/mason.nvim" },
+		lazy = true,
+	},
 }, {})

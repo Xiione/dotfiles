@@ -22,7 +22,7 @@ return {
 	},
 	suggestion = {
 		enabled = true,
-		auto_trigger = true,
+		auto_trigger = false,
 		trigger_on_accept = true,
 		keymap = {
 			accept = "<tab>",
