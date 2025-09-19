@@ -1,3 +1,3 @@
 return {
-    root_dir = require("lspconfig").util.root_pattern({"*"})
+    -- root_dir = require("lspconfig").util.root_pattern({"*"})
 }

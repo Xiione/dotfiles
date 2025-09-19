@@ -17,12 +17,12 @@ local servers = {
 	"svelte",
 	"semgrep",
 	-- "sourcekit",
-    "glsl_analyzer",
-    "tailwindcss",
-    "denols",
-    -- "shellcheck"
-    "gopls",
-    "protols",
+	"glsl_analyzer",
+	"tailwindcss",
+	"denols",
+	-- "shellcheck"
+	"gopls",
+	"protols",
 }
 local settings = {
 	ui = {
@@ -43,11 +43,6 @@ require("mason").setup(settings)
 --     automatic_installation = true,
 -- })
 
-local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_status_ok then
-	return
-end
-
 local opts = {}
 
 for _, server in pairs(servers) do
@@ -64,6 +59,7 @@ for _, server in pairs(servers) do
 	end
 
 	if server ~= "jdtls" and server ~= "semgrep" then
-		lspconfig[server].setup(opts)
+		vim.lsp.config(server, opts)
+		vim.lsp.enable(server)
 	end
 end

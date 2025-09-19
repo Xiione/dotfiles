@@ -85,9 +85,9 @@ require("lazy").setup({
 
 	-- LSP
 	-- use { "williamboman/nvim-lsp-installer" } -- simple to use language server installer
-	{ "neovim/nvim-lspconfig" }, -- enable LSP
+	-- { "neovim/nvim-lspconfig" }, -- enable LSP
 	spec("williamboman/mason.nvim"),
-	{ "williamboman/mason-lspconfig.nvim" },
+	-- { "williamboman/mason-lspconfig.nvim" },
 	{ "nvimtools/none-ls.nvim" }, -- for formatters and linters
 	-- use { "RRethy/vim-illuminate" }
 
@@ -131,7 +131,7 @@ require("lazy").setup({
 	{ "lervag/vimtex" },
 	spec("Xiione/luasnip-latex-snippets.nvim", { dependencies = { "L3MON4D3/LuaSnip", "lervag/vimtex" } }),
 
-	spec("folke/neodev.nvim"),
+	-- spec("folke/neodev.nvim"),
 	-- { "gen740/SmoothCursor.nvim" },
 	spec("adonespitogo/barbecue.nvim", {
 		name = "barbecue",
@@ -167,7 +167,7 @@ require("lazy").setup({
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-telescope/telescope.nvim", -- optional
-			"neovim/nvim-lspconfig", -- optional
+			-- "neovim/nvim-lspconfig", -- optional
 		},
 	}),
 	-- { "sunjon/shade.nvim" },
@@ -238,4 +238,5 @@ require("lazy").setup({
 		dependencies = { "williamboman/mason.nvim" },
 		lazy = true,
 	},
+	{ "micangl/cmp-vimtex" },
 }, {})

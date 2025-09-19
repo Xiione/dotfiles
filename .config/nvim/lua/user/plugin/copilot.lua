@@ -25,7 +25,7 @@ return {
 		auto_trigger = false,
 		trigger_on_accept = true,
 		keymap = {
-			accept = "<tab>",
+			accept = "<S-tab>",
 			accept_word = false,
 			accept_line = false,
 			next = "<M-]>",

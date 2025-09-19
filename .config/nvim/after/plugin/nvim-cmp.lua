@@ -77,7 +77,7 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lsp_signature_help" },
-		{ name = "supermaven" },
+		{ name = "vimtex" },
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
 		{
@@ -128,7 +128,7 @@ cmp.setup({
 })
 
 cmp.setup.filetype({ "TelescopePrompt", "snacks_input" }, {
-    enabled = false
+	enabled = false,
 })
 
 local cmdline_opts = {

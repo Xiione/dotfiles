@@ -1,11 +1,4 @@
-local status_ok, _ = pcall(require, "lspconfig")
-if not status_ok then
-	return
-end
-
-local utils = require("user.lib.utils")
-
-require("lspconfig.ui.windows").default_options.border = "solid"
+-- require("lspconfig.ui.windows").default_options.border = "solid"
 
 require("user.lsp.mason")
 require("user.lsp.handlers").setup()
