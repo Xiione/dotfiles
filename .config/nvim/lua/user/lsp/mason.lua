@@ -1,6 +1,6 @@
 local utils = require("user.lib.utils")
 local servers = {
-	"lua_ls",
+	"lua-language-server",
 	"cssls",
 	"html",
 	"ts_ls",
@@ -19,7 +19,7 @@ local servers = {
 	-- "sourcekit",
 	"glsl_analyzer",
 	"tailwindcss",
-	"denols",
+	-- "denols",
 	-- "shellcheck"
 	"gopls",
 	"protols",

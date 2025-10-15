@@ -58,7 +58,7 @@ M.setup = function()
 end
 
 M.on_attach = function(client, bufnr)
-	if client.name == "ts_ls" then
+	if client.name == "typescript-language-server" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
 

@@ -50,6 +50,7 @@ local choose_session = function(startup)
                echo ~/;
                echo ~/dotfiles;
                echo ~/Documents;
+               find ~/Documents/Obsidian -mindepth 0 -maxdepth 2 -type d 2>/dev/null;
                find ~/code -mindepth 0 -maxdepth 2 -type d 2>/dev/null;
                find ~/co -mindepth 0 -maxdepth 1 -type d 2>/dev/null;
              end;)"
