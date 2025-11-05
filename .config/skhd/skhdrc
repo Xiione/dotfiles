@@ -1,4 +1,5 @@
 #!/bin/bash
+.shell "/bin/bash"
 
 ## Navigation (ctrl - ...)
 # Space Navigation

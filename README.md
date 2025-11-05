@@ -14,7 +14,7 @@ My MacOS configuration files.
 - [Sioyek](https://sioyek.info/) (pdf viewer with vimtex sync)
 - [yabai](https://github.com/koekeishiya/yabai) (window manager)
   - Pasted from [FelixKratz/dotfiles](https://github.com/FelixKratz/dotfiles)
-- [skhd](https://github.com/koekeishiya/skhd) (hotkey daemon)
+- [skhd.zig](https://github.com/jackielii/skhd.zig) (hotkey daemon)
   - Pasted from [FelixKratz/dotfiles](https://github.com/FelixKratz/dotfiles)
 - [sketchybar](https://felixkratz.github.io/SketchyBar/) (status bar replacement)
   - Modified from [FelixKratz/dotfiles](https://github.com/FelixKratz/dotfiles)
