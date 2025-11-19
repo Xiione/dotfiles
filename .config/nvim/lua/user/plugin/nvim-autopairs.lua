@@ -1,28 +1,4 @@
 -- Setup nvim-cmp.
-local status_ok, npairs = pcall(require, "nvim-autopairs")
-if not status_ok then
-	return
-end
-local Rule = require("nvim-autopairs.rule")
-npairs.add_rules({
-	Rule("$", "$", "tex"),
-	Rule("\\(", "\\)", "tex"),
-	Rule("\\[", "\\]", "tex"),
-	Rule("\\{", "\\}", "tex"),
-})
-
-npairs.add_rule(Rule("$", "$", "md"))
-npairs.add_rule(Rule("\\(", "\\)", "md"))
-npairs.add_rule(Rule("\\[", "\\]", "md"))
-npairs.add_rule(Rule("\\{", "\\}", "md"))
-
-local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-	return
-end
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({}))
-
 return {
 	check_ts = true, -- treesitter integration
 	disable_filetype = { "TelescopePrompt" },

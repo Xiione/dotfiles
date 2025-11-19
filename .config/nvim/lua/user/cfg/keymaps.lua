@@ -4,10 +4,6 @@ local term = require("user.lib.term")
 local map = utils.map
 local unmap = utils.unmap
 
-local dap = require("dap")
-local dapui = require("dapui")
-local pbreakpoints = require("persistent-breakpoints.api")
-
 local M = {}
 
 local silent = { silent = true }
@@ -122,13 +118,13 @@ M.remove_dap_maps = function()
 end
 
 M.setup_dap_maps = function()
-	M.push_map({ "n", "v" }, "K", dapui.eval)
-	map("n", "<M-1>", dap.continue)
-	map("n", "<M-Q>", dap.run_to_cursor)
-	map("n", "<M-2>", dap.step_over)
-	map("n", "<M-W>", dap.step_into)
-	map("n", "<M-3>", dap.terminate)
-	map("n", "<M-4>", dap.run_last)
+	M.push_map({ "n", "v" }, "K", require("dapui").eval)
+	map("n", "<M-1>", require("dap").continue)
+	map("n", "<M-Q>", require("dap").run_to_cursor)
+	map("n", "<M-2>", require("dap").step_over)
+	map("n", "<M-W>", require("dap").step_into)
+	map("n", "<M-3>", require("dap").terminate)
+	map("n", "<M-4>", require("dap").run_last)
 end
 
 --Remap space as leader key
@@ -253,16 +249,18 @@ map("x", "<leader>?", '<ESC><cmd>lua require("Comment.api").toggle.blockwise(vim
 
 -- DAP
 map("n", "<F5>", function()
-	dap.continue()
+	require("dap").continue()
 end)
 map("n", "<F4>", function()
 	sidebars.toggle("dapui")
 end)
-map("n", "<M-b>", pbreakpoints.toggle_breakpoint)
+map("n", "<M-b>", function()
+    require("persistent-breakpoints.api").toggle_breakpoint()
+end)
 map("n", "<M-S-b>", function()
 	local condition = vim.fn.input(" Breakpoint condition: ")
 	if condition then
-		pbreakpoints.set_conditional_breakpoint(condition)
+		require("persistent-breakpoints.api").set_conditional_breakpoint(condition)
 	end
 end)
 term.set_global_build_cmd("<M-c>", "make build")
@@ -290,7 +288,9 @@ map("n", "<leader>u", function()
 end, silent)
 
 -- Harpoon/Grapple
-map("n", "<leader>G", require("grapple").toggle)
+map("n", "<leader>G", function()
+    require("grapple").toggle() 
+end)
 -- function()
 -- local marks = require("harpoon").get_mark_config().marks
 -- local bufname = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":.")
@@ -301,7 +301,10 @@ map("n", "<leader>G", require("grapple").toggle)
 -- end
 -- end, silent)
 
-map("n", "<leader>m", require("grapple").toggle_tags)
+map("n", "<leader>m", function()
+    require("grapple").toggle_tags()
+end)
+
 -- function()
 -- require("harpoon.ui").toggle_quick_menu()
 -- end, silent)

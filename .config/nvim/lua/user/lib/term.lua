@@ -1,19 +1,5 @@
 local map = vim.keymap.set
-local tt_status_ok, toggleterm = pcall(require, "toggleterm")
-if not tt_status_ok then
-	return
-end
-local dap_status_ok, dap = pcall(require, "dap")
-if not dap_status_ok then
-	return
-end
-
 local sidebars = require("user.lib.sidebars")
-
-local terms_status_ok, terms = pcall(require, "toggleterm.terminal")
-if not tt_status_ok then
-	return
-end
 
 local M = {}
 
@@ -27,17 +13,17 @@ end
 
 M.set_debug_cmd = function(mapping, cmd, on_success)
 	map("n", mapping, function()
-		dap.terminate()
+		require("dap").terminate()
 		vim.cmd("wall")
 		sidebars.close("dapui")
-		M.spawn_cmd(vim.fn.expandcmd(cmd), on_success or dap.continue)
+		M.spawn_cmd(vim.fn.expandcmd(cmd), on_success or require("dap").continue)
 	end, { buffer = true })
 end
 
 M.set_term_cmd = function(mapping, cmd)
 	map("n", mapping, function()
 		vim.cmd("wall")
-		toggleterm.exec(vim.fn.expandcmd(cmd), vim.v.count)
+		require("toggleterm").exec(vim.fn.expandcmd(cmd), vim.v.count)
 	end, { buffer = true })
 end
 
@@ -51,21 +37,20 @@ end
 
 M.set_global_debug_cmd = function(mapping, cmd, on_success)
 	map("n", mapping, function()
-		dap.terminate()
+		require("dap").terminate()
 		vim.cmd("wall")
 		sidebars.close("dapui")
-		M.spawn_cmd(vim.fn.expandcmd(cmd), on_success or dap.continue)
+		M.spawn_cmd(vim.fn.expandcmd(cmd), on_success or require("dap").continue)
 	end)
 end
 
 M.set_global_term_cmd = function(mapping, cmd)
 	map("n", mapping, function()
 		vim.cmd("wall")
-		toggleterm.exec(vim.fn.expandcmd(cmd), vim.v.count)
+		require("toggleterm").exec(vim.fn.expandcmd(cmd), vim.v.count)
 	end)
 end
 
-local Terminal = require("toggleterm.terminal").Terminal
 Current_cmd_term = nil
 
 M.spawn_cmd = function(cmd, on_success)
@@ -122,7 +107,7 @@ M.spawn_cmd = function(cmd, on_success)
 		Current_cmd_term:shutdown()
 	end
 
-	Current_cmd_term = Terminal:new({
+	Current_cmd_term = require("toggleterm.terminal").Terminal:new({
 		cmd = cmd,
 		direction = "horizontal",
 		on_stdout = on_stdout,
@@ -148,10 +133,10 @@ M.close_current_make_term = function()
 	end
 end
 
-M.kill_term = function ()
-    local num = terms.get_toggled_id()
-    local term = terms.get_or_create_term(num)
-    term:shutdown()
+M.kill_term = function()
+	local num = require("toggleterm.terminal").get_toggled_id()
+	local term = require("toggleterm.terminal").get_or_create_term(num)
+	term:shutdown()
 end
 
 -- Current_make_term = nil

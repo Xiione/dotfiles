@@ -1,20 +1,23 @@
 local utils = require("user.lib.utils")
 local keymaps = require("user.cfg.keymaps")
 local M = {}
-local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not status_cmp_ok then
-	return
+
+local caps_initialized = false
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+M.capabilities = function()
+    if not caps_initialized then
+        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+    end
+    return capabilities
 end
 
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
-
 -- ufo
-M.capabilities.textDocument.foldingRange = {
-	dynamicRegistration = false,
-	lineFoldingOnly = true,
-}
+-- M.capabilities.textDocument.foldingRange = {
+-- 	dynamicRegistration = false,
+-- 	lineFoldingOnly = true,
+-- }
 
 M.setup = function()
 	local config = {
