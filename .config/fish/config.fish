@@ -1,44 +1,50 @@
-# if status is-login
-#     neofetch
-# end
+if status is-login
+    fish_add_path /usr/local/bin
+    fish_add_path /opt/homebrew/bin
+    fish_add_path ~/.cargo/bin
+    fish_add_path ~/.local/bin
 
-fish_add_path /usr/local/bin
-fish_add_path /opt/homebrew/bin
-fish_add_path ~/.cargo/bin
-fish_add_path ~/.local/bin
+    fish_add_path /Library/TeX/texbin
+    fish_add_path ~/Library/Python/3.11/bin
+    fish_add_path ~/.pyenv/shims
+    fish_add_path /usr/local/opt/llvm/bin
 
-fish_add_path /Library/TeX/texbin
-fish_add_path ~/Library/Python/3.11/bin
-fish_add_path ~/.pyenv/shims
-fish_add_path /usr/local/opt/llvm/bin
+    set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
+    set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
 
-set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
-set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
+    set -gx EDITOR nvim
+    set -gx VISUAL nvim
+
+    source ~/.config/fish/secrets.fish
+
+    # aliases
+    alias nv="nvim" 
+    alias lzg="lazygit"
+    alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
+    function brew -d "Update outdated packages after running brew commands"
+        command brew $argv
+        if test $argv[1] = 'upgrade'
+            or test $argv[1] = 'update'
+                or test $argv[1] = 'outdated'
+            sketchybar --trigger brew_update
+        end
+    end
+end
+
+# rest is just for terminal use
+if not status is-interactive
+    return
+end
 
 set -g theme_color_scheme nord
 set -g theme_vcs_ignore_paths "$HOME/co/backend"
-set -gx EDITOR nvim
-set -gx VISUAL nvim
 
-source ~/.config/fish/secrets.fish
-
-function brew -d "Update outdated packages after running brew commands"
-    command brew $argv
-    if test $argv[1] = 'upgrade'
-        or test $argv[1] = 'update'
-            or test $argv[1] = 'outdated'
-        sketchybar --trigger brew_update
-    end
-end
 
 function ll 
     ls -a $argv
 end
 
-# aliases
-alias nv="nvim" 
-alias lzg="lazygit"
-alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
 function ssh
     TERM=xterm-256color command ssh $argv
@@ -67,8 +73,6 @@ end
 function pussh
     checkidentities 
     or return 1
-    # set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
-    # TERM=xterm-256color expect ~/.local/scripts/exp.sh $pussh_password ssh $pussh_server
     ssh data
 end
 
@@ -81,12 +85,6 @@ function pusshfs
     checkidentities 
     or return 1
     pfsum
-    # set -l pussh_password $(security find-generic-password -a "$USER" -s "pusshpass" -w)
-    # echo $pussh_password | sshfs "$pussh_server:$pusshfs_home" $pusshfs_mp -o password_stdin && 
-    #     echo "Successfully mounted $pussh_server:$pusshfs_home at $pusshfs_mp" &&
-    #     pussh &&
-    #     pfsum ||
-    #     echo "Mount failed"
     sshfs -o noapplexattr,noappledouble "data:$pusshfs_home" $pusshfs_mp && 
         echo "Successfully mounted $pusshfs_home at $pusshfs_mp" &&
         pussh &&
@@ -143,10 +141,6 @@ function newcpprob
         return 1
     end
 
-    # if not set -q _flag_x
-    #     cd $probpath
-    #     nvim "./$probsrc"
-    # end
     cd "$probpath"
     or begin
         echo "Failed to change directory to $probpath"

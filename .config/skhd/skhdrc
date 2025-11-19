@@ -7,6 +7,7 @@ ctrl - 1 : skhdrc_spaces=( $(yabai -m query --displays --display | jq '.spaces[]
 ctrl - 2 : skhdrc_spaces=( $(yabai -m query --displays --display | jq '.spaces[]') ) && [ -n "${skhdrc_spaces[1]}" ] && yabai -m space --focus ${skhdrc_spaces[1]}
 ctrl - 3 : skhdrc_spaces=( $(yabai -m query --displays --display | jq '.spaces[]') ) && [ -n "${skhdrc_spaces[2]}" ] && yabai -m space --focus ${skhdrc_spaces[2]}
 ctrl - 4 : skhdrc_spaces=( $(yabai -m query --displays --display | jq '.spaces[]') ) && [ -n "${skhdrc_spaces[3]}" ] && yabai -m space --focus ${skhdrc_spaces[3]}
+ctrl - 5 : skhdrc_spaces=( $(yabai -m query --displays --display | jq '.spaces[]') ) && [ -n "${skhdrc_spaces[4]}" ] && yabai -m space --focus ${skhdrc_spaces[4]}
 
 # Window Navigation (through display borders)
 lalt - h : yabai -m window --focus west || yabai -m display --focus west
