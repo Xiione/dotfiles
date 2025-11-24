@@ -43,18 +43,18 @@ local copilot = {
 	symbols = {
 		status = {
 			icons = {
-				enabled = "",
-				sleep = "", -- auto-trigger disabled
+				enabled = "",
+				sleep = "", -- auto-trigger disabled
 				disabled = "",
 				warning = "",
 				unknown = "",
 			},
 			hl = {
-				enabled = colors.nord3L, -- enabled and sleep are swapped when auto trigger is enabled in config so the colors and icons are too
-				sleep = colors.nord10,
-				disabled = colors.nord3L,
+				enabled = colors.nord8,
+				sleep = colors.nord3L,
+				disabled = colors.nord1,
 				warning = colors.nord12,
-				unknown = colors.nord11,
+				unknown = colors.nord3L,
 			},
 		},
 		-- spinners = {"·", "✢", "✳", "∗", "✻", "✽"}, -- taken from avante source code
