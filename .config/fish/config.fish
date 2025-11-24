@@ -15,7 +15,6 @@ if status is-login
     set -gx EDITOR nvim
     set -gx VISUAL nvim
 
-    source ~/.config/fish/secrets.fish
 
     # aliases
     alias nv="nvim" 
@@ -31,6 +30,8 @@ if status is-login
         end
     end
 end
+
+source "$__fish_config_dir/secrets.fish"
 
 # rest is just for terminal use
 if not status is-interactive
@@ -87,6 +88,26 @@ function pusshfs
     pfsum
     sshfs -o noapplexattr,noappledouble "data:$pusshfs_home" $pusshfs_mp && 
         echo "Successfully mounted $pusshfs_home at $pusshfs_mp" &&
+        pussh &&
+        pfsum ||
+        echo "Unmount failed"
+end
+
+function pusshfsd
+    checkidentities 
+    or return 1
+
+    if test (count $argv) -eq 0
+        echo "Usage: pusshfsd remote_path"
+        return 1
+    end
+    
+
+    pfsum
+
+    set -l rmountpoint $argv[1]
+    sshfs -o noapplexattr,noappledouble "data:$rmountpoint" $pusshfs_mp && 
+        echo "Successfully mounted $rmountpoint at $pusshfs_mp" &&
         pussh &&
         pfsum ||
         echo "Unmount failed"
