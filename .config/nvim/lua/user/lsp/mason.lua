@@ -1,6 +1,6 @@
 local utils = require("user.lib.utils")
 local servers = {
-	"lua-language-server",
+	"lua_ls",
 	"cssls",
 	"html",
 	"ts_ls",
@@ -15,14 +15,14 @@ local servers = {
 	"marksman",
 	"cmake",
 	"svelte",
-	"semgrep",
+	-- "semgrep",
 	-- "sourcekit",
 	"glsl_analyzer",
 	"tailwindcss",
 	-- "denols",
 	-- "shellcheck"
 	"gopls",
-	"protols",
+	-- "protols",
 }
 local settings = {
 	ui = {
@@ -38,10 +38,10 @@ local settings = {
 }
 
 require("mason").setup(settings)
--- require("mason-lspconfig").setup({
---     ensure_installed = servers,
---     automatic_installation = true,
--- })
+require("mason-lspconfig").setup({
+	ensure_installed = servers,
+	automatic_installation = true,
+})
 
 local opts = {}
 
