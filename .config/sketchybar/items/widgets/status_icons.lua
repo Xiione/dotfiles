@@ -241,6 +241,7 @@ local function update_brew()
 		end
 
 		count = tonumber(count:match("%d+"))
+		count = 0 -- brew is broken right now
 		local color = colors.green
 		local display = "􀆅" -- Checkmark for no updates
 
