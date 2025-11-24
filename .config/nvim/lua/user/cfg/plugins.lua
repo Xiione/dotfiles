@@ -85,7 +85,7 @@ require("lazy").setup({
 
 	-- LSP
 	-- use { "williamboman/nvim-lsp-installer" } -- simple to use language server installer
-	-- { "neovim/nvim-lspconfig" }, -- enable LSP
+	{ "neovim/nvim-lspconfig" }, -- enable LSP
 	spec("williamboman/mason.nvim"),
 	spec("williamboman/mason-lspconfig.nvim"),
 	{ "nvimtools/none-ls.nvim" }, -- for formatters and linters
@@ -163,13 +163,13 @@ require("lazy").setup({
 	spec("windwp/nvim-ts-autotag", { event = { "BufReadPre", "BufNewFile" } }),
 	-- spec("kevinhwang91/nvim-ufo", { dependencies = "kevinhwang91/promise-async" }),
 	{ "luukvbaal/statuscol.nvim" },
-	spec("luckasRanarison/tailwind-tools.nvim", {
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-telescope/telescope.nvim", -- optional
-			-- "neovim/nvim-lspconfig", -- optional
-		},
-	}),
+	-- spec("luckasRanarison/tailwind-tools.nvim", {
+	-- 	dependencies = {
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		"nvim-telescope/telescope.nvim", -- optional
+	-- 		-- "neovim/nvim-lspconfig", -- optional
+	-- 	},
+	-- }),
 	-- { "sunjon/shade.nvim" },
 	{ "nvim-telescope/telescope-ui-select.nvim" },
 	{
