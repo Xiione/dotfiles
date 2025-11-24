@@ -141,3 +141,21 @@ autocmd("FileType", {
 		end
 	end,
 })
+
+autocmd("DirChanged", {
+	desc = "Neogurt: Change session title on cd",
+	pattern = "global",
+	callback = function(ctx)
+		if not vim.g.neogurt then
+			return
+		end
+
+		local path = vim.fs.normalize(ctx.file)
+		vim.g.neogurt_cmd("session_edit", {
+			name = ("%s/%s"):format(
+				vim.fs.basename(vim.fs.dirname(path)), -- parent directory’s name
+				vim.fs.basename(path) -- last component
+			),
+		})
+	end,
+})
