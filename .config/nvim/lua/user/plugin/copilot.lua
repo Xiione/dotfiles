@@ -34,4 +34,5 @@ return {
 		},
 	},
 	filetypes = filetypes,
+    copilot_model = "gpt-5-codex",
 }
