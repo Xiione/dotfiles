@@ -24,7 +24,6 @@ local ensure_installed = {
 	"java",
 	"javascript",
 	"json",
-	"jsonc",
 	"lua",
 	"make",
 	"markdown",
