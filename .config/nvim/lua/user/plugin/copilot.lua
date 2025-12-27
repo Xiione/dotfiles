@@ -47,7 +47,7 @@ return {
 			debounce_text_changes = 500, -- Reduce API calls
 			allow_incremental_sync = false, -- Force clean syncs
 		},
-		on_attach = function(client, bufnr)
+		on_attach = function(client, _)
 			-- Check file handle count every 30 minutes and restart if excessive
 			local timer = vim.uv.new_timer()
 			if timer then
@@ -56,7 +56,15 @@ return {
 					1800000, -- repeat every 30 minutes
 					vim.schedule_wrap(function()
 						-- Get handle count for copilot process
-						local handle = io.popen("lsof -p " .. client.rpc.pid .. " 2>/dev/null | wc -l")
+						local pid = (client.rpc and client.rpc.pid) or client.pid
+						if not pid then
+							vim.notify_once(
+								"Copilot: Unable to determine language server PID; skipping handle leak check",
+								vim.log.levels.DEBUG
+							)
+							return
+						end
+						local handle = io.popen("lsof -p " .. pid .. " 2>/dev/null | wc -l")
 						if not handle then
 							return
 						end
