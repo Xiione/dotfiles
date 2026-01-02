@@ -45,6 +45,10 @@ local icons = {
 			forward = "􀊌",
 			play_pause = "􀊈",
 		},
+        spaces = {
+            chev_left = "",
+            chev_right = "",
+        }
 	},
 
 	-- Alternative NerdFont icons
