@@ -20,7 +20,7 @@ lalt - g    : yabai -m window --focus first
 lalt - 0x29 : yabai -m window --focus last
 
 # Float / Unfloat window
-ctrl + lalt - backspace : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2
+ctrl + lalt - backspace : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2 && sketchybar --trigger windows_on_spaces
 
 # Make window zoom to fullscreen
 shift + lalt - f : yabai -m window --toggle zoom-fullscreen
