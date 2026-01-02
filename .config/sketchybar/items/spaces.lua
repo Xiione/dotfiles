@@ -9,7 +9,7 @@ local current_space = nil
 local previous_space = nil
 local current_display = nil
 local current_spaces = {}
-local windows_on_spaces = {}
+-- local windows_on_spaces = {}
 
 local total_spaces = 12
 
@@ -80,7 +80,7 @@ local function hl_space_selected(sid)
 	})
 end
 
-local spaces_indicator = sbar.add("item", {
+local spaces_menus_toggle = sbar.add("item", {
     drawing = false,
 	padding_left = -2,
 	padding_right = 4,
@@ -225,7 +225,7 @@ for i = 1, total_spaces, 1 do
 		space:set({ popup = { drawing = false } })
 	end)
 
-	windows_on_spaces[i] = {}
+	-- windows_on_spaces[i] = {}
 end
 
 local space_window_observer = sbar.add("item", {
@@ -282,7 +282,7 @@ space_window_observer:subscribe("windows_on_spaces", function(env)
 		sbar.exec(
 			"yabai -m query --windows --space "
 				.. sid
-				.. [[ | jq 'sort_by(.["stack-index"], .frame.x, .frame.y, .id) | map(.app)']],
+				.. [[ | jq 'sort_by(.frame.x, .frame.y, .["stack-index"], .id)']],
 			function(result)
                 -- lazy update
 				-- if #windows_on_spaces[sid] ~= #result then
@@ -293,15 +293,20 @@ space_window_observer:subscribe("windows_on_spaces", function(env)
 
 				local icon_line = ""
 				local no_app = true
-				for _, app in ipairs(result) do
+				for _, win in ipairs(result) do
 					no_app = false
-					local lookup = app_icons[app]
+					local lookup = app_icons[win["app"]]
 					local icon = ((lookup == nil) and app_icons["default"] or lookup)
-					icon_line = icon_line .. icon
+
+                    if #result > 1 and win["has-focus"] then
+                        icon_line = icon_line .. icons.spaces.chev_right .. icon
+                    else
+                        icon_line = icon_line .. icon
+                    end
 				end
 
 				if no_app then
-					icon_line = "—"
+					icon_line = empty_string
 				end
 				sbar.animate("tanh", 10, function()
 					spaces[sid]:set({ label = icon_line })
@@ -311,17 +316,17 @@ space_window_observer:subscribe("windows_on_spaces", function(env)
 	end
 end)
 
-spaces_indicator:subscribe("swap_menus_and_spaces", function(env)
-	local currently_on = spaces_indicator:query().icon.value == icons.switch.on
-	spaces_indicator:set({
+spaces_menus_toggle:subscribe("swap_menus_and_spaces", function(env)
+	local currently_on = spaces_menus_toggle:query().icon.value == icons.switch.on
+	spaces_menus_toggle:set({
 		label = { string = currently_on and "Spaces" or "Menus" },
 		icon = currently_on and icons.switch.off or icons.switch.on,
 	})
 end)
 
-spaces_indicator:subscribe("mouse.entered", function(env)
+spaces_menus_toggle:subscribe("mouse.entered", function(env)
 	sbar.animate("tanh", 15, function()
-		spaces_indicator:set({
+		spaces_menus_toggle:set({
 			background = {
 				color = { alpha = 1.0 },
 				border_color = { alpha = 1.0 },
@@ -332,9 +337,9 @@ spaces_indicator:subscribe("mouse.entered", function(env)
 	end)
 end)
 
-spaces_indicator:subscribe("mouse.exited", function(env)
+spaces_menus_toggle:subscribe("mouse.exited", function(env)
 	sbar.animate("tanh", 15, function()
-		spaces_indicator:set({
+		spaces_menus_toggle:set({
 			background = {
 				color = { alpha = 0.0 },
 				border_color = { alpha = 0.0 },
@@ -345,7 +350,7 @@ spaces_indicator:subscribe("mouse.exited", function(env)
 	end)
 end)
 
-spaces_indicator:subscribe("mouse.clicked", function(env)
+spaces_menus_toggle:subscribe("mouse.clicked", function(env)
 	sbar.trigger("swap_menus_and_spaces")
 end)
 
