@@ -239,4 +239,5 @@ require("lazy").setup({
 		lazy = true,
 	},
 	{ "micangl/cmp-vimtex" },
+	{ "stevearc/quicker.nvim", ft = "qf", opts = {} },
 }, {})

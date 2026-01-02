@@ -63,8 +63,10 @@ set(0, "NvimTreeIndentMarker", { fg = colors.nord0 })
 set(0, "NvimTreeWindowPicker", { fg = colors.nord0, bg = colors.nord9 })
 update(0, "NvimTreeCursorLine", { bg = cursorLineBg })
 
-set(0, "QuickFixLine", { bg = colors.nord0 })
+set(0, "QuickFixLine", { bg = colors.nord0o })
 set(0, "qfLineNr", { fg = colors.nord10 })
+-- quicker.nvim
+set(0, "Delimiter", { fg = colors.nord0 })
 
 set(0, "DapUIBreakpointsDisabledLine", { fg = colors.nord2 })
 set(0, "DapUIStepOver", { fg = colors.nord8 })
