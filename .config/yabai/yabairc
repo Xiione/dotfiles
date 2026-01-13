@@ -25,7 +25,6 @@ yabai -m config debug_output               off              \
                 insert_feedback_color      0xff5E81AC       \
                 split_ratio                0.50             \
                 auto_balance               off              \
-                mouse_modifier             alt              \
                 mouse_action1              move             \
                 mouse_action2              resize           \
                 mouse_drop_action          swap             \
@@ -35,6 +34,7 @@ yabai -m config debug_output               off              \
                 left_padding               0                \
                 right_padding              0                \
                 window_gap                 0                \
+                # mouse_modifier             alt            
 
 # Exclude problematic apps from being managed:
 yabai -m rule --add app="^(LuLu|Vimac|Calculator|Software Update|Dictionary|VLC|System (Preferences|Information)|System Settings|zoom.us|Photo Booth|Archive Utility|LibreOffice|App Store|Steam|Alfred|Activity Monitor|QuickTime Player|Hatate)$" manage=off
