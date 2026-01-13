@@ -208,7 +208,7 @@ return {
 	["Pages 文稿"] = ":pages:",
 	["Parallels Desktop"] = ":parallels:",
 	["Parsec"] = ":parsec:",
-	["Preview"] = ":pdf:",
+	["Preview"] = ":preview:",
 	["预览"] = ":pdf:",
 	["Skim"] = ":pdf:",
 	["zathura"] = ":pdf:",
@@ -312,6 +312,8 @@ return {
 	["Zulip"] = ":zulip:",
 
 	["Neogurt"] = ":neovim:",
-	["Nicotine+"] = ":spotlight:",
+	["Nicotine+"] = ":nicotine_plus:",
 	["Feishin"] = ":music:",
+    ["java"] = ":minecraft:",
+    ["Prism Launcher"] = ":minecraft:"
 }
