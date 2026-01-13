@@ -181,6 +181,40 @@ function devbox_run
     cd ~/co/backend/; and direnv reload; and bin/taskrunner devbox/run
 end
 
+# assumes each app has 1 window
+function arrange_windows
+    yabai -m query --windows | jq -r '.[] | [.id, (.app | gsub("[^a-zA-Z0-9_]"; ""))] | @tsv' | while read -l id app
+        set -g $app $id
+        yabai -m window $id --space 5
+    end
+
+    set -l s1 Neogurt
+    set -l s2 Arc
+    set -l s3 KeePassXC Calendar Reminders Messages Obsidian
+    set -l s4 Nicotine Feishin Discord
+
+    set -l spaces s1 s2 s3 s4
+    for s in (seq (count $spaces))
+        set -g previd 0
+        for app in $$spaces[$s]
+            if test $previd -eq 0
+                # echo "app: $app"
+                # echo "yabai -m window $$app --space $s"
+                yabai -m window $$app --space $s
+                set -g previd $$app
+                continue
+            end
+
+            # echo "yabai -m window $$app --space $s"
+            yabai -m window $$app --space $s
+            # echo "yabai -m window $$app --stack $previd"
+            yabai -m window $previd --stack $$app  
+            set -g previd $$app
+        end
+    end
+    sketchybar --trigger windows_on_spaces
+end
+
 docker completion fish > ~/.config/fish/completions/docker.fish
 zoxide init fish | source
 fzf --fish | source
