@@ -204,6 +204,10 @@ set(0, "CmpItemAbbr", { fg = colors.nord4 })
 set(0, "CmpItemAbbrMatch", { fg = colors.nord4, sp = colors.nord4, underline = true })
 set(0, "CmpItemAbbrMatchFuzzy", { fg = colors.nord8 })
 
+-- cmp kind icons are separate from the kind itself now
+set(0, "CmpItemKindIcon", { link = "CmpItemKind" })
+set(0, "CmpItemKindSupermaven", { fg = colors.nord15 })
+
 -- tailwind-tools
 -- this also in the tailwind-tools config itself
 -- set(0, "TailwindConceal", { link = "Comment" })
@@ -224,8 +228,6 @@ update(0, "DiffDelete", { bg = "None" })
 update(0, "DiffChange", { bg = "None" })
 update(0, "DiffAdd", { bg = "None" })
 update(0, "DiffText", { bg = "None" })
-
-set(0, "CmpItemKindSupermaven", { fg = colors.nord15 })
 
 -- also in indent_blankline.lua
 set(0, "IblRainbowRed", { fg = colors.nord11 })
