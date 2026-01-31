@@ -71,6 +71,11 @@ function checkidentities
     return 0
 end
 
+function sshfsum
+    echo "Trying unmount"
+    sudo diskutil umount force $argv[1]
+end
+
 function pussh
     checkidentities 
     or return 1
@@ -78,8 +83,7 @@ function pussh
 end
 
 function pfsum
-    echo "Trying unmount"
-    sudo diskutil umount force $pusshfs_mp
+    sshfsum $pusshfs_mp
 end
 
 function pusshfs
@@ -110,6 +114,34 @@ function pusshfsd
         echo "Successfully mounted $rmountpoint at $pusshfs_mp" &&
         pussh &&
         pfsum ||
+        echo "Unmount failed"
+end
+
+# wrap sshfs
+function wsshfs
+    checkidentities 
+    or return 1
+
+    if test (count $argv) -eq 0
+        echo "Usage: wsshfs remote dir mp [port]"
+        return 1
+    end
+
+    set -l remote $argv[1]
+    set -l dir $argv[2]
+    set -l mp $argv[3]
+    if test (count $argv) -eq 4
+        set -g port $argv[4]
+    else
+        set -g port 22
+    end
+
+    sshfsum $mp 
+
+    sshfs -o noapplexattr,noappledouble "$remote:$dir" $mp -p $port && 
+        echo "Successfully mounted $remote at $mp" &&
+        ssh -p $port $remote &&
+        sshfsum $mp ||
         echo "Unmount failed"
 end
 
