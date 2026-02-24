@@ -48,6 +48,8 @@ end
 
 
 function ssh
+    checkidentities 
+    or return 1
     TERM=xterm-256color command ssh $argv
 end
 
