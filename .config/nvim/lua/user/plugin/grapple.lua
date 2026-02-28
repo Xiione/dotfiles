@@ -1,4 +1,5 @@
 return {
+    scope = "git_branch",
 	icons = true,
 	win_opts = {
 		border = "solid",
