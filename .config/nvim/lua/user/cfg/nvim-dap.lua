@@ -7,6 +7,8 @@ if not dap_ui_status_ok then
 	return
 end
 
+-- this has to load first because a bunch of random things use dap later
+
 local core = require("user.lib.core")
 local utils = require("user.lib.utils")
 local sidebars = require("user.lib.sidebars")
