@@ -10,7 +10,7 @@ end
 -- used instead of contrast() in nord/util.lua
 M.use_sidebar_hl = function(opts)
 	vim.opt_local.winhighlight = M.make_winhighlight(opts)
-    vim.opt_local.signcolumn = opts.signcolumn and "yes" or "no"
+	vim.opt_local.signcolumn = opts.signcolumn and "yes" or "no"
 	vim.opt_local.number = false
 	vim.opt_local.relativenumber = false
 	vim.opt_local.cursorline = false
@@ -36,32 +36,43 @@ M.sidebar_types = {
 	"TelescopeResults",
 	"TelescopePrompt",
 	"toggleterm",
-    "spectre_panel",
-    "Avante",
-    "AvanteInput",
-    "AvantePromptInput",
-    "AvanteSelectedFiles",
-    "AvanteTodos",
+	"spectre_panel",
+	"Avante",
+	"AvanteInput",
+	"AvantePromptInput",
+	"AvanteSelectedFiles",
+	"AvanteTodos",
 }
 M.sidebar_types_set = misc.to_set(M.sidebar_types)
 
 local vimtex_toc_open = false
-local avante_open = false
 
 M.sidebar_functions = {
 	dapui = {
 		exclusive = true,
 		is_right_side = false,
-		toggle = function() return require("dapui").toggle() end,
-		open = function() return require("dapui").open() end,
-		close = function() return require("dapui").close() end,
+		toggle = function()
+			return require("dapui").toggle()
+		end,
+		open = function()
+			return require("dapui").open()
+		end,
+		close = function()
+			return require("dapui").close()
+		end,
 	},
 	nvimtree = {
 		exclusive = false,
 		is_right_side = false,
-		toggle = function() return require("nvim-tree.api").tree.toggle() end,
-		open = function() return require("nvim-tree.api").tree.open() end,
-		close = function() return require("nvim-tree.api").tree.close() end,
+		toggle = function()
+			return require("nvim-tree.api").tree.toggle()
+		end,
+		open = function()
+			return require("nvim-tree.api").tree.open()
+		end,
+		close = function()
+			return require("nvim-tree.api").tree.close()
+		end,
 	},
 	undotree = {
 		exclusive = false,
@@ -107,26 +118,19 @@ M.sidebar_functions = {
 	-- 		vim.cmd("OutlineClose")
 	-- 	end,
 	-- },
-    avante = {
-        exclusive = false,
-        is_right_side = true,
-        toggle = function()
-            vim.cmd("AvanteToggle")
-            avante_open = not avante_open
-        end,
-        open = function()
-            if not avante_open then
-                vim.cmd("AvanteToggle")
-                avante_open = true
-            end
-        end,
-        close = function()
-            if avante_open then
-                vim.cmd("AvanteToggle")
-                avante_open = false
-            end
-        end,
-    },
+	avante = {
+		exclusive = false,
+		is_right_side = true,
+		toggle = function()
+			require("avante").toggle_sidebar()
+		end,
+		open = function()
+			require("avante").open_sidebar()
+		end,
+		close = function()
+			require("avante").close_sidebar()
+		end,
+	},
 }
 
 M.toggle = function(sidebar)

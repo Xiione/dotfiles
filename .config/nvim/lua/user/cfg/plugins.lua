@@ -192,10 +192,12 @@ require("lazy").setup({
 		cmd = "Bloat",
 	},
 	{ "leoluz/nvim-dap-go" },
-	{ "nosduco/remote-sshfs.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
+	-- { "nosduco/remote-sshfs.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
 	{ "nvim-treesitter/nvim-treesitter-context" },
 	spec("yetone/avante.nvim", {
-		event = "VeryLazy",
+		-- event = "VeryLazy",
+		lazy = true,
+		autostart = false,
 		version = false, -- Never set this value to "*"! Never!
 		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
 		build = "make",
@@ -225,9 +227,14 @@ require("lazy").setup({
 	}),
 	spec("folke/snacks.nvim"),
 	{ "stevearc/dressing.nvim", opts = {} },
-	spec("zbirenbaum/copilot.lua"),
+	spec("zbirenbaum/copilot.lua", {
+		lazy = true,
+		autostart = false,
+	}),
 	{ "AndreM222/copilot-lualine" },
 	spec("ravitemer/mcphub.nvim", {
+		lazy = true,
+		autostart = false,
 		build = "npm install -g mcp-hub@latest",
 		dependencies = {
 			"nvim-lua/plenary.nvim",

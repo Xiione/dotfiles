@@ -47,7 +47,7 @@ local copilot = {
 				sleep = "", -- auto-trigger disabled
 				disabled = "",
 				warning = "",
-				unknown = "",
+				unknown = "",
 			},
 			hl = {
 				enabled = colors.nord8,

@@ -255,7 +255,7 @@ map("n", "<F4>", function()
 	sidebars.toggle("dapui")
 end)
 map("n", "<M-b>", function()
-    require("persistent-breakpoints.api").toggle_breakpoint()
+	require("persistent-breakpoints.api").toggle_breakpoint()
 end)
 map("n", "<M-S-b>", function()
 	local condition = vim.fn.input(" Breakpoint condition: ")
@@ -288,8 +288,8 @@ map("n", "<leader>u", function()
 end, silent)
 
 -- Harpoon/Grapple
-map("n", "<leader>G", function()
-    require("grapple").toggle() 
+map("n", "<leader>M", function()
+	require("grapple").toggle()
 end)
 -- function()
 -- local marks = require("harpoon").get_mark_config().marks
@@ -302,7 +302,7 @@ end)
 -- end, silent)
 
 map("n", "<leader>m", function()
-    require("grapple").toggle_tags()
+	require("grapple").toggle_tags()
 end)
 
 -- function()
@@ -366,5 +366,9 @@ end, silent)
 map("v", "<D-i>", "<cmd>AvanteAsk<cr><esc><cmd>AvanteFocus<cr>", { remap = true })
 -- clear selected code
 map("n", "<leader>aD", "<cmd>AvanteToggle<cr><cmd>AvanteToggle<cr>", silent)
+-- lazy load avante
+map("n", "<leader>aa", function()
+	require("avante.api").ask()
+end, silent)
 
 return M
