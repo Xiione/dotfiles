@@ -79,8 +79,6 @@ function sshfsum
 end
 
 function pussh
-    checkidentities 
-    or return 1
     ssh data
 end
 
