@@ -34,7 +34,7 @@ return {
 		},
 	},
 	filetypes = filetypes,
-	copilot_model = "gpt-41-copilot",
+	copilot_model = "claude-haiku-4.5",
 	-- https://github.com/zbirenbaum/copilot.lua/issues/484#issuecomment-3656544280
 	server_opts_overrides = {
 		-- Connection management to prevent GitHub handle leaks
