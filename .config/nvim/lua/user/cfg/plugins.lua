@@ -40,7 +40,7 @@ require("lazy").setup({
 	{ "nvim-lua/plenary.nvim" }, -- Useful lua functions used by lots of plugins
 	spec("windwp/nvim-autopairs"), -- Autopairs, integrates with both cmp and treesitter
 	spec("numToStr/Comment.nvim"),
-	{ "JoosepAlviste/nvim-ts-context-commentstring" },
+	-- { "JoosepAlviste/nvim-ts-context-commentstring" },
 	{ "nvim-tree/nvim-web-devicons" },
 	-- { "nvim-tree/nvim-tree.lua", version = "1.2" },
 	spec("nvim-tree/nvim-tree.lua"),
@@ -121,7 +121,7 @@ require("lazy").setup({
 	{ "mfussenegger/nvim-jdtls" },
 	spec("lukas-reineke/virt-column.nvim"),
 	{ "mbbill/undotree" }, -- options supplied through globals in options.lua
-	spec("norcalli/nvim-colorizer.lua"),
+	-- spec("norcalli/nvim-colorizer.lua"),
 	spec("folke/persistence.nvim", {
 		event = "BufReadPre",
 		-- this will only start session saving when an actual file was opened
