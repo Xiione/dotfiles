@@ -23,6 +23,7 @@ local servers = {
 	-- "shellcheck"
 	"gopls",
 	-- "protols",
+    "kotlin_lsp"
 }
 local settings = {
 	ui = {
