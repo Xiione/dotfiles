@@ -1,4 +1,3 @@
-local utils = require("user.lib.utils")
 local servers = {
 	"lua_ls",
 	"cssls",
@@ -8,12 +7,11 @@ local servers = {
 	"bashls",
 	"jsonls",
 	"yamlls",
-	"jdtls",
 	"clangd",
 	"texlab",
 	"asm_lsp",
 	"marksman",
-	"cmake",
+	"neocmake",
 	"svelte",
 	-- "semgrep",
 	-- "sourcekit",
@@ -23,22 +21,43 @@ local servers = {
 	-- "shellcheck"
 	"gopls",
 	-- "protols",
-    "kotlin_lsp"
+	"kotlin_lsp",
 }
-local settings = {
+local nonservers = {
+	"asmfmt",
+	"black",
+	"clang-format",
+	"cmakelang",
+	"codelldb",
+	"cpplint",
+	"delve",
+	"gofumpt",
+	"google-java-format",
+	"java-debug-adapter",
+	"java-test",
+	"jdtls",
+	"ktfmt",
+	"ktlint",
+	"latexindent",
+	"lemminx",
+	"prettierd",
+	"rust_analyzer",
+	"selene",
+	"shellcheck",
+	"shfmt",
+	"stylua",
+	"tree-sitter-cli",
+	"vale",
+	"vimls",
+}
+require("mason").setup({
 	ui = {
 		border = "solid",
-		icons = {
-			package_installed = "◍",
-			package_pending = "◍",
-			package_uninstalled = "◍",
-		},
 	},
 	log_level = vim.log.levels.INFO,
 	max_concurrent_installers = 4,
-}
-
-require("mason").setup(settings)
+	ensure_installed = vim.list_extend(nonservers, servers),
+})
 require("mason-lspconfig").setup({
 	ensure_installed = servers,
 	automatic_installation = true,
@@ -59,8 +78,6 @@ for _, server in pairs(servers) do
 		opts = vim.tbl_deep_extend("force", conf_opts, opts)
 	end
 
-	if server ~= "jdtls" and server ~= "semgrep" then
-		vim.lsp.config(server, opts)
-		vim.lsp.enable(server)
-	end
+	vim.lsp.config(server, opts)
+	vim.lsp.enable(server)
 end

@@ -26,5 +26,6 @@ null_ls.setup({
         -- formatting.latexindent,
         formatting.shfmt,
         -- formatting.gofumpt,
+        formatting.ktlint,
     },
 })

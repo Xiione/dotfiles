@@ -69,6 +69,7 @@ return {
 		-- 		},
 		-- 	},
 		-- },
+        group_empty = true,
 	},
 	diagnostics = {
 		enable = true,

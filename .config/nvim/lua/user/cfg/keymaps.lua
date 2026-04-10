@@ -9,6 +9,17 @@ local M = {}
 local silent = { silent = true }
 local remap = { remap = true }
 
+-- stolen from lazy.vim: https://github.com/LazyVim/LazyVim/blob/83d90f339defdb109a6ede333865a66ffc7ef6aa/lua/lazyvim/config/keymaps.lua#L124
+local diagnostic_goto = function(next, severity)
+  return function()
+    vim.diagnostic.jump({
+      count = (next and 1 or -1) * vim.v.count1,
+      severity = severity and vim.diagnostic.severity[severity] or nil,
+      float = true,
+    })
+  end
+end
+
 -- move it here, no harm done
 map("n", "K", function()
 	vim.lsp.buf.hover({ border = utils.window_border })
@@ -26,8 +37,8 @@ M.lsp_keymaps = function(bufnr, client)
 		-- map("n", "<leader>lI", "<cmd>LspInstallInfo<CR>", opts, bufnr)
 		map("n", "<leader>lI", "<cmd>Mason<CR>", opts, bufnr)
 		map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts, bufnr)
-		map("n", "<leader>lj", "<cmd>lua vim.diagnostic.goto_next({buffer=0})<CR>", opts, bufnr)
-		map("n", "<leader>lk", "<cmd>lua vim.diagnostic.goto_prev({buffer=0})<CR>", opts, bufnr)
+		map("n", "<leader>lj", diagnostic_goto(true), opts, bufnr)
+		map("n", "<leader>lk", diagnostic_goto(false), opts, bufnr)
 		map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts, bufnr)
 		map("n", "<leader>ls", function()
 			vim.lsp.buf.signature_help({ border = utils.window_border })
