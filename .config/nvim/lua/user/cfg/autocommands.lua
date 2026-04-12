@@ -135,7 +135,7 @@ autocmd("FileType", {
 		local hasStarted = pcall(vim.treesitter.start) -- errors for filetypes with no parser
 
 		-- indent
-		local noIndent = { "lua", "markdown" }
+		local noIndent = { "lua", "markdown", "kotlin" }
 		if hasStarted and not vim.list_contains(noIndent, ctx.match) then
 			vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 		end
