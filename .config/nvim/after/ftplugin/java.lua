@@ -9,8 +9,8 @@ end
 
 virt_column.setup_buffer(0, { virtcolumn = "80" })
 
-vim.opt_local.shiftwidth = 2
-vim.opt_local.tabstop = 2
+vim.opt_local.shiftwidth = 4
+vim.opt_local.tabstop = 4
 
 local term = require("user.lib.term")
 
@@ -19,7 +19,7 @@ local prepare_dapconfigs = function ()
 end
 
 if vim.fn.filereadable("build.gradle") == 1 then
-    local cmd_build = "./gradlew assemble"
+    local cmd_build = "./gradlew build"
 
     term.set_build_cmd("<M-b>", cmd_build)
     term.set_debug_cmd("<M-d>", cmd_build, function ()
