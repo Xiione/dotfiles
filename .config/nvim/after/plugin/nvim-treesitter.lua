@@ -48,11 +48,13 @@ local ensure_installed = {
 	"toml",
 	"tsx",
 	"typescript",
-	"verilog",
 	"vim",
 	"vimdoc",
 	"xml",
 	"yaml",
+    "kotlin",
+    "ql",
+    "rust",
 }
 
 vim.defer_fn(function()
