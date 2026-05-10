@@ -22,6 +22,7 @@ local servers = {
 	"gopls",
 	-- "protols",
 	"kotlin_lsp",
+    "codeqlls",
 }
 local nonservers = {
 	"asmfmt",
