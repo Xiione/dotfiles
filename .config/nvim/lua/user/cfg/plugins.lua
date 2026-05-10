@@ -121,7 +121,7 @@ require("lazy").setup({
 	{ "mfussenegger/nvim-jdtls" },
 	spec("lukas-reineke/virt-column.nvim"),
 	{ "mbbill/undotree" }, -- options supplied through globals in options.lua
-	-- spec("norcalli/nvim-colorizer.lua"),
+	spec("catgoose/nvim-colorizer.lua"),
 	spec("folke/persistence.nvim", {
 		event = "BufReadPre",
 		-- this will only start session saving when an actual file was opened
@@ -247,4 +247,5 @@ require("lazy").setup({
 	},
 	{ "micangl/cmp-vimtex" },
 	{ "stevearc/quicker.nvim", ft = "qf", opts = {} },
+	{ "AndrewRadev/bufferize.vim" },
 }, {})
