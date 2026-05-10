@@ -235,17 +235,19 @@ local function update_github()
 end
 
 local function update_brew()
-	sbar.exec("brew outdated | wc -l | tr -d ' '", function(count)
-		if not count then
-			return
-		end
+	local cmd = "env HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_ENV_HINTS=1 HOMEBREW_DOWNLOAD_CONCURRENCY=1 "
+		.. "/opt/homebrew/bin/brew outdated --quiet 2>&1 "
+		.. "| awk 'NF { count += 1 } END { print count + 0 }'"
 
-		count = tonumber(count:match("%d+"))
-		count = 0 -- brew is broken right now
+	sbar.exec(cmd, function(output)
+		local count = output and tonumber(output:match("%d+"))
 		local color = colors.green
 		local display = "􀆅" -- Checkmark for no updates
 
-		if count and count > 0 then
+		if count == nil then
+			color = colors.orange
+			display = "!"
+		elseif count > 0 then
 			display = tostring(count)
 			if count >= 30 then
 				color = colors.orange
