@@ -9,12 +9,18 @@ if status is-login
     fish_add_path ~/.pyenv/shims
     fish_add_path /usr/local/opt/llvm/bin
 
+    set -Ux PYENV_ROOT $HOME/.pyenv
+    set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
+    set -gx PNPM_HOME "/Users/hamilton/Library/pnpm"
+    if not string match -q -- $PNPM_HOME $PATH
+      set -gx PATH "$PNPM_HOME" $PATH
+    end
+
     set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
     set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
 
     set -gx EDITOR nvim
     set -gx VISUAL nvim
-
 
     # aliases
     alias nv="nvim" 
@@ -250,12 +256,5 @@ end
 docker completion fish > ~/.config/fish/completions/docker.fish
 zoxide init fish | source
 fzf --fish | source
-
-# pnpm
-set -gx PNPM_HOME "/Users/hamilton/Library/pnpm"
-if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
-end
-# pnpm end
-
 direnv hook fish | source
+pyenv init - fish | source
