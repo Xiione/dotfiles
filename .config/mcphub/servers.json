@@ -19,35 +19,5 @@
       "disabled": true
     }
   },
-  "mcpServers": {
-    "atlassian": {
-      "command": "npx",
-      "disabled": false,
-      "args": [
-        "-y",
-        "mcp-remote",
-        "https://mcp.atlassian.com/v1/sse"
-      ],
-      "autoApprove": [
-        "atlassianUserInfo",
-        "getAccessibleAtlassianResources",
-        "getConfluenceSpaces",
-        "getConfluencePage",
-        "getPagesInConfluenceSpace",
-        "getConfluencePageAncestors",
-        "getConfluencePageFooterComments",
-        "getConfluencePageInlineComments",
-        "getConfluencePageDescendants",
-        "searchConfluenceUsingCql",
-        "getJiraIssue",
-        "getTransitionsForJiraIssue",
-        "transitionJiraIssue",
-        "lookupJiraAccountId",
-        "searchJiraIssuesUsingJql",
-        "getJiraIssueRemoteIssueLinks",
-        "getVisibleJiraProjects",
-        "getJiraProjectIssueTypesMetadata"
-      ]
-    }
-  }
+  "mcpServers": {}
 }
