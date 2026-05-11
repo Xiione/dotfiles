@@ -6,3 +6,6 @@ old/
 .ssh
 .config/nvim/lua/.luarc.json
 .config/fish/completions/docker.fish
+/.config/omniwm/runtime-state.json
+/.config/omniwm/settings.toml.corrupt
+/.config/omniwm/clipboard-history.json
