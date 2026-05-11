@@ -1,40 +1,25 @@
 if status is-login
     fish_add_path /usr/local/bin
     fish_add_path /opt/homebrew/bin
-    fish_add_path ~/.cargo/bin
+    fish_add_path /opt/homebrew/sbin
     fish_add_path ~/.local/bin
 
+    fish_add_path ~/.cargo/bin
     fish_add_path /Library/TeX/texbin
     fish_add_path ~/Library/Python/3.11/bin
     fish_add_path ~/.pyenv/shims
     fish_add_path /usr/local/opt/llvm/bin
+    set -gx PNPM_HOME "/Users/hamilton/Library/pnpm"
+    fish_add_path $PNPM_HOME 
 
     set -Ux PYENV_ROOT $HOME/.pyenv
     set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
-    set -gx PNPM_HOME "/Users/hamilton/Library/pnpm"
-    if not string match -q -- $PNPM_HOME $PATH
-      set -gx PATH "$PNPM_HOME" $PATH
-    end
 
     set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
     set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
 
     set -gx EDITOR nvim
     set -gx VISUAL nvim
-
-    # aliases
-    alias nv="nvim" 
-    alias lzg="lazygit"
-    alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
-
-    function brew -d "Update outdated packages after running brew commands"
-        command brew $argv
-        if test $argv[1] = 'upgrade'
-            or test $argv[1] = 'update'
-                or test $argv[1] = 'outdated'
-            sketchybar --trigger brew_update
-        end
-    end
 end
 
 source "$__fish_config_dir/secrets.fish"
@@ -44,6 +29,11 @@ if not status is-interactive
     return
 end
 
+# aliases
+alias nv="nvim" 
+alias lzg="lazygit"
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
 set -g theme_color_scheme nord
 set -g theme_vcs_ignore_paths "$HOME/co/backend"
 
@@ -52,6 +42,14 @@ function ll
     ls -a $argv
 end
 
+function brew -d "Update outdated packages after running brew commands"
+    command brew $argv
+    if test $argv[1] = 'upgrade'
+        or test $argv[1] = 'update'
+            or test $argv[1] = 'outdated'
+        sketchybar --trigger brew_update
+    end
+end
 
 function ssh
     checkidentities 
@@ -258,3 +256,4 @@ zoxide init fish | source
 fzf --fish | source
 direnv hook fish | source
 pyenv init - fish | source
+omniwmctl completion fish | source
