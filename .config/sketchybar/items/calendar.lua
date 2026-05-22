@@ -15,7 +15,7 @@ local cal = sbar.add("item", {
 	},
 	label = {
 		color = colors.white,
-		padding_right = 8,
+		padding_right = 18, -- make space for recording indicator
 		align = "right",
 	},
 	position = "right",
