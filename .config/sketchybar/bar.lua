@@ -4,7 +4,7 @@ local colors = require("colors")
 sbar.bar({
 	height = 32,
 	color = colors.bar.bg,
-	padding_right = 3,
-	padding_left = 3,
-	notch_width = 190,
+	padding_right = 1,
+	padding_left = 1,
+	notch_width = 180,
 })
