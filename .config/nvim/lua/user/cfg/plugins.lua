@@ -230,16 +230,25 @@ require("lazy").setup({
 	spec("zbirenbaum/copilot.lua", {
 		lazy = true,
 		autostart = false,
-	}),
-	{ "AndreM222/copilot-lualine" },
-	spec("ravitemer/mcphub.nvim", {
-		lazy = true,
-		autostart = false,
-		build = "npm install -g mcp-hub@latest",
 		dependencies = {
-			"nvim-lua/plenary.nvim",
+			"copilotlsp-nvim/copilot-lsp",
 		},
 	}),
+	{
+		"copilotlsp-nvim/copilot-lsp",
+		init = function()
+			vim.g.copilot_nes_debounce = 500
+		end,
+	},
+	{ "AndreM222/copilot-lualine" },
+	-- spec("ravitemer/mcphub.nvim", {
+	-- 	lazy = true,
+	-- 	autostart = false,
+	-- 	build = "npm install -g mcp-hub@latest",
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim",
+	-- 	},
+	-- }),
 	{
 		"jbyuki/nabla.nvim",
 		dependencies = { "williamboman/mason.nvim" },

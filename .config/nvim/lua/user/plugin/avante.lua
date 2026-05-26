@@ -112,13 +112,13 @@ return {
         "delete_dir",
         "bash", -- Built-in terminal access
     }, ]]
-	system_prompt = function()
-		local hub = require("mcphub").get_hub_instance()
-		return hub and hub:get_active_servers_prompt() or ""
-	end,
-	custom_tools = function()
-		return {
-			require("mcphub.extensions.avante").mcp_tool(),
-		}
-	end,
+	-- system_prompt = function()
+	-- 	local hub = require("mcphub").get_hub_instance()
+	-- 	return hub and hub:get_active_servers_prompt() or ""
+	-- end,
+	-- custom_tools = function()
+	-- 	return {
+	-- 		require("mcphub.extensions.avante").mcp_tool(),
+	-- 	}
+	-- end,
 }
