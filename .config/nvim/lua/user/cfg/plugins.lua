@@ -192,35 +192,35 @@ require("lazy").setup({
 		cmd = "Bloat",
 	},
 	{ "leoluz/nvim-dap-go" },
-	-- { "nosduco/remote-sshfs.nvim", dependencies = { "nvim-telescope/telescope.nvim" } },
+	spec("nosduco/remote-sshfs.nvim", { dependencies = { "nvim-telescope/telescope.nvim" } }),
 	{ "nvim-treesitter/nvim-treesitter-context" },
-	spec("yetone/avante.nvim", {
-		-- event = "VeryLazy",
-		lazy = true,
-		autostart = false,
-		version = false, -- Never set this value to "*"! Never!
-		-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-		build = "make",
-		-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"stevearc/dressing.nvim",
-			"nvim-lua/plenary.nvim",
-			"MunifTanjim/nui.nvim",
-			--- The below dependencies are optional,
-			"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-			"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
-			"ibhagwan/fzf-lua", -- for file_selector provider fzf
-			"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-			"zbirenbaum/copilot.lua", -- for providers='copilot'
-			"HakonHarnes/img-clip.nvim",
-			"MeanderingProgrammer/render-markdown.nvim",
-			-- "ravitemer/mcphub.nvim",
-		},
-	}),
-	spec("HakonHarnes/img-clip.nvim", {
-		event = "VeryLazy",
-	}),
+	-- spec("yetone/avante.nvim", {
+	-- 	-- event = "VeryLazy",
+	-- 	lazy = true,
+	-- 	autostart = false,
+	-- 	version = false, -- Never set this value to "*"! Never!
+	-- 	-- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+	-- 	build = "make",
+	-- 	-- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+	-- 	dependencies = {
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		"stevearc/dressing.nvim",
+	-- 		"nvim-lua/plenary.nvim",
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		--- The below dependencies are optional,
+	-- 		"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+	-- 		"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
+	-- 		"ibhagwan/fzf-lua", -- for file_selector provider fzf
+	-- 		"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+	-- 		"zbirenbaum/copilot.lua", -- for providers='copilot'
+	-- 		"HakonHarnes/img-clip.nvim",
+	-- 		"MeanderingProgrammer/render-markdown.nvim",
+	-- 		-- "ravitemer/mcphub.nvim",
+	-- 	},
+	-- }),
+	-- spec("HakonHarnes/img-clip.nvim", {
+	-- 	event = "VeryLazy",
+	-- }),
 	spec("MeanderingProgrammer/render-markdown.nvim", {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
 		ft = { "markdown", "Avante" },
@@ -257,4 +257,5 @@ require("lazy").setup({
 	{ "micangl/cmp-vimtex" },
 	{ "stevearc/quicker.nvim", ft = "qf", opts = {} },
 	{ "AndrewRadev/bufferize.vim" },
+    spec("folke/sidekick.nvim"),
 }, {})
