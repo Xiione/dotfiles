@@ -53,6 +53,7 @@ local choose_session = function(startup)
                find ~/Documents/Obsidian -mindepth 0 -maxdepth 2 -type d 2>/dev/null;
                find ~/code -mindepth 0 -maxdepth 2 -type d 2>/dev/null;
                find ~/co -mindepth 0 -maxdepth 1 -type d 2>/dev/null;
+               find ~/figma/figma -mindepth 0 -maxdepth 2 -type d 2>/dev/null;
              end;)"
              ]]
 	local output = vim.fn.system(cmd)
