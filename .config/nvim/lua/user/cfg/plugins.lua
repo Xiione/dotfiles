@@ -180,7 +180,7 @@ require("lazy").setup({
 		ft = { "scala", "sbt", "java" },
 	},
 	-- { "supermaven-inc/supermaven-nvim" },
-	{ "nvim-pack/nvim-spectre" },
+	-- { "nvim-pack/nvim-spectre" },
 	-- { "Xiione/vim-apm" },
 	-- { dir = "~/code/me/vim-apm/" },
 	-- {

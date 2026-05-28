@@ -90,18 +90,18 @@ M.lsp_keymaps = function(bufnr, client)
 end
 
 -- spectre-nvim, from default config
-vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
-	desc = "Toggle Spectre",
-})
-vim.keymap.set("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-	desc = "Search current word",
-})
-vim.keymap.set("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-	desc = "Search current word",
-})
-vim.keymap.set("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-	desc = "Search on current file",
-})
+-- vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
+-- 	desc = "Toggle Spectre",
+-- })
+-- vim.keymap.set("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+-- 	desc = "Search current word",
+-- })
+-- vim.keymap.set("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+-- 	desc = "Search current word",
+-- })
+-- vim.keymap.set("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+-- 	desc = "Search on current file",
+-- })
 
 local original_mappings = {}
 M.push_map = function(mode, key, new_mapping, bufnr)
@@ -390,7 +390,7 @@ map("i", "<Tab>", function()
 	end
 end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
 
-map({ "n", "t", "i", "x" }, "<C-.>", function()
+map({ "n", "t", "i" }, "<D-i>", function()
 	require("sidekick.cli").focus()
 end, { desc = "Sidekick Focus" })
 
@@ -398,7 +398,7 @@ map("n", "<leader>aa", function()
 	require("sidekick.cli").toggle()
 end, { desc = "Sidekick Toggle CLI" })
 
-map("n", "<leader>as", function()
+map("n", "<leader>a?", function()
 	require("sidekick.cli").select()
 end, { desc = "Select CLI" })
 
@@ -414,7 +414,7 @@ map("n", "<leader>ac", function()
 	require("sidekick.cli").send({ msg = "{file}" })
 end, { desc = "Send File" })
 
-map("x", "<leader>av", function()
+map("x", "<D-i>", function()
 	require("sidekick.cli").send({ msg = "{selection}" })
 end, { desc = "Send Visual Selection" })
 
