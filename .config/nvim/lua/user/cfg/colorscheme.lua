@@ -115,6 +115,7 @@ set(0, "LspInfoBorder", { link = "FloatBorder" })
 
 set(0, "TelescopeNormal", { bg = colors.nord18 })
 set(0, "TelescopeBorder", { link = "FloatBorder" })
+set(0, "TelescopeSelection", { bg = colors.nord2 })
 
 set(0, "TelescopePromptNormal", { bg = colors.nord18 })
 set(0, "TelescopePromptBorder", { link = "FloatBorder" })

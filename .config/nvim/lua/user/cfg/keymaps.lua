@@ -90,18 +90,18 @@ M.lsp_keymaps = function(bufnr, client)
 end
 
 -- spectre-nvim, from default config
-vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
-	desc = "Toggle Spectre",
-})
-vim.keymap.set("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-	desc = "Search current word",
-})
-vim.keymap.set("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-	desc = "Search current word",
-})
-vim.keymap.set("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-	desc = "Search on current file",
-})
+-- vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
+-- 	desc = "Toggle Spectre",
+-- })
+-- vim.keymap.set("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+-- 	desc = "Search current word",
+-- })
+-- vim.keymap.set("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+-- 	desc = "Search current word",
+-- })
+-- vim.keymap.set("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+-- 	desc = "Search on current file",
+-- })
 
 local original_mappings = {}
 M.push_map = function(mode, key, new_mapping, bufnr)
@@ -374,12 +374,57 @@ map("n", "[c", function()
 end, silent)
 
 -- avante
-map("v", "<D-i>", "<cmd>AvanteAsk<cr><esc><cmd>AvanteFocus<cr>", { remap = true })
--- clear selected code
-map("n", "<leader>aD", "<cmd>AvanteToggle<cr><cmd>AvanteToggle<cr>", silent)
--- lazy load avante
+-- map("v", "<D-i>", "<cmd>AvanteAsk<cr><esc><cmd>AvanteFocus<cr>", { remap = true })
+-- -- clear selected code
+-- map("n", "<leader>aD", "<cmd>AvanteToggle<cr><cmd>AvanteToggle<cr>", silent)
+-- -- lazy load avante
+-- map("n", "<leader>aa", function()
+-- 	require("avante.api").ask()
+-- end, silent)
+
+-- sidekick
+map("i", "<Tab>", function()
+	-- if there is a next edit, jump to it, otherwise apply it if any
+	if not require("sidekick").nes_jump_or_apply() then
+		return "<Tab>" -- fallback to normal tab
+	end
+end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
+
+map({ "n", "t", "i" }, "<D-i>", function()
+	require("sidekick.cli").focus()
+end, { desc = "Sidekick Focus" })
+
 map("n", "<leader>aa", function()
-	require("avante.api").ask()
-end, silent)
+	require("sidekick.cli").toggle()
+end, { desc = "Sidekick Toggle CLI" })
+
+map("n", "<leader>a?", function()
+	require("sidekick.cli").select()
+end, { desc = "Select CLI" })
+
+map("n", "<leader>ad", function()
+	require("sidekick.cli").close()
+end, { desc = "Detach a CLI Session" })
+
+map({ "x", "n" }, "<leader>at", function()
+	require("sidekick.cli").send({ msg = "{this}" })
+end, { desc = "Send This" })
+
+map("n", "<leader>ac", function()
+	require("sidekick.cli").send({ msg = "{file}" })
+end, { desc = "Send File" })
+
+map("x", "<D-i>", function()
+	require("sidekick.cli").send({ msg = "{selection}" })
+end, { desc = "Send Visual Selection" })
+
+map({ "n", "x" }, "<leader>ap", function()
+	require("sidekick.cli").prompt()
+end, { desc = "Sidekick Select Prompt" })
+
+-- -- Example of a keybinding to open Claude directly
+-- map("n", "<leader>ac", function()
+-- 	require("sidekick.cli").toggle({ name = "claude", focus = true })
+-- end, { desc = "Sidekick Toggle Claude" })
 
 return M

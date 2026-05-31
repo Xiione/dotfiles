@@ -20,21 +20,29 @@ return {
 	panel = {
 		enabled = false,
 	},
-	suggestion = {
-		enabled = true,
-		auto_trigger = false,
-		trigger_on_accept = true,
-		keymap = {
-			accept = "<S-tab>",
-			accept_word = false,
-			accept_line = false,
-			next = "<M-]>",
-			prev = "<M-[>",
-			dismiss = "<C-]>",
-		},
-	},
+	-- suggestion = {
+	-- 	enabled = true,
+	-- 	auto_trigger = false,
+	-- 	trigger_on_accept = true,
+	-- 	keymap = {
+	-- 		accept = "<S-tab>",
+	-- 		accept_word = false,
+	-- 		accept_line = false,
+	-- 		next = "<M-]>",
+	-- 		prev = "<M-[>",
+	-- 		dismiss = "<C-]>",
+	-- 	},
+	-- },
+	-- nes = {
+	-- 	enabled = true,
+	-- 	keymap = {
+	-- 		accept_and_goto = "<D-P>",
+	-- 		accept = "<D-p>",
+	-- 		dismiss = "<Esc>",
+	-- 	},
+	-- },
 	filetypes = filetypes,
-	copilot_model = "gpt-41-copilot",
+	-- copilot_model = "gpt-41-copilot",
 	-- https://github.com/zbirenbaum/copilot.lua/issues/484#issuecomment-3656544280
 	server_opts_overrides = {
 		-- Connection management to prevent GitHub handle leaks

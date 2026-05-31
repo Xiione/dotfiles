@@ -7,7 +7,7 @@ monitorOrientationOverrides = []
 mode = "dark"
 
 [borders]
-enabled = false
+enabled = true
 width = 1.5
 
 [borders.color]
@@ -55,7 +55,6 @@ updateChecksEnabled = true
 [gestures]
 fingerCount = 3
 invertDirection = true
-mouseResizeModifierKey = "option"
 scrollEnabled = true
 scrollModifierKey = "optionShift"
 scrollSensitivity = 5.0
@@ -88,6 +87,7 @@ widthPercent = 50.0
 
 [state]
 commandPaletteLastMode = "windows"
+hiddenBarIsCollapsed = true
 
 [statusBar]
 showAppNames = false
@@ -112,15 +112,15 @@ yOffset = 0.0
 
 [workspaceBar.accentColor]
 alpha = 1.0
-blue = 0.6745098233222961
-green = 0.5058823823928833
-red = 0.36862748861312866
+blue = -1.0
+green = -1.0
+red = -1.0
 
 [workspaceBar.textColor]
 alpha = 1.0
-blue = 0.9137254953384399
-green = 0.8705881834030151
-red = 0.8470587730407715
+blue = -1.0
+green = -1.0
+red = -1.0
 
 [[appRules]]
 bundleId = "com.openai.codex"

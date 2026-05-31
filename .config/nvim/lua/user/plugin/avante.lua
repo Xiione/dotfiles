@@ -4,7 +4,7 @@ return {
 	providers = {
 		copilot = {
 			endpoint = "https://api.githubcopilot.com",
-			model = "gpt-5.3-codex",
+			model = "claude-sonnet-4.6",
 			proxy = nil, -- [protocol://]host[:port] Use this proxy
 			allow_insecure = false, -- Allow insecure server connections
 			timeout = 30000, -- Timeout in milliseconds
@@ -112,13 +112,13 @@ return {
         "delete_dir",
         "bash", -- Built-in terminal access
     }, ]]
-	system_prompt = function()
-		local hub = require("mcphub").get_hub_instance()
-		return hub and hub:get_active_servers_prompt() or ""
-	end,
-	custom_tools = function()
-		return {
-			require("mcphub.extensions.avante").mcp_tool(),
-		}
-	end,
+	-- system_prompt = function()
+	-- 	local hub = require("mcphub").get_hub_instance()
+	-- 	return hub and hub:get_active_servers_prompt() or ""
+	-- end,
+	-- custom_tools = function()
+	-- 	return {
+	-- 		require("mcphub.extensions.avante").mcp_tool(),
+	-- 	}
+	-- end,
 }
