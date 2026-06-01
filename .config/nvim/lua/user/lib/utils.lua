@@ -55,6 +55,57 @@ M.resolve_spaces = function(str)
 	return string.gsub(str, "%s", "\\ ")
 end
 
+M.system = function(args)
+	if vim.system then
+		local ok, result = pcall(function()
+			return vim.system(args, { text = true }):wait()
+		end)
+
+		if not ok or result.code ~= 0 then
+			return nil
+		end
+
+		return vim.trim(result.stdout or "")
+	end
+
+	local result = vim.fn.systemlist(args)
+	if vim.v.shell_error ~= 0 then
+		return nil
+	end
+
+	return vim.trim(table.concat(result, "\n"))
+end
+
+M.last_path_parts = function(path, count)
+	count = count or 2
+
+	local parts = {}
+	for part in path:gmatch("[^/]+") do
+		table.insert(parts, part)
+	end
+
+	local label = {}
+	for i = math.max(1, #parts - count + 1), #parts do
+		table.insert(label, parts[i])
+	end
+
+	return table.concat(label, "/")
+end
+
+M.parent_dir_label = function(path)
+	path = vim.fs.normalize(path)
+
+	local name = vim.fs.basename(path)
+	local parent = vim.fs.dirname(path)
+	local parent_name = parent and vim.fs.basename(parent)
+
+	if not parent_name or parent_name == "" or parent == path then
+		return name
+	end
+
+	return ("%s/%s"):format(parent_name, name)
+end
+
 -- toggleterm needs to be opened at least once for silent/non-open commands to execute properly
 local initalized = false
 

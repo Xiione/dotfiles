@@ -5,6 +5,7 @@ end
 
 local utils = require("user.lib.utils")
 local map = utils.map
+local neogurt = require("user.lib.neogurt")
 local colors = require("user.cfg.colors")
 
 local silent = { silent = true }
@@ -85,7 +86,7 @@ local choose_session = function(startup)
 		else
 			local fmod = vim.fn.fnamemodify
 			local dir = fmod(choice.dir, ":p")
-			local name = fmod(dir, ":h:h:t") .. "/" .. fmod(dir, ":h:t")
+			local name = neogurt.session_name(dir)
 
 			if startup then
 				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })

@@ -1,6 +1,7 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
+local neogurt = require("user.lib.neogurt")
 local sidebars = require("user.lib.sidebars")
 
 autocmd({ "FileType" }, {
@@ -150,12 +151,8 @@ autocmd("DirChanged", {
 			return
 		end
 
-		local path = vim.fs.normalize(ctx.file)
 		vim.g.neogurt_cmd("session_edit", {
-			name = ("%s/%s"):format(
-				vim.fs.basename(vim.fs.dirname(path)), -- parent directory’s name
-				vim.fs.basename(path) -- last component
-			),
+			name = neogurt.session_name(ctx.file),
 		})
 	end,
 })
