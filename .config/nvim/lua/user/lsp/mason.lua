@@ -9,7 +9,7 @@ local servers = {
 	"yamlls",
 	"clangd",
 	"texlab",
-	"asm_lsp",
+	-- "asm_lsp",
 	"marksman",
 	"neocmake",
 	"svelte",
@@ -19,10 +19,11 @@ local servers = {
 	"tailwindcss",
 	-- "denols",
 	-- "shellcheck"
-	"gopls",
+	-- "gopls",
 	-- "protols",
 	"kotlin_lsp",
-    "codeqlls",
+    -- "codeqlls",
+    "copilot",
 }
 local nonservers = {
 	"asmfmt",
@@ -64,9 +65,16 @@ require("mason-lspconfig").setup({
 	automatic_installation = true,
 })
 
+-- do not ensure installed but do config
+local servers_bundled = {
+    "ruby_lsp",
+    "sorbet",
+}
+vim.list_extend(servers_bundled, servers)
+
 local opts = {}
 
-for _, server in pairs(servers) do
+for _, server in pairs(servers_bundled) do
 	opts = {
 		on_attach = require("user.lsp.handlers").on_attach,
 		capabilities = require("user.lsp.handlers").capabilities(),
