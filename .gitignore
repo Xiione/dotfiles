@@ -9,3 +9,4 @@ old/
 /.config/omniwm/runtime-state.json
 /.config/omniwm/settings.toml.corrupt
 /.config/omniwm/clipboard-history.json
+/nvim.log
