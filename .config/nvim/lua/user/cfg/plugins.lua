@@ -228,8 +228,6 @@ require("lazy").setup({
 	spec("folke/snacks.nvim"),
 	{ "stevearc/dressing.nvim", opts = {} },
 	spec("zbirenbaum/copilot.lua", {
-		lazy = true,
-		autostart = false,
 		dependencies = {
 			"copilotlsp-nvim/copilot-lsp",
 		},

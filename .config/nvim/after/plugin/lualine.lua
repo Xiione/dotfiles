@@ -156,7 +156,7 @@ lualine.setup({
 		-- lualine_c = { diff },
 		lualine_c = { "grapple" },
 		lualine_x = {
-			copilot,
+			-- copilot,
 			"filetype",
 		},
 		lualine_y = { { "progress", padding = 1 } },

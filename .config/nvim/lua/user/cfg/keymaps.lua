@@ -239,8 +239,20 @@ map("n", "<leader>e", function()
 end, silent)
 
 -- Telescope
-map("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>", silent)
-map("n", "<leader>ft", "<cmd>lua require('telescope.builtin').live_grep()<CR>", silent)
+map("n", "<leader>ff", function()
+	if require("remote-sshfs.connections").is_connected() then
+		require("remote-sshfs.api").find_files()
+	else
+		require("telescope.builtin").find_files()
+	end
+end, silent)
+map("n", "<leader>ft", function()
+	if require("remote-sshfs.connections").is_connected() then
+		require("remote-sshfs.api").live_grep()
+	else
+		require("telescope.builtin").live_grep()
+	end
+end, silent)
 map("n", "<leader>fT", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", silent)
 map("n", "<leader>fp", "<cmd>Telescope<CR>", silent)
 -- map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", silent)
@@ -364,9 +376,9 @@ end) ]]
 -- 	-- vim.notify("Supermaven on")
 -- end)
 
-map("n", "<leader>c", function()
-	require("copilot.suggestion").toggle_auto_trigger()
-end, silent)
+-- map("n", "<leader>c", function()
+-- 	require("copilot.suggestion").toggle_auto_trigger()
+-- end, silent)
 
 -- treesitter-context
 map("n", "[c", function()
@@ -383,10 +395,10 @@ end, silent)
 -- end, silent)
 
 -- sidekick
-map("i", "<Tab>", function()
+map("i", "<S-Tab>", function()
 	-- if there is a next edit, jump to it, otherwise apply it if any
 	if not require("sidekick").nes_jump_or_apply() then
-		return "<Tab>" -- fallback to normal tab
+		return "<S-Tab>" -- fallback to normal s-tab
 	end
 end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
 
@@ -426,5 +438,16 @@ end, { desc = "Sidekick Select Prompt" })
 -- map("n", "<leader>ac", function()
 -- 	require("sidekick.cli").toggle({ name = "claude", focus = true })
 -- end, { desc = "Sidekick Toggle Claude" })
+
+-- remote-sshfs
+map("n", '<leader>rc', function ()
+    require("remote-sshfs.api").connect()
+end)
+map("n", '<leader>rd', function ()
+    require("remote-sshfs.api").disconnect()
+end)
+map("n", '<leader>re', function ()
+    require("remote-sshfs.api").edit()
+end)
 
 return M
