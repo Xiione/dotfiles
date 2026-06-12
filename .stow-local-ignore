@@ -1,0 +1,17 @@
+# Repository metadata and docs
+^\.git/
+^\.git$
+\.gitignore$
+^\.stow-local-ignore$
+^README\.md$
+^LICENSE$
+^COPYING$
+
+# Generated local state
+^nvim\.log$
+^\.DS_Store$
+^old/
+
+# Neovim local/generated files
+^\.config/nvim/lazy-lock\.json$
+^\.config/nvim/lua/\.luarc\.json$
