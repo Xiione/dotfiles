@@ -1,0 +1,5 @@
+return {
+    opts = {
+        number = true,
+    }
+}

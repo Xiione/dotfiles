@@ -253,8 +253,8 @@ require("lazy").setup({
 		lazy = true,
 	},
 	{ "micangl/cmp-vimtex" },
-	{ "stevearc/quicker.nvim", ft = "qf", opts = {} },
+	spec("stevearc/quicker.nvim", { ft = "qf" }),
 	{ "AndrewRadev/bufferize.vim" },
-    spec("folke/sidekick.nvim"),
+	spec("folke/sidekick.nvim"),
 	{ "Juksuu/worktrees.nvim", opts = {} },
 }, {})

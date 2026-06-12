@@ -99,6 +99,18 @@ autocmd("User", {
 	end,
 })
 
+autocmd("User", {
+	group = augroup("PersistenceSkipQuickfix", { clear = true }),
+	pattern = "PersistenceSavePre",
+	callback = function()
+		for _, win in ipairs(vim.fn.getwininfo()) do
+			if win.quickfix == 1 then
+				pcall(vim.api.nvim_win_close, win.winid, true)
+			end
+		end
+	end,
+})
+
 -- autocmd({ "ColorScheme" }, {
 --     group = augroup("nord", {clear = false}),
 --     callback = function ()
