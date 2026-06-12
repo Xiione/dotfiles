@@ -15,14 +15,30 @@ if status is-login
     set -Ux PYENV_ROOT $HOME/.pyenv
     set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
-    set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
-    set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
+    # set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib -L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
+    # set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
 
+    set -gx XDG_CONFIG_HOME ~/.config
     set -gx EDITOR nvim
     set -gx VISUAL nvim
 end
 
 source "$__fish_config_dir/secrets.fish"
+
+# figma stuff
+if status is-login
+    fish_add_path "{$HOMEBREW_PREFIX}/opt/openssl/bin"
+    set -gx MISE_ENV macos # loads mise.macos.toml
+    set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/zlib/lib/pkgconfig:/usr/local/opt/zlib/lib/pkgconfig:$PKG_CONFIG_PATH"
+    set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl@3/lib/pkgconfig:/usr/local/opt/openssl@3/lib/pkgconfig:$PKG_CONFIG_PATH"
+    set -gx NODE_OPTIONS "--max-old-space-size=8192"
+    fish_add_path $HOME/.cargo/bin
+    set -gx RACK_ENV development
+    set -gx AWS_CONFIG_FILE "$HOME/figma/figma/config/aws/sso_config"
+end
+
+mise activate fish | source
+rbenv init - fish | source
 
 # rest is just for terminal use
 if not status is-interactive
@@ -251,9 +267,9 @@ function arrange_windows
     sketchybar --trigger windows_on_spaces
 end
 
-docker completion fish > ~/.config/fish/completions/docker.fish
+# docker completion fish > ~/.config/fish/completions/docker.fish
 zoxide init fish | source
 fzf --fish | source
-direnv hook fish | source
-pyenv init - fish | source
-omniwmctl completion fish | source
+# direnv hook fish | source
+# pyenv init - fish | source
+# omniwmctl completion fish | source

@@ -3,17 +3,17 @@
 launchctl unload -F /System/Library/LaunchAgents/com.apple.WindowManager.plist > /dev/null 2>&1 &
 
 sudo yabai --load-sa
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
-yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
+# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
+# yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
 
-yabai -m signal --add event=display_created action="sketchybar --trigger windows_on_spaces"
-yabai -m signal --add event=display_removed action="sketchybar --trigger windows_on_spaces"
-yabai -m signal --add event=mission_control_exit action="sketchybar --trigger windows_on_spaces; sketchybar --trigger mission_control_exit"
+# yabai -m signal --add event=display_created action="sketchybar --trigger windows_on_spaces"
+# yabai -m signal --add event=display_removed action="sketchybar --trigger windows_on_spaces"
+# yabai -m signal --add event=mission_control_exit action="sketchybar --trigger windows_on_spaces; sketchybar --trigger mission_control_exit"
 
 yabai -m config debug_output               off              \
                 layout                     bsp              \
-                external_bar               all:30:0         \
+                external_bar               all:0:0          \
                 mouse_follows_focus        off              \
                 focus_follows_mouse        off              \
                 window_topmost             off              \
@@ -29,10 +29,10 @@ yabai -m config debug_output               off              \
                 mouse_drop_action          swap             \
                                                             \
                 top_padding                0                \
-                bottom_padding             0                \
-                left_padding               0                \
-                right_padding              0                \
-                window_gap                 0                \
+                bottom_padding             8                \
+                left_padding               8                \
+                right_padding              8                \
+                window_gap                 8                \
                 # mouse_modifier             alt            
 
 # Exclude problematic apps from being managed:
