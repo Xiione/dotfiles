@@ -1,0 +1,7 @@
+git:
+  overrideGpg: true
+  log:
+    order: default
+keybinding:
+  universal:
+    quit: <disabled>
