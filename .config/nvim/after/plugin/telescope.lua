@@ -65,3 +65,4 @@ telescope.setup({
 
 require("telescope").load_extension("ui-select")
 require("telescope").load_extension("remote-sshfs")
+require("telescope").load_extension("worktrees")

@@ -256,4 +256,5 @@ require("lazy").setup({
 	{ "stevearc/quicker.nvim", ft = "qf", opts = {} },
 	{ "AndrewRadev/bufferize.vim" },
     spec("folke/sidekick.nvim"),
+	{ "Juksuu/worktrees.nvim", opts = {} },
 }, {})
