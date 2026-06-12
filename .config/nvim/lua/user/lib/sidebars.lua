@@ -42,6 +42,7 @@ M.sidebar_types = {
     "AvantePromptInput",
     "AvanteSelectedFiles",
     "AvanteTodos",
+    "sidekick_terminal",
 }
 M.sidebar_types_set = misc.to_set(M.sidebar_types)
 
@@ -137,9 +138,22 @@ M.sidebar_functions = {
             end
         end,
     },
+    sidekick = {
+        exclusive = false,
+        is_right_side = true,
+        toggle = function ()
+            require("sidekick.cli").toggle()
+        end,
+        open = function ()
+            require("sidekick.cli").show()
+        end,
+        close = function ()
+            require("sidekick.cli").hide()
+        end,
+    }
 }
 
-M.toggle = function(sidebar)
+M.toggle = function(sidebar, dry)
     -- get target of toggle
     local target = M.sidebar_functions[sidebar]
     local is_right_side = target.is_right_side
@@ -155,10 +169,12 @@ M.toggle = function(sidebar)
     end
 
     -- finally toggle the target sidebar
-    target.toggle()
+    if not dry then
+        target.toggle()
+    end
 end
 
-M.open = function(sidebar)
+M.open = function(sidebar, dry)
     local target = M.sidebar_functions[sidebar]
     local is_right_side = target.is_right_side
 
@@ -170,7 +186,9 @@ M.open = function(sidebar)
         end
     end
 
-    pcall(target.open)
+    if not dry then
+        target.open()
+    end
 end
 
 M.close = function(sidebar)

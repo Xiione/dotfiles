@@ -11,13 +11,13 @@ local remap = { remap = true }
 
 -- stolen from lazy.vim: https://github.com/LazyVim/LazyVim/blob/83d90f339defdb109a6ede333865a66ffc7ef6aa/lua/lazyvim/config/keymaps.lua#L124
 local diagnostic_goto = function(next, severity)
-  return function()
-    vim.diagnostic.jump({
-      count = (next and 1 or -1) * vim.v.count1,
-      severity = severity and vim.diagnostic.severity[severity] or nil,
-      float = true,
-    })
-  end
+	return function()
+		vim.diagnostic.jump({
+			count = (next and 1 or -1) * vim.v.count1,
+			severity = severity and vim.diagnostic.severity[severity] or nil,
+			float = true,
+		})
+	end
 end
 
 -- move it here, no harm done
@@ -256,7 +256,8 @@ end, silent)
 map("n", "<leader>fT", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", silent)
 map("n", "<leader>fp", "<cmd>Telescope<CR>", silent)
 -- map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", silent)
-map("n", "<leader>fr", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", silent)
+map("n", "<leader>fr", "<cmd>lua require('telescope.builtinl).oldfiles()<CR>", silent)
+map("n", "<leader>fw", "<cmd>lua require('telescope').extensions.worktrees.list_worktrees()<CR>", silent)
 
 map("n", "<leader>o", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", silent)
 map("n", "<leader>O", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", silent)
@@ -403,11 +404,13 @@ map("i", "<S-Tab>", function()
 end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
 
 map({ "n", "t", "i" }, "<D-i>", function()
+    sidebars.open("sidekick", true)
 	require("sidekick.cli").focus()
 end, { desc = "Sidekick Focus" })
 
 map("n", "<leader>aa", function()
-	require("sidekick.cli").toggle()
+	-- require("sidekick.cli").toggle()
+    sidebars.toggle("sidekick")
 end, { desc = "Sidekick Toggle CLI" })
 
 map("n", "<leader>a?", function()
@@ -419,14 +422,17 @@ map("n", "<leader>ad", function()
 end, { desc = "Detach a CLI Session" })
 
 map({ "x", "n" }, "<leader>at", function()
+    sidebars.open("sidekick", true)
 	require("sidekick.cli").send({ msg = "{this}" })
 end, { desc = "Send This" })
 
 map("n", "<leader>ac", function()
+    sidebars.open("sidekick", true)
 	require("sidekick.cli").send({ msg = "{file}" })
 end, { desc = "Send File" })
 
 map("x", "<D-i>", function()
+    sidebars.open("sidekick", true)
 	require("sidekick.cli").send({ msg = "{selection}" })
 end, { desc = "Send Visual Selection" })
 
@@ -434,20 +440,24 @@ map({ "n", "x" }, "<leader>ap", function()
 	require("sidekick.cli").prompt()
 end, { desc = "Sidekick Select Prompt" })
 
--- -- Example of a keybinding to open Claude directly
--- map("n", "<leader>ac", function()
--- 	require("sidekick.cli").toggle({ name = "claude", focus = true })
--- end, { desc = "Sidekick Toggle Claude" })
-
 -- remote-sshfs
-map("n", '<leader>rc', function ()
-    require("remote-sshfs.api").connect()
+map("n", "<leader>rc", function()
+	require("remote-sshfs.api").connect()
 end)
-map("n", '<leader>rd', function ()
-    require("remote-sshfs.api").disconnect()
+map("n", "<leader>rd", function()
+	require("remote-sshfs.api").disconnect()
 end)
-map("n", '<leader>re', function ()
-    require("remote-sshfs.api").edit()
+map("n", "<leader>re", function()
+	require("remote-sshfs.api").edit()
 end)
+
+-- worktrees
+map("n", "<leader>wc", "<cmd>lua require('worktrees').new_worktree()<CR>")
+
+-- cd root
+map("n", "<leader>.", "<cmd>cd .<CR>")
+
+-- shadow the built-in "move to bottom of screen" command
+map("n", "L", "<Nop>", silent)
 
 return M
