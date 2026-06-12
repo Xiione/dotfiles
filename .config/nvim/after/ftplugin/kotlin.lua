@@ -1,13 +1,7 @@
-local status_ok, virt_column = pcall(require, "virt-column")
-if not status_ok then
-	return
-end
 local dap_status_ok, dap = pcall(require, "dap")
 if not dap_status_ok then
 	return
 end
-
-virt_column.setup_buffer(0, { virtcolumn = "80" })
 
 vim.opt_local.shiftwidth = 4
 vim.opt_local.tabstop = 4

@@ -4,21 +4,38 @@ local autocmd = vim.api.nvim_create_autocmd
 local neogurt = require("user.lib.neogurt")
 local sidebars = require("user.lib.sidebars")
 
-autocmd({ "FileType" }, {
-	pattern = { "qf", "help", "man", "lspinfo", "spectre_panel" },
-	callback = function()
-		vim.cmd([[
-      nnoremap <silent> <buffer> q :close<CR>
-      set nobuflisted
-    ]])
-	end,
-})
+local virt_columns = {
+	c = 80,
+	cpp = 80,
+	glsl = 80,
+	java = 80,
+	javascript = 80,
+	json = 80,
+	kotlin = 80,
+	python = 80,
+	scala = 80,
+	sh = 80,
+	svelte = 80,
+	tex = 80,
+	typescript = 80,
+	typescriptreact = 80,
 
-autocmd({ "FileType" }, {
-	pattern = { "gitcommit" },
-	callback = function()
-		vim.opt_local.wrap = true
-		vim.opt_local.spell = true
+	gitcommit = 72,
+	rust = 100,
+}
+
+autocmd("FileType", {
+	group = augroup("VirtColumnByFiletype", { clear = true }),
+	pattern = vim.tbl_keys(virt_columns),
+	callback = function(ctx)
+		local ok, virt_column = pcall(require, "virt-column")
+		if not ok then
+			return
+		end
+
+		virt_column.setup_buffer(ctx.buf, {
+			virtcolumn = tostring(virt_columns[vim.bo[ctx.buf].filetype]),
+		})
 	end,
 })
 
@@ -70,11 +87,15 @@ autocmd({ "TextYankPost" }, {
 -- 	end,
 -- })
 
-autocmd({ "FileType" }, {
-	group = augroup("DapRepl", { clear = true }),
-	pattern = { "dap-repl" },
+autocmd("User", {
+	group = augroup("PersistenceSkipQuickfix", { clear = true }),
+	pattern = "PersistenceSavePre",
 	callback = function()
-		vim.opt_local.buflisted = false
+		for _, win in ipairs(vim.fn.getwininfo()) do
+			if win.quickfix == 1 then
+				pcall(vim.api.nvim_win_close, win.winid, true)
+			end
+		end
 	end,
 })
 
