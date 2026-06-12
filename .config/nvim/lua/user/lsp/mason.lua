@@ -24,6 +24,7 @@ local servers = {
 	"kotlin_lsp",
     -- "codeqlls",
     "copilot",
+    "buf_ls",
 }
 local nonservers = {
 	"asmfmt",
