@@ -59,7 +59,7 @@ update_from(0, "CursorLineSidebar", "CursorLine", { bg = colors.nord1 })
 -- update(0, "CursorLineSign", { bg = cursorLineBg })
 
 set(0, "NvimTreeEmptyFolderName", { fg = colors.nord10 })
-set(0, "NvimTreeIndentMarker", { fg = colors.nord0 })
+set(0, "NvimTreeIndentMarker", { fg = colors.nord1 })
 set(0, "NvimTreeWindowPicker", { fg = colors.nord0, bg = colors.nord9 })
 update(0, "NvimTreeCursorLine", { bg = cursorLineBg })
 
