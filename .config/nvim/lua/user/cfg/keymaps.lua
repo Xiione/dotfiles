@@ -404,13 +404,13 @@ map("i", "<S-Tab>", function()
 end, { expr = true, desc = "Goto/Apply Next Edit Suggestion" })
 
 map({ "n", "t", "i" }, "<D-i>", function()
-    sidebars.open("sidekick", true)
+	sidebars.open("sidekick", true)
 	require("sidekick.cli").focus()
 end, { desc = "Sidekick Focus" })
 
 map("n", "<leader>aa", function()
 	-- require("sidekick.cli").toggle()
-    sidebars.toggle("sidekick")
+	sidebars.toggle("sidekick")
 end, { desc = "Sidekick Toggle CLI" })
 
 map("n", "<leader>a?", function()
@@ -422,17 +422,17 @@ map("n", "<leader>ad", function()
 end, { desc = "Detach a CLI Session" })
 
 map({ "x", "n" }, "<leader>at", function()
-    sidebars.open("sidekick", true)
+	sidebars.open("sidekick", true)
 	require("sidekick.cli").send({ msg = "{this}" })
 end, { desc = "Send This" })
 
 map("n", "<leader>ac", function()
-    sidebars.open("sidekick", true)
+	sidebars.open("sidekick", true)
 	require("sidekick.cli").send({ msg = "{file}" })
 end, { desc = "Send File" })
 
 map("x", "<D-i>", function()
-    sidebars.open("sidekick", true)
+	sidebars.open("sidekick", true)
 	require("sidekick.cli").send({ msg = "{selection}" })
 end, { desc = "Send Visual Selection" })
 
@@ -459,5 +459,22 @@ map("n", "<leader>.", "<cmd>cd .<CR>")
 
 -- shadow the built-in "move to bottom of screen" command
 map("n", "L", "<Nop>", silent)
+
+-- throttle trackpad scroll spam
+local function throttled(keys, interval_ms)
+  local last = 0
+  local interval_ns = interval_ms * 1000000
+
+  return function()
+    local now = vim.uv.hrtime()
+    if now - last < interval_ns then
+      return
+    end
+    last = now
+    vim.api.nvim_feedkeys(vim.keycode(keys), "n", false)
+  end
+end
+map("n", "<ScrollWheelDown>", throttled("2<C-e>", 1), silent)
+map("n", "<ScrollWheelUp>", throttled("2<C-y>", 1), silent)
 
 return M
