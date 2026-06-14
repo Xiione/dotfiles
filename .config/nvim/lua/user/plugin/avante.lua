@@ -40,7 +40,7 @@ return {
 		enabled = true,
 	},
 	mappings = {
-		ask = "<D-I>",
+		ask = "<D-S-i>",
 		focus = "<D-i>",
 		edit = "<D-k>",
 		stop = "<leader>as",

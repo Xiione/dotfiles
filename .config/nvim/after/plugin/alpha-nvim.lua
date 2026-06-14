@@ -11,19 +11,19 @@ end
 
 dashboard.section.header.val = header()
 dashboard.section.buttons.val = {
-	dashboard.button("p", " " .. " Restore session", "<cmd>lua require('persistence').load()<CR>"),
-	dashboard.button("<leader>e", "󰙅 " .. " Browse files", "<cmd>lua require('nvim-tree.api').tree.toggle()<CR>"),
+	dashboard.button("p", " " .. " Restore session", "<Cmd>lua require('persistence').load()<CR>"),
+	dashboard.button("<leader>e", "󰙅 " .. " Browse files", "<Cmd>lua require('nvim-tree.api').tree.toggle()<CR>"),
 	dashboard.button(
 		"<leader>ff",
 		"󰮗 " .. " Find file",
-		"<cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>"
+		"<Cmd>lua require('telescope.builtin').find_files({hidden=true})<CR>"
 	),
-	dashboard.button("<leader>fr", " " .. " Recent files", "<cmd>lua require('telescope.builtin').oldfiles()<CR>"),
-	dashboard.button("<leader>gg", "󰊢 " .. " Open Lazygit", "<cmd>lua _LAZYGIT_TOGGLE()<CR>"),
-	dashboard.button("n", " " .. " New file", "<cmd>ene <BAR> startinsert <CR>"),
-	-- dashboard.button("t", "󱩾 " .. " Find text", "<cmd>lua require('telescope.builtin').live_grep()<CR>"),
-	-- dashboard.button("s", " " .. " Create packer snapshot", "<cmd>lua require('user.lib.utils').create_packer_snapshot()<CR>"),
-	dashboard.button("q", " " .. " Quit", "<cmd>qa<CR>"),
+	dashboard.button("<leader>fr", " " .. " Recent files", "<Cmd>lua require('telescope.builtin').oldfiles()<CR>"),
+	dashboard.button("<leader>gg", "󰊢 " .. " Open Lazygit", "<Cmd>lua _LAZYGIT_TOGGLE()<CR>"),
+	dashboard.button("n", " " .. " New file", "<Cmd>ene <Bar> startinsert <CR>"),
+	-- dashboard.button("t", "󱩾 " .. " Find text", "<Cmd>lua require('telescope.builtin').live_grep()<CR>"),
+	-- dashboard.button("s", " " .. " Create packer snapshot", "<Cmd>lua require('user.lib.utils').create_packer_snapshot()<CR>"),
+	dashboard.button("q", " " .. " Quit", "<Cmd>qa<CR>"),
 }
 
 dashboard.section.footer.opts.hl = "Type"

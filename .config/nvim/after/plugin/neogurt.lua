@@ -99,18 +99,18 @@ local choose_session = function(startup)
 end
 
 -- change font size
-map(mode, "<D-=>", "<cmd>Neogurt font_size_change 1 all=false<cr>")
-map(mode, "<D-->", "<cmd>Neogurt font_size_change -1 all=false<cr>")
-map(mode, "<D-0>", "<cmd>Neogurt font_size_reset all=false<cr>")
+map(mode, "<D-=>", "<Cmd>Neogurt font_size_change 1 all=false<CR>")
+map(mode, "<D-->", "<Cmd>Neogurt font_size_change -1 all=false<CR>")
+map(mode, "<D-0>", "<Cmd>Neogurt font_size_reset all=false<CR>")
 
 -- session mappings
-map(mode, "<D-l>", "<cmd>Neogurt session_prev<cr>")
--- map(mode, "<D-m>", "<cmd>Neogurt session_select sort=time<cr>")
-map(mode, "<D-R>", "<cmd>Neogurt session_restart cmd=qa<cr>")
+map(mode, "<D-l>", "<Cmd>Neogurt session_prev<CR>")
+-- map(mode, "<D-m>", "<Cmd>Neogurt session_select sort=time<CR>")
+map(mode, "<D-S-r>", "<Cmd>Neogurt session_restart cmd=qa<CR>")
 
 map({ "n", "v" }, "<D-v>", '"+p', silent)
 map({ "i", "c" }, "<D-v>", "<C-r>+", silent)
-map("t", "<D-v>", "<C-\\><C-N><D-v>i", remap)
+map("t", "<D-v>", "<C-\\><C-n><D-v>i", remap)
 
 -- whatever
 map(mode, "<D-s>", function()

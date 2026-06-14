@@ -142,17 +142,17 @@ vim.api.nvim_create_autocmd("FileType", {
             --         { "<leader>cx", group = "extract" },
             --         {
             --             "<leader>cxm",
-            --             [[<ESC><CMD>lua require('jdtls').extract_method(true)<CR>]],
+            --             [[<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>]],
             --             desc = "Extract Method",
             --         },
             --         {
             --             "<leader>cxv",
-            --             [[<ESC><CMD>lua require('jdtls').extract_variable_all(true)<CR>]],
+            --             [[<Esc><Cmd>lua require('jdtls').extract_variable_all(true)<CR>]],
             --             desc = "Extract Variable",
             --         },
             --         {
             --             "<leader>cxc",
-            --             [[<ESC><CMD>lua require('jdtls').extract_constant(true)<CR>]],
+            --             [[<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>]],
             --             desc = "Extract Constant",
             --         },
             --     },

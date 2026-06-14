@@ -125,7 +125,7 @@ dapui.setup({
 			position = "bottom",
 		},
 	},
-	floating = { border = utils.window_border, mappings = { close = { "q", "<esc>" } } },
+	floating = { border = utils.window_border, mappings = { close = { "q", "<Esc>" } } },
 	element_mappings = {},
 	expand_lines = true,
 	force_buffers = true,

@@ -26,39 +26,39 @@ map("n", "K", function()
 end, { noremap = true, silent = true })
 M.lsp_keymaps = function(bufnr, client)
 	local opts = { noremap = true, silent = true }
-	map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
-	map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts, bufnr)
-	map("n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts, bufnr)
-	map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts, bufnr)
-	map("n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts, bufnr)
+	map("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts, bufnr)
+	map("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts, bufnr)
+	map("n", "gI", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts, bufnr)
+	map("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", opts, bufnr)
+	map("n", "gl", "<Cmd>lua vim.diagnostic.open_float()<CR>", opts, bufnr)
 
 	if client.name ~= "texlab" then
-		map("n", "<leader>li", "<cmd>LspInfo<CR>", opts, bufnr)
-		-- map("n", "<leader>lI", "<cmd>LspInstallInfo<CR>", opts, bufnr)
-		map("n", "<leader>lI", "<cmd>Mason<CR>", opts, bufnr)
-		map("n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts, bufnr)
+		map("n", "<leader>li", "<Cmd>LspInfo<CR>", opts, bufnr)
+		-- map("n", "<leader>lI", "<Cmd>LspInstallInfo<CR>", opts, bufnr)
+		map("n", "<leader>lI", "<Cmd>Mason<CR>", opts, bufnr)
+		map("n", "<leader>la", "<Cmd>lua vim.lsp.buf.code_action()<CR>", opts, bufnr)
 		map("n", "<leader>lj", diagnostic_goto(true), opts, bufnr)
 		map("n", "<leader>lk", diagnostic_goto(false), opts, bufnr)
-		map("n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<CR>", opts, bufnr)
+		map("n", "<leader>lr", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts, bufnr)
 		map("n", "<leader>ls", function()
 			vim.lsp.buf.signature_help({ border = utils.window_border })
 		end, opts, bufnr)
-		map("n", "<leader>lq", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
+		map("n", "<leader>lq", "<Cmd>lua vim.diagnostic.setloclist()<CR>", opts, bufnr)
 
-		map("n", "<leader>llR", "<cmd>LspRestart<CR>", opts, bufnr)
+		map("n", "<leader>llR", "<Cmd>LspRestart<CR>", opts, bufnr)
 	end
 
 	if client.name == "tailwindcss" then
-		map("n", "<leader>tf", "<cmd>TailwindSort<CR>", opts, bufnr)
-		-- map("v", "<leader>tf", "<cmd>TailwindSortSelection<CR>", opts, bufnr)
+		map("n", "<leader>tf", "<Cmd>TailwindSort<CR>", opts, bufnr)
+		-- map("v", "<leader>tf", "<Cmd>TailwindSortSelection<CR>", opts, bufnr)
 
-		map("n", "<leader>tt", "<cmd>TailwindConcealToggle<CR>", opts, bufnr)
-		map("n", "<leader>tc", "<cmd>TailwindConcealEnable<CR>", opts, bufnr)
-		map("n", "<leader>to", "<cmd>TailwindConcealDisable<CR>", opts, bufnr)
+		map("n", "<leader>tt", "<Cmd>TailwindConcealToggle<CR>", opts, bufnr)
+		map("n", "<leader>tc", "<Cmd>TailwindConcealEnable<CR>", opts, bufnr)
+		map("n", "<leader>to", "<Cmd>TailwindConcealDisable<CR>", opts, bufnr)
 	end
 
 	if client.name == "metals" then
-		map("n", "<leader>fc", "<cmd>lua require('telescope').extensions.metals.commands()<CR>", opts, bufnr)
+		map("n", "<leader>fc", "<Cmd>lua require('telescope').extensions.metals.commands()<CR>", opts, bufnr)
 	end
 
 	if client.name == "rust-analyzer" then
@@ -90,16 +90,16 @@ M.lsp_keymaps = function(bufnr, client)
 end
 
 -- spectre-nvim, from default config
--- vim.keymap.set("n", "<leader>S", '<cmd>lua require("spectre").toggle()<CR>', {
+-- vim.keymap.set("n", "<leader>S", '<Cmd>lua require("spectre").toggle()<CR>', {
 -- 	desc = "Toggle Spectre",
 -- })
--- vim.keymap.set("n", "<leader>Sw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
+-- vim.keymap.set("n", "<leader>Sw", '<Cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
 -- 	desc = "Search current word",
 -- })
--- vim.keymap.set("v", "<leader>Sw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
+-- vim.keymap.set("v", "<leader>Sw", '<Esc><Cmd>lua require("spectre").open_visual()<CR>', {
 -- 	desc = "Search current word",
 -- })
--- vim.keymap.set("n", "<leader>Sp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
+-- vim.keymap.set("n", "<leader>Sp", '<Cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
 -- 	desc = "Search on current file",
 -- })
 
@@ -121,9 +121,9 @@ end
 M.remove_dap_maps = function()
 	M.pop_map("K")
 	unmap("n", "<M-1>")
-	unmap("n", "<M-Q>")
+	unmap("n", "<M-S-q>")
 	unmap("n", "<M-2>")
-	unmap("n", "<M-W>")
+	unmap("n", "<M-S-w>")
 	unmap("n", "<M-3>")
 	unmap("n", "<M-4>")
 end
@@ -131,9 +131,9 @@ end
 M.setup_dap_maps = function()
 	M.push_map({ "n", "v" }, "K", require("dapui").eval)
 	map("n", "<M-1>", require("dap").continue)
-	map("n", "<M-Q>", require("dap").run_to_cursor)
+	map("n", "<M-S-q>", require("dap").run_to_cursor)
 	map("n", "<M-2>", require("dap").step_over)
-	map("n", "<M-W>", require("dap").step_into)
+	map("n", "<M-S-w>", require("dap").step_into)
 	map("n", "<M-3>", require("dap").terminate)
 	map("n", "<M-4>", require("dap").run_last)
 end
@@ -152,7 +152,7 @@ vim.g.mapleader = " "
 -- Editing maps
 
 -- stole from william - delete a word at a time
-map({ "i", "c" }, "<M-bs>", "<C-w>", { remap = true })
+map({ "i", "c" }, "<M-BS>", "<C-w>", { remap = true })
 
 -- adjustments in insert and cmd
 map("i", "<C-h>", "<Left>", silent)
@@ -165,14 +165,14 @@ map("n", "<C-h>", "<C-w>h", silent)
 map("n", "<C-j>", "<C-w>j", silent)
 map("n", "<C-k>", "<C-w>k", silent)
 map("n", "<C-l>", "<C-w>l", silent)
-map("n", "<leader>wq", "<cmd>Bdelete!<CR><C-w>q", silent)
+map("n", "<leader>wq", "<Cmd>Bdelete!<CR><C-w>q", silent)
 -- <leader>ws: shade.nvim toggle (in shade.lua)
 --
 -- Resize with arrows
-map("n", "<C-Up>", "<cmd>resize -2<CR>", silent)
-map("n", "<C-Down>", "<cmd>resize +2<CR>", silent)
-map("n", "<C-Left>", "<cmd>vertical resize -2<CR>", silent)
-map("n", "<C-Right>", "<cmd>vertical resize +2<CR>", silent)
+map("n", "<C-Up>", "<Cmd>resize -2<CR>", silent)
+map("n", "<C-Down>", "<Cmd>resize +2<CR>", silent)
+map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", silent)
+map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", silent)
 
 -- cmd-A select all
 map("n", "<D-a>", "ggVG", { remap = true })
@@ -196,10 +196,10 @@ map("n", "<C-d>", "<C-d>zz", silent)
 map("n", "<C-u>", "<C-u>zz", silent)
 
 -- qf navigation
-map("n", "<leader>k", "<cmd>cprev<CR>zz")
-map("n", "<leader>j", "<cmd>cnext<CR>zz")
+map("n", "<leader>k", "<Cmd>cprev<CR>zz")
+map("n", "<leader>j", "<Cmd>cnext<CR>zz")
 -- close quickfix
-map("n", "<leader>q", "<cmd>cclose<CR>", silent)
+map("n", "<leader>q", "<Cmd>cclose<CR>", silent)
 
 -- fixing that stupid typo when trying to [save]exit
 vim.cmd([[
@@ -219,17 +219,17 @@ map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 map("v", "<leader>s", '"hy:%s/<C-r>h//gc<Left><Left><Left>')
 
 -- easier leave term
--- map("t", "<esc>", "<C-\\><C-n>", silent)
--- map("t", "<C-h>", "<C-\\><C-n><C-W>h", silent)
--- map("t", "<C-j>", "<C-\\><C-n><C-W>j", silent)
--- map("t", "<C-k>", "<C-\\><C-n><C-W>k", silent)
--- map("t", "<C-l>", "<C-\\><C-n><C-W>l", silent)
+-- map("t", "<Esc>", "<C-\\><C-n>", silent)
+-- map("t", "<C-h>", "<C-\\><C-n><C-w>h", silent)
+-- map("t", "<C-j>", "<C-\\><C-n><C-w>j", silent)
+-- map("t", "<C-k>", "<C-\\><C-n><C-w>k", silent)
+-- map("t", "<C-l>", "<C-\\><C-n><C-w>l", silent)
 
 -- alt-tab between recent spaces
-map("n", "<leader><tab>", "<C-6>", { remap = true })
+map("n", "<leader><Tab>", "<C-6>", { remap = true })
 
 -- lsp formatter
-map("n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{ async = true }<CR>", silent)
+map("n", "<leader>lf", "<Cmd>lua vim.lsp.buf.format{ async = true }<CR>", silent)
 
 -- Plugins
 
@@ -253,23 +253,23 @@ map("n", "<leader>ft", function()
 		require("telescope.builtin").live_grep()
 	end
 end, silent)
-map("n", "<leader>fT", "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", silent)
-map("n", "<leader>fp", "<cmd>Telescope<CR>", silent)
--- map("n", "<leader>fb", "<cmd>lua require('telescope.builtin').buffers()<CR>", silent)
-map("n", "<leader>fr", "<cmd>lua require('telescope.builtinl).oldfiles()<CR>", silent)
-map("n", "<leader>fw", "<cmd>lua require('telescope').extensions.worktrees.list_worktrees()<CR>", silent)
+map("n", "<leader>fT", "<Cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>", silent)
+map("n", "<leader>fp", "<Cmd>Telescope<CR>", silent)
+-- map("n", "<leader>fb", "<Cmd>lua require('telescope.builtin').buffers()<CR>", silent)
+map("n", "<leader>fr", "<Cmd>lua require('telescope.builtinl).oldfiles()<CR>", silent)
+map("n", "<leader>fw", "<Cmd>lua require('telescope').extensions.worktrees.list_worktrees()<CR>", silent)
 
-map("n", "<leader>o", "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", silent)
-map("n", "<leader>O", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", silent)
+map("n", "<leader>o", "<Cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", silent)
+map("n", "<leader>O", "<Cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", silent)
 
 -- Git
-map("n", "<leader>gg", "<cmd>lua _LAZYGIT_TOGGLE()<CR>", silent)
-map("n", "<leader>gs", "<cmd>Gitsigns toggle_signs<CR>", silent)
+map("n", "<leader>gg", "<Cmd>lua _LAZYGIT_TOGGLE()<CR>", silent)
+map("n", "<leader>gs", "<Cmd>Gitsigns toggle_signs<CR>", silent)
 
 -- Comment
-map("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", silent)
-map("x", "<leader>/", '<ESC><cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
-map("x", "<leader>?", '<ESC><cmd>lua require("Comment.api").toggle.blockwise(vim.fn.visualmode())<CR>')
+map("n", "<leader>/", "<Cmd>lua require('Comment.api').toggle.linewise.current()<CR>", silent)
+map("x", "<leader>/", '<Esc><Cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>')
+map("x", "<leader>?", '<Esc><Cmd>lua require("Comment.api").toggle.blockwise(vim.fn.visualmode())<CR>')
 
 -- DAP
 map("n", "<F5>", function()
@@ -341,7 +341,7 @@ for i = 1, 9 do
 end
 
 -- Alpha
--- map("n", "<leader>A", "<cmd>Alpha<CR>", silent)
+-- map("n", "<leader>A", "<Cmd>Alpha<CR>", silent)
 
 -- Symbols outline
 -- replaced with telescope picker
@@ -358,7 +358,7 @@ map("n", "<Left>", "zh", silent)
 map("n", "<Right>", "zl", silent)
 
 -- Add :Inspect to insert mode for weird customization case for lsp_signature
-map("i", "<C-i>", "<cmd>Inspect<CR>", silent)
+map("i", "<C-i>", "<Cmd>Inspect<CR>", silent)
 
 -- ufo
 -- map("n", "zR", require("ufo").openAllFolds)
@@ -387,9 +387,9 @@ map("n", "[c", function()
 end, silent)
 
 -- avante
--- map("v", "<D-i>", "<cmd>AvanteAsk<cr><esc><cmd>AvanteFocus<cr>", { remap = true })
+-- map("v", "<D-i>", "<Cmd>AvanteAsk<CR><Esc><Cmd>AvanteFocus<CR>", { remap = true })
 -- -- clear selected code
--- map("n", "<leader>aD", "<cmd>AvanteToggle<cr><cmd>AvanteToggle<cr>", silent)
+-- map("n", "<leader>aD", "<Cmd>AvanteToggle<CR><Cmd>AvanteToggle<CR>", silent)
 -- -- lazy load avante
 -- map("n", "<leader>aa", function()
 -- 	require("avante.api").ask()
@@ -452,10 +452,10 @@ map("n", "<leader>re", function()
 end)
 
 -- worktrees
-map("n", "<leader>wc", "<cmd>lua require('worktrees').new_worktree()<CR>")
+map("n", "<leader>wc", "<Cmd>lua require('worktrees').new_worktree()<CR>")
 
 -- cd root
-map("n", "<leader>.", "<cmd>cd .<CR>")
+map("n", "<leader>.", "<Cmd>cd .<CR>")
 
 -- shadow the built-in "move to bottom of screen" command
 map("n", "L", "<Nop>", silent)

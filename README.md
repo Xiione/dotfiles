@@ -30,3 +30,14 @@ Best effort to use [Nord](https://www.nordtheme.com/) wherever possible
 4. `cd dotfiles` (this repository)
 5. `stow .`
 6. All done!
+
+### Conventions
+
+#### Neovim key notation
+
+- Use capital modifier names: `<C-l>`, `<M-b>`, `<D-i>`, `<S-Tab>`.
+- Use canonical named keys: `<Tab>`, `<BS>`, `<CR>`, `<Esc>`, `<Up>`, `<ScrollWheelDown>`.
+- Keep `<leader>` lowercase.
+- Spell shifted modified letter chords explicitly when shift is part of the chord: `<M-S-q>` instead of `<M-Q>`.
+- Preserve intentional letter case after `<leader>` and in plain Vim keys, like `<leader>O`, `gD`, or `zR`.
+- In RHS command strings, use `<Cmd>`, `<CR>`, `<Esc>`, and `<Bar>`.
