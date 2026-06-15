@@ -55,7 +55,7 @@ require("lazy").setup({
 	{ "goolord/alpha-nvim" },
 
 	-- Colorschemes
-	{ "Xiione/nord.nvim" },
+	{ "gbprod/nord.nvim" },
 
 	-- cmp plugins
 	{
@@ -141,6 +141,7 @@ require("lazy").setup({
 			"nvim-tree/nvim-web-devicons",
 		},
 	}),
+    -- spec("")
 	{ "tpope/vim-abolish" },
 	{ "echasnovski/mini.surround", version = "*", opts = {} },
 	{ "airblade/vim-matchquote" },

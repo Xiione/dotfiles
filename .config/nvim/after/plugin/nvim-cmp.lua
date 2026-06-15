@@ -111,13 +111,13 @@ cmp.setup({
 	window = {
 		completion = {
 			border = "none",
-			winhighlight = "Normal:NormalSidebar,CursorLine:CursorLineSidebar",
+			winhighlight = sidebars.sidebar_winhl({ cursorline = true }),
 			side_padding = 1,
 			col_offset = 1,
 		},
 		documentation = {
 			border = "none",
-			winhighlight = "Normal:NormalSidebar,MarkdownError:none,luaParenError:none",
+			winhighlight = sidebars.sidebar_winhl({ cursorline = false }) .. ",MarkdownError:none,luaParenError:none",
 			max_width = 40,
 			max_height = 15,
 		},

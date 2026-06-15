@@ -53,11 +53,11 @@ autocmd({ "VimResized" }, {
 	end,
 })
 
-autocmd({ "CmdWinEnter" }, {
-	callback = function()
-		vim.cmd("quit")
-	end,
-})
+-- autocmd({ "CmdWinEnter" }, {
+-- 	callback = function()
+-- 		vim.cmd("quit")
+-- 	end,
+-- })
 
 autocmd({ "TextYankPost" }, {
 	callback = function()

@@ -37,12 +37,12 @@ outline.setup({
 		show_relative_numbers = false,
 		width = 40,
 		wrap = false,
-		winhl = sidebars.make_winhighlight({ cursorline = true }),
+		winhl = sidebars.sidebar_winhl({ cursorline = true }),
 	},
 	preview_window = {
 		auto_preview = false,
 		border = utils.window_border,
-		winhl = "Normal:NormalSidebar",
+		winhl = sidebars.float_winhl,
 	},
 	provider = {
 		lsp = {

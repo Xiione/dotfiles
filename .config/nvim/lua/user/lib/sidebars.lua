@@ -2,14 +2,18 @@ local misc = require("user.lib.misc")
 
 local M = {}
 
-M.make_winhighlight = function(opts)
-    return "Normal:NormalSidebar,SignColumn:NormalSidebar,CursorLine:NormalSidebar"
-        .. (opts.cursorline and "" or ",CursorLine:NormalSidebar")
+M.float_winhl = "Normal:NormalFloat,NormalFloat:NormalFloat,FloatBorder:FloatBorder"
+
+M.sidebar_winhl = function(opts)
+    opts = opts or {}
+    local cursorline = opts.cursorline and "CursorLineSidebar" or "NormalSidebar"
+    return "Normal:NormalSidebar,SignColumn:NormalSidebar,CursorLine:" .. cursorline
 end
 
 -- used instead of contrast() in nord/util.lua
-M.use_sidebar_hl = function(opts)
-    vim.opt_local.winhighlight = M.make_winhighlight(opts)
+M.apply_sidebar = function(opts)
+    opts = opts or {}
+    vim.opt_local.winhighlight = M.sidebar_winhl(opts)
     vim.opt_local.signcolumn = opts.signcolumn and "yes" or "no"
     vim.opt_local.number = false
     vim.opt_local.relativenumber = false
@@ -17,6 +21,9 @@ M.use_sidebar_hl = function(opts)
     vim.opt.cursorlineopt = opts.cursorline and "both" or "number"
     vim.opt_local.statuscolumn = "%="
 end
+
+M.make_winhighlight = M.sidebar_winhl
+M.use_sidebar_hl = M.apply_sidebar
 
 M.sidebar_types = {
     "dap-repl",

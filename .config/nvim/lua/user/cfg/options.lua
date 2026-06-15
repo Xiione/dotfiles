@@ -42,7 +42,7 @@ vim.opt.iskeyword:append("-") -- treats words with `-` as single words
 -- vim.opt.formatoptions:remove("r")
 -- vim.opt.formatoptions:remove("o")
 vim.opt.linebreak = true
-vim.opt.guicursor = { "v-r-cr:hor15", "i-c-ci-t:ver20", "a:blinkwait100-blinkoff700-blinkon700" } -- Underscore visual select cursor
+vim.opt.guicursor = { "v-r-cr:hor15", "i-c-ci:ver20", "a:blinkwait100-blinkoff700-blinkon700" } -- Underscore visual select cursor
 -- vim.opt.guifont = "MesloLGS Nerd Font,PingFang TC,Apple Color Emoji:h12"
 vim.opt.guifont = "MesloLGS Nerd Font,Apple Color Emoji:h12" -- the font used in graphical neovim applications
 

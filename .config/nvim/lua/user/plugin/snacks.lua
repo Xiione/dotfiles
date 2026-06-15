@@ -1,3 +1,4 @@
+local sidebars = require("user.lib.sidebars")
 local utils = require("user.lib.utils")
 
 return {
@@ -6,7 +7,7 @@ return {
 			border = utils.window_border,
 			relative = "cursor",
 			wo = {
-				winhighlight = "",
+				winhighlight = sidebars.float_winhl,
 				cursorline = false,
 			},
 		},
