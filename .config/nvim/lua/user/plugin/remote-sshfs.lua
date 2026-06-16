@@ -1,5 +1,0 @@
-return {
-    ui = {
-        picker = "telescope"
-    }
-}

@@ -140,7 +140,6 @@ end
 
 --Remap space as leader key
 map("", "<Space>", "<Nop>", silent)
-vim.g.mapleader = " "
 
 -- normal_mode = "n",
 -- insert_mode = "i",
@@ -260,10 +259,14 @@ map("n", "<leader>fr", "<Cmd>lua require('telescope.builtinl).oldfiles()<CR>", s
 map("n", "<leader>fw", "<Cmd>lua require('telescope').extensions.worktrees.list_worktrees()<CR>", silent)
 
 map("n", "<leader>o", "<Cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>", silent)
-map("n", "<leader>O", "<Cmd>lua require('telescope.builtin').lsp_workspace_symbols()<CR>", silent)
+map("n", "<leader>O", function()
+	require("telescope.builtin").lsp_workspace_symbols({ initial_mode = "normal" })
+end, silent)
 
 -- Git
-map("n", "<leader>gg", "<Cmd>lua _LAZYGIT_TOGGLE()<CR>", silent)
+map("n", "<leader>gg", function()
+	term.toggle_lazygit()
+end, silent)
 map("n", "<leader>gs", "<Cmd>Gitsigns toggle_signs<CR>", silent)
 
 -- Comment
@@ -452,7 +455,9 @@ map("n", "<leader>re", function()
 end)
 
 -- worktrees
-map("n", "<leader>wc", "<Cmd>lua require('worktrees').new_worktree()<CR>")
+map("n", "<leader>wc", function()
+	require("user.lib.worktrees").new()
+end)
 
 -- cd root
 map("n", "<leader>.", "<Cmd>cd .<CR>")
@@ -462,17 +467,17 @@ map("n", "L", "<Nop>", silent)
 
 -- throttle trackpad scroll spam
 local function throttled(keys, interval_ms)
-  local last = 0
-  local interval_ns = interval_ms * 1000000
+	local last = 0
+	local interval_ns = interval_ms * 1000000
 
-  return function()
-    local now = vim.uv.hrtime()
-    if now - last < interval_ns then
-      return
-    end
-    last = now
-    vim.api.nvim_feedkeys(vim.keycode(keys), "n", false)
-  end
+	return function()
+		local now = vim.uv.hrtime()
+		if now - last < interval_ns then
+			return
+		end
+		last = now
+		vim.api.nvim_feedkeys(vim.keycode(keys), "n", false)
+	end
 end
 map("n", "<ScrollWheelDown>", throttled("2<C-e>", 1), silent)
 map("n", "<ScrollWheelUp>", throttled("2<C-y>", 1), silent)

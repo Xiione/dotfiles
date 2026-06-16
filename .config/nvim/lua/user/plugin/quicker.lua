@@ -1,5 +1,0 @@
-return {
-    opts = {
-        number = true,
-    }
-}

@@ -2,6 +2,7 @@ local map = vim.keymap.set
 local sidebars = require("user.lib.sidebars")
 
 local M = {}
+local lazygit_term
 
 M.set_build_cmd = function(mapping, cmd)
 	map("n", mapping, function()
@@ -137,6 +138,29 @@ M.kill_term = function()
 	local num = require("toggleterm.terminal").get_toggled_id()
 	local term = require("toggleterm.terminal").get_or_create_term(num)
 	term:shutdown()
+end
+
+M.setup_lazygit = function()
+	local Terminal = require("toggleterm.terminal").Terminal
+
+	lazygit_term = Terminal:new({
+		cmd = "lazygit",
+		hidden = true,
+		close_on_exit = true,
+		on_open = function(term)
+			vim.keymap.set({ "n", "t" }, "<C-q>", function()
+				term:close()
+			end, { buffer = term.bufnr, silent = true })
+		end,
+	})
+end
+
+M.toggle_lazygit = function()
+	if not lazygit_term then
+		M.setup_lazygit()
+	end
+
+	lazygit_term:toggle()
 end
 
 -- Current_make_term = nil
