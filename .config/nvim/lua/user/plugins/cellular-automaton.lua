@@ -1,1 +1,4 @@
-return { "eandrju/cellular-automaton.nvim" }
+return {
+	"eandrju/cellular-automaton.nvim",
+	cmd = "CellularAutomaton",
+}

@@ -1,1 +1,8 @@
-return { "ravenxrz/DAPInstall.nvim" }
+return {
+	"ravenxrz/DAPInstall.nvim",
+	cmd = {
+		"DIInstall",
+		"DIUninstall",
+		"DIList",
+	},
+}

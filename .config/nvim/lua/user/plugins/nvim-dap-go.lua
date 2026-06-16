@@ -1,1 +1,4 @@
-return { "leoluz/nvim-dap-go" }
+return {
+	"leoluz/nvim-dap-go",
+	lazy = true,
+}

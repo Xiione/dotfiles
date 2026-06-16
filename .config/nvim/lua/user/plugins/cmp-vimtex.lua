@@ -1,1 +1,4 @@
-return { "micangl/cmp-vimtex" }
+return {
+	"micangl/cmp-vimtex",
+	ft = "tex",
+}

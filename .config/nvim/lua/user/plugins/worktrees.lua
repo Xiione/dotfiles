@@ -1,5 +1,11 @@
 return {
 	"Juksuu/worktrees.nvim",
+	cmd = {
+		"GitWorktreeCreate",
+		"GitWorktreeCreateExisting",
+		"GitWorktreeSwitch",
+		"GitWorktreeRemove",
+	},
 	opts = {
 		worktree_path = "..",
 	},

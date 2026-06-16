@@ -1,5 +1,9 @@
 return {
 	"hrsh7th/nvim-cmp",
+	event = {
+		"InsertEnter",
+		"CmdlineEnter",
+	},
 	dependencies = {
 		"luckasRanarison/tailwind-tools.nvim",
 		"onsails/lspkind-nvim",

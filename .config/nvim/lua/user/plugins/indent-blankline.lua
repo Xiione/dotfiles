@@ -1,6 +1,7 @@
 return {
 	"lukas-reineke/indent-blankline.nvim",
 	main = "ibl",
+	event = "VeryLazy",
 	config = function()
 		local sidebars = require("user.lib.sidebars")
 		local colors = require("user.cfg.colors")

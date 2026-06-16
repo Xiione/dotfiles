@@ -1,1 +1,8 @@
-return { "tpope/vim-abolish" }
+return {
+	"tpope/vim-abolish",
+	cmd = {
+		"Abolish",
+		"Subvert",
+		"S",
+	},
+}

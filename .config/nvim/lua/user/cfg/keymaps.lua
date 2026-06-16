@@ -9,6 +9,13 @@ local M = {}
 local silent = { silent = true }
 local remap = { remap = true }
 
+-- Use capital modifier names: `<C-l>`, `<M-b>`, `<D-i>`, `<S-Tab>`.
+-- Use canonical named keys: `<Tab>`, `<BS>`, `<CR>`, `<Esc>`, `<Up>`, `<ScrollWheelDown>`.
+-- Keep `<leader>` lowercase.
+-- Spell shifted modified letter chords explicitly when shift is part of the chord: `<M-S-q>` instead of `<M-Q>`.
+-- Preserve intentional letter case after `<leader>` and in plain Vim keys, like `<leader>O`, `gD`, or `zR`.
+-- In RHS command strings, use `<Cmd>`, `<CR>`, `<Esc>`, and `<Bar>`.
+
 -- stolen from lazy.vim: https://github.com/LazyVim/LazyVim/blob/83d90f339defdb109a6ede333865a66ffc7ef6aa/lua/lazyvim/config/keymaps.lua#L124
 local diagnostic_goto = function(next, severity)
 	return function()
@@ -279,6 +286,7 @@ map("n", "<F5>", function()
 	require("dap").continue()
 end)
 map("n", "<F4>", function()
+	require("dap")
 	sidebars.toggle("dapui")
 end)
 map("n", "<M-b>", function()

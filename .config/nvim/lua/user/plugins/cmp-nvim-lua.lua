@@ -1,1 +1,4 @@
-return { "hrsh7th/cmp-nvim-lua" }
+return {
+	"hrsh7th/cmp-nvim-lua",
+	lazy = true,
+}

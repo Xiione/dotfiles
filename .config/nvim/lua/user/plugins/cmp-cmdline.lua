@@ -1,1 +1,4 @@
-return { "hrsh7th/cmp-cmdline" }
+return {
+	"hrsh7th/cmp-cmdline",
+	lazy = true,
+}

@@ -2,6 +2,14 @@ local colors = require("user.cfg.colors")
 
 return {
 	"luckasRanarison/tailwind-tools.nvim",
+	ft = {
+		"html",
+		"javascript",
+		"javascriptreact",
+		"svelte",
+		"typescript",
+		"typescriptreact",
+	},
 	opts = {
 		server = {
 			override = false,

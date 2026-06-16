@@ -127,11 +127,14 @@ autocmd({ "FileType" }, {
 	end,
 })
 
-local luasnip = require("luasnip")
-
 autocmd("ModeChanged", {
 	pattern = "*",
 	callback = function()
+		local luasnip = package.loaded["luasnip"]
+		if not luasnip then
+			return
+		end
+
 		if
 			((vim.v.event.old_mode == "s" and vim.v.event.new_mode == "n") or vim.v.event.old_mode == "i")
 			and luasnip.session.current_nodes[vim.api.nvim_get_current_buf()]

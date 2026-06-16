@@ -1,1 +1,10 @@
-return { "mbbill/undotree" }
+return {
+	"mbbill/undotree",
+	cmd = {
+		"UndotreeToggle",
+		"UndotreeShow",
+		"UndotreeHide",
+		"UndotreeFocus",
+		"UndotreePersistUndo",
+	},
+}
