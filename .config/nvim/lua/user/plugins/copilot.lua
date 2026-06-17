@@ -21,6 +21,7 @@ return {
 	dependencies = {
 		"copilotlsp-nvim/copilot-lsp",
 	},
+    enabled = false,
 	opts = {
 		panel = {
 			enabled = false,

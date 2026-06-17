@@ -1,7 +1,7 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
-	dependencies = { "AndreM222/copilot-lualine" },
+	-- dependencies = { "AndreM222/copilot-lualine" },
 	opts = function()
 		local sidebars = require("user.lib.sidebars")
 		local colors = require("user.cfg.colors")
