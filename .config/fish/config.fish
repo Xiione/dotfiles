@@ -68,8 +68,8 @@ function brew -d "Update outdated packages after running brew commands"
 end
 
 function ssh
-    checkidentities 
-    or return 1
+    # checkidentities 
+    # or return 1
     TERM=xterm-256color command ssh $argv
 end
 
