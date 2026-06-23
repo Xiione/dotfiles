@@ -86,7 +86,7 @@ return {
 							local bufs = {}
 							for _, win in ipairs(vim.api.nvim_list_wins()) do
 								local bufnr = vim.api.nvim_win_get_buf(win)
-								local ft = vim.api.nvim_buf_get_option(bufnr, "filetype")
+								local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
 								if sidebars.sidebar_types_set[ft] == nil then
 									bufs[bufnr] = true
 								end
@@ -131,6 +131,32 @@ return {
 			enabled = false,
 		})
 
+		local function trim_cmdline_text(text, max_width)
+			if vim.fn.strdisplaywidth(text) <= max_width then
+				return text
+			end
+
+			return vim.fn.strcharpart(text, 0, max_width - 3) .. "..."
+		end
+
+		local format_colon_cmdline_kind = lspkind.cmp_format({
+			mode = "symbol",
+			preset = "default",
+			maxwidth = {
+				menu = 50,
+				abbr = 90,
+			},
+			ellipsis_char = "...",
+			symbol_map = require("user.lib.utils").lspkind_icons,
+		})
+
+		local function format_colon_cmdline_item(entry, vim_item)
+			vim_item = format_colon_cmdline_kind(entry, vim_item)
+			vim_item.abbr = trim_cmdline_text(vim_item.abbr or "", 90)
+
+			return vim_item
+		end
+
 		local cmdline_opts = {
 			view = {
 				entries = {
@@ -151,6 +177,13 @@ return {
 			["<C-j>"] = { c = cmp.mapping.select_next_item() },
 			["<C-k>"] = { c = cmp.mapping.select_prev_item() },
 		}
+
+		local colon_cmdline_opts = vim.tbl_extend("force", cmdline_opts, {
+			formatting = {
+				fields = { "abbr", "icon", "menu" },
+				format = format_colon_cmdline_item,
+			},
+		})
 
 		cmp.setup.cmdline(
 			{ "/", "?" },
@@ -177,7 +210,7 @@ return {
 					},
 				}),
 				matching = { disallow_symbol_nonprefix_matching = false },
-			}, cmdline_opts)
+			}, colon_cmdline_opts)
 		)
 	end,
 }
