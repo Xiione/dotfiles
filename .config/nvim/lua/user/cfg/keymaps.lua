@@ -463,9 +463,9 @@ map("n", "<leader>re", function()
 end)
 
 -- worktrees
-map("n", "<leader>wc", function()
-	require("user.lib.worktrees").new()
-end)
+-- map("n", "<leader>wc", function()
+-- 	require("user.lib.worktrees").new()
+-- end)
 
 -- cd root
 map("n", "<leader>.", "<Cmd>cd .<CR>")

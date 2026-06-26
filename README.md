@@ -24,7 +24,7 @@ Best effort to use [Nord](https://www.nordtheme.com/) wherever possible
 
 ### Installation
 1. `brew tap FelixKratz/formulae`
-2. `brew install stow fish neovim jq ripgrep fzf sketchybar lua lazygit zoxide gh switchaudio-osx`
+2. `brew install stow fish neovim jq ripgrep fd fzf sketchybar lua lazygit zoxide gh switchaudio-osx`
 3. Install `oh-my-fish` and `bobthefish` and `nord` theme
 3. Clone this repository to your home directory
 4. `cd dotfiles` (this repository)
