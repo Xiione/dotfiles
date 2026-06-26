@@ -1,0 +1,221 @@
+#!/usr/bin/env python3
+import json
+import os
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+
+def git_output(path, args):
+    try:
+        result = subprocess.run(
+            ["git", "-C", path, *args],
+            capture_output=True,
+            check=False,
+            text=True,
+            timeout=1.5,
+        )
+    except Exception:
+        return None
+
+    output = result.stdout.strip()
+    if result.returncode != 0 or output == "":
+        return None
+    return output
+
+
+def last_path_parts(path, count=2):
+    parts = [part for part in path.split("/") if part]
+    return "/".join(parts[-count:]) if parts else path
+
+
+def parent_dir_label(path):
+    p = Path(path)
+    name = p.name or str(p)
+    parent = p.parent.name
+    return f"{parent}/{name}" if parent else name
+
+
+def session_name(path):
+    path = os.path.abspath(os.path.expanduser(path or os.getcwd()))
+    root = git_output(path, ["rev-parse", "--show-toplevel"])
+    if not root:
+        return parent_dir_label(path)
+
+    repo = Path(root).name
+    branch = git_output(path, ["branch", "--show-current"])
+    if not branch:
+        commit = git_output(path, ["rev-parse", "--short", "HEAD"])
+        branch = f"@{commit}" if commit else "HEAD"
+
+    prefix = git_output(path, ["rev-parse", "--show-prefix"]) or ""
+    directory = prefix.rstrip("/")
+    label = "." if directory == "" else last_path_parts(directory, 2)
+
+    return f"{repo}:{branch} {label}"
+
+
+def one_line(text, limit=180):
+    text = " ".join((text or "").split())
+    if len(text) <= limit:
+        return text
+    return text[: limit - 1].rstrip() + "..."
+
+
+def text_from_value(value):
+    if isinstance(value, str):
+        return value
+    if isinstance(value, list):
+        parts = []
+        for item in value:
+            text = text_from_value(item)
+            if text:
+                parts.append(text)
+        return "\n".join(parts)
+    if isinstance(value, dict):
+        for key in ("text", "content", "message", "value"):
+            text = text_from_value(value.get(key))
+            if text:
+                return text
+    return None
+
+
+def prompt_from_notification(notification):
+    for key in (
+        "prompt",
+        "last-user-message",
+        "last-user-input",
+        "user-prompt",
+        "input",
+    ):
+        text = text_from_value(notification.get(key))
+        if text:
+            return text
+
+    for key in ("messages", "conversation", "items"):
+        items = notification.get(key)
+        if not isinstance(items, list):
+            continue
+
+        for item in reversed(items):
+            if not isinstance(item, dict):
+                continue
+
+            role = item.get("role")
+            item_type = item.get("type")
+            if role != "user" and item_type not in ("user_message", "input_text"):
+                continue
+
+            text = text_from_value(item)
+            if text:
+                return text
+
+    return None
+
+
+def applescript_string(text):
+    return '"' + text.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n") + '"'
+
+
+def codex_icon():
+    for path in (
+        "/Applications/Codex.app/Contents/Resources/icon.png",
+        "/Applications/Codex.app/Contents/Resources/icon.icns",
+    ):
+        if Path(path).is_file():
+            return path
+    return None
+
+
+def click_action(cwd):
+    action = os.environ.get("CODEX_NOTIFY_ACTION", "activate-codex")
+    cwd = os.path.abspath(os.path.expanduser(cwd))
+    if action == "open-cwd":
+        return ["-open", Path(cwd).as_uri()]
+    if action == "reveal-cwd":
+        return ["-execute", f"open -R {sh_quote(cwd)}"]
+    if action == "none":
+        return []
+    return ["-activate", "com.openai.codex"]
+
+
+def sh_quote(text):
+    return "'" + text.replace("'", "'\\''") + "'"
+
+
+def notify_with_terminal_notifier(title, subtitle, message, cwd):
+    terminal_notifier = shutil.which("terminal-notifier")
+    if not terminal_notifier:
+        return False
+
+    args = [
+        terminal_notifier,
+        "-title",
+        title,
+        "-subtitle",
+        subtitle,
+        "-message",
+        message,
+        "-group",
+        f"codex:{os.path.abspath(os.path.expanduser(cwd))}",
+    ]
+
+    icon = codex_icon()
+    if icon:
+        args.extend(["-appIcon", icon])
+
+    args.extend(click_action(cwd))
+    subprocess.run(args, check=False)
+    return True
+
+
+def notify_with_osascript(title, subtitle, message):
+    osascript = shutil.which("osascript") or "/usr/bin/osascript"
+    subprocess.run(
+        [
+            osascript,
+            "-e",
+            "display notification "
+            + applescript_string(message)
+            + " with title "
+            + applescript_string(title)
+            + " subtitle "
+            + applescript_string(subtitle),
+        ],
+        check=False,
+    )
+
+
+def main():
+    if len(sys.argv) < 2:
+        return 0
+
+    try:
+        notification = json.loads(sys.argv[1])
+    except json.JSONDecodeError:
+        return 0
+
+    if notification.get("type") != "agent-turn-complete":
+        return 0
+
+    cwd = notification.get("cwd") or os.getcwd()
+    title = "Codex complete"
+    subtitle = session_name(cwd)
+    message = one_line(
+        prompt_from_notification(notification)
+        or notification.get("last-assistant-message")
+        or "Turn complete"
+    )
+
+    if os.environ.get("CODEX_NOTIFY_DRY_RUN"):
+        print(json.dumps({"title": title, "subtitle": subtitle, "message": message}))
+        return 0
+
+    if not notify_with_terminal_notifier(title, subtitle, message, cwd):
+        notify_with_osascript(title, subtitle, message)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
