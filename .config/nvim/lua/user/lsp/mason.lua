@@ -22,36 +22,9 @@ local servers = {
 	-- "gopls",
 	-- "protols",
 	"kotlin_lsp",
-    -- "codeqlls",
-    "copilot",
-    "buf_ls",
-}
-local nonservers = {
-	"asmfmt",
-	"black",
-	"clang-format",
-	"cmakelang",
-	"codelldb",
-	"cpplint",
-	"delve",
-	"gofumpt",
-	"google-java-format",
-	"java-debug-adapter",
-	"java-test",
-	"jdtls",
-	"ktfmt",
-	"ktlint",
-	"latexindent",
-	"lemminx",
-	"prettierd",
-	"rust_analyzer",
-	"selene",
-	"shellcheck",
-	"shfmt",
-	"stylua",
-	"tree-sitter-cli",
-	"vale",
-	"vimls",
+	-- "codeqlls",
+	"copilot",
+	"buf_ls",
 }
 require("mason").setup({
 	ui = {
@@ -59,7 +32,6 @@ require("mason").setup({
 	},
 	log_level = vim.log.levels.INFO,
 	max_concurrent_installers = 4,
-	ensure_installed = vim.list_extend(nonservers, servers),
 })
 require("mason-lspconfig").setup({
 	ensure_installed = servers,
@@ -68,8 +40,8 @@ require("mason-lspconfig").setup({
 
 -- do not ensure installed but do config
 local servers_bundled = {
-    "ruby_lsp",
-    "sorbet",
+	"ruby_lsp",
+	"sorbet",
 }
 vim.list_extend(servers_bundled, servers)
 

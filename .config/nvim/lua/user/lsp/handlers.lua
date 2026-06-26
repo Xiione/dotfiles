@@ -7,10 +7,11 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 M.capabilities = function()
-    if not caps_initialized then
-        capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-    end
-    return capabilities
+	if not caps_initialized then
+		capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+		caps_initialized = true
+	end
+	return capabilities
 end
 
 -- ufo
@@ -50,10 +51,22 @@ M.setup = function()
 	}
 
 	vim.diagnostic.config(config)
+
+	vim.api.nvim_create_autocmd("LspAttach", {
+		group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
+		callback = function(ctx)
+			local client = vim.lsp.get_client_by_id(ctx.data.client_id)
+			if client == nil then
+				return
+			end
+
+			keymaps.lsp_keymaps(ctx.buf, client)
+		end,
+	})
 end
 
 M.on_attach = function(client, bufnr)
-	if client.name == "typescript-language-server" then
+	if client.name == "typescript-language-server" or client.name == "ts_ls" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
@@ -64,8 +77,6 @@ M.on_attach = function(client, bufnr)
 	if client.name == "clangd" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
-
-	keymaps.lsp_keymaps(bufnr, client)
 end
 
 return M
