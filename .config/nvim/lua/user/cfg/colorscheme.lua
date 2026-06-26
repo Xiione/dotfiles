@@ -78,11 +78,13 @@ local function set_nord_highlights(highlights)
 	update("CursorLineNr", { bg = cursorline_bg, bold = false })
 	define("CursorLineSign", { link = "CursorLine" })
 	update("CursorLineFold", { bg = cursorline_bg })
-	update_from("CursorLineSidebar", "CursorLine", { bg = colors.nord1 })
+	define("CursorLineSidebar", { link = "CursorLine" })
 
 	define("NvimTreeNormal", { link = "NormalSidebar" })
 	define("NvimTreeNormalNC", { link = "NormalSidebar" })
 	define("NvimTreeSignColumn", { link = "NormalSidebar" })
+	define("NvimTreeWinSeparator", { link = "WinSeparator" })
+	define("NvimTreeVertSplit", { link = "WinSeparator" })
 	define("NvimTreeEndOfBuffer", { fg = colors.nord17, bg = colors.nord17 })
 	define("NvimTreeRootFolder", { fg = colors.nord15 })
 	define("NvimTreeFolderName", { fg = colors.nord4 })
@@ -98,12 +100,13 @@ local function set_nord_highlights(highlights)
 	define("NvimTreeGitDirty", { fg = colors.nord11 })
 
 	define("QuickFixLine", { bg = colors.nord0o })
+	define("QuickFixDelimiter", { fg = colors.nord3L })
 	define("qfLineNr", { fg = colors.nord10 })
 	define("Delimiter", { fg = colors.nord6 })
-    define("Search", { fg = colors.nord6, bg = colors.nord3L })
+	define("Search", { fg = colors.nord6, bg = colors.nord3L })
 	define("IncSearch", { bg = colors.nord3L })
 	define("CurSearch", { bg = colors.nord3L })
-    define("Substitute", { fg = colors.nord0, bg = colors.nord12 })
+	define("Substitute", { fg = colors.nord0, bg = colors.nord12 })
 
 	define("DapUIBreakpointsDisabledLine", { fg = colors.nord2 })
 	define("DapUIStepOver", { fg = colors.nord8 })
@@ -148,16 +151,18 @@ local function set_nord_highlights(highlights)
 	define("LsOutlinePreviewBorder", { link = "FloatBorder" })
 	define("LspInfoBorder", { link = "FloatBorder" })
 
-	define("TelescopeNormal", { bg = colors.nord18 })
+	define("TelescopeNormal", { link = "NormalFloat" })
 	define("TelescopeBorder", { link = "FloatBorder" })
 	define("TelescopeSelection", { link = "Visual" })
 	define("TelescopeMatching", { bg = colors.nord3L })
-	define("TelescopePromptNormal", { bg = colors.nord18 })
+	define("TelescopePromptNormal", { link = "NormalFloat" })
 	define("TelescopePromptBorder", { link = "FloatBorder" })
 	define("TelescopePromptTitle", { fg = colors.nord4, bg = colors.nord0 })
 	define("TelescopePromptCounter", { bg = colors.nord18 })
+	define("TelescopeResultsNormal", { link = "NormalFloat" })
 	define("TelescopeResultsTitle", { bg = colors.nord18 })
 	define("TelescopeResultsBorder", { link = "FloatBorder" })
+	define("TelescopePreviewNormal", { link = "NormalFloat" })
 	define("TelescopePreviewTitle", { fg = colors.nord4, bg = colors.nord0 })
 	define("TelescopePreviewBorder", { link = "FloatBorder" })
 
@@ -300,13 +305,37 @@ local function set_nord_highlights(highlights)
 	define("CmpItemAbbrMatchFuzzy", { fg = colors.nord8 })
 	define("CmpItemKindIcon", { link = "CmpItemKind" })
 	define("CmpItemKindSupermaven", { fg = colors.nord15 })
-	define("PmenuSbar", { bg = colors.nord3 })
-	define("PmenuThumb", { bg = colors.nord4 })
+	define("PmenuSbar", { bg = colors.nord2 })
+	define("PmenuThumb", { bg = colors.nord3L })
 
-	update("DiffDelete", { bg = "NONE" })
-	update("DiffChange", { bg = "NONE" })
-	update("DiffAdd", { bg = "NONE" })
-	update("DiffText", { bg = "NONE" })
+	define("DiffAdd", { bg = colors.diff.add_bg, sp = colors.nord14 })
+	define("DiffDelete", { bg = colors.diff.delete_bg, sp = colors.nord11 })
+	define("DiffChange", { bg = colors.diff.change_bg, sp = colors.nord13 })
+	define("DiffText", { bg = colors.diff.change_inline_bg, sp = colors.nord13 })
+	define("diffAdded", { fg = colors.nord14 })
+	define("diffRemoved", { fg = colors.nord11 })
+	define("diffChanged", { fg = colors.nord13 })
+	define("DiffviewNormal", { link = "NormalSidebar" })
+	define("DiffviewEndOfBuffer", { fg = colors.nord17, bg = colors.nord17 })
+	define("DiffviewCursorLine", { link = "CursorLineSidebar" })
+	define("DiffviewWinSeparator", { link = "WinSeparator" })
+	define("DiffviewStatusLine", { link = "StatusLine" })
+	define("DiffviewStatuslineNC", { link = "StatusLineNC" })
+	define("DiffviewDim1", { link = "Comment" })
+	define("DiffviewDiffDeleteDim", { fg = colors.diff.filler_fg, bg = colors.diff.delete_bg })
+	define("DiffviewDiffCursorLine", {
+		bg = colors.diff.cursorline_bg,
+		sp = "NONE",
+	})
+	define("DiffviewDiffCursorColumn", { bg = colors.diff.cursorline_bg, sp = "NONE" })
+	define("DiffviewDiffAdd", { link = "DiffAdd" })
+	define("DiffviewDiffDelete", { link = "DiffDelete" })
+	define("DiffviewDiffChange", { link = "DiffChange" })
+	define("DiffviewDiffText", { link = "DiffText" })
+	define("DiffviewDiffAddAsDelete", { bg = colors.diff.delete_bg })
+	define("DiffviewDiffAddInline", { bg = colors.diff.add_inline_bg })
+	define("DiffviewDiffTextInline", { bg = colors.diff.change_inline_bg })
+	define("DiffviewDiffDeleteInline", { fg = colors.nord11, bg = colors.diff.delete_bg, strikethrough = true })
 	define("Added", { link = "DiffAdd" })
 	define("Removed", { link = "DiffDelete" })
 	define("Changed", { link = "DiffChange" })
@@ -364,16 +393,16 @@ if not status_ok then
 end
 
 nord.setup({
-    transparent = false,
-    terminal_colors = true,
-    diff = { mode = "bg" },
-    borders = true,
-    errors = { mode = "bg" },
-    styles = {
-        comments = { italic = true },
-    },
-    on_colors = set_nord_colors,
-    on_highlights = set_nord_highlights,
+	transparent = false,
+	terminal_colors = true,
+	diff = { mode = "bg" },
+	borders = true,
+	errors = { mode = "bg" },
+	styles = {
+		comments = { italic = true },
+	},
+	on_colors = set_nord_colors,
+	on_highlights = set_nord_highlights,
 })
 
 local colorscheme_ok, _ = pcall(vim.cmd.colorscheme, "nord")

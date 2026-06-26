@@ -8,11 +8,12 @@ local virt_columns = {
 	c = 80,
 	cpp = 80,
 	glsl = 80,
-	java = 80,
+	java = 100,
 	javascript = 80,
 	json = 80,
 	kotlin = 80,
 	python = 80,
+	ruby = 100,
 	scala = 80,
 	sh = 80,
 	svelte = 80,
@@ -39,12 +40,35 @@ autocmd("FileType", {
 	end,
 })
 
-autocmd({ "BufWinEnter" }, {
-	callback = function()
-		if vim.bo.filetype:match("dap") then
-			sidebars.use_sidebar_hl({ cursorline = false, signcolumn = false })
-		end
-	end,
+local sidebar_cursorline_filetypes = {
+	DiffviewFiles = true,
+	DiffviewFileHistory = true,
+	NvimTree = true,
+	Outline = true,
+	qf = true,
+}
+
+local function apply_sidebar_highlights(ctx)
+	local filetype = vim.bo[ctx.buf].filetype
+	if sidebars.sidebar_types_set[filetype] == nil then
+		return
+	end
+
+	local opts = {
+		cursorline = sidebar_cursorline_filetypes[filetype] == true,
+		signcolumn = false,
+	}
+
+	if filetype == "qf" then
+		opts.highlights = { "Delimiter:QuickFixDelimiter" }
+	end
+
+	sidebars.use_sidebar_hl(opts)
+end
+
+autocmd({ "FileType", "BufWinEnter", "WinEnter" }, {
+	group = augroup("SidebarHighlights", { clear = true }),
+	callback = apply_sidebar_highlights,
 })
 
 autocmd({ "VimResized" }, {

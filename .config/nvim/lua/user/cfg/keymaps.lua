@@ -274,6 +274,12 @@ end, silent)
 map("n", "<leader>gg", function()
 	term.toggle_lazygit()
 end, silent)
+map("n", "<leader>rr", function()
+	sidebars.toggle("diffview")
+end, { desc = "Diffview" })
+map("n", "<leader>rh", function()
+	sidebars.toggle("diffview_history")
+end, { desc = "Diffview history" })
 map("n", "<leader>gs", "<Cmd>Gitsigns toggle_signs<CR>", silent)
 
 -- Comment
