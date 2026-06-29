@@ -51,6 +51,7 @@ local choose_session = function(startup)
                echo ~/;
                echo ~/dotfiles;
                echo ~/Documents;
+               find ~/code -mindepth 0 -maxdepth 1 -type d 2>/dev/null;
                find ~/figma -mindepth 0 -maxdepth 1 -type d 2>/dev/null;
              end;)"
              ]]
