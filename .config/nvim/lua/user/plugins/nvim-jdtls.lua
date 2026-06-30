@@ -2,6 +2,23 @@ return {
 	"mfussenegger/nvim-jdtls",
 	ft = { "java" },
 	config = function()
+		local function java_21_environment()
+			if vim.fn.executable("mise") ~= 1 then
+				return nil
+			end
+
+			local result = vim.system({ "mise", "where", "java@temurin-21" }, { text = true }):wait()
+			local java_home = result.code == 0 and vim.trim(result.stdout or "") or ""
+			if java_home == "" then
+				return nil
+			end
+
+			return {
+				JAVA_HOME = java_home,
+				PATH = vim.fs.joinpath(java_home, "bin") .. ":" .. vim.env.PATH,
+			}
+		end
+
 		local cmd = { vim.fn.exepath("jdtls") }
 		local lombok_jar = vim.fn.expand("$MASON/share/jdtls/lombok.jar")
 		table.insert(cmd, string.format("--jvm-arg=-javaagent:%s", lombok_jar))
@@ -20,6 +37,7 @@ return {
 				return vim.fn.stdpath("cache") .. "/jdtls/" .. project_name .. "/workspace"
 			end,
 			cmd = cmd,
+			cmd_env = java_21_environment(),
 			full_cmd = function(jdtls_opts)
 				local fname = vim.api.nvim_buf_get_name(0)
 				local root_dir = jdtls_opts.root_dir(fname)
@@ -71,6 +89,7 @@ return {
 			local fname = vim.api.nvim_buf_get_name(0)
 			local config = extend_or_override({
 				cmd = opts.full_cmd(opts),
+				cmd_env = opts.cmd_env,
 				root_dir = opts.root_dir(fname),
 				init_options = {
 					bundles = bundles,

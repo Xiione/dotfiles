@@ -63,14 +63,13 @@ return {
 				fields = { "icon", "abbr", "menu" },
 				format = lspkind.cmp_format({
 					mode = "symbol",
-					preset = "default",
+					preset = "codicons",
 					maxwidth = {
 						menu = 50,
 						abbr = 50,
 					},
 					ellipsis_char = "...",
 					show_labelDetails = true,
-					symbol_map = require("user.lib.utils").lspkind_icons,
 				}),
 			},
 			sources = {
@@ -141,13 +140,12 @@ return {
 
 		local format_colon_cmdline_kind = lspkind.cmp_format({
 			mode = "symbol",
-			preset = "default",
+			preset = "codicons",
 			maxwidth = {
 				menu = 50,
 				abbr = 90,
 			},
 			ellipsis_char = "...",
-			symbol_map = require("user.lib.utils").lspkind_icons,
 		})
 
 		local function format_colon_cmdline_item(entry, vim_item)

@@ -15,11 +15,15 @@ local sidebars = require("user.lib.sidebars")
 local keymaps = require("user.cfg.keymaps")
 local mason_path = vim.fn.glob(vim.fn.stdpath("data")) .. "/mason"
 local mason_bin_path = mason_path .. "/bin"
+local debugpy_python = mason_path .. "/packages/debugpy/venv/bin/python"
+if vim.fn.executable(debugpy_python) ~= 1 then
+	debugpy_python = vim.fn.exepath("python3")
+end
 
 -- adapters
 dap.adapters.python = {
 	type = "executable",
-	command = "python3",
+	command = debugpy_python,
 	args = { "-m", "debugpy.adapter" },
 }
 

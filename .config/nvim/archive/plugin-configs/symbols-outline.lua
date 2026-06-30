@@ -5,7 +5,7 @@ end
 
 local sidebars = require("user.lib.sidebars")
 local utils = require("user.lib.utils")
-local kinds = utils.lspkind_icons
+local kinds = require("dropbar.configs").opts.icons.kinds.symbols
 
 outline.setup({
 	guides = {

@@ -105,7 +105,7 @@ local function open_repo_on_github(remote)
 	url = url:gsub("git:", "https://")
 	url = url:gsub("git@", "https://")
 	url = url:gsub("com:", "com/")
-	core.lua_system("open -u " .. url)
+	vim.ui.open(url)
 
 	utils.notify(string.format("[%s] -> %s", remote, url), "info", { title = "opening remote in browser" }, true)
 end

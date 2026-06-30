@@ -36,6 +36,7 @@ M.apply_sidebar = function(opts)
 	vim.opt_local.cursorline = opts.cursorline == true
 	vim.opt.cursorlineopt = opts.cursorline and "both" or "number"
 	vim.opt_local.statuscolumn = "%="
+	vim.opt_local.winbar = ""
 end
 
 M.make_winhighlight = M.sidebar_winhl

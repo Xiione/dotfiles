@@ -1,31 +1,4 @@
-local servers = {
-	"lua_ls",
-	"cssls",
-	"html",
-	"ts_ls",
-	"pyright",
-	"bashls",
-	"jsonls",
-	"yamlls",
-	"clangd",
-	"texlab",
-	-- "asm_lsp",
-	"marksman",
-	"neocmake",
-	"svelte",
-	-- "semgrep",
-	-- "sourcekit",
-	"glsl_analyzer",
-	"tailwindcss",
-	-- "denols",
-	-- "shellcheck"
-	-- "gopls",
-	-- "protols",
-	"kotlin_lsp",
-	-- "codeqlls",
-	"copilot",
-	"buf_ls",
-}
+local servers = require("user.cfg.tooling").lsp_servers
 require("mason").setup({
 	ui = {
 		border = "solid",

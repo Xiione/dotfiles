@@ -5,7 +5,7 @@ end
 
 local M = {}
 
-local figma_root = "/Users/hwang/figma/figma"
+local figma_root = vim.fs.joinpath(vim.env.HOME, "figma", "figma")
 local figma_web_root = figma_root .. "/web"
 local figma_viewer_root = figma_root .. "/viewer"
 

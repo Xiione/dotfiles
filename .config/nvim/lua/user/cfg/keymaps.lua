@@ -283,6 +283,17 @@ end, { desc = "Lint buffer with all configured linters" })
 
 -- Plugins
 
+-- Dropbar
+map("n", "<leader>;", function()
+	require("dropbar.api").pick()
+end, { desc = "Pick winbar symbol" })
+map("n", "[;", function()
+	require("dropbar.api").goto_context_start()
+end, { desc = "Go to context start" })
+map("n", "];", function()
+	require("dropbar.api").select_next_context()
+end, { desc = "Select next context" })
+
 -- NvimTree/NeoTree
 map("n", "<leader>e", function()
 	sidebars.toggle("nvimtree")

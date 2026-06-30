@@ -219,46 +219,6 @@ M.get_dap_executable = function()
 	return session_dap_executable
 end
 
-M.lspkind_icons = {
-	Array = "",
-	Boolean = "",
-	Class = "",
-	Component = "",
-	Color = "󰝤",
-	Constant = "",
-	Constructor = "",
-	Enum = "",
-	EnumMember = "",
-	Event = "",
-	Field = "",
-	File = "",
-	Folder = "",
-	Fragment = "󰊕",
-	Function = "󰊕",
-	Interface = "",
-	Key = "",
-	Keyword = "",
-	Method = "󰊕",
-	Module = "",
-	Namespace = "",
-	Null = "󰟢",
-	Number = "",
-	Object = "",
-	Operator = "",
-	Package = "󰅩",
-	Property = "",
-	Reference = "󰈇",
-	Snippet = "",
-	String = "",
-	Struct = "",
-	Supermaven = "",
-	Text = " ",
-	TypeParameter = "",
-	Unit = "󰑭",
-	Value = "",
-	Variable = "",
-}
-
 -- M.borderchars = { " ", "▕", " ", "▏", "▏", "▕", "▕", "▏" }
 -- M.borderchars = { " ", " ", " ", "▏", "▏", " ", " ", "▏" }
 M.borderchars = { " ", " ", " ", " ", " ", " ", " ", " " }
@@ -280,7 +240,7 @@ M.array_filter = function(a, filter)
 	local out = {}
 	for k, v in pairs(a) do
 		if filter(v, k, a) then
-		    table.insert(out, v)
+			table.insert(out, v)
 		end
 	end
 	return out

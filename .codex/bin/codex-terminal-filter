@@ -9,6 +9,7 @@ import shutil
 import signal
 import struct
 import sys
+import tempfile
 import termios
 import time
 import tty
@@ -17,7 +18,7 @@ import tty
 CURSOR_SHAPE_RE = re.compile(rb"(?:\x1b\[|\x9b)[0-9]* q")
 MAX_CURSOR_SHAPE_LEN = 12
 CAPTURE_OUTPUT = False
-CAPTURE_OUTPUT_PATH = "/private/tmp/codex-filter.log"
+CAPTURE_OUTPUT_PATH = os.path.join(tempfile.gettempdir(), "codex-filter.log")
 FORCE_CURSOR_SHAPE = True
 FORCED_CURSOR_SHAPE = b"\x1b[6 q"  # DECSCUSR: steady vertical bar
 

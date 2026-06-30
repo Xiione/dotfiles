@@ -16,7 +16,9 @@ vim.opt.splitright = true -- force all vertical splits to go to the right of cur
 vim.opt.swapfile = false -- creates a swapfile
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
 vim.opt.timeoutlen = 500 -- time to wait for a mapped sequence to complete (in milliseconds)
-vim.opt.undodir = vim.fn.expand("~/.vim/undodir")
+local undo_dir = vim.fn.expand("~/.vim/undodir")
+vim.fn.mkdir(undo_dir, "p")
+vim.opt.undodir = undo_dir
 vim.opt.undofile = true -- enable persistent undo
 vim.opt.updatetime = 50 -- faster completion (4000ms default)
 vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
@@ -27,7 +29,7 @@ vim.opt.cursorline = true -- highlight the current line
 vim.opt.cursorlineopt = "both"
 vim.opt.number = true -- set numbered lines
 vim.opt.laststatus = 3 -- only the last window will always have a status line
-vim.opt.statusline = "" -- barbecue and lualine take care of statusline
+vim.opt.statusline = "" -- dropbar and lualine take care of the winbar and statusline
 vim.opt.showcmd = true -- hide (partial) command in the last line of the screen (for performance)
 vim.opt.ruler = false -- hide the line and column number of the cursor position
 vim.opt.numberwidth = 4 -- minimal number of columns to use for the line number {default 4}
@@ -131,7 +133,9 @@ vim.g["undotree_TreeSplitShape"] = "╱"
 -- end
 
 local command = vim.api.nvim_create_user_command
-command("OP", "silent !open .", {})
+command("OP", function()
+	vim.ui.open(vim.fn.getcwd())
+end, {})
 command("Hitest", function()
 	vim.cmd("silent so " .. vim.fn.expand("$VIMRUNTIME/syntax/hitest.vim"))
 end, {})

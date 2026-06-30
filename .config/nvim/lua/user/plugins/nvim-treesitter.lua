@@ -4,67 +4,10 @@ return {
 	lazy = false,
 	build = ":TSUpdate",
 	config = function()
-		local ensure_installed = {
-			"asm",
-			"bash",
-			"bibtex",
-			"c",
-			"cmake",
-			"cpp",
-			"css",
-			"csv",
-			"d",
-			"diff",
-			"dockerfile",
-			"editorconfig",
-			"faust",
-			"fish",
-			"git_config",
-			"gitcommit",
-			"gitignore",
-			"glsl",
-			"go",
-			"gomod",
-			"html",
-			"ini",
-			"java",
-			"javascript",
-			"json",
-			"kotlin",
-			"lua",
-			"make",
-			"markdown",
-			"markdown_inline",
-			"matlab",
-			"objc",
-			"perl",
-			"python",
-			"ql",
-			"query",
-			"r",
-			"rescript",
-			"ruby",
-			"rust",
-			"scala",
-			"sql",
-			"ssh_config",
-			"starlark",
-			"strace",
-			"svelte",
-			"swift",
-			"tcl",
-			"toml",
-			"tsx",
-			"typescript",
-			"vim",
-			"vimdoc",
-			"xml",
-			"yaml",
-		}
-
-		vim.defer_fn(function()
-			require("nvim-treesitter").install(ensure_installed)
-		end, 1000)
-		require("nvim-treesitter").update()
+		if #vim.api.nvim_list_uis() > 0 then
+			vim.defer_fn(function()
+				require("nvim-treesitter").install(require("user.cfg.tooling").treesitter_parsers)
+			end, 1000)
+		end
 	end,
 }

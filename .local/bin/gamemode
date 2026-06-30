@@ -20,7 +20,7 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 while true; do
     while true; do
         echo -e "${BLUE}Select an option:${RED}"
-        echo -e "WARNING: Enabling Game mode for your process MAY or MAY NOT improve its overall performance.\nThus, keep this in mind while using this tool. In case you encounter "errors" after launching\nyour game or seems slower, restart your Mac.\n\nIf a process is already running in Game mode, please set first its priority number to 20. ${YELLOW}"
+        echo -e "WARNING: Enabling Game mode for your process MAY or MAY NOT improve its overall performance.\nThus, keep this in mind while using this tool. In case you encounter \"errors\" after launching\nyour game or seems slower, restart your Mac.\n\nIf a process is already running in Game mode, please set first its priority number to 20. ${YELLOW}"
         echo -e "[1] Revert Game mode default behavior"
         echo -e "[2] Force Game mode on and run it for a specific software"
         echo -e "[3] Exit"
@@ -32,7 +32,7 @@ while true; do
             echo -e "${RED}Invalid option. Please enter 1, 2, or 3.${NC}"
         fi
     done
-    
+
     if [[ $user_option -eq 1 ]]; then
         # Revert Game mode default behavior
         sudo /Applications/Xcode.app/Contents/Developer/usr/bin/gamepolicyctl game-mode set auto
@@ -41,7 +41,7 @@ while true; do
     elif [[ $user_option -eq 2 ]]; then
         # Force Game mode on
         sudo /Applications/Xcode.app/Contents/Developer/usr/bin/gamepolicyctl game-mode set on
-        
+
         # List all active window processes and allow the user to pick one to change its priority
         echo -e "${BLUE}Listing active window processes...${NC}"
         active_processes=$(osascript -e 'tell application "System Events" to get the name of every application process whose visible is true')
