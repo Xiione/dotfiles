@@ -15,10 +15,7 @@ return {
 			override = false,
 		},
 		document_color = {
-			enabled = true, -- can be toggled by commands
-			kind = "inline", -- "inline" | "foreground" | "background"
-			inline_symbol = "󰝤 ", -- only used in inline mode
-			debounce = 200, -- in milliseconds, only applied in insert mode
+			enabled = false,
 		},
 		conceal = {
 			enabled = false, -- can be toggled by commands
@@ -30,4 +27,10 @@ return {
 		},
 		custom_filetypes = {}, -- see the extension section to learn how it works
 	},
+	config = function(_, opts)
+		require("tailwind-tools").setup(opts)
+
+		-- The plugin requests colors on ColorScheme even when its renderer is disabled.
+		vim.api.nvim_clear_autocmds({ group = "tailwind_colors" })
+	end,
 }

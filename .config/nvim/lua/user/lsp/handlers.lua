@@ -51,6 +51,9 @@ M.setup = function()
 	}
 
 	vim.diagnostic.config(config)
+	vim.lsp.document_color.enable(true, nil, {
+		style = "󰝤 ",
+	})
 
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
