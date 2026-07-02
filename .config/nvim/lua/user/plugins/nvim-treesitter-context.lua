@@ -1,6 +1,15 @@
 return {
 	"nvim-treesitter/nvim-treesitter-context",
 	event = { "BufReadPost", "BufNewFile" },
+	keys = {
+		{
+			"[c",
+			function()
+				require("treesitter-context").go_to_context(vim.v.count1)
+			end,
+			desc = "Go to Treesitter context",
+		},
+	},
 	opts = {
 		enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
 		multiwindow = false, -- Enable multiwindow support.

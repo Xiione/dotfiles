@@ -4,7 +4,7 @@ return {
 	ft = { "scala", "sbt", "java" },
 	config = function()
 		local metals = require("metals")
-		local keymaps = require("user.cfg.keymaps")
+		local keymaps = require("user.lsp.keymaps")
 		local metals_config = metals.bare_config()
 		local local_projs = vim.fn.expand("~/code/cs352/projs")
 
@@ -17,7 +17,7 @@ return {
 		metals_config.root_patterns = {}
 		metals_config.on_attach = function(client, bufnr)
 			metals.setup_dap()
-			keymaps.lsp_keymaps(bufnr, client)
+			keymaps.setup(bufnr, client)
 		end
 	end,
 }

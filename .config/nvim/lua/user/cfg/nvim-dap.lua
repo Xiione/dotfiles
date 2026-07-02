@@ -12,7 +12,8 @@ end
 local core = require("user.lib.core")
 local utils = require("user.lib.utils")
 local sidebars = require("user.lib.sidebars")
-local keymaps = require("user.cfg.keymaps")
+local map = utils.map
+local unmap = utils.unmap
 local mason_path = vim.fn.glob(vim.fn.stdpath("data")) .. "/mason"
 local mason_bin_path = mason_path .. "/bin"
 local debugpy_python = mason_path .. "/packages/debugpy/venv/bin/python"
@@ -155,13 +156,83 @@ dapui.setup({
 	},
 })
 
+local session_keys = {
+	"<M-1>",
+	"<M-S-q>",
+	"<M-2>",
+	"<M-S-w>",
+	"<M-3>",
+	"<M-4>",
+}
+local original_hover_map
+local has_session_maps = false
+
+local function find_global_map(mode, lhs)
+	for _, mapping in ipairs(vim.api.nvim_get_keymap(mode)) do
+		if mapping.lhs == lhs then
+			return mapping
+		end
+	end
+end
+
+local function restore_global_map(mode, lhs, mapping)
+	if mapping == nil then
+		return
+	end
+
+	local rhs = mapping.callback or mapping.rhs
+	if rhs == nil then
+		return
+	end
+
+	vim.keymap.set(mode, lhs, rhs, {
+		desc = mapping.desc,
+		expr = mapping.expr == 1,
+		nowait = mapping.nowait == 1,
+		remap = mapping.noremap == 0,
+		silent = mapping.silent == 1,
+	})
+end
+
+local function setup_session_maps()
+	if has_session_maps then
+		return
+	end
+
+	has_session_maps = true
+	original_hover_map = find_global_map("n", "K")
+	unmap("n", "K")
+	map({ "n", "v" }, "K", dapui.eval, { silent = true, desc = "Evaluate expression" })
+	map("n", "<M-1>", dap.continue, { desc = "Continue debugging" })
+	map("n", "<M-S-q>", dap.run_to_cursor, { desc = "Run to cursor" })
+	map("n", "<M-2>", dap.step_over, { desc = "Step over" })
+	map("n", "<M-S-w>", dap.step_into, { desc = "Step into" })
+	map("n", "<M-3>", dap.terminate, { desc = "Terminate debugging" })
+	map("n", "<M-4>", dap.run_last, { desc = "Run last debug configuration" })
+end
+
+local function remove_session_maps()
+	if not has_session_maps then
+		return
+	end
+
+	has_session_maps = false
+	unmap({ "n", "v" }, "K")
+	restore_global_map("n", "K", original_hover_map)
+	original_hover_map = nil
+
+	for _, lhs in ipairs(session_keys) do
+		unmap("n", lhs)
+	end
+end
+
 local function start_session()
-	keymaps.setup_dap_maps()
+	setup_session_maps()
 	sidebars.open("dapui")
 end
 
 local function terminate_session()
-	keymaps.remove_dap_maps()
+	remove_session_maps()
 end
 
 -- dap events

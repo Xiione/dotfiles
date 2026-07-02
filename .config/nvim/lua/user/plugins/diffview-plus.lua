@@ -76,6 +76,22 @@ end
 
 return {
 	"dlyongemallo/diffview-plus.nvim",
+	keys = {
+		{
+			"<leader>rr",
+			function()
+				require("user.lib.sidebars").toggle("diffview")
+			end,
+			desc = "Toggle Diffview",
+		},
+		{
+			"<leader>rh",
+			function()
+				require("user.lib.sidebars").toggle("diffview_history")
+			end,
+			desc = "Toggle Diffview history",
+		},
+	},
 	cmd = {
 		"DiffviewOpen",
 		"DiffviewToggle",

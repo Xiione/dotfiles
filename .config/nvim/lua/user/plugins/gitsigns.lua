@@ -4,6 +4,9 @@ return {
 	"lewis6991/gitsigns.nvim",
 	event = "VeryLazy",
 	cmd = "Gitsigns",
+	keys = {
+		{ "<leader>gs", "<Cmd>Gitsigns toggle_signs<CR>", desc = "Toggle Git signs" },
+	},
 	opts = {
 		signs = {
 			add = { text = "▎" },

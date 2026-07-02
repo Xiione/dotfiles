@@ -28,6 +28,16 @@ end
 
 return {
 	"nvim-tree/nvim-tree.lua",
+	lazy = false,
+	keys = {
+		{
+			"<leader>e",
+			function()
+				require("user.lib.sidebars").toggle("nvimtree")
+			end,
+			desc = "Toggle file tree",
+		},
+	},
 	opts = {
 		disable_netrw = true,
 		update_focused_file = {

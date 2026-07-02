@@ -215,13 +215,13 @@ M.sidebar_functions = {
 		exclusive = false,
 		is_right_side = true,
 		toggle = function()
-			require("sidekick.cli").toggle()
+			require("sidekick.cli").toggle("codex")
 		end,
 		open = function()
-			require("sidekick.cli").show()
+			require("sidekick.cli").show("codex")
 		end,
 		close = function()
-			require("sidekick.cli").hide()
+			require("sidekick.cli").hide("codex")
 		end,
 	},
 }

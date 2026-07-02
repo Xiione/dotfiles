@@ -1,5 +1,5 @@
 local utils = require("user.lib.utils")
-local keymaps = require("user.cfg.keymaps")
+local keymaps = require("user.lsp.keymaps")
 local M = {}
 
 local caps_initialized = false
@@ -63,7 +63,7 @@ M.setup = function()
 				return
 			end
 
-			keymaps.lsp_keymaps(ctx.buf, client)
+			keymaps.setup(ctx.buf, client)
 		end,
 	})
 end

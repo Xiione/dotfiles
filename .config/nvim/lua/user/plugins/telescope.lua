@@ -1,5 +1,66 @@
 return {
 	"nvim-telescope/telescope.nvim",
+	lazy = false,
+	keys = {
+		{
+			"<leader>ff",
+			function()
+				if require("remote-sshfs.connections").is_connected() then
+					require("remote-sshfs.api").find_files()
+				else
+					require("telescope.builtin").find_files()
+				end
+			end,
+			desc = "Find files",
+		},
+		{
+			"<leader>ft",
+			function()
+				if require("remote-sshfs.connections").is_connected() then
+					require("remote-sshfs.api").live_grep()
+				else
+					require("telescope.builtin").live_grep()
+				end
+			end,
+			desc = "Live grep",
+		},
+		{
+			"<leader>fT",
+			function()
+				require("telescope.builtin").current_buffer_fuzzy_find()
+			end,
+			desc = "Fuzzy find in buffer",
+		},
+		{ "<leader>fp", "<Cmd>Telescope<CR>", desc = "Open Telescope pickers" },
+		{
+			"<leader>fr",
+			function()
+				require("telescope.builtin").oldfiles()
+			end,
+			desc = "Find recent files",
+		},
+		{
+			"<leader>fw",
+			function()
+				require("telescope").extensions.worktrees.list_worktrees()
+			end,
+			desc = "Find Git worktrees",
+		},
+		{
+			"<leader>o",
+			function()
+				require("telescope.builtin").lsp_document_symbols()
+			end,
+			desc = "Find document symbols",
+		},
+		{
+			"<leader>O",
+			function()
+				require("telescope.builtin").lsp_workspace_symbols({ initial_mode = "normal" })
+			end,
+			desc = "Find workspace symbols",
+		},
+	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
@@ -93,7 +154,7 @@ return {
 					layout_strategy = "center",
 					layout_config = {
 						width = 0.5,
-						prompt_position = "bottom"
+						prompt_position = "bottom",
 					},
 				},
 				live_grep = {

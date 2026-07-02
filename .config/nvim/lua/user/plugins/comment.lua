@@ -1,5 +1,26 @@
 return {
 	"numToStr/Comment.nvim",
+	lazy = false,
+	keys = {
+		{
+			"<leader>/",
+			"<Cmd>lua require('Comment.api').toggle.linewise.current()<CR>",
+			desc = "Toggle line comment",
+			silent = true,
+		},
+		{
+			"<leader>/",
+			'<Esc><Cmd>lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>',
+			mode = "x",
+			desc = "Toggle line comment",
+		},
+		{
+			"<leader>?",
+			'<Esc><Cmd>lua require("Comment.api").toggle.blockwise(vim.fn.visualmode())<CR>',
+			mode = "x",
+			desc = "Toggle block comment",
+		},
+	},
 	opts = {
 		pre_hook = function(ctx)
 			-- Only calculate commentstring for tsx filetypes
