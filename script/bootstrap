@@ -1,0 +1,59 @@
+#!/bin/bash
+set -euo pipefail
+
+REPOSITORY_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+BREWFILE="$REPOSITORY_ROOT/Brewfile"
+LOCAL_BREWFILE="$REPOSITORY_ROOT/Brewfile.local"
+
+log() {
+  printf '[dotfiles] %s\n' "$*"
+}
+
+install_bundle() {
+  local brewfile="$1"
+  if HOMEBREW_BUNDLE_NO_UPGRADE=1 brew bundle check --file="$brewfile"; then
+    return 0
+  fi
+
+  brew bundle install --no-upgrade --file="$brewfile"
+}
+
+if (($# > 0)); then
+  printf 'Usage: %s\n' "$0" >&2
+  exit 2
+fi
+
+if [[ "$(uname -s)" != "Darwin" ]]; then
+  printf 'This bootstrap script supports macOS only.\n' >&2
+  exit 1
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  printf 'Homebrew is required; install it from https://brew.sh first.\n' >&2
+  exit 1
+fi
+
+if brew list --formula --full-name | grep -qx 'jackielii/tap/skhd-zig'; then
+  printf '%s\n' \
+    'The legacy skhd-zig formula is installed, but its tap now ships a cask.' \
+    'Run: brew uninstall --formula jackielii/tap/skhd-zig' \
+    'Then rerun bootstrap.' >&2
+  exit 1
+fi
+
+log "Checking tracked Homebrew dependencies..."
+install_bundle "$BREWFILE"
+
+if [[ -f "$LOCAL_BREWFILE" ]]; then
+  log "Checking local Homebrew dependencies..."
+  install_bundle "$LOCAL_BREWFILE"
+fi
+
+command -v stow >/dev/null 2>&1 || {
+  printf 'GNU Stow was not installed by the Homebrew bundle.\n' >&2
+  exit 1
+}
+
+log "Linking dotfiles into $HOME..."
+stow --dir="$REPOSITORY_ROOT" --target="$HOME" .
+log "Bootstrap complete."

@@ -4,6 +4,9 @@
 \.gitignore$
 ^\.stow-local-ignore$
 ^README\.md$
+^Brewfile$
+^Brewfile\.local$
+^script$
 ^LICENSE$
 ^COPYING$
 

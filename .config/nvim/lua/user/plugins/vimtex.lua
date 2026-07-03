@@ -4,7 +4,7 @@ return {
 	init = function()
 		vim.g.vimtex_mappings_prefix = "t"
 		vim.g.vimtex_quickfix_open_on_warning = 0
-		if vim.fn.has("mac") == 1 then
+		if vim.fn.has("mac") == 1 and vim.fn.executable("sioyek") == 1 then
 			vim.g.vimtex_view_method = "sioyek"
 		elseif vim.fn.executable("zathura") == 1 then
 			vim.g.vimtex_view_method = "zathura"

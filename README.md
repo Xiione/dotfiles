@@ -23,10 +23,56 @@ My MacOS configuration files.
 Best effort to use [Nord](https://www.nordtheme.com/) wherever possible
 
 ### Installation
-1. `brew tap FelixKratz/formulae`
-2. `brew install stow coreutils fish neovim jq ripgrep fd fzf sketchybar lua lazygit zoxide gh switchaudio-osx`
-3. Install `oh-my-fish` and `bobthefish` and `nord` theme
-3. Clone this repository to your home directory
-4. `cd dotfiles` (this repository)
-5. `stow .`
-6. All done!
+
+1. Install [Homebrew](https://brew.sh/).
+2. Clone this repository and run the bootstrap script:
+
+   ```bash
+   git clone https://github.com/Xiione/dotfiles.git ~/dotfiles
+   cd ~/dotfiles
+   ./script/bootstrap
+   ```
+
+3. Install [Oh My Fish](https://github.com/oh-my-fish/oh-my-fish),
+   `bobthefish`, and the Nord theme.
+
+The bootstrap installs missing dependencies from `Brewfile` with
+`--no-upgrade`, never removes unlisted Homebrew software, and then links the
+configuration with GNU Stow. It also installs `Brewfile.local` when that
+ignored file exists.
+
+Sioyek remains the preferred VimTeX viewer when installed, but its Homebrew
+cask is deprecated and scheduled to be disabled on September 1, 2026. Install
+it manually from [upstream](https://sioyek.info/) if desired. Without Sioyek,
+VimTeX falls back to Zathura when available and otherwise disables external
+PDF viewing.
+
+### Homebrew maintenance
+
+Check or explicitly upgrade the tracked dependencies with:
+
+```bash
+HOMEBREW_BUNDLE_NO_UPGRADE=1 brew bundle check --file Brewfile
+brew bundle upgrade --file Brewfile
+```
+
+Put work-specific or machine-specific `brew`, `cask`, and `tap` entries in the
+ignored `Brewfile.local`; the bootstrap discovers it automatically. Upgrade it
+separately when desired:
+
+```bash
+brew bundle upgrade --file Brewfile.local
+```
+
+The `skhd-zig` tap recently migrated from a formula to a cask. If bootstrap
+detects the legacy formula, perform the tap's documented one-time migration and
+rerun it:
+
+```bash
+brew uninstall --formula jackielii/tap/skhd-zig
+./script/bootstrap
+```
+
+The tracked Brewfile is intentionally curated rather than a full machine dump.
+Do not use `brew bundle cleanup --force` unless removing every unlisted package
+is intentional.
