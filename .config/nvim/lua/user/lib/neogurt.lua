@@ -31,7 +31,7 @@ local function git_session_name(path)
 	local dir = prefix and prefix:gsub("/$", "") or ""
 	local label = dir == "" and "." or utils.last_path_parts(dir, 2)
 
-	return ("%s:%s %s"):format(repo, branch, label)
+	return ("%s - %s %s"):format(repo, branch, label)
 end
 
 M.session_name = function(path)
