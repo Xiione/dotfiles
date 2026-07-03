@@ -29,6 +29,10 @@ begin
         "$PYENV_ROOT/bin"
 
     if test "$host_os" = Darwin
+        if set -q HOMEBREW_PREFIX
+            set -a configured_paths "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin"
+        end
+
         set -a configured_paths \
             /opt/homebrew/bin \
             /opt/homebrew/sbin \
