@@ -1,3 +1,18 @@
+local function load_remote_if_connected()
+	local connections_ok, connections = pcall(require, "remote-sshfs.connections")
+	if not connections_ok then
+		return nil
+	end
+
+	local status_ok, is_connected = pcall(connections.is_connected)
+	if not status_ok or not is_connected then
+		return nil
+	end
+
+	local api_ok, api = pcall(require, "remote-sshfs.api")
+	return api_ok and api or nil
+end
+
 return {
 	"nvim-telescope/telescope.nvim",
 	lazy = false,
@@ -5,8 +20,9 @@ return {
 		{
 			"<leader>ff",
 			function()
-				if require("remote-sshfs.connections").is_connected() then
-					require("remote-sshfs.api").find_files()
+				local remote = load_remote_if_connected()
+				if remote then
+					remote.find_files()
 				else
 					require("telescope.builtin").find_files()
 				end
@@ -16,8 +32,9 @@ return {
 		{
 			"<leader>ft",
 			function()
-				if require("remote-sshfs.connections").is_connected() then
-					require("remote-sshfs.api").live_grep()
+				local remote = load_remote_if_connected()
+				if remote then
+					remote.live_grep()
 				else
 					require("telescope.builtin").live_grep()
 				end
@@ -184,7 +201,7 @@ return {
 		telescope.setup(opts)
 		telescope.load_extension("ui-select")
 		telescope.load_extension("fzf")
-		telescope.load_extension("remote-sshfs")
+		pcall(telescope.load_extension, "remote-sshfs")
 		telescope.load_extension("worktrees")
 	end,
 }

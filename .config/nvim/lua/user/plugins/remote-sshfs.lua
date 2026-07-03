@@ -1,5 +1,6 @@
 return {
 	"nosduco/remote-sshfs.nvim",
+	enabled = false,
 	keys = {
 		{
 			"<leader>rc",
