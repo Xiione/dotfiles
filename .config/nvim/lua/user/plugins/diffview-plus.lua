@@ -1,3 +1,5 @@
+local icons = require("user.cfg.icons")
+
 local function apply_diffview_highlights()
 	local colors = require("user.cfg.colors")
 
@@ -19,6 +21,11 @@ local function apply_diffview_highlights()
 		bg = colors.diff.cursorline_bg,
 		sp = "NONE",
 	})
+end
+
+local function open_file_history_options()
+	-- Wrapping the action keeps the mapping without rendering Diffview's persistent hint row.
+	require("diffview.config").actions.options()
 end
 
 local function set_window_highlight(winid, value)
@@ -74,17 +81,68 @@ local function disable_indent_guides(bufnr)
 	end
 end
 
-local function use_full_filename_icons()
+local function use_basename_file_icons()
 	local highlights = require("diffview.hl")
-	if rawget(highlights, "_user_full_filename_icons") then
+	if not rawget(highlights, "_user_full_filename_icons") then
+		local get_file_icon = highlights.get_file_icon
+		highlights.get_file_icon = function(name, _, ...)
+			return get_file_icon(name, nil, ...)
+		end
+		rawset(highlights, "_user_full_filename_icons", true)
+	end
+
+	-- File-history rows hardcode the icon before the parent path.
+	local component = require("diffview.renderer").RenderComponent
+	if rawget(component, "_user_basename_file_icons") then
 		return
 	end
 
-	local get_file_icon = highlights.get_file_icon
-	highlights.get_file_icon = function(name, _, ...)
-		return get_file_icon(name, nil, ...)
+	local add_text = component.add_text
+	component.add_text = function(self, text, highlight, ...)
+		local pending_icon = rawget(self, "_user_pending_file_icon")
+
+		if text ~= "" and highlight and highlight:match("^DevIcon") then
+			rawset(self, "_user_pending_file_icon", { text, highlight })
+			return
+		end
+
+		if pending_icon and highlight ~= "DiffviewFilePanelPath" then
+			add_text(self, pending_icon[1], pending_icon[2])
+			rawset(self, "_user_pending_file_icon", nil)
+		end
+
+		return add_text(self, text, highlight, ...)
 	end
-	rawset(highlights, "_user_full_filename_icons", true)
+	rawset(component, "_user_basename_file_icons", true)
+end
+
+local function use_stat_glyphs()
+	-- Diffview does not expose its stat prefixes or separators as configuration.
+	local renderer = require("diffview.renderer")
+	local component = renderer.RenderComponent
+	if rawget(component, "_user_stat_glyphs") then
+		return
+	end
+
+	local add_text = component.add_text
+	component.add_text = function(self, text, highlight, ...)
+		if highlight == "DiffviewNonText" then
+			if text == " | " then
+				text = " │ "
+			elseif text == " |" then
+				text = " │"
+			end
+		elseif text:match("^%d+$") then
+			if highlight == "DiffviewFilePanelInsertions" then
+				text = "+" .. text
+			elseif highlight == "DiffviewFilePanelDeletions" then
+				text = "-" .. text
+			end
+		end
+
+		return add_text(self, text, highlight, ...)
+	end
+	rawset(component, "_user_stat_glyphs", true)
 end
 
 return {
@@ -115,10 +173,38 @@ return {
 	},
 	opts = {
 		enhanced_diff_hl = true,
+		show_help_hints = false,
 		use_icons = true,
+		status_icons = {
+			["A"] = icons.git.added,
+			["?"] = icons.git.untracked,
+			["M"] = icons.git.unstaged,
+			["R"] = icons.git.renamed,
+			["C"] = icons.git.copied,
+			["T"] = icons.git.type_changed,
+			["U"] = icons.git.unmerged,
+			["X"] = icons.diagnostic.error,
+			["D"] = icons.git.deleted,
+			["B"] = icons.diagnostic.error,
+			["!"] = icons.git.ignored,
+		},
+		signs = {
+			fold_closed = icons.ui.collapsed,
+			fold_open = icons.ui.expanded,
+			done = icons.status.success,
+		},
 		file_panel = {
 			win_config = {
 				width = 45,
+			},
+		},
+		file_history_panel = {
+			stat_style = "bar",
+			subject_highlight = "merge_aware",
+		},
+		keymaps = {
+			file_history_panel = {
+				{ "n", "g!", open_file_history_options, { desc = "Open option panel" } },
 			},
 		},
 		hooks = {
@@ -135,7 +221,8 @@ return {
 	},
 	config = function(_, opts)
 		require("diffview").setup(opts)
-		use_full_filename_icons()
+		use_basename_file_icons()
+		use_stat_glyphs()
 		apply_diffview_highlights()
 	end,
 }
