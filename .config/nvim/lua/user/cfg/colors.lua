@@ -73,4 +73,8 @@ palette.diff = {
 	filler_fg = overlay(palette.nord11, palette.nord16, 0.45),
 }
 
+palette.debug = {
+	stopped_bg = overlay(palette.nord13, palette.nord16, 0.12),
+}
+
 return palette

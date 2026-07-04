@@ -12,6 +12,7 @@ end
 local core = require("user.lib.core")
 local utils = require("user.lib.utils")
 local sidebars = require("user.lib.sidebars")
+local icons = require("user.cfg.icons")
 local map = utils.map
 local unmap = utils.unmap
 local mason_path = vim.fn.glob(vim.fn.stdpath("data")) .. "/mason"
@@ -246,19 +247,25 @@ dap.listeners.before.event_exited["dapui"] = terminate_session
 dap.defaults.fallback.focus_terminal = true
 
 -- signs
-vim.fn.sign_define(
-	"DapStopped",
-	{ text = "", texthl = "DapBreakpointSign", linehl = "DapBreakpointSign", numhl = "" }
-)
+vim.fn.sign_define("DapStopped", {
+	text = icons.debug.current_frame,
+	texthl = "DapStoppedSign",
+	linehl = "DapStoppedLine",
+	numhl = "DapStoppedSign",
+})
 vim.fn.sign_define(
 	"DapBreakpoint",
-	{ text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DapBreakpointSign" }
+	{ text = icons.debug.breakpoint, texthl = "DapBreakpointSign", linehl = "", numhl = "DapBreakpointSign" }
 )
-vim.fn.sign_define(
-	"DapBreakpointRejected",
-	{ text = "", texthl = "DiagnosticWarning", linehl = "", numhl = "DiagnosticWarning" }
-)
-vim.fn.sign_define(
-	"DapBreakpointCondition",
-	{ text = "", texthl = "DapBreakpointSign", linehl = "", numhl = "DapBreakpointSign" }
-)
+vim.fn.sign_define("DapBreakpointRejected", {
+	text = icons.debug.breakpoint_rejected,
+	texthl = "DapBreakpointRejectedSign",
+	linehl = "",
+	numhl = "DapBreakpointRejectedSign",
+})
+vim.fn.sign_define("DapBreakpointCondition", {
+	text = icons.debug.breakpoint_conditional,
+	texthl = "DapBreakpointConditionSign",
+	linehl = "",
+	numhl = "DapBreakpointConditionSign",
+})

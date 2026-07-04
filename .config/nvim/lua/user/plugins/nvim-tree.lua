@@ -1,4 +1,5 @@
 local utils = require("user.lib.utils")
+local icons = require("user.cfg.icons")
 
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#sorting-files-naturally-respecting-numbers-within-files-names
 local function natural_cmp(left, right)
@@ -87,13 +88,13 @@ return {
 						symlink_open = "",
 					},
 					git = {
-						unstaged = "󰄱",
-						staged = "󰡖",
-						unmerged = "",
-						renamed = "󰏫",
-						untracked = "",
-						deleted = "D",
-						ignored = "󰛑",
+						unstaged = icons.git.unstaged,
+						staged = icons.git.staged,
+						unmerged = icons.git.unmerged,
+						renamed = icons.git.renamed,
+						untracked = icons.git.untracked,
+						deleted = icons.git.deleted,
+						ignored = icons.git.ignored,
 					},
 				},
 			},
@@ -123,10 +124,10 @@ return {
 			enable = true,
 			show_on_dirs = false,
 			icons = {
-				hint = "",
-				info = "",
-				warning = "",
-				error = "",
+				hint = icons.diagnostic.hint,
+				info = icons.diagnostic.info,
+				warning = icons.diagnostic.warn,
+				error = icons.diagnostic.error,
 			},
 		},
 		on_attach = function(bufnr)

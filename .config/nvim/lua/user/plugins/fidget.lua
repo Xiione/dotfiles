@@ -1,10 +1,12 @@
+local icons = require("user.cfg.icons")
+
 return {
 	"j-hui/fidget.nvim",
 	event = "VeryLazy",
 	opts = {
 		progress = {
 			display = {
-				done_icon = "󰄬",
+				done_icon = icons.status.success,
 			},
 		},
 		notification = {

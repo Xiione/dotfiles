@@ -1,5 +1,6 @@
 local map = vim.keymap.set
 local sidebars = require("user.lib.sidebars")
+local icons = require("user.cfg.icons")
 
 local M = {}
 local lazygit_term
@@ -96,7 +97,7 @@ M.spawn_cmd = function(cmd, on_success)
 			local height = math.floor(vim.o.lines * 0.4)
 			vim.cmd("botright copen " .. height)
 		else
-			print(string.format("󰄬 Exited with code %d", exit_code))
+			print(string.format("%s Exited with code %d", icons.status.success, exit_code))
 			if on_success then
 				on_success()
 			end

@@ -1,5 +1,6 @@
 local utils = require("user.lib.utils")
 local keymaps = require("user.lsp.keymaps")
+local icons = require("user.cfg.icons")
 local M = {}
 
 local caps_initialized = false
@@ -25,16 +26,10 @@ M.setup = function()
 		virtual_text = false, -- enable virtual text
 		signs = {
 			text = {
-				[vim.diagnostic.severity.ERROR] = "",
-				[vim.diagnostic.severity.WARN] = "",
-				[vim.diagnostic.severity.HINT] = "",
-				[vim.diagnostic.severity.INFO] = "",
-			},
-			texthl = {
-				[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-				[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-				[vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-				[vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+				[vim.diagnostic.severity.ERROR] = icons.diagnostic.error,
+				[vim.diagnostic.severity.WARN] = icons.diagnostic.warn,
+				[vim.diagnostic.severity.INFO] = icons.diagnostic.info,
+				[vim.diagnostic.severity.HINT] = icons.diagnostic.hint,
 			},
 		},
 		update_in_insert = false,

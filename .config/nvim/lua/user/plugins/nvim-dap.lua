@@ -26,7 +26,8 @@ return {
 		{
 			"<M-S-b>",
 			function()
-				local condition = vim.fn.input(" Breakpoint condition: ")
+				local icon = require("user.cfg.icons").debug.breakpoint_conditional
+				local condition = vim.fn.input(icon .. " Breakpoint condition: ")
 				if condition then
 					require("dap").toggle_breakpoint(condition)
 				end

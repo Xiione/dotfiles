@@ -1,10 +1,12 @@
 return {
 	"nvim-lualine/lualine.nvim",
 	event = "VeryLazy",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	-- dependencies = { "AndreM222/copilot-lualine" },
 	opts = function()
 		local sidebars = require("user.lib.sidebars")
 		local colors = require("user.cfg.colors")
+		local icons = require("user.cfg.icons")
 		local nord = require("lualine.themes.nord")
 		local mode_colors = {
 			normal = colors.nord4,
@@ -36,7 +38,7 @@ return {
 			"diagnostics",
 			sources = { "nvim_diagnostic" },
 			sections = { "error", "warn" },
-			symbols = { error = " ", warn = " " },
+			symbols = { error = icons.diagnostic.error .. " ", warn = icons.diagnostic.warn .. " " },
 			colored = false,
 			always_visible = true,
 		}

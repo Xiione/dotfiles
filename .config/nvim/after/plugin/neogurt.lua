@@ -7,6 +7,7 @@ local utils = require("user.lib.utils")
 local map = utils.map
 local neogurt = require("user.lib.neogurt")
 local colors = require("user.cfg.colors")
+local icons = require("user.cfg.icons")
 
 local silent = { silent = true }
 local remap = { remap = true }
@@ -66,9 +67,9 @@ local choose_session = function(startup)
 		format_item = function(session)
 			if session.id ~= nil then
 				if session.id == curr_id then
-					return " " .. session.name
+					return icons.status.current_session .. " " .. session.name
 				else
-					return " " .. session.name
+					return icons.status.available_session .. " " .. session.name
 				end
 			else
 				return session.dir
