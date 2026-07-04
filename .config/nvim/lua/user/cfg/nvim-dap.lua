@@ -101,7 +101,11 @@ dap.repl.commands = vim.tbl_extend("force", dap.repl.commands, {
 
 -- dapui setup
 dapui.setup({
-	icons = { expanded = "", collapsed = "", circular = "", current_frame = "" },
+	icons = {
+		expanded = icons.ui.expanded,
+		collapsed = icons.ui.collapsed,
+		current_frame = icons.debug.current_frame,
+	},
 	mappings = {
 		expand = "l",
 		open = { "<CR>", "o", "<2-LeftMouse>" },

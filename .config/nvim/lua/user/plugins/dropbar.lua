@@ -1,44 +1,52 @@
 local sidebars = require("user.lib.sidebars")
 local colors = require("user.cfg.colors")
+local icons = require("user.cfg.icons")
 
-local file_icon_highlights = {}
+local winbar_highlights = {}
 
 local function set_background(name, source)
-	local highlight = vim.api.nvim_get_hl(0, { name = source or name, link = false })
+	local highlight = {}
+	if source and vim.fn.hlexists(source) == 1 then
+		highlight = vim.api.nvim_get_hl(0, { name = source, link = false })
+	end
 	highlight.bg = colors.nord18
 	vim.api.nvim_set_hl(0, name, highlight)
 end
 
-local function file_icon_highlight(source)
-	if source == nil or source:match("^DropBar") then
+local function get_winbar_highlight(source)
+	if source == nil or source == "" then
+		return source
+	end
+	if source == "DropBarIconUIPickPivot" then
 		return source
 	end
 
-	local name = file_icon_highlights[source]
+	local name = winbar_highlights[source]
 	if name == nil then
-		name = "DropBar" .. source:gsub("[^%w]", "")
-		file_icon_highlights[source] = name
+		name = "DropBarWinBar" .. source:gsub("[^%w]", "")
+		winbar_highlights[source] = name
 	end
 
 	set_background(name, source)
 	return name
 end
 
-local function apply_dropbar_background()
+local function clear_background(name)
+	local highlight = vim.api.nvim_get_hl(0, { name = name, link = false })
+	highlight.bg = nil
+	vim.api.nvim_set_hl(0, name, highlight)
+end
+
+local function apply_dropbar_highlights()
 	for name in pairs(vim.api.nvim_get_hl(0, {})) do
-		local is_bar_highlight = not name:match("NC$")
-			and (
-				name:match("^DropBarIconKind")
-				or name:match("^DropBarKind")
-				or name == "DropBarIconUIPickPivot"
-				or name == "DropBarIconUISeparator"
-			)
-		if is_bar_highlight then
-			set_background(name)
+		local is_shared_symbol = not name:match("NC$")
+			and (name:match("^DropBarIconKind") or name:match("^DropBarKind") or name:match("^DropBarDevIcon"))
+		if is_shared_symbol then
+			clear_background(name)
 		end
 	end
 
-	for source, name in pairs(file_icon_highlights) do
+	for source, name in pairs(winbar_highlights) do
 		set_background(name, source)
 	end
 end
@@ -47,16 +55,18 @@ local function escape_statusline(text)
 	return text:gsub("%%", "%%%%")
 end
 
-local function render_modified_symbol(symbol, plain)
-	local marker = " [+]"
+local function render_bar_symbol(symbol, plain)
+	local marker = symbol.is_modified and " [+]" or ""
 	if plain then
 		return symbol.icon .. symbol.name .. marker
 	end
 
 	local bar_utils = require("dropbar.utils").bar
-	local rendered = bar_utils.hl(escape_statusline(symbol.icon), symbol.icon_hl)
-		.. bar_utils.hl(escape_statusline(symbol.name), symbol.name_hl)
-		.. bar_utils.hl(marker, "DropBarModified")
+	local rendered = bar_utils.hl(escape_statusline(symbol.icon), get_winbar_highlight(symbol.icon_hl))
+		.. bar_utils.hl(escape_statusline(symbol.name), get_winbar_highlight(symbol.name_hl))
+	if marker ~= "" then
+		rendered = rendered .. bar_utils.hl(marker, "DropBarModified")
+	end
 
 	if symbol.on_click and symbol.bar_idx then
 		return bar_utils.make_clickable(
@@ -68,8 +78,27 @@ local function render_modified_symbol(symbol, plain)
 	return rendered
 end
 
-local function add_modified_marker(symbol)
-	return symbol:merge({ cat = render_modified_symbol })
+local function merge_symbol(symbol, opts)
+	local merged = symbol:merge(opts)
+	-- Dropbar's click handler reads sibling and child state from the original options.
+	merged.opts = symbol.opts
+	return merged
+end
+
+local function mark_modified(symbol)
+	return merge_symbol(symbol, { is_modified = true })
+end
+
+local function decorate_symbol(symbol)
+	return merge_symbol(symbol, { cat = render_bar_symbol })
+end
+
+local function decorate_source(source)
+	return {
+		get_symbols = function(...)
+			return vim.tbl_map(decorate_symbol, source.get_symbols(...))
+		end,
+	}
 end
 
 local function enable_bar(bufnr, winid)
@@ -126,7 +155,20 @@ return {
 		local configs = require("dropbar.configs")
 		local sources = require("dropbar.sources")
 		local source_utils = require("dropbar.utils").source
-		local default_file_icon = configs.opts.icons.kinds.file_icon
+		local devicons = require("nvim-web-devicons")
+		local kind_symbols = {}
+		for kind, icon in pairs(icons.lsp_kind) do
+			kind_symbols[kind] = icon .. " "
+		end
+
+		local function resolve_file_icon(path)
+			local icon, highlight = devicons.get_icon(vim.fs.basename(path), nil, { default = true })
+			if icon == nil then
+				return icons.lsp_kind.File .. " ", "DropBarIconKindFile"
+			end
+
+			return icon .. " ", highlight
+		end
 
 		local buffer_label = {
 			get_symbols = function(bufnr, winid, cursor)
@@ -162,7 +204,7 @@ return {
 					on_click = false,
 				})
 
-				return { vim.bo[bufnr].modified and add_modified_marker(symbol) or symbol }
+				return { vim.bo[bufnr].modified and mark_modified(symbol) or symbol }
 			end,
 		}
 
@@ -172,36 +214,37 @@ return {
 				hover = false,
 				sources = function(bufnr)
 					if vim.bo[bufnr].buftype == "terminal" then
-						return { sources.terminal }
+						return { decorate_source(sources.terminal) }
 					end
 
 					local context = vim.bo[bufnr].filetype == "markdown" and sources.markdown
 						or source_utils.fallback({ sources.lsp, sources.treesitter })
-					return { buffer_label, context }
+					return { decorate_source(buffer_label), decorate_source(context) }
 				end,
 			},
 			icons = {
 				kinds = {
-					file_icon = function(path)
-						local icon, highlight = configs.eval(default_file_icon, path)
-						return icon, file_icon_highlight(highlight)
-					end,
+					file_icon = resolve_file_icon,
+					symbols = kind_symbols,
 				},
 				ui = {
 					bar = {
 						extends = "",
-						separator = "  ",
+						separator = " " .. icons.ui.collapsed .. " ",
 					},
 				},
 			},
 			menu = {
 				hover = false,
+				win_configs = {
+					border = "none",
+				},
 			},
 			sources = {
 				path = {
 					max_depth = 1,
 					modified = function(symbol)
-						return symbol and add_modified_marker(symbol) or nil
+						return symbol and mark_modified(symbol) or nil
 					end,
 				},
 				lsp = {
@@ -218,11 +261,11 @@ return {
 	end,
 	config = function(_, opts)
 		require("dropbar").setup(opts)
-		apply_dropbar_background()
+		apply_dropbar_highlights()
 
 		vim.api.nvim_create_autocmd("ColorScheme", {
 			group = vim.api.nvim_create_augroup("UserDropbarHighlights", { clear = true }),
-			callback = apply_dropbar_background,
+			callback = apply_dropbar_highlights,
 		})
 	end,
 }

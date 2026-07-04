@@ -63,7 +63,6 @@ return {
 				fields = { "icon", "abbr", "menu" },
 				format = lspkind.cmp_format({
 					mode = "symbol",
-					preset = "codicons",
 					maxwidth = {
 						menu = 50,
 						abbr = 50,
@@ -103,7 +102,7 @@ return {
 			window = {
 				completion = {
 					border = "none",
-					winhighlight = sidebars.sidebar_winhl({ cursorline = true }),
+					winhighlight = sidebars.sidebar_winhl({ cursorline = "PmenuSel" }),
 					side_padding = 1,
 					col_offset = 1,
 				},
@@ -140,7 +139,6 @@ return {
 
 		local format_colon_cmdline_kind = lspkind.cmp_format({
 			mode = "symbol",
-			preset = "codicons",
 			maxwidth = {
 				menu = 50,
 				abbr = 90,

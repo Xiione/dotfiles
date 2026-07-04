@@ -74,8 +74,22 @@ local function disable_indent_guides(bufnr)
 	end
 end
 
+local function use_full_filename_icons()
+	local highlights = require("diffview.hl")
+	if rawget(highlights, "_user_full_filename_icons") then
+		return
+	end
+
+	local get_file_icon = highlights.get_file_icon
+	highlights.get_file_icon = function(name, _, ...)
+		return get_file_icon(name, nil, ...)
+	end
+	rawset(highlights, "_user_full_filename_icons", true)
+end
+
 return {
 	"dlyongemallo/diffview-plus.nvim",
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	keys = {
 		{
 			"<leader>rr",
@@ -101,6 +115,7 @@ return {
 	},
 	opts = {
 		enhanced_diff_hl = true,
+		use_icons = true,
 		file_panel = {
 			win_config = {
 				width = 45,
@@ -120,6 +135,7 @@ return {
 	},
 	config = function(_, opts)
 		require("diffview").setup(opts)
+		use_full_filename_icons()
 		apply_diffview_highlights()
 	end,
 }

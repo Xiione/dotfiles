@@ -29,6 +29,7 @@ end
 return {
 	"nvim-tree/nvim-tree.lua",
 	lazy = false,
+	dependencies = { "nvim-tree/nvim-web-devicons" },
 	keys = {
 		{
 			"<leader>e",
@@ -56,7 +57,16 @@ return {
 		renderer = {
 			root_folder_modifier = ":~",
 			icons = {
-				webdev_colors = true,
+				web_devicons = {
+					file = {
+						enable = true,
+						color = true,
+					},
+					folder = {
+						enable = false,
+						color = true,
+					},
+				},
 				git_placement = "after",
 				show = {
 					file = true,

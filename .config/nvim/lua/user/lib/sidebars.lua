@@ -1,19 +1,25 @@
 local misc = require("user.lib.misc")
 
+local function resolve_cursorline(value)
+	local is_enabled = value == true or type(value) == "string"
+	local highlight = type(value) == "string" and value or is_enabled and "CursorLineSidebar" or "NormalSidebar"
+
+	return is_enabled, highlight
+end
+
 local M = {}
 
 M.float_winhl = "Normal:NormalFloat,NormalFloat:NormalFloat,FloatBorder:FloatBorder"
 
 M.sidebar_winhl = function(opts)
-	opts = opts or {}
-	local cursorline = opts.cursorline and "CursorLineSidebar" or "NormalSidebar"
+	local _, cursorline_hl = resolve_cursorline(opts.cursorline)
 	local highlights = {
 		"Normal:NormalSidebar",
 		"NormalNC:NormalSidebar",
 		"NormalFloat:NormalSidebar",
 		"SignColumn:NormalSidebar",
 		"EndOfBuffer:NormalSidebar",
-		"CursorLine:" .. cursorline,
+		"CursorLine:" .. cursorline_hl,
 		"WinSeparator:WinSeparator",
 		"VertSplit:WinSeparator",
 		"NvimTreeWinSeparator:WinSeparator",
@@ -29,11 +35,12 @@ end
 -- used instead of contrast() in nord/util.lua
 M.apply_sidebar = function(opts)
 	opts = opts or {}
+	local enable_cursorline, _ = resolve_cursorline(opts.cursorline)
 	vim.opt_local.winhighlight = M.sidebar_winhl(opts)
 	vim.opt_local.signcolumn = opts.signcolumn and "yes" or "no"
 	vim.opt_local.number = false
 	vim.opt_local.relativenumber = false
-	vim.opt_local.cursorline = opts.cursorline == true
+	vim.opt_local.cursorline = enable_cursorline
 	vim.opt.cursorlineopt = opts.cursorline and "both" or "number"
 	vim.opt_local.statuscolumn = "%="
 	vim.opt_local.winbar = ""
