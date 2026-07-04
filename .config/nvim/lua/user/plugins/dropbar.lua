@@ -8,6 +8,12 @@ local excluded_filetypes = {
 	alpha = true,
 }
 
+local breadcrumb_max_depth = 4
+local breadcrumb_min_widths = {}
+for index = 1, breadcrumb_max_depth do
+	breadcrumb_min_widths[index] = 0
+end
+
 local function set_background(name, source)
 	local highlight = {}
 	if source and vim.fn.hlexists(source) == 1 then
@@ -97,6 +103,17 @@ local function decorate_source(source)
 	return {
 		get_symbols = function(...)
 			return vim.tbl_map(decorate_symbol, source.get_symbols(...))
+		end,
+	}
+end
+
+local function preserve_names(source)
+	return {
+		get_symbols = function(...)
+			return vim.tbl_map(function(symbol)
+				symbol.min_width = vim.fn.strchars(symbol.name)
+				return decorate_symbol(symbol)
+			end, source.get_symbols(...))
 		end,
 	}
 end
@@ -224,7 +241,7 @@ return {
 
 					local context = vim.bo[bufnr].filetype == "markdown" and sources.markdown
 						or source_utils.fallback({ sources.lsp, sources.treesitter })
-					return { decorate_source(buffer_label), decorate_source(context) }
+					return { preserve_names(buffer_label), decorate_source(context) }
 				end,
 			},
 			icons = {
@@ -253,13 +270,16 @@ return {
 					end,
 				},
 				lsp = {
-					max_depth = 4,
+					max_depth = breadcrumb_max_depth,
+					min_widths = breadcrumb_min_widths,
 				},
 				treesitter = {
-					max_depth = 4,
+					max_depth = breadcrumb_max_depth,
+					min_widths = breadcrumb_min_widths,
 				},
 				markdown = {
-					max_depth = 4,
+					max_depth = breadcrumb_max_depth,
+					min_widths = breadcrumb_min_widths,
 				},
 			},
 		}
