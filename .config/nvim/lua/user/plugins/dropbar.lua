@@ -160,6 +160,9 @@ return {
 		for kind, icon in pairs(icons.lsp_kind) do
 			kind_symbols[kind] = icon .. " "
 		end
+		for level, icon in ipairs(icons.markdown_heading) do
+			kind_symbols["MarkdownH" .. level] = icon .. " "
+		end
 
 		local function resolve_file_icon(path)
 			local icon, highlight = devicons.get_icon(vim.fs.basename(path), nil, { default = true })

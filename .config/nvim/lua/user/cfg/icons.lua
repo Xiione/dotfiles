@@ -21,6 +21,14 @@ return {
 		expanded = "",
 		collapsed = "",
 	},
+	markdown_heading = {
+		"󰉫",
+		"󰉬",
+		"󰉭",
+		"󰉮",
+		"󰉯",
+		"󰉰",
+	},
 	debug = {
 		current_frame = "",
 		breakpoint = "",
