@@ -110,14 +110,6 @@ return {
 					none = " ",
 				},
 			},
-			-- view = {
-			-- 	float = {
-			-- 		enable = false,
-			-- 		open_win_config = {
-			-- 			border = "solid",
-			-- 		},
-			-- 	},
-			-- },
 			group_empty = true,
 		},
 		diagnostics = {
@@ -137,10 +129,6 @@ return {
 				return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
 			end
 
-			-- Default mappings. Feel free to modify or remove as you wish.
-			--
-			-- BEGIN_DEFAULT_ON_ATTACH
-			-- vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node, opts('CD'))
 			vim.keymap.set("n", "<C-e>", api.node.open.replace_tree_buffer, opts("Open: In Place"))
 			vim.keymap.set("n", "<C-k>", api.node.show_info_popup, opts("Info"))
 			vim.keymap.set("n", "<C-r>", api.fs.rename_sub, opts("Rename: Omit Filename"))
@@ -162,7 +150,6 @@ return {
 			vim.keymap.set("n", "[c", api.node.navigate.git.prev, opts("Prev Git"))
 			vim.keymap.set("n", "]c", api.node.navigate.git.next, opts("Next Git"))
 			vim.keymap.set("n", "d", api.fs.trash, opts("Trash"))
-			-- vim.keymap.set("n", "D", api.fs.trash, opts("Trash"))
 			vim.keymap.set("n", "E", api.tree.expand_all, opts("Expand All"))
 			vim.keymap.set("n", "e", api.fs.rename_basename, opts("Rename: Basename"))
 			vim.keymap.set("n", "]e", api.node.navigate.diagnostics.next, opts("Next Diagnostic"))
@@ -170,7 +157,6 @@ return {
 			vim.keymap.set("n", "F", api.live_filter.clear, opts("Clean Filter"))
 			vim.keymap.set("n", "f", api.live_filter.start, opts("Filter"))
 			vim.keymap.set("n", "g?", api.tree.toggle_help, opts("Help"))
-			vim.keymap.set("n", "gy", api.fs.copy.absolute_path, opts("Copy Absolute Path"))
 			vim.keymap.set("n", "H", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
 			vim.keymap.set("n", "I", api.tree.toggle_gitignore_filter, opts("Toggle Git Ignore"))
 			vim.keymap.set("n", "J", api.node.navigate.sibling.last, opts("Last Sibling"))
@@ -188,13 +174,10 @@ return {
 			vim.keymap.set("n", "U", api.tree.toggle_custom_filter, opts("Toggle Hidden"))
 			vim.keymap.set("n", "W", api.tree.collapse_all, opts("Collapse"))
 			vim.keymap.set("n", "x", api.fs.cut, opts("Cut"))
-			vim.keymap.set("n", "y", api.fs.copy.filename, opts("Copy Name"))
-			vim.keymap.set("n", "Y", api.fs.copy.relative_path, opts("Copy Relative Path"))
-			vim.keymap.set("n", "<2-LeftMouse>", api.node.open.edit, opts("Open"))
-			vim.keymap.set("n", "<2-RightMouse>", api.tree.change_root_to_node, opts("CD"))
-			-- END_DEFAULT_ON_ATTACH
 
-			-- Mappings migrated from view.mappings.list
+			vim.keymap.set("n", "yn", api.fs.copy.filename, opts("Copy Name"))
+			vim.keymap.set("n", "yp", api.fs.copy.relative_path, opts("Copy Relative Path"))
+			vim.keymap.set("n", "yP", api.fs.copy.absolute_path, opts("Copy Absolute Path"))
 
 			vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
 			vim.keymap.set("n", ".", api.tree.change_root_to_node, opts("CD"))

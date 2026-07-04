@@ -48,6 +48,10 @@ local sidebar_cursorline_filetypes = {
 	qf = true,
 }
 
+local sidebar_signcolumn_filetypes = {
+	NvimTree = true,
+}
+
 local function apply_sidebar_highlights(ctx)
 	local filetype = vim.bo[ctx.buf].filetype
 	if sidebars.sidebar_types_set[filetype] == nil then
@@ -56,7 +60,7 @@ local function apply_sidebar_highlights(ctx)
 
 	local opts = {
 		cursorline = sidebar_cursorline_filetypes[filetype] == true,
-		signcolumn = false,
+		signcolumn = sidebar_signcolumn_filetypes[filetype] == true,
 	}
 
 	if filetype == "qf" then
