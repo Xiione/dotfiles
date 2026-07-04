@@ -17,20 +17,6 @@ map("n", "K", function()
 	vim.lsp.buf.hover({ border = utils.window_border })
 end, { noremap = true, silent = true })
 
--- spectre-nvim, from default config
--- vim.keymap.set("n", "<leader>S", '<Cmd>lua require("spectre").toggle()<CR>', {
--- 	desc = "Toggle Spectre",
--- })
--- vim.keymap.set("n", "<leader>Sw", '<Cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
--- 	desc = "Search current word",
--- })
--- vim.keymap.set("v", "<leader>Sw", '<Esc><Cmd>lua require("spectre").open_visual()<CR>', {
--- 	desc = "Search current word",
--- })
--- vim.keymap.set("n", "<leader>Sp", '<Cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
--- 	desc = "Search on current file",
--- })
-
 --Remap space as leader key
 map("", "<Space>", "<Nop>", silent)
 
@@ -61,10 +47,16 @@ map("n", "<leader>wq", "<Cmd>Bdelete!<CR><C-w>q", silent)
 -- <leader>ws: shade.nvim toggle (in shade.lua)
 --
 -- Resize with arrows
-map("n", "<C-Up>", "<Cmd>resize -2<CR>", silent)
-map("n", "<C-Down>", "<Cmd>resize +2<CR>", silent)
-map("n", "<C-Left>", "<Cmd>vertical resize -2<CR>", silent)
-map("n", "<C-Right>", "<Cmd>vertical resize +2<CR>", silent)
+local function resize_window(command, step)
+	return function()
+		vim.cmd(("%s %+d"):format(command, step * vim.v.count1))
+	end
+end
+
+map("n", "<C-Up>", resize_window("resize", -1), silent)
+map("n", "<C-Down>", resize_window("resize", 1), silent)
+map("n", "<C-Left>", resize_window("vertical resize", -1), silent)
+map("n", "<C-Right>", resize_window("vertical resize", 1), silent)
 
 -- cmd-A select all
 map("n", "<D-a>", "ggVG", { remap = true })
