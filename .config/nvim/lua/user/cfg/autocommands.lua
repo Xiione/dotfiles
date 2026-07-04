@@ -93,6 +93,14 @@ autocmd({ "TextYankPost" }, {
 	end,
 })
 
+autocmd("User", {
+	group = augroup("LazyReloadNotification", { clear = true }),
+	pattern = "LazyReload",
+	callback = function()
+		vim.api.nvim_echo({ { "lazy.nvim config reloaded", "MoreMsg" } }, false, {})
+	end,
+})
+
 -- autocmd({ "BufWritePost" }, {
 -- 	pattern = { "*.java" },
 -- 	callback = function()
