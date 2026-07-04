@@ -4,6 +4,10 @@ local icons = require("user.cfg.icons")
 
 local winbar_highlights = {}
 
+local excluded_filetypes = {
+	alpha = true,
+}
+
 local function set_background(name, source)
 	local highlight = {}
 	if source and vim.fn.hlexists(source) == 1 then
@@ -15,9 +19,6 @@ end
 
 local function get_winbar_highlight(source)
 	if source == nil or source == "" then
-		return source
-	end
-	if source == "DropBarIconUIPickPivot" then
 		return source
 	end
 
@@ -56,17 +57,16 @@ local function escape_statusline(text)
 end
 
 local function render_bar_symbol(symbol, plain)
-	local marker = symbol.is_modified and " [+]" or ""
+	local marker = symbol.is_modified and "[+] " or ""
 	if plain then
-		return symbol.icon .. symbol.name .. marker
+		return marker .. symbol.icon .. symbol.name
 	end
 
 	local bar_utils = require("dropbar.utils").bar
-	local rendered = bar_utils.hl(escape_statusline(symbol.icon), get_winbar_highlight(symbol.icon_hl))
+	local rendered = marker ~= "" and bar_utils.hl(marker, "DropBarModified") or ""
+	rendered = rendered
+		.. bar_utils.hl(escape_statusline(symbol.icon), get_winbar_highlight(symbol.icon_hl))
 		.. bar_utils.hl(escape_statusline(symbol.name), get_winbar_highlight(symbol.name_hl))
-	if marker ~= "" then
-		rendered = rendered .. bar_utils.hl(marker, "DropBarModified")
-	end
 
 	if symbol.on_click and symbol.bar_idx then
 		return bar_utils.make_clickable(
@@ -107,8 +107,10 @@ local function enable_bar(bufnr, winid)
 		return false
 	end
 
+	local filetype = vim.bo[bufnr].filetype
 	if
-		sidebars.sidebar_types_set[vim.bo[bufnr].filetype]
+		excluded_filetypes[filetype]
+		or sidebars.sidebar_types_set[filetype]
 		or vim.fn.win_gettype(winid) ~= ""
 		or vim.api.nvim_win_get_config(winid).relative ~= ""
 		or vim.wo[winid].winbar ~= ""
