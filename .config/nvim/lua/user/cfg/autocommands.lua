@@ -215,16 +215,32 @@ autocmd("FileType", {
 	end,
 })
 
+local session_title_group = augroup("NeogurtSessionTitle", { clear = true })
+
+local function update_neogurt_session_title(path)
+	if not vim.g.neogurt then
+		return
+	end
+
+	vim.g.neogurt_cmd("session_edit", {
+		name = neogurt.session_name(path),
+	})
+end
+
 autocmd("DirChanged", {
-	desc = "Neogurt: Change session title on cd",
+	group = session_title_group,
+	desc = "Neogurt: update session title on cd",
 	pattern = "global",
 	callback = function(ctx)
-		if not vim.g.neogurt then
-			return
-		end
+		update_neogurt_session_title(ctx.file)
+	end,
+})
 
-		vim.g.neogurt_cmd("session_edit", {
-			name = neogurt.session_name(ctx.file),
-		})
+autocmd("User", {
+	group = session_title_group,
+	desc = "Neogurt: update session title on branch change",
+	pattern = "GitSignsUpdate",
+	callback = function()
+		update_neogurt_session_title()
 	end,
 })
