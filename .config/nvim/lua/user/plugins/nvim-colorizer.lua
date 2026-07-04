@@ -4,6 +4,7 @@ return {
 		"lua",
 		"conf",
 		"markdown",
+		"cmp_docs",
 	},
 	opts = {
 		lazy_load = false,
@@ -11,6 +12,10 @@ return {
 			"lua",
 			"conf",
 			"markdown",
+			["cmp_docs"] = {
+				always_update = true,
+				debouce_ms = 0,
+			},
 		},
 		options = {
 			parsers = {
