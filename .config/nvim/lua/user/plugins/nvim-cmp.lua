@@ -104,7 +104,7 @@ return {
 					border = "none",
 					winhighlight = sidebars.sidebar_winhl({ cursorline = "PmenuSel" }),
 					side_padding = 1,
-					col_offset = 1,
+					col_offset = -2,
 				},
 				documentation = {
 					border = "none",
