@@ -185,6 +185,28 @@ return {
 				},
 				oldfiles = {
 					cwd_only = true,
+					previewer = false,
+					layout_strategy = "center",
+					layout_config = {
+						width = 0.5,
+						prompt_position = "bottom",
+					},
+				},
+				current_buffer_fuzzy_find = {
+					previewer = false,
+					layout_strategy = "center",
+					layout_config = {
+						width = 0.5,
+						prompt_position = "bottom",
+					},
+				},
+				builtin = {
+					previewer = false,
+					layout_strategy = "center",
+					layout_config = {
+						width = 0.5,
+						prompt_position = "bottom",
+					},
 				},
 			},
 			extensions = {
