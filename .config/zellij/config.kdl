@@ -1,1 +1,2 @@
 copy_command "/usr/bin/pbcopy"
+show_startup_tips false
