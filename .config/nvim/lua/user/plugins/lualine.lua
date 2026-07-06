@@ -123,7 +123,7 @@ return {
 			sections = {
 				lualine_a = { { "mode", padding = 1 } },
 				lualine_b = { diagnostics },
-				lualine_c = { "grapple", render_scratch_count },
+				lualine_c = { render_scratch_count, "grapple" },
 				lualine_x = { "filetype" },
 				lualine_y = { { "progress", padding = 1 } },
 				lualine_z = { { "location", padding = 1 } },
@@ -147,6 +147,17 @@ return {
 			group = highlight_group,
 			callback = function()
 				vim.schedule(apply_disabled_statusline_highlight)
+			end,
+		})
+
+		vim.api.nvim_create_autocmd("User", {
+			group = vim.api.nvim_create_augroup("UserLualineGrapple", { clear = true }),
+			pattern = { "GrappleUpdate", "GrappleScopeChanged" },
+			callback = function()
+				require("lualine").refresh({
+					scope = "tabpage",
+					place = { "statusline" },
+				})
 			end,
 		})
 	end,

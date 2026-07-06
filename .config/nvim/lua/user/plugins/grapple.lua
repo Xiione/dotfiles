@@ -1,13 +1,13 @@
 local keys = {
 	{
-		"<leader>M",
+		"<leader>m",
 		function()
 			require("grapple").toggle()
 		end,
 		desc = "Toggle Grapple tag",
 	},
 	{
-		"<leader>m",
+		"<leader>M",
 		function()
 			require("grapple").toggle_tags()
 		end,
