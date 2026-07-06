@@ -212,7 +212,7 @@ return {
 	},
 	config = function(_, opts)
 		require("diffview").setup(opts)
-		use_basename_file_icons()
+		-- use_basename_file_icons()
 		use_stat_glyphs()
 		apply_diffview_highlights()
 	end,

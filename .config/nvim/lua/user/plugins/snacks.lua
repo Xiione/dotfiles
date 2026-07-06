@@ -90,6 +90,17 @@ local function select_scratch()
 	})
 end
 
+local hide_lazygit_command =
+	[[nvim --server "$NVIM" --remote-expr 'luaeval("(function() local buffer = vim.api.nvim_get_current_buf(); for _, terminal in ipairs(Snacks.terminal.list()) do if terminal.buf == buffer then terminal:hide(); break end end return 0 end)()")' >/dev/null]]
+
+local function build_lazygit_edit_command(path_template, line_template)
+	local command = hide_lazygit_command .. [[; nvim --server "$NVIM" --remote ]] .. path_template
+	if line_template then
+		command = command .. [[; nvim --server "$NVIM" --remote-send ":]] .. line_template .. [[<CR>"]]
+	end
+	return command
+end
+
 return {
 	"folke/snacks.nvim",
 	lazy = false,
@@ -122,6 +133,13 @@ return {
 		{
 			"<leader>fr",
 			pick_recent_files,
+			desc = "Find recent files",
+		},
+		{
+			"<leader>fh",
+			function()
+				Snacks.picker.highlights()
+			end,
 			desc = "Find recent files",
 		},
 		{
@@ -252,6 +270,15 @@ return {
 		},
 		indent = {
 			enabled = true,
+			animate = {
+				enabled = false,
+			},
+			indent = {
+				char = "▏",
+			},
+			scope = {
+				char = "▏",
+			},
 		},
 		gh = {
 			icons = {
@@ -289,7 +316,12 @@ return {
 		lazygit = {
 			configure = true,
 			config = {
-				os = { editPreset = "nvim-remote" },
+				os = {
+					editPreset = "nvim-remote",
+					edit = build_lazygit_edit_command("{{filename}}"),
+					editAtLine = build_lazygit_edit_command("{{filename}}", "{{line}}"),
+					openDirInEditor = build_lazygit_edit_command("{{dir}}"),
+				},
 				gui = { nerdFontsVersion = "3" },
 			},
 			win = {
@@ -341,7 +373,7 @@ return {
 			},
 		},
 		words = {
-			enabled = true,
+			enabled = false,
 			modes = { "n" },
 		},
 	},

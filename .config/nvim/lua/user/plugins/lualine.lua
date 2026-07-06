@@ -1,3 +1,7 @@
+local function apply_disabled_statusline_highlight()
+	vim.api.nvim_set_hl(0, "lualine_transparent", { link = "lualine_c_normal" })
+end
+
 return {
 	"nvim-lualine/lualine.nvim",
 	lazy = false,
@@ -133,5 +137,17 @@ return {
 				lualine_z = { { "location", padding = 1 } },
 			},
 		}
+	end,
+	config = function(_, opts)
+		require("lualine").setup(opts)
+		apply_disabled_statusline_highlight()
+
+		local highlight_group = vim.api.nvim_create_augroup("UserLualineHighlights", { clear = true })
+		vim.api.nvim_create_autocmd("ColorScheme", {
+			group = highlight_group,
+			callback = function()
+				vim.schedule(apply_disabled_statusline_highlight)
+			end,
+		})
 	end,
 }
