@@ -110,6 +110,49 @@ return {
 			desc = "Toggle Lazygit",
 		},
 		{
+			"<leader>gi",
+			function()
+				Snacks.picker.gh_issue()
+			end,
+			desc = "GitHub issues (open)",
+		},
+		{
+			"<leader>gI",
+			function()
+				Snacks.picker.gh_issue({ state = "all" })
+			end,
+			desc = "GitHub issues (all)",
+		},
+		{
+			"<leader>gp",
+			function()
+				Snacks.picker.gh_pr()
+			end,
+			desc = "GitHub pull requests (open)",
+		},
+		{
+			"<leader>gP",
+			function()
+				Snacks.picker.gh_pr({ state = "all" })
+			end,
+			desc = "GitHub pull requests (all)",
+		},
+		{
+			"<leader>go",
+			function()
+				Snacks.gitbrowse({ what = "permalink" })
+			end,
+			desc = "Open Git permalink",
+			mode = { "n", "v" },
+		},
+		{
+			"<leader>gb",
+			function()
+				Snacks.git.blame_line()
+			end,
+			desc = "Show Git line history",
+		},
+		{
 			"<leader>o",
 			function()
 				Snacks.picker.lsp_symbols()
@@ -172,6 +215,39 @@ return {
 		input = {
 			enabled = true,
 		},
+		gh = {
+			icons = {
+				file = icons.lsp_kind.File .. " ",
+				checkmark = icons.status.success .. " ",
+				crossmark = icons.diagnostic.error .. " ",
+				checks = {
+					pending = icons.diagnostic.warn .. " ",
+					success = icons.status.success .. " ",
+					failure = icons.diagnostic.error .. " ",
+					skipped = icons.git.ignored .. " ",
+				},
+				review = {
+					approved = icons.status.success .. " ",
+					changes_requested = icons.diagnostic.error .. " ",
+					dismissed = icons.diagnostic.warn .. " ",
+					pending = icons.diagnostic.warn .. " ",
+				},
+				merge_status = {
+					clean = icons.status.success .. " ",
+					dirty = icons.diagnostic.error .. " ",
+					blocked = icons.diagnostic.error .. " ",
+					unstable = icons.diagnostic.warn .. " ",
+				},
+			},
+		},
+		gitbrowse = {
+			config = function(opts)
+				table.insert(opts.remote_patterns, 1, {
+					"^git@github%.com%-personal:(.+)$",
+					"https://github.com/%1",
+				})
+			end,
+		},
 		lazygit = {
 			configure = true,
 			config = {
@@ -186,6 +262,19 @@ return {
 		},
 		picker = {
 			enabled = true,
+			icons = {
+				git = {
+					staged = icons.git.staged,
+					added = icons.git.added,
+					deleted = icons.git.deleted,
+					ignored = icons.git.ignored,
+					modified = icons.git.unstaged,
+					renamed = icons.git.renamed,
+					copied = icons.git.copied,
+					unmerged = icons.git.unmerged,
+					untracked = icons.git.untracked,
+				},
+			},
 			sources = {
 				files = {
 					hidden = true,
