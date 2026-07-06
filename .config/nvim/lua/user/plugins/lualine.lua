@@ -1,6 +1,6 @@
 return {
 	"nvim-lualine/lualine.nvim",
-	event = "VeryLazy",
+	lazy = false,
 	dependencies = { "nvim-tree/nvim-web-devicons" },
 	-- dependencies = { "AndreM222/copilot-lualine" },
 	opts = function()

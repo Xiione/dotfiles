@@ -1,15 +1,6 @@
 return {
 	"akinsho/toggleterm.nvim",
 	lazy = false,
-	keys = {
-		{
-			"<leader>gg",
-			function()
-				require("user.lib.term").toggle_lazygit()
-			end,
-			desc = "Toggle Lazygit",
-		},
-	},
 	opts = {
 		size = 13,
 		open_mapping = [[<C-]>]],
@@ -39,8 +30,4 @@ return {
 			},
 		},
 	},
-	config = function(_, opts)
-		require("toggleterm").setup(opts)
-		require("user.lib.term").setup_lazygit()
-	end,
 }

@@ -5,7 +5,7 @@ local icons = require("user.cfg.icons")
 local winbar_highlights = {}
 
 local excluded_filetypes = {
-	alpha = true,
+	snacks_dashboard = true,
 }
 
 local breadcrumb_max_depth = 4
