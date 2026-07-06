@@ -278,6 +278,9 @@ return {
 			},
 		},
 		styles = {
+			float = {
+				backdrop = false,
+			},
 			input = {
 				border = utils.window_border,
 				relative = "cursor",
