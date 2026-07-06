@@ -3,6 +3,7 @@ local utils = require("user.lib.utils")
 local icons = require("user.cfg.icons")
 local logos = require("user.lib.logos")
 local neogurt = require("user.lib.neogurt")
+local scratch = require("user.lib.scratch")
 
 local ignored_names = {
 	".git",
@@ -66,6 +67,27 @@ local function build_recent_section()
 			indent = 2,
 		},
 	}
+end
+
+local function notify_scratch_changed()
+	vim.api.nvim_exec_autocmds("User", {
+		pattern = "SnacksScratchChanged",
+		modeline = false,
+	})
+end
+
+local function toggle_scratch()
+	scratch.enable_nested_branches()
+	notify_scratch_changed()
+	Snacks.scratch()
+	vim.schedule(notify_scratch_changed)
+end
+
+local function select_scratch()
+	scratch.enable_nested_branches()
+	Snacks.picker.scratch({
+		on_close = notify_scratch_changed,
+	})
 end
 
 return {
@@ -151,6 +173,16 @@ return {
 				Snacks.git.blame_line()
 			end,
 			desc = "Show Git line history",
+		},
+		{
+			"<leader>x",
+			toggle_scratch,
+			desc = "Toggle scratch buffer",
+		},
+		{
+			"<leader>X",
+			select_scratch,
+			desc = "Select scratch buffer",
 		},
 		{
 			"<leader>o",
@@ -287,6 +319,16 @@ return {
 				recent = {
 					filter = { cwd = true },
 				},
+			},
+		},
+		scratch = {
+			ft = "markdown",
+			root = scratch.root,
+			autowrite = true,
+			filekey = {
+				cwd = true,
+				branch = true,
+				count = true,
 			},
 		},
 	},
