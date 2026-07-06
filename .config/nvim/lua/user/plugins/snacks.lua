@@ -355,6 +355,13 @@ return {
 		picker = {
 			enabled = true,
 			config = match_picker_preview_signcolumn,
+			win = {
+				input = {
+					keys = {
+						["<Esc>"] = { "close", mode = { "n", "i" } },
+					},
+				},
+			},
 			icons = {
 				git = {
 					staged = icons.git.staged,
