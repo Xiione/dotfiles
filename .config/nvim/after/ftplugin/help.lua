@@ -1,6 +1,5 @@
 vim.opt_local.buflisted = false
 
-vim.keymap.set("n", "q", "<Cmd>close<CR>", { buffer = true, silent = true })
 vim.keymap.set("n", "K", function()
 	local keys = vim.v.count > 0 and (vim.v.count .. "K") or "K"
 	vim.cmd("normal! " .. keys)

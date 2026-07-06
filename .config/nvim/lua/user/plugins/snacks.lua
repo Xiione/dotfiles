@@ -335,4 +335,11 @@ return {
 			},
 		},
 	},
+	config = function(_, opts)
+		require("snacks").setup(opts)
+		Snacks.keymap.set("n", "q", "<Cmd>close<CR>", {
+			ft = { "help", "lspinfo", "man", "qf" },
+			desc = "Close window",
+		})
+	end,
 }

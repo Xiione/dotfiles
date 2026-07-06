@@ -44,7 +44,6 @@ map("n", "<C-j>", "<C-w>j", silent)
 map("n", "<C-k>", "<C-w>k", silent)
 map("n", "<C-l>", "<C-w>l", silent)
 map("n", "<leader>wq", "<Cmd>Bdelete!<CR><C-w>q", silent)
--- <leader>ws: shade.nvim toggle (in shade.lua)
 --
 -- Resize with arrows
 local function resize_window(command, step)
