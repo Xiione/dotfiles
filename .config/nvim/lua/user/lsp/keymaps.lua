@@ -74,7 +74,9 @@ function M.setup(bufnr, client)
 	end
 
 	if client.name == "metals" then
-		map("n", "<leader>fc", "<Cmd>lua require('telescope').extensions.metals.commands()<CR>", opts, bufnr)
+		map("n", "<leader>fc", function()
+			require("metals").commands()
+		end, opts, bufnr)
 	end
 
 	if client.name == "rust-analyzer" then

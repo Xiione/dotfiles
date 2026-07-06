@@ -1,5 +1,15 @@
 return {
 	"Juksuu/worktrees.nvim",
+	lazy = false,
+	keys = {
+		{
+			"<leader>fw",
+			function()
+				Snacks.picker.worktrees()
+			end,
+			desc = "Find Git worktrees",
+		},
+	},
 	cmd = {
 		"GitWorktreeCreate",
 		"GitWorktreeCreateExisting",

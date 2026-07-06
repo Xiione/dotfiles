@@ -5,7 +5,7 @@ return {
 	dependencies = { "hrsh7th/nvim-cmp" },
 	opts = {
 		check_ts = true, -- treesitter integration
-		disable_filetype = { "TelescopePrompt" },
+		disable_filetype = { "snacks_picker_input" },
 		ts_config = {
 			lua = { "string", "source" },
 			javascript = { "string", "template_string" },

@@ -181,20 +181,6 @@ autocmd("ModeChanged", {
 	end,
 })
 
--- fixes telescope winborder until plenary merges winborder fixes
-autocmd("User", {
-	pattern = "TelescopeFindPre",
-	callback = function()
-		vim.opt_local.winborder = "none"
-		vim.api.nvim_create_autocmd("WinLeave", {
-			once = true,
-			callback = function()
-				vim.opt_local.winborder = "solid"
-			end,
-		})
-	end,
-})
-
 -- https://www.reddit.com/r/neovim/comments/1kuj9xm/comment/mv93w7h/
 autocmd("FileType", {
 	desc = "User: enable treesitter highlighting",

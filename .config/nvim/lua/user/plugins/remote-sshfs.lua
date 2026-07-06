@@ -31,10 +31,10 @@ return {
 		"RemoteSSHFSFindFiles",
 		"RemoteSSHFSLiveGrep",
 	},
-	dependencies = { "nvim-telescope/telescope.nvim" },
+	dependencies = { "folke/snacks.nvim" },
 	opts = {
 		ui = {
-			picker = "telescope",
+			picker = "snacks",
 		},
 	},
 }

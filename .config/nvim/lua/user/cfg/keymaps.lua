@@ -135,7 +135,7 @@ end)
 -- map("n", "<leader>A", "<Cmd>Alpha<CR>", silent)
 
 -- Symbols outline
--- replaced with telescope picker
+-- replaced with Snacks picker
 
 -- map("n", "<leader>o", function()
 -- 	sidebars.toggle("symbols_outline")

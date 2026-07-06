@@ -125,7 +125,7 @@ return {
 			},
 		})
 
-		cmp.setup.filetype({ "TelescopePrompt", "snacks_input" }, {
+		cmp.setup.filetype({ "snacks_input", "snacks_picker_input" }, {
 			enabled = false,
 		})
 

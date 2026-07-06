@@ -134,9 +134,6 @@ local function set_nord_highlights(highlights)
 	define("LsOutlinePreviewBorder", { link = "FloatBorder" })
 	define("LspInfoBorder", { link = "FloatBorder" })
 
-	define("TelescopeNormal", { link = "NormalFloat" })
-	define("TelescopeBorder", { link = "FloatBorder" })
-
 	define("luaParenError", { link = "NONE" })
 	define("MarkdownError", { link = "NONE" })
 	define("MarkdownLinkText", { sp = colors.nord14 })
