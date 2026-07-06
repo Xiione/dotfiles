@@ -140,6 +140,7 @@ local function set_nord_highlights(highlights)
 	define("SnacksDashboardHeader", { fg = colors.nord9 })
 	define("SnacksIndentScope", { link = "@punctuation.bracket" })
 	define("SnacksPickerDir", { link = "Identifier" })
+	define("RenderMarkdownSign", { fg = colors.nord4 })
 
 	define("luaParenError", { link = "NONE" })
 	define("MarkdownError", { link = "NONE" })
