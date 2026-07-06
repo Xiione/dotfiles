@@ -12,6 +12,10 @@ local icons = require("user.cfg.icons")
 local silent = { silent = true }
 local remap = { remap = true }
 
+local function paste_clipboard()
+	vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
+end
+
 -- all modes
 local mode = { "", "!", "t", "l" }
 
@@ -108,7 +112,7 @@ map(mode, "<D-l>", "<Cmd>Neogurt session_prev<CR>")
 map(mode, "<D-S-r>", "<Cmd>Neogurt session_restart cmd=qa<CR>")
 
 map({ "n", "v" }, "<D-v>", '"+p', silent)
-map({ "i", "c" }, "<D-v>", "<C-r>+", silent)
+map({ "i", "c" }, "<D-v>", paste_clipboard, silent)
 map("t", "<D-v>", "<C-\\><C-n><D-v>i", remap)
 
 -- whatever
