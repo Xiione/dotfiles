@@ -200,6 +200,9 @@ return {
 		},
 	},
 	opts = {
+		bigfile = {
+			enabled = true,
+		},
 		dashboard = {
 			preset = {
 				header = table.concat(logos.random, "\n"),
@@ -324,6 +327,9 @@ return {
 				},
 			},
 		},
+		quickfile = {
+			enabled = true,
+		},
 		scratch = {
 			ft = "markdown",
 			root = scratch.root,
@@ -333,6 +339,10 @@ return {
 				branch = true,
 				count = true,
 			},
+		},
+		words = {
+			enabled = true,
+			modes = { "n" },
 		},
 	},
 	config = function(_, opts)

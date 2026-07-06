@@ -43,7 +43,10 @@ map("n", "<C-h>", "<C-w>h", silent)
 map("n", "<C-j>", "<C-w>j", silent)
 map("n", "<C-k>", "<C-w>k", silent)
 map("n", "<C-l>", "<C-w>l", silent)
-map("n", "<leader>wq", "<Cmd>Bdelete!<CR><C-w>q", silent)
+map("n", "<leader>wq", function()
+	Snacks.bufdelete({ force = true })
+	vim.cmd.quit()
+end, silent)
 --
 -- Resize with arrows
 local function resize_window(command, step)

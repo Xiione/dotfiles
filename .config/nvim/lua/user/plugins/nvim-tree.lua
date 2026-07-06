@@ -202,4 +202,17 @@ return {
 			table.sort(nodes, natural_cmp)
 		end,
 	},
+	config = function(_, opts)
+		require("nvim-tree").setup(opts)
+
+		local events = require("nvim-tree.api").events
+		if rawget(events, "_user_snacks_rename_subscribed") then
+			return
+		end
+		rawset(events, "_user_snacks_rename_subscribed", true)
+
+		events.subscribe(events.Event.NodeRenamed, function(rename)
+			Snacks.rename.on_rename_file(rename.old_name, rename.new_name)
+		end)
+	end,
 }
