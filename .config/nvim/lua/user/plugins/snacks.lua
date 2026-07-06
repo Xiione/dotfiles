@@ -247,6 +247,9 @@ return {
 		input = {
 			enabled = true,
 		},
+		indent = {
+			enabled = true,
+		},
 		gh = {
 			icons = {
 				file = icons.lsp_kind.File .. " ",

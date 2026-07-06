@@ -74,13 +74,6 @@ local function apply_diffview_window_highlights(winid)
 	set_window_fillchar(winid, "diff", "╲")
 end
 
-local function disable_indent_guides(bufnr)
-	local ok, ibl = pcall(require, "ibl")
-	if ok then
-		ibl.setup_buffer(bufnr, { enabled = false })
-	end
-end
-
 local function use_basename_file_icons()
 	local highlights = require("diffview.hl")
 	if not rawget(highlights, "_user_full_filename_icons") then
@@ -210,11 +203,9 @@ return {
 		hooks = {
 			diff_buf_read = function(bufnr)
 				apply_diffview_highlights()
-				disable_indent_guides(bufnr)
 			end,
 			diff_buf_win_enter = function(bufnr, winid)
 				apply_diffview_highlights()
-				disable_indent_guides(bufnr)
 				apply_diffview_window_highlights(winid)
 			end,
 		},
