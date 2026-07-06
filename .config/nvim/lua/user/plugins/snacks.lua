@@ -101,6 +101,28 @@ local function build_lazygit_edit_command(path_template, line_template)
 	return command
 end
 
+local function match_picker_preview_signcolumn(opts)
+	local on_show = opts.on_show
+	opts.on_show = function(picker)
+		if on_show then
+			on_show(picker)
+		end
+
+		local preview = picker.preview
+		if preview.main or not preview.win:valid() then
+			return
+		end
+
+		local win = preview.win.win
+		local winhighlight = Snacks.util.winhl(preview.winhl, {
+			SignColumn = "SnacksPickerPreview",
+		})
+		preview.winhl = winhighlight
+		preview.win.opts.wo.winhighlight = winhighlight
+		Snacks.util.wo(win, { winhighlight = winhighlight })
+	end
+end
+
 return {
 	"folke/snacks.nvim",
 	lazy = false,
@@ -332,6 +354,7 @@ return {
 		},
 		picker = {
 			enabled = true,
+			config = match_picker_preview_signcolumn,
 			icons = {
 				git = {
 					staged = icons.git.staged,
