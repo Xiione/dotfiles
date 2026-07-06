@@ -83,6 +83,28 @@ return {
 			mode = { "n", "x" },
 			desc = "Select prompt for Codex",
 		},
+		{
+			"<leader>ak",
+			function()
+				require("sidekick.cli").select({
+					filter = { name = "codex", started = true },
+					cb = function(state)
+						local session = state and state.session
+						local name = session and session.mux_session
+
+						if not name then
+							vim.notify("No Zellij session found", vim.log.levels.WARN)
+							return
+						end
+
+						Snacks.picker.util.confirm(("Kill Codex session in %s?"):format(session.cwd), function()
+							vim.system({ "zellij", "kill-session", name })
+						end)
+					end,
+				})
+			end,
+			desc = "Kill Codex session",
+		},
 	},
 	opts = {
 		cli = {
