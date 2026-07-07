@@ -1,0 +1,6 @@
+interface:
+  display_name: "Write Project Scratch"
+  short_description: "Create and update project-scoped Snacks buffers"
+  default_prompt: "Use $write-project-scratch to save these findings in a project scratch."
+policy:
+  allow_implicit_invocation: true

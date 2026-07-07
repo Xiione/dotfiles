@@ -69,24 +69,17 @@ local function build_recent_section()
 	}
 end
 
-local function notify_scratch_changed()
-	vim.api.nvim_exec_autocmds("User", {
-		pattern = "SnacksScratchChanged",
-		modeline = false,
-	})
-end
-
 local function toggle_scratch()
 	scratch.enable_nested_branches()
-	notify_scratch_changed()
+	scratch.notify_changed()
 	Snacks.scratch()
-	vim.schedule(notify_scratch_changed)
+	vim.schedule(scratch.notify_changed)
 end
 
 local function select_scratch()
 	scratch.enable_nested_branches()
 	Snacks.picker.scratch({
-		on_close = notify_scratch_changed,
+		on_close = scratch.notify_changed,
 	})
 end
 
