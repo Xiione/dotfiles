@@ -343,6 +343,7 @@ return {
 				gui = { nerdFontsVersion = "3" },
 			},
 			win = {
+				border = "solid",
 				keys = {
 					["<C-q>"] = { "hide", mode = { "n", "t" } },
 				},
