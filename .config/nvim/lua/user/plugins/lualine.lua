@@ -9,6 +9,9 @@ return {
 	-- dependencies = { "AndreM222/copilot-lualine" },
 	opts = function()
 		local sidebars = require("user.lib.sidebars")
+		local statusline_disabled_filetypes = vim.tbl_filter(function(filetype)
+			return filetype ~= "qf"
+		end, sidebars.sidebar_types)
 		local colors = require("user.cfg.colors")
 		local icons = require("user.cfg.icons")
 		local scratch = require("user.lib.scratch")
@@ -117,7 +120,7 @@ return {
 				component_separators = "",
 				section_separators = "",
 				disabled_filetypes = {
-					statusline = sidebars.sidebar_types,
+					statusline = statusline_disabled_filetypes,
 				},
 			},
 			sections = {
