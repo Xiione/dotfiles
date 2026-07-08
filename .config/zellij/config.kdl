@@ -1,2 +1,8 @@
 copy_command "/usr/bin/pbcopy"
 show_startup_tips false
+keybinds {
+    unbind "Alt Left" "Alt Right" "Alt Up" "Alt Down"
+    unbind "Alt f"
+    unbind "Ctrl b" "Ctrl g" "Ctrl h" "Ctrl n"
+    unbind "Ctrl o" "Ctrl p" "Ctrl s" "Ctrl t"
+}
