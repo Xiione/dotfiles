@@ -70,6 +70,8 @@ local function apply_diffview_window_highlights(winid)
 		set_window_highlight(winid, highlight)
 	end
 
+	-- Reserve the indentation columns for Snacks guides instead of covering the fold summary.
+	vim.wo[winid].foldtext = "repeat(' ', indent(v:foldstart)) .. foldtext()"
 	vim.wo[winid].cursorlineopt = "both"
 	set_window_fillchar(winid, "diff", "╲")
 end

@@ -116,6 +116,19 @@ local function match_picker_preview_signcolumn(opts)
 	end
 end
 
+local function should_show_indent(buf, win)
+	if vim.g.snacks_indent == false or vim.b[buf].snacks_indent == false then
+		return false
+	end
+
+	local buftype = vim.bo[buf].buftype
+	if buftype == "" then
+		return true
+	end
+
+	return buftype == "nowrite" and vim.wo[win].diff and vim.startswith(vim.api.nvim_buf_get_name(buf), "diffview://")
+end
+
 return {
 	"folke/snacks.nvim",
 	lazy = false,
@@ -288,6 +301,7 @@ return {
 		},
 		indent = {
 			enabled = true,
+			filter = should_show_indent,
 			animate = {
 				enabled = false,
 			},
