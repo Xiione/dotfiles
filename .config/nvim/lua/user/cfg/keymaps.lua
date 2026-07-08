@@ -101,8 +101,23 @@ vim.cmd([[
 map("n", "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
 
 -- same as above using visual selection
--- https://stackoverflow.com/questions/676600/vim-search-and-replace-selected-text
-map("v", "<leader>s", '"hy:%s/<C-r>h//gc<Left><Left><Left>')
+local function substitute_selection()
+	local selection = table.concat(
+		vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), {
+			type = vim.fn.mode(),
+		}),
+		"\n"
+	)
+	local pattern = vim.fn.escape(selection, [[\/]]):gsub("\t", [[\t]]):gsub("\n", [[\n]])
+	local replacement = vim.fn.escape(selection, [[\/&~]]):gsub("\t", [[\t]]):gsub("\n", [[\r]])
+	local command = (":%%s/\\V%s/%s/gc"):format(pattern, replacement)
+	local leave_visual = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
+	local edit_replacement = vim.api.nvim_replace_termcodes("<Left><Left><Left>", true, false, true)
+
+	vim.api.nvim_feedkeys(leave_visual .. command .. edit_replacement, "n", false)
+end
+
+map("v", "<leader>s", substitute_selection)
 
 -- easier leave term
 -- map("t", "<Esc>", "<C-\\><C-n>", silent)
