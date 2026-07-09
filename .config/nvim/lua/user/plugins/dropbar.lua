@@ -175,6 +175,10 @@ return {
 		local sources = require("dropbar.sources")
 		local source_utils = require("dropbar.utils").source
 		local devicons = require("nvim-web-devicons")
+		local buffer_update_events = vim.deepcopy(configs.opts.bar.update_events.buf)
+		if not vim.list_contains(buffer_update_events, "BufWritePost") then
+			table.insert(buffer_update_events, "BufWritePost")
+		end
 		local kind_symbols = {}
 		for kind, icon in pairs(icons.lsp_kind) do
 			kind_symbols[kind] = icon .. " "
@@ -234,6 +238,9 @@ return {
 			bar = {
 				enable = enable_bar,
 				hover = false,
+				update_events = {
+					buf = buffer_update_events,
+				},
 				sources = function(bufnr)
 					if vim.bo[bufnr].buftype == "terminal" then
 						return { decorate_source(sources.terminal) }
