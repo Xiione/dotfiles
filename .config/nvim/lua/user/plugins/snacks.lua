@@ -172,6 +172,7 @@ local function match_picker_preview_signcolumn(opts)
 		local win = preview.win.win
 		local winhighlight = Snacks.util.winhl(preview.winhl, {
 			SignColumn = "SnacksPickerPreview",
+			CursorLineNr = "SnacksPickerPreviewCursorLine",
 		})
 		preview.winhl = winhighlight
 		preview.win.opts.wo.winhighlight = winhighlight
