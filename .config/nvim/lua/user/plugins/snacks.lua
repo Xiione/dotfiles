@@ -94,6 +94,69 @@ local function build_lazygit_edit_command(path_template, line_template)
 	return command
 end
 
+local lazygit_filename_aliases = {
+	[".srcinfo"] = ".SRCINFO",
+	[".xauthority"] = ".Xauthority",
+	[".xresources"] = ".Xresources",
+	["authors"] = "AUTHORS",
+	["authors.txt"] = "AUTHORS.txt",
+	["brewfile"] = "Brewfile",
+	["cmakelists.txt"] = "CMakeLists.txt",
+	["containerfile"] = "Containerfile",
+	["directory.build.props"] = "Directory.Build.props",
+	["directory.build.targets"] = "Directory.Build.targets",
+	["directory.packages.props"] = "Directory.Packages.props",
+	["dockerfile"] = "Dockerfile",
+	["freecad.conf"] = "FreeCAD.conf",
+	["gemfile"] = "Gemfile",
+	["gnumakefile"] = "GNUmakefile",
+	["jenkinsfile"] = "Jenkinsfile",
+	["justfile"] = "Justfile",
+	["makefile"] = "Makefile",
+	["pkgbuild"] = "PKGBUILD",
+	["procfile"] = "Procfile",
+	["prusaslicer.ini"] = "PrusaSlicer.ini",
+	["prusaslicergcodeviewer.ini"] = "PrusaSlicerGcodeViewer.ini",
+	["qtproject.conf"] = "QtProject.conf",
+	["rakefile"] = "Rakefile",
+	["vagrantfile"] = "Vagrantfile",
+}
+
+local function build_lazygit_icons()
+	local devicons = require("nvim-web-devicons")
+	local filenames = {}
+	local extensions = {}
+
+	for filename in pairs(devicons.get_icons_by_filename()) do
+		local icon, color = devicons.get_icon_colors(filename, nil, { strict = true })
+		local config = { icon = icon, color = color }
+		filenames[filename] = config
+
+		local alias = lazygit_filename_aliases[filename]
+		if alias then
+			filenames[alias] = config
+		end
+	end
+
+	for extension in pairs(devicons.get_icons_by_extension()) do
+		local icon, color = devicons.get_icon_colors(nil, extension, { strict = true })
+		extensions["." .. extension] = { icon = icon, color = color }
+	end
+
+	return {
+		filenames = filenames,
+		extensions = extensions,
+	}
+end
+
+local function open_lazygit()
+	Snacks.lazygit({
+		config = {
+			gui = { customIcons = build_lazygit_icons() },
+		},
+	})
+end
+
 local function match_picker_preview_signcolumn(opts)
 	local on_show = opts.on_show
 	opts.on_show = function(picker)
@@ -172,9 +235,7 @@ return {
 		},
 		{
 			"<leader>gg",
-			function()
-				Snacks.lazygit()
-			end,
+			open_lazygit,
 			desc = "Toggle Lazygit",
 		},
 		{
@@ -268,9 +329,7 @@ return {
 						icon = "󰊢 ",
 						key = "<leader>gg",
 						desc = "Open Lazygit",
-						action = function()
-							Snacks.lazygit()
-						end,
+						action = open_lazygit,
 					},
 					{ icon = icons.git.untracked .. " ", key = "n", desc = "New file", action = ":ene | startinsert" },
 					{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
