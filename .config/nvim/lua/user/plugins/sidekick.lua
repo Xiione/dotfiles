@@ -120,6 +120,7 @@ return {
 			},
 			win = {
 				keys = {
+					hide_n = false,
 					nav_right = {
 						"<C-l>",
 						function() end,
