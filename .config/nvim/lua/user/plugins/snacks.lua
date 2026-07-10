@@ -466,6 +466,9 @@ return {
 			ft = "markdown",
 			root = scratch.root,
 			autowrite = true,
+			win = {
+				wo = { winhighlight = sidebars.float_winhl },
+			},
 			filekey = {
 				cwd = true,
 				branch = true,
