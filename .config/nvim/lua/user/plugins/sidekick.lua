@@ -119,6 +119,9 @@ return {
 				diagnostics_all = "{diagnostics_all}",
 			},
 			win = {
+				wo = {
+					winfixbuf = true,
+				},
 				keys = {
 					hide_n = false,
 					nav_right = {
