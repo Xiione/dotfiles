@@ -17,11 +17,14 @@ return {
 		local scratch = require("user.lib.scratch")
 		local nord = require("lualine.themes.nord")
 		local uv = vim.uv
-		local scratch_icon = Snacks.util.icon("markdown", "filetype") or icons.lsp_kind.File
+		local scratch_icon = ""
 		local scratch_cache = {
 			count = 0,
 			expires_at = 0,
 		}
+		local focus_marker = ""
+		local focus_padding = {}
+		local focus_balance_pending = {}
 
 		local function load_scratch_count()
 			local now = uv.hrtime()
@@ -86,6 +89,106 @@ return {
 			terminal = colors.nord15,
 			select = colors.nord10,
 		}
+		local mode_color_groups = {
+			c = "command",
+			i = "insert",
+			r = "replace",
+			R = "replace",
+			rm = "command",
+			["r?"] = "command",
+			s = "visual",
+			S = "visual",
+			t = "terminal",
+			v = "visual",
+			V = "visual",
+			["\19"] = "visual",
+			["\22"] = "visual",
+		}
+
+		local function focus_marker_color()
+			local mode = vim.api.nvim_get_mode().mode
+			local group = mode_color_groups[mode] or mode_color_groups[mode:sub(1, 1)] or "normal"
+			return { fg = mode_colors[group] }
+		end
+
+		local function statusline_window()
+			local win = tonumber(vim.g.statusline_winid)
+			return win and vim.api.nvim_win_is_valid(win) and win or vim.api.nvim_get_current_win()
+		end
+
+		local function render_focus_padding(side)
+			local padding = focus_padding[statusline_window()]
+			return padding and string.rep(" ", padding[side]) or ""
+		end
+
+		local function render_left_focus_padding()
+			return render_focus_padding("left")
+		end
+
+		local function render_right_focus_padding()
+			return render_focus_padding("right")
+		end
+
+		local function balance_focus_marker(win)
+			if not vim.api.nvim_win_is_valid(win) then
+				focus_padding[win] = nil
+				focus_balance_pending[win] = nil
+				return
+			end
+
+			local ok, statusline = pcall(vim.api.nvim_eval_statusline, vim.wo[win].statusline, {
+				winid = win,
+				maxwidth = vim.api.nvim_win_get_width(win),
+			})
+			if not ok then
+				focus_balance_pending[win] = nil
+				return
+			end
+			local marker_start = statusline.str:find(focus_marker, 1, true)
+			if not marker_start then
+				focus_balance_pending[win] = nil
+				return
+			end
+
+			local padding = focus_padding[win] or { left = 0, right = 0 }
+			local prefix_width = vim.fn.strdisplaywidth(statusline.str:sub(1, marker_start - 1))
+			local marker_width = vim.fn.strdisplaywidth(focus_marker)
+			local difference = 2 * prefix_width + marker_width - statusline.width
+			if math.abs(difference) <= 1 then
+				focus_balance_pending[win] = nil
+				return
+			end
+			local base_difference = difference - padding.left + padding.right
+			local balanced = {
+				left = math.max(-base_difference, 0),
+				right = math.max(base_difference, 0),
+			}
+			focus_balance_pending[win] = nil
+
+			if padding.left == balanced.left and padding.right == balanced.right then
+				return
+			end
+
+			focus_padding[win] = balanced
+			vim.api.nvim_win_call(win, function()
+				require("lualine").refresh({
+					force = true,
+					scope = "window",
+					place = { "statusline" },
+				})
+			end)
+		end
+
+		local function render_focus_marker()
+			local win = statusline_window()
+			if not focus_balance_pending[win] then
+				focus_balance_pending[win] = true
+				vim.defer_fn(function()
+					balance_focus_marker(win)
+				end, 10)
+			end
+			return focus_marker
+		end
 
 		for mode, color in pairs(mode_colors) do
 			nord[mode] = {
@@ -126,8 +229,17 @@ return {
 			sections = {
 				lualine_a = { { "mode", padding = 1 } },
 				lualine_b = { diagnostics },
-				lualine_c = { render_scratch_count, "grapple" },
-				lualine_x = { "filetype" },
+				lualine_c = {
+					render_scratch_count,
+					{ "grapple", inactive = " %s", padding = { left = 1, right = 0 } },
+					{ render_left_focus_padding, padding = 0 },
+					"%=",
+					{ render_focus_marker, color = focus_marker_color, padding = 0 },
+				},
+				lualine_x = {
+					{ render_right_focus_padding, padding = 0 },
+					{ "filetype", padding = { left = 0, right = 1 } },
+				},
 				lualine_y = { { "progress", padding = 1 } },
 				lualine_z = { { "location", padding = 1 } },
 			},
