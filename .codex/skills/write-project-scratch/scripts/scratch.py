@@ -3,16 +3,19 @@
 import argparse
 import json
 import os
-from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
+from pathlib import Path
 
 REMOTE_EXPRESSION = "luaeval('require(\"user.lib.scratch\").run_agent_request(_A)', %s)"
 CLIENT_ERROR = 3
 CONFLICT = 4
 NOT_FOUND = 5
+RENDEZVOUS_VERSION = 1
+CODEX_SESSION = re.compile(r"codex [0-9a-f]+")
 
 
 class ScratchClientError(Exception):
@@ -83,15 +86,51 @@ def build_request(args):
     return request
 
 
+def load_rendezvous():
+    session = os.environ.get("ZELLIJ_SESSION_NAME", "")
+    if not CODEX_SESSION.fullmatch(session):
+        return None
+
+    state_home = Path(
+        os.environ.get("XDG_STATE_HOME", Path.home() / ".local" / "state")
+    ).expanduser()
+    app_name = os.environ.get("NVIM_APPNAME") or "nvim"
+    path = state_home / app_name / "sidekick" / "rendezvous" / f"{session}.json"
+    try:
+        rendezvous = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+
+    if not isinstance(rendezvous, dict):
+        return None
+    if rendezvous.get("version") != RENDEZVOUS_VERSION:
+        return None
+    if rendezvous.get("session") != session:
+        return None
+    server = rendezvous.get("server")
+    return server if isinstance(server, str) and server else None
+
+
+def server_candidates():
+    candidates = []
+    inherited = os.environ.get("NVIM")
+    if inherited:
+        candidates.append(("$NVIM", inherited))
+    rendezvous = load_rendezvous()
+    if rendezvous and rendezvous != inherited:
+        candidates.append(("the Sidekick rendezvous", rendezvous))
+    return candidates
+
+
 def send_request(request):
-    server = os.environ.get("NVIM")
     nvim = shutil.which("nvim")
-    if not server:
-        raise ScratchClientError(
-            "NVIM is not set; run this from a Neovim-hosted Codex session"
-        )
     if not nvim:
         raise ScratchClientError("nvim is not available on PATH")
+    candidates = server_candidates()
+    if not candidates:
+        raise ScratchClientError(
+            "NVIM is not set and no Sidekick rendezvous is available"
+        )
 
     request_path = None
     try:
@@ -106,30 +145,37 @@ def send_request(request):
             request_path = request_file.name
 
         expression = REMOTE_EXPRESSION % json.dumps(request_path)
-        result = subprocess.run(
-            [nvim, "--server", server, "--remote-expr", expression],
-            capture_output=True,
-            text=True,
-            timeout=15,
-            check=False,
-        )
-    except subprocess.TimeoutExpired as error:
-        raise ScratchClientError(
-            "Neovim did not answer the scratch request within 15 seconds"
-        ) from error
+        failures = []
+        for source, server in candidates:
+            try:
+                result = subprocess.run(
+                    [nvim, "--server", server, "--remote-expr", expression],
+                    capture_output=True,
+                    text=True,
+                    timeout=15,
+                    check=False,
+                )
+            except subprocess.TimeoutExpired:
+                failures.append(f"{source} timed out after 15 seconds")
+                continue
+
+            if result.returncode != 0:
+                detail = (
+                    result.stderr.strip()
+                    or result.stdout.strip()
+                    or "unknown RPC error"
+                )
+                failures.append(f"{source} failed: {detail}")
+                continue
+            try:
+                return json.loads(result.stdout)
+            except json.JSONDecodeError:
+                failures.append(f"{source} returned an invalid scratch response")
+
+        raise ScratchClientError("; ".join(failures))
     finally:
         if request_path:
             Path(request_path).unlink(missing_ok=True)
-
-    if result.returncode != 0:
-        detail = result.stderr.strip() or result.stdout.strip() or "unknown RPC error"
-        raise ScratchClientError(f"Neovim scratch request failed: {detail}")
-    try:
-        return json.loads(result.stdout)
-    except json.JSONDecodeError as error:
-        raise ScratchClientError(
-            "Neovim returned an invalid scratch response"
-        ) from error
 
 
 def print_response(args, response):

@@ -5,7 +5,7 @@ description: Create, inspect, and update project- and branch-scoped Neovim Snack
 
 # Write Project Scratch
 
-Use the bundled client through the Neovim instance in `$NVIM`:
+Use the bundled client through the Neovim instance hosting the Sidekick session:
 
 ```sh
 python3 "${CODEX_HOME:-$HOME/.codex}/skills/write-project-scratch/scripts/scratch.py" COMMAND
@@ -41,4 +41,4 @@ Use `--force` only after reading and preserving the live edits. Ask the user whe
 
 ## Failures
 
-Do not bypass the client or write directly to Snacks' data directory. If `$NVIM` is missing or unreachable, report that the hosting Neovim instance is unavailable.
+Do not bypass the client or write directly to Snacks' data directory. The client first tries `$NVIM`, then the session-scoped Sidekick rendezvous so persistent Codex sessions survive a Neovim restart. If both are unavailable, report that the hosting Neovim instance is unavailable.

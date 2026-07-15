@@ -1,3 +1,90 @@
+local uv = vim.uv
+local rendezvous_dir = vim.fn.stdpath("state") .. "/sidekick/rendezvous"
+
+local function codex_session(event)
+	local id = event.data and event.data.id
+	return type(id) == "string" and id:match("^terminal: (codex [%da-f]+)$") or nil
+end
+
+local function rendezvous_path(session)
+	return rendezvous_dir .. "/" .. session .. ".json"
+end
+
+local function read_rendezvous(path)
+	local file = io.open(path, "r")
+	if not file then
+		return nil
+	end
+	local content = file:read("*a")
+	file:close()
+	local ok, rendezvous = pcall(vim.json.decode, content)
+	return ok and rendezvous or nil
+end
+
+local function register_codex_host(event)
+	local session = codex_session(event)
+	if not session or vim.v.servername == "" then
+		return
+	end
+
+	local session_state = require("sidekick.util").get_state(session)
+	if not session_state or session_state.tool ~= "codex" then
+		return
+	end
+
+	vim.fn.mkdir(rendezvous_dir, "p")
+	local path = rendezvous_path(session)
+	local temp_path = path .. "." .. uv.os_getpid() .. ".tmp"
+	local rendezvous = vim.json.encode({
+		version = 1,
+		session = session,
+		server = vim.v.servername,
+		pid = uv.os_getpid(),
+		cwd = session_state.cwd,
+	})
+	if vim.fn.writefile({ rendezvous }, temp_path, "b") ~= 0 then
+		vim.notify("Failed to write Codex Neovim rendezvous", vim.log.levels.ERROR)
+		return
+	end
+	local renamed, err = uv.fs_rename(temp_path, path)
+	if not renamed then
+		uv.fs_unlink(temp_path)
+		vim.notify("Failed to publish Codex Neovim rendezvous: " .. tostring(err), vim.log.levels.ERROR)
+	end
+end
+
+local function remove_codex_host(event)
+	local session = codex_session(event)
+	if not session then
+		return
+	end
+	local path = rendezvous_path(session)
+	local rendezvous = read_rendezvous(path)
+	if rendezvous and rendezvous.server == vim.v.servername then
+		uv.fs_unlink(path)
+	end
+end
+
+local function remove_owned_hosts()
+	local directory = uv.fs_scandir(rendezvous_dir)
+	if not directory then
+		return
+	end
+	while true do
+		local name, kind = uv.fs_scandir_next(directory)
+		if not name then
+			break
+		end
+		if kind == "file" and name:match("^codex [%da-f]+%.json$") then
+			local path = rendezvous_dir .. "/" .. name
+			local rendezvous = read_rendezvous(path)
+			if rendezvous and rendezvous.server == vim.v.servername then
+				uv.fs_unlink(path)
+			end
+		end
+	end
+end
+
 return {
 	"folke/sidekick.nvim",
 	lazy = false,
@@ -141,4 +228,23 @@ return {
 			enabled = false,
 		},
 	},
+	config = function(_, opts)
+		require("sidekick").setup(opts)
+
+		local group = vim.api.nvim_create_augroup("UserSidekickRendezvous", { clear = true })
+		vim.api.nvim_create_autocmd("User", {
+			group = group,
+			pattern = "SidekickCliAttach",
+			callback = register_codex_host,
+		})
+		vim.api.nvim_create_autocmd("User", {
+			group = group,
+			pattern = "SidekickCliDetach",
+			callback = remove_codex_host,
+		})
+		vim.api.nvim_create_autocmd("VimLeavePre", {
+			group = group,
+			callback = remove_owned_hosts,
+		})
+	end,
 }
