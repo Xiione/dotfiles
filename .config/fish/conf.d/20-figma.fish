@@ -16,6 +16,7 @@ set -g __figma_pkg_config_paths \
     /usr/local/opt/openssl@3/lib/pkgconfig
 
 set -g __figma_tool_paths \
+    "$HOME/.opengrep/cli/latest" \
     "$HOME/go/bin" \
     "$HOME/.local/share/mise/shims" \
     "$HOME/.rbenv/shims"
