@@ -30,7 +30,9 @@ begin
 
     if test "$host_os" = Darwin
         if set -q HOMEBREW_PREFIX
-            set -a configured_paths "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin"
+            set -a configured_paths \
+                "$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin" \
+                "$HOMEBREW_PREFIX/opt/rustup/bin"
         end
 
         set -a configured_paths \
