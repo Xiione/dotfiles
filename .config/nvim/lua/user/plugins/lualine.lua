@@ -231,7 +231,7 @@ return {
 				lualine_b = { diagnostics },
 				lualine_c = {
 					render_scratch_count,
-					{ "grapple", inactive = " %s", padding = { left = 1, right = 0 } },
+					{ "grapple", padding = { left = 1, right = 0 } },
 					{ render_left_focus_padding, padding = 0 },
 					"%=",
 					{ render_focus_marker, color = focus_marker_color, padding = 0 },
