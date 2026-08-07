@@ -25,6 +25,8 @@ return {
 		local focus_marker = ""
 		local focus_padding = {}
 		local focus_balance_pending = {}
+		local focus_min_width = {}
+		local focus_width_hysteresis = 2
 
 		local function load_scratch_count()
 			local now = uv.hrtime()
@@ -129,19 +131,53 @@ return {
 			return render_focus_padding("right")
 		end
 
+		local function refresh_statusline(win)
+			vim.api.nvim_win_call(win, function()
+				require("lualine").refresh({
+					force = true,
+					scope = "window",
+					place = { "statusline" },
+				})
+			end)
+		end
+
+		local function find_focus_min_width(win, statusline, width)
+			for candidate = width, width + 200 do
+				local ok, rendered = pcall(vim.api.nvim_eval_statusline, statusline, {
+					winid = win,
+					maxwidth = candidate,
+				})
+				if ok and rendered.str:find(focus_marker, 1, true) and not rendered.str:find("<", 1, true) then
+					return candidate + focus_width_hysteresis
+				end
+			end
+
+			return width + focus_width_hysteresis
+		end
+
 		local function balance_focus_marker(win)
 			if not vim.api.nvim_win_is_valid(win) then
 				focus_padding[win] = nil
 				focus_balance_pending[win] = nil
+				focus_min_width[win] = nil
 				return
 			end
 
+			local width = vim.api.nvim_win_get_width(win)
 			local ok, statusline = pcall(vim.api.nvim_eval_statusline, vim.wo[win].statusline, {
 				winid = win,
-				maxwidth = vim.api.nvim_win_get_width(win),
+				maxwidth = width,
 			})
 			if not ok then
 				focus_balance_pending[win] = nil
+				return
+			end
+			if statusline.str:find("<", 1, true) then
+				focus_padding[win] = nil
+				refresh_statusline(win)
+				focus_min_width[win] = find_focus_min_width(win, vim.wo[win].statusline, width)
+				focus_balance_pending[win] = nil
+				refresh_statusline(win)
 				return
 			end
 			local marker_start = statusline.str:find(focus_marker, 1, true)
@@ -170,17 +206,15 @@ return {
 			end
 
 			focus_padding[win] = balanced
-			vim.api.nvim_win_call(win, function()
-				require("lualine").refresh({
-					force = true,
-					scope = "window",
-					place = { "statusline" },
-				})
-			end)
+			refresh_statusline(win)
 		end
 
 		local function render_focus_marker()
 			local win = statusline_window()
+			local min_width = focus_min_width[win]
+			if min_width and vim.api.nvim_win_get_width(win) < min_width then
+				return ""
+			end
 			if not focus_balance_pending[win] then
 				focus_balance_pending[win] = true
 				vim.defer_fn(function()
