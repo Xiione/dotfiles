@@ -16,6 +16,16 @@ local function paste_clipboard()
 	vim.api.nvim_paste(vim.fn.getreg("+"), true, -1)
 end
 
+local function create_session(dir, startup)
+	local absolute_dir = vim.fn.fnamemodify(dir, ":p")
+	local name = neogurt.session_name(absolute_dir)
+
+	vim.g.neogurt_cmd("session_new", { dir = absolute_dir, name = name })
+	if startup then
+		vim.g.neogurt_cmd("session_kill")
+	end
+end
+
 -- all modes
 local mode = { "", "!", "t", "l" }
 
@@ -66,39 +76,60 @@ local choose_session = function(startup)
 		table.insert(session_list, { dir = dir })
 	end
 
-	vim.ui.select(session_list, {
-		prompt = not startup and "Select a session" or "Welcome back :)",
-		format_item = function(session)
-			if session.id ~= nil then
-				if session.id == curr_id then
-					return icons.status.current_session .. " " .. session.name
-				else
-					return icons.status.available_session .. " " .. session.name
+	local items = {}
+	for _, session in ipairs(session_list) do
+		local text
+		if session.id ~= nil then
+			local icon = session.id == curr_id and icons.status.current_session or icons.status.available_session
+			text = icon .. " " .. session.name
+		else
+			text = session.dir
+		end
+		items[#items + 1] = { session = session, text = text }
+	end
+
+	local completed = false
+	local picker = Snacks.picker({
+		items = items,
+		title = not startup and "Select a session" or "Welcome back :)",
+		format = "text",
+		preview = function()
+			return false
+		end,
+		layout = { preset = "select", preview = false },
+		actions = {
+			confirm = function(current_picker, item)
+				if completed then
+					return
 				end
-			else
-				return session.dir
+				local manual_path = vim.trim(current_picker.input:get())
+				completed = true
+				current_picker:close()
+
+				if item and item.session then
+					if item.session.id ~= nil then
+						if item.session.id ~= curr_id then
+							vim.g.neogurt_cmd("session_switch", { id = item.session.id })
+						end
+					else
+						create_session(item.session.dir, startup)
+					end
+					return
+				end
+
+				if manual_path ~= "" then
+					create_session(manual_path, startup)
+				end
+			end,
+		},
+		on_close = function()
+			if not completed then
+				completed = true
 			end
 		end,
-	}, function(choice)
-		if choice == nil then
-			return
-		end
+	})
 
-		if choice.id ~= nil then
-			vim.g.neogurt_cmd("session_switch", { id = choice.id })
-		else
-			local fmod = vim.fn.fnamemodify
-			local dir = fmod(choice.dir, ":p")
-			local name = neogurt.session_name(dir)
-
-			if startup then
-				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
-				vim.g.neogurt_cmd("session_kill")
-			else
-				vim.g.neogurt_cmd("session_new", { dir = dir, name = name })
-			end
-		end
-	end)
+	return picker
 end
 
 -- change font size

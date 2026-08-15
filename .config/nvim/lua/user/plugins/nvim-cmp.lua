@@ -126,7 +126,9 @@ return {
 		})
 
 		cmp.setup.filetype({ "snacks_input", "snacks_picker_input" }, {
-			enabled = false,
+			sources = {
+				{ name = "path" },
+			},
 		})
 
 		local function trim_cmdline_text(text, max_width)
