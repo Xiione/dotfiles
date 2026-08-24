@@ -18,6 +18,7 @@ return {
 	},
 	config = function()
 		local cmp = require("cmp")
+		local cmp_types = require("cmp.types")
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
 		local sidebars = require("user.lib.sidebars")
@@ -126,8 +127,35 @@ return {
 		})
 
 		cmp.setup.filetype({ "snacks_input", "snacks_picker_input" }, {
+			mapping = {
+				["<Tab>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.confirm({ select = true })
+					else
+						fallback()
+					end
+				end, { "i" }),
+				["<S-Tab>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.select_prev_item()
+					else
+						fallback()
+					end
+				end, { "i" }),
+				["<CR>"] = cmp.mapping(function(fallback)
+					if cmp.visible() then
+						cmp.abort()
+					end
+					fallback()
+				end, { "i" }),
+			},
 			sources = {
-				{ name = "path" },
+				{
+					name = "path",
+					entry_filter = function(entry)
+						return entry:get_kind() == cmp_types.lsp.CompletionItemKind.Folder
+					end,
+				},
 			},
 		})
 
