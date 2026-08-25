@@ -1,5 +1,6 @@
 monitorBarOverrides = []
 monitorDwindleOverrides = []
+monitorGapOverrides = []
 monitorNiriOverrides = []
 monitorOrientationOverrides = []
 
@@ -7,7 +8,7 @@ monitorOrientationOverrides = []
 mode = "dark"
 
 [borders]
-enabled = true
+enabled = false
 width = 1.5
 
 [borders.color]
@@ -31,8 +32,10 @@ splitWidthMultiplier = 1.0
 useGlobalGaps = true
 
 [focus]
+crossesMonitorAtEdge = true
 followsMouse = false
 followsWindowToMonitor = false
+moveCrossesMonitorAtEdge = true
 moveMouseToFocusedWindow = false
 
 [gaps]
@@ -48,21 +51,26 @@ top = 2.0
 animationsEnabled = true
 defaultLayoutType = "dwindle"
 hotkeysEnabled = true
+hyperKeyHoldThresholdMilliseconds = 150
+hyperTrigger = "Left Option"
 ipcEnabled = true
 preventSleepEnabled = false
+spacesTrackingEnabled = true
+systemHyperTrigger = "None"
 updateChecksEnabled = true
 
 [gestures]
 fingerCount = 3
 invertDirection = true
+mouseResizeModifierKey = "option"
 scrollEnabled = true
 scrollModifierKey = "optionShift"
 scrollSensitivity = 5.0
+trackpadScrollStyle = "snap"
 
 [mouseWarp]
-axis = "horizontal"
+enabled = false
 margin = 1
-monitorOrder = []
 
 [niri]
 alwaysCenterSingleColumn = true
@@ -71,23 +79,20 @@ columnWidthPresets = [0.3333333333333333, 0.5, 0.66, 1.0]
 defaultColumnWidth = 0.5
 infiniteLoop = false
 maxVisibleColumns = 2
-maxWindowsPerColumn = 3
-singleWindowAspectRatio = "4:3"
+singleWindowAspectRatio = "1440x1080"
 
 [quakeTerminal]
 animationDuration = 0.2
 autoHide = false
-enabled = true
+enabled = false
 heightPercent = 50.0
 monitorMode = "focusedWindow"
 opacity = 1.0
 position = "center"
-useCustomFrame = false
 widthPercent = 50.0
 
-[state]
-commandPaletteLastMode = "windows"
-hiddenBarIsCollapsed = true
+[routing]
+mode = "custom"
 
 [statusBar]
 showAppNames = false
@@ -98,7 +103,7 @@ useWorkspaceId = false
 backgroundOpacity = 0.0
 deduplicateAppIcons = false
 enabled = true
-height = 20.0
+height = 28.0
 hideEmptyWorkspaces = true
 labelFontSize = 12.0
 notchAware = false
@@ -108,97 +113,19 @@ showFloatingWindows = false
 showLabels = true
 windowLevel = "normal"
 xOffset = -395.0
-yOffset = 0.0
+yOffset = 2.0
 
 [workspaceBar.accentColor]
 alpha = 1.0
-blue = -1.0
-green = -1.0
-red = -1.0
+blue = 0.6745098233222961
+green = 0.5058823823928833
+red = 0.36862748861312866
 
 [workspaceBar.textColor]
 alpha = 1.0
-blue = -1.0
-green = -1.0
-red = -1.0
-
-[[appRules]]
-bundleId = "com.openai.codex"
-id = "6A31F08A-4051-4354-B439-42F4C71894A3"
-minHeight = 600.0
-minWidth = 800.0
-
-[[appRules]]
-bundleId = "com.eltima.cmd1.pro.mas"
-id = "4BA546DA-2875-4BEF-B13F-1539E833B1A0"
-minHeight = 550.0
-minWidth = 950.0
-
-[[appRules]]
-bundleId = "com.google.Chrome"
-id = "486CEFA6-69AA-4A3C-AF27-BCD38F4F138B"
-minHeight = 375.0
-minWidth = 500.0
-
-[[appRules]]
-bundleId = "dev.zed.Zed"
-id = "979F05F4-FFA2-4EDD-B23F-08A9944C759F"
-minHeight = 240.0
-minWidth = 360.0
-
-[[appRules]]
-bundleId = "com.apple.Safari"
-id = "81426D13-C1A5-475E-AFBC-00BBA05042D0"
-minHeight = 220.0
-minWidth = 574.0
-
-[[appRules]]
-bundleId = "app.zen-browser.zen"
-id = "1CF39647-F30D-4E76-9686-79B551F1B094"
-minHeight = 495.0
-minWidth = 500.0
-
-[[appRules]]
-bundleId = "org.mozilla.firefox"
-id = "005C00D3-F665-47F8-BDAE-D80790E9E46B"
-minHeight = 120.0
-minWidth = 500.0
-
-[[appRules]]
-bundleId = "company.thebrowser.dia"
-id = "C21156B1-0224-4998-97E3-8F4FA65B9F3B"
-minHeight = 420.0
-minWidth = 500.0
-
-[[appRules]]
-bundleId = "com.spotify.client"
-id = "2DE9390B-0DB4-4D0C-9ABA-06F76F1D4EA9"
-minHeight = 600.0
-minWidth = 800.0
-
-[[appRules]]
-bundleId = "com.hnc.Discord"
-id = "AF752D95-8497-4844-BE20-4C93E73BAEF2"
-minHeight = 500.0
-minWidth = 800.0
-
-[[appRules]]
-bundleId = "com.mitchellh.ghostty"
-id = "7876C9EF-437E-4D4F-9C27-B1B02F4AABCE"
-minHeight = 48.0
-minWidth = 90.0
-
-[[appRules]]
-bundleId = "com.microsoft.Outlook"
-id = "8ECAB78B-BCDD-4245-BC25-1609A49B1C86"
-minHeight = 650.0
-minWidth = 930.0
-
-[[appRules]]
-bundleId = "com.apple.MobileSMS"
-id = "552FB77D-BF0E-4737-90A6-B5BC6986C579"
-minHeight = 320.0
-minWidth = 660.0
+blue = 0.9137254953384399
+green = 0.8705881834030151
+red = 0.8470587730407715
 
 [[appRules]]
 assignToWorkspace = "1"
@@ -218,20 +145,15 @@ id = "544B5DBF-84D1-4ACC-9147-44A93184ED17"
 layout = "float"
 
 [[appRules]]
-assignToWorkspace = "3"
 bundleId = "org.keepassxc.keepassxc"
 id = "C475ED39-419C-4A85-9DD9-D665BF43FA64"
-layout = "tile"
-minHeight = 922.0
-minWidth = 1468.0
+layout = "float"
 
 [[appRules]]
 assignToWorkspace = "3"
 bundleId = "com.apple.iCal"
 id = "1974D011-A04A-48AE-BED5-4A9FF953843B"
 layout = "tile"
-minHeight = 922.0
-minWidth = 734.0
 
 [[appRules]]
 assignToWorkspace = "3"
@@ -243,23 +165,18 @@ layout = "tile"
 assignToWorkspace = "3"
 bundleId = "com.apple.MobileSMS"
 id = "9547C967-7564-4C38-9FFB-2CE16DF31DA4"
-layout = "tile"
 
 [[appRules]]
 assignToWorkspace = "3"
 bundleId = "md.obsidian"
 id = "6A134C16-32C6-405F-AF80-7F8B06772E8E"
 layout = "tile"
-minHeight = 922.0
-minWidth = 734.0
 
 [[appRules]]
 assignToWorkspace = "4"
 bundleId = "com.hnc.Discord"
 id = "B9FD25D2-1044-4796-A977-AEAD1977E03A"
 layout = "tile"
-minHeight = 922.0
-minWidth = 1468.0
 
 [[appRules]]
 assignToWorkspace = "4"
@@ -282,9 +199,22 @@ layout = "float"
 
 [[appRules]]
 axRole = "AXWindow"
-axSubrole = "AXDialog"
+axSubrole = "AXStandardWindow"
 bundleId = "org.keepassxc.keepassxc"
 id = "EC40A903-4A80-4F79-86CF-B5E59F4236B8"
+layout = "tile"
+
+[[appRules]]
+assignToWorkspace = "3"
+axRole = "AXWindow"
+axSubrole = "AXStandardWindow"
+bundleId = "org.keepassxc.keepassxc"
+id = "9459C5D8-AEC9-47C0-98B7-3A9422F767DC"
+layout = "tile"
+
+[[appRules]]
+bundleId = "dev.moergolayerviz.local"
+id = "E91ECE23-733D-4E21-911D-7ECB84F4F31C"
 layout = "float"
 
 [[hotkeys]]
@@ -452,23 +382,23 @@ binding = "Unassigned"
 id = "moveColumnToWorkspace.8"
 
 [[hotkeys]]
-binding = "Option+Shift+Left Arrow"
+binding = "Control+Option+H"
 id = "move.left"
 
 [[hotkeys]]
-binding = "Option+Shift+Down Arrow"
+binding = "Control+Option+J"
 id = "move.down"
 
 [[hotkeys]]
-binding = "Option+Shift+Up Arrow"
+binding = "Control+Option+K"
 id = "move.up"
 
 [[hotkeys]]
-binding = "Option+Shift+Right Arrow"
+binding = "Control+Option+L"
 id = "move.right"
 
 [[hotkeys]]
-binding = "Control+Command+Tab"
+binding = "Unassigned"
 id = "focusMonitorNext"
 
 [[hotkeys]]
@@ -476,7 +406,7 @@ binding = "Unassigned"
 id = "focusMonitorPrevious"
 
 [[hotkeys]]
-binding = "Control+Command+`"
+binding = "Unassigned"
 id = "focusMonitorLast"
 
 [[hotkeys]]
@@ -544,11 +474,11 @@ binding = "Unassigned"
 id = "focusColumn.8"
 
 [[hotkeys]]
-binding = "Option+."
+binding = "Option+Period"
 id = "cycleColumnWidthForward"
 
 [[hotkeys]]
-binding = "Option+,"
+binding = "Option+Comma"
 id = "cycleColumnWidthBackward"
 
 [[hotkeys]]
@@ -624,7 +554,7 @@ binding = "Unassigned"
 id = "preselectClear"
 
 [[hotkeys]]
-binding = "Option+Space"
+binding = "Unassigned"
 id = "openCommandPalette"
 
 [[hotkeys]]
@@ -648,7 +578,7 @@ binding = "Unassigned"
 id = "toggleScratchpadWindow"
 
 [[hotkeys]]
-binding = "Control+Option+M"
+binding = "Unassigned"
 id = "openMenuAnywhere"
 
 [[hotkeys]]
@@ -660,16 +590,28 @@ binding = "Unassigned"
 id = "toggleHiddenBar"
 
 [[hotkeys]]
-binding = "Option+`"
+binding = "Option+Grave"
 id = "toggleQuakeTerminal"
 
 [[hotkeys]]
-binding = "Control+Option+L"
+binding = "Unassigned"
 id = "toggleWorkspaceLayout"
 
 [[hotkeys]]
 binding = "Option+Shift+O"
 id = "toggleOverview"
+
+[[monitorRoutingOverrides]]
+gridColumn = 1
+gridRow = 0
+monitorDisplayId = 1
+monitorName = "Built-in Retina Display"
+
+[[monitorRoutingOverrides]]
+gridColumn = 0
+gridRow = 0
+monitorDisplayId = 3
+monitorName = "Sidecar Display (AirPlay)"
 
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
@@ -681,7 +623,7 @@ type = "main"
 
 [[workspaces]]
 id = "454CECD4-5E9D-4ED1-95D7-979D48817F5F"
-layoutType = "dwindle"
+layoutType = "niri"
 name = "2"
 
 [workspaces.monitorAssignment]
@@ -718,3 +660,11 @@ name = "6"
 
 [workspaces.monitorAssignment]
 type = "main"
+
+[[workspaces]]
+id = "5E83B317-6070-475F-AEEE-2715F992C0FF"
+layoutType = "default"
+name = "7"
+
+[workspaces.monitorAssignment]
+type = "secondary"
