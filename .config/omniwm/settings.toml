@@ -217,6 +217,12 @@ bundleId = "dev.moergolayerviz.local"
 id = "E91ECE23-733D-4E21-911D-7ECB84F4F31C"
 layout = "float"
 
+[[appRules]]
+bundleId = "com.apple.iCal"
+id = "69FAF5D3-9D47-4514-A507-DE8B6BD8D051"
+layout = "float"
+titleRegex = "^$"
+
 [[hotkeys]]
 binding = "Control+1"
 id = "switchWorkspace.0"
@@ -610,7 +616,6 @@ monitorName = "Built-in Retina Display"
 [[monitorRoutingOverrides]]
 gridColumn = 0
 gridRow = 0
-monitorDisplayId = 3
 monitorName = "Sidecar Display (AirPlay)"
 
 [[workspaces]]
