@@ -43,6 +43,7 @@ begin
             /usr/local/opt/openssl/bin \
             /opt/homebrew/opt/llvm/bin \
             /usr/local/opt/llvm/bin \
+            /usr/local/texlive/2026basic/bin/universal-darwin \
             /Library/TeX/texbin \
             "$HOME/Library/Python/3.11/bin"
     end
