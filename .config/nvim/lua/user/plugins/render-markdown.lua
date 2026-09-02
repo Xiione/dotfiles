@@ -14,7 +14,7 @@ return {
 	ft = { "markdown", "Avante" },
 	opts = {
 		file_types = { "markdown", "Avante" },
-		latex = { enabled = false },
+		latex = { enabled = true },
 		win_options = { conceallevel = { rendered = 2 } },
 		code = {
 			border = "none",

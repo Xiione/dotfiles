@@ -19,6 +19,7 @@ brew "stow"
 brew "switchaudio-osx"
 brew "terminal-notifier"
 brew "tree-sitter-cli"
+brew "utftex"
 brew "zellij"
 brew "zoxide"
 

@@ -155,6 +155,7 @@ M.treesitter_parsers = {
 	"javascript",
 	"json",
 	"kotlin",
+	"latex",
 	"lua",
 	"make",
 	"markdown",
