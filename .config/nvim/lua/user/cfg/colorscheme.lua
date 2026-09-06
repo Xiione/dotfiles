@@ -142,6 +142,7 @@ local function set_nord_highlights(highlights)
 	define("SnacksPickerDir", { link = "Identifier" })
 	define("RenderMarkdownSign", { fg = colors.nord4 })
 	update_from("RenderMarkdownMath", "@markup.math", { bg = "NONE" })
+	update("@markup.math", { fg = colors.nord4 })
 
 	define("luaParenError", { link = "NONE" })
 	define("MarkdownError", { link = "NONE" })
