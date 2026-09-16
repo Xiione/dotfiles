@@ -34,11 +34,8 @@ return {
 			Rule("\\(", "\\)", "tex"),
 			Rule("\\[", "\\]", "tex"),
 			Rule("\\{", "\\}", "tex"),
+			Rule("$", "$", "markdown"),
 		})
-		autopairs.add_rule(Rule("$", "$", "md"))
-		autopairs.add_rule(Rule("\\(", "\\)", "md"))
-		autopairs.add_rule(Rule("\\[", "\\]", "md"))
-		autopairs.add_rule(Rule("\\{", "\\}", "md"))
 
 		require("cmp").event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done({}))
 	end,
