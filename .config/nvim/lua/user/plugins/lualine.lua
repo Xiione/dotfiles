@@ -52,7 +52,7 @@ return {
 
 		local function render_scratch_count()
 			local count = load_scratch_count()
-			return count > 0 and (scratch_icon .. " " .. count) or ""
+			return count > 0 and scratch_icon or ""
 		end
 
 		local function invalidate_scratch_count()
