@@ -4,11 +4,11 @@ local settings = require("settings")
 
 sbar.add("event", "brew_update")
 
-local keepass = sbar.add("alias", "KeePassXC,Item-0", {
+local keepass = sbar.add("alias", "Control Center,Item-0(7)", {
 	display = 1,
 	position = "e",
 	padding_left = 0,
-	padding_right = -5,
+	padding_right = -7,
 	icon = { drawing = false },
 	label = { drawing = false },
 	width = "dynamic",
@@ -44,7 +44,7 @@ local brew = sbar.add("item", "widgets.status_icons.brew", {
 	display = 1,
 	position = "e",
 	padding_left = 2,
-	padding_right = 2,
+	padding_right = 5,
 	icon = {
 		string = "􀐛",
 		color = colors.white,
@@ -56,10 +56,10 @@ local brew = sbar.add("item", "widgets.status_icons.brew", {
 	update_freq = 180,
 })
 
-local tailscale = sbar.add("alias", "Tailscale,Item-0", {
+local tailscale = sbar.add("alias", "Control Center,Item-0(6)", {
 	display = 1,
 	position = "e",
-	padding_left = -5,
+	padding_left = -7,
 	padding_right = 0,
 	icon = { drawing = false },
 	label = { drawing = false },
@@ -69,9 +69,9 @@ local tailscale = sbar.add("alias", "Tailscale,Item-0", {
 -- Create the bracket with popup configuration
 local status_bracket = sbar.add("bracket", "widgets.status_icons.bracket", {
 	"widgets.status_icons.brew",
-	"KeePassXC,Item-0",
+	"Control Center,Item-0(7)",
 	"widgets.status_icons.github",
-	"Tailscale,Item-0",
+	"Control Center,Item-0(6)",
 }, {
 	display = 1,
 	background = {
