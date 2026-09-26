@@ -35,6 +35,10 @@ map({ "i", "c" }, "<M-BS>", "<C-w>", { remap = true })
 -- adjustments in insert and cmd
 map("i", "<C-h>", "<Left>", silent)
 map("i", "<C-l>", "<Right>", silent)
+map("i", "<M-Left>", "<C-Left>", silent)
+map("i", "<M-Right>", "<C-Right>", silent)
+map("i", "<M-Up>", "<Up>", silent)
+map("i", "<M-Down>", "<Down>", silent)
 map("c", "<C-h>", "<Left>", { remap = true })
 map("c", "<C-l>", "<Right>", { remap = true })
 
@@ -223,7 +227,7 @@ local function throttled(keys, interval_ms)
 		vim.api.nvim_feedkeys(vim.keycode(keys), "n", false)
 	end
 end
-map("n", "<ScrollWheelDown>", throttled("2<C-e>", 1), silent)
-map("n", "<ScrollWheelUp>", throttled("2<C-y>", 1), silent)
+-- map("n", "<ScrollWheelDown>", throttled("2<C-e>", 1), silent)
+-- map("n", "<ScrollWheelUp>", throttled("2<C-y>", 1), silent)
 
 return {}
