@@ -5,6 +5,7 @@ return {
 	event = "VeryLazy",
 	opts = {
 		progress = {
+			ignore = { "pyright" },
 			display = {
 				done_icon = icons.status.success,
 			},
