@@ -1,6 +1,5 @@
 return {
 	"nosduco/remote-sshfs.nvim",
-	enabled = false,
 	keys = {
 		{
 			"<leader>rc",
@@ -33,6 +32,9 @@ return {
 	},
 	dependencies = { "folke/snacks.nvim" },
 	opts = {
+		connections = {
+			sshfs_args = { "-o nonamedattr" },
+		},
 		ui = {
 			picker = "snacks",
 		},
