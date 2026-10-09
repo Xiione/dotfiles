@@ -19,6 +19,7 @@ return {
 	config = function()
 		local cmp = require("cmp")
 		local cmp_types = require("cmp.types")
+		cmp.register_source("math_buffer", require("user.lib.cmp_math").new())
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
 		local sidebars = require("user.lib.sidebars")
@@ -76,6 +77,7 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "nvim_lsp_signature_help" },
 				{ name = "vimtex" },
+				{ name = "math_buffer" },
 				{ name = "nvim_lua" },
 				{ name = "luasnip" },
 				{
