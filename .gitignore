@@ -10,3 +10,4 @@ old/
 /nvim.log
 /.luarc.json
 /Brewfile.local
+/.config/omniwm/settings.toml.pre-v4
