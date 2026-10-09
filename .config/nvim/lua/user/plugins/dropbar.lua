@@ -107,13 +107,36 @@ local function decorate_source(source)
 	}
 end
 
-local function preserve_names(source)
+local function preserve_names(source, context, configs)
 	return {
-		get_symbols = function(...)
-			return vim.tbl_map(function(symbol)
-				symbol.min_width = vim.fn.strchars(symbol.name)
-				return decorate_symbol(symbol)
-			end, source.get_symbols(...))
+		get_symbols = function(bufnr, winid, cursor)
+			local file_symbols = source.get_symbols(bufnr, winid, cursor)
+			local context_symbols = context.get_symbols(bufnr, winid, cursor)
+			local symbols = vim.list_extend({}, file_symbols)
+			vim.list_extend(symbols, context_symbols)
+			local separator_width = vim.fn.strdisplaywidth(configs.opts.icons.ui.bar.separator)
+			local modified_marker_width = vim.fn.strdisplaywidth("[+] ")
+			local padding = configs.opts.bar.padding
+			local bar_width = (padding.left or 0) + (padding.right or 0)
+
+			for index, symbol in ipairs(symbols) do
+				bar_width = bar_width + symbol:displaywidth()
+				if symbol.is_modified then
+					bar_width = bar_width + modified_marker_width
+				end
+				if index > 1 then
+					bar_width = bar_width + separator_width
+				end
+			end
+
+			if vim.api.nvim_win_get_width(winid) >= bar_width and file_symbols[1] then
+				file_symbols[1].min_width = vim.fn.strchars(file_symbols[1].name)
+			end
+
+			return vim.list_extend(
+				vim.tbl_map(decorate_symbol, file_symbols),
+				vim.tbl_map(decorate_symbol, context_symbols)
+			)
 		end,
 	}
 end
@@ -248,7 +271,7 @@ return {
 
 					local context = vim.bo[bufnr].filetype == "markdown" and sources.markdown
 						or source_utils.fallback({ sources.lsp, sources.treesitter })
-					return { preserve_names(buffer_label), decorate_source(context) }
+					return { preserve_names(buffer_label, context, configs) }
 				end,
 			},
 			icons = {
