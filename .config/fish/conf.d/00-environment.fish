@@ -45,7 +45,8 @@ begin
             /usr/local/opt/llvm/bin \
             /usr/local/texlive/2026basic/bin/universal-darwin \
             /Library/TeX/texbin \
-            "$HOME/Library/Python/3.11/bin"
+            "$HOME/Library/Python/3.11/bin" \
+            "$HOME/.docker/bin"
     end
 
     fish_add_path --move --path $configured_paths
