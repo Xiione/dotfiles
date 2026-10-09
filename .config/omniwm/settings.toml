@@ -3,7 +3,7 @@ monitorDwindleOverrides = []
 monitorGapOverrides = []
 monitorNiriOverrides = []
 monitorOrientationOverrides = []
-schemaVersion = 3
+schemaVersion = 4
 
 [appearance]
 mode = "dark"
@@ -21,6 +21,7 @@ red = 0.2980392277240753
 
 [clipboard]
 historyEnabled = false
+ignoredTypes = []
 maxItemBytes = 8388608
 maxItems = 200
 maxTotalBytes = 67108864
@@ -53,6 +54,7 @@ right = 0.0
 top = 2.0
 
 [general]
+animationSpeed = 1.0
 animationsEnabled = true
 defaultLayoutType = "dwindle"
 hotkeysEnabled = true
@@ -95,13 +97,16 @@ margin = 1
 [niri]
 alwaysCenterSingleColumn = true
 centerFocusedColumn = "never"
-containerPrimarySpanPresets = [0.3333333333333333, 0.5, 0.66, 1.0]
+containerPrimarySpanPresets = [0.35, 0.5, 0.65, 1.0]
 defaultContainerPrimarySpan = 0.5
+edgeGaps = true
 infiniteLoop = false
+resizeStepPercent = 5
 singleWindowFit = "fill"
 visibleContainerCount = 2
 
 [overview]
+enabled = true
 invertScrollDirection = false
 matchFocusBorder = true
 mouseScrollSpeed = 1.0
@@ -134,14 +139,14 @@ green = 0.7450980392156863
 red = 0.6392156862745098
 
 [quakeTerminal]
-animationDuration = 0.2
+animationDuration = 0.0
 autoHide = false
 backgroundBlurRadius = 0
-backgroundEffect = "standardBlur"
-enabled = false
+backgroundEffect = "glassRegular"
+enabled = true
 heightPercent = 50.0
 monitorMode = "focusedWindow"
-opacity = 1.0
+opacity = 0.75
 position = "center"
 widthPercent = 50.0
 
@@ -179,8 +184,11 @@ excludedBundleIDs = []
 height = 28.0
 hideEmptyWorkspaces = true
 hideInNativeFullscreen = false
+hoverPreviewsEnabled = true
 notchActiveZoneWidth = 180.0
 notchMode = "off"
+notificationBadgeRefreshIntervalSeconds = 5.0
+notificationBadges = "off"
 position = "overlappingMenuBar"
 reserveLayoutSpace = false
 revealHoldMilliseconds = 200.0
@@ -1036,6 +1044,14 @@ id = "openMenuAnywhere"
 
 [[hotkeys]]
 binding = "Unassigned"
+id = "setWindowMark"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "removeWindowMark"
+
+[[hotkeys]]
+binding = "Unassigned"
 id = "toggleWorkspaceBarVisibility"
 
 [[hotkeys]]
@@ -1043,7 +1059,7 @@ binding = "Unassigned"
 id = "toggleHiddenBarPanel"
 
 [[hotkeys]]
-binding = "Option+Grave"
+binding = "Option+Right Bracket"
 id = "toggleQuakeTerminal"
 
 [[hotkeys]]
