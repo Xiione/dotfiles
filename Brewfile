@@ -25,8 +25,9 @@ brew "zoxide"
 
 # Desktop tools configured by this repository.
 brew "felixkratz/formulae/sketchybar", trusted: true
-cask "barutsrb/tap/omniwm", trusted: true
+# cask "barutsrb/tap/omniwm", trusted: true # i forked this
 cask "codex-app"
+cask "font-juliamono"
 cask "font-meslo-lg-nerd-font"
 cask "font-sketchybar-app-font"
 cask "jackielii/tap/skhd-zig", trusted: true
