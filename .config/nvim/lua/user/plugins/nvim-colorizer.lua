@@ -4,6 +4,7 @@ return {
 		"lua",
 		"conf",
 		"markdown",
+		"dts",
 		"cmp_docs",
 	},
 	opts = {
@@ -12,6 +13,7 @@ return {
 			"lua",
 			"conf",
 			"markdown",
+			"dts",
 			["cmp_docs"] = {
 				always_update = true,
 				debouce_ms = 0,
