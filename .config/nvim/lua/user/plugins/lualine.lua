@@ -1,4 +1,4 @@
-local function apply_disabled_statusline_highlight()
+local function apply_statusline_highlight()
 	vim.api.nvim_set_hl(0, "lualine_transparent", { link = "lualine_c_normal" })
 end
 
@@ -9,9 +9,6 @@ return {
 	-- dependencies = { "AndreM222/copilot-lualine" },
 	opts = function()
 		local sidebars = require("user.lib.sidebars")
-		local statusline_disabled_filetypes = vim.tbl_filter(function(filetype)
-			return filetype ~= "qf"
-		end, sidebars.sidebar_types)
 		local colors = require("user.cfg.colors")
 		local icons = require("user.cfg.icons")
 		local scratch = require("user.lib.scratch")
@@ -116,6 +113,31 @@ return {
 		local function statusline_window()
 			local win = tonumber(vim.g.statusline_winid)
 			return win and vim.api.nvim_win_is_valid(win) and win or vim.api.nvim_get_current_win()
+		end
+
+		local function is_sidebar_statusline()
+			local win = statusline_window()
+			local buf = vim.api.nvim_win_get_buf(win)
+			return sidebars.sidebar_types_set[vim.bo[buf].filetype] == true
+		end
+
+		local function is_regular_statusline()
+			return not is_sidebar_statusline()
+		end
+
+		local function is_focused_statusline(win)
+			return tonumber(vim.g.actual_curwin) == win
+		end
+
+		local function sidebar_statusline_color()
+			local win = statusline_window()
+			if not is_focused_statusline(win) then
+				return { fg = colors.nord0, bg = colors.nord0, gui = "bold" }
+			end
+
+			local mode = vim.api.nvim_get_mode().mode
+			local group = mode_color_groups[mode] or mode_color_groups[mode:sub(1, 1)] or "normal"
+			return { fg = colors.nord0, bg = mode_colors[group], gui = "bold" }
 		end
 
 		local function render_focus_padding(side)
@@ -242,6 +264,7 @@ return {
 
 		local diagnostics = {
 			"diagnostics",
+			cond = is_regular_statusline,
 			sources = { "nvim_diagnostic" },
 			sections = { "error", "warn" },
 			symbols = { error = icons.diagnostic.error .. " ", warn = icons.diagnostic.warn .. " " },
@@ -256,46 +279,56 @@ return {
 				theme = nord,
 				component_separators = "",
 				section_separators = "",
-				disabled_filetypes = {
-					statusline = statusline_disabled_filetypes,
-				},
 			},
 			sections = {
-				lualine_a = { { "mode", padding = 1 } },
+				lualine_a = {
+					{ "mode", cond = is_regular_statusline, padding = 1 },
+					{ "mode", cond = is_sidebar_statusline, color = sidebar_statusline_color, padding = 1 },
+				},
 				lualine_b = { diagnostics },
 				lualine_c = {
-					render_scratch_count,
-					{ "grapple", padding = { left = 1, right = 0 } },
+					{ render_scratch_count, cond = is_regular_statusline },
+					{ "grapple", cond = is_regular_statusline, padding = { left = 1, right = 0 } },
 					{ render_left_focus_padding, padding = 0 },
 					"%=",
 					{ render_focus_marker, color = focus_marker_color, padding = 0 },
 				},
 				lualine_x = {
 					{ render_right_focus_padding, padding = 0 },
-					{ "filetype", padding = { left = 0, right = 1 } },
+					{ "filetype", cond = is_regular_statusline, padding = { left = 0, right = 1 } },
 				},
-				lualine_y = { { "progress", padding = 1 } },
-				lualine_z = { { "location", padding = 1 } },
+				lualine_y = { { "progress", cond = is_regular_statusline, padding = 1 } },
+				lualine_z = {
+					{ "location", cond = is_regular_statusline, padding = 1 },
+					{ "progress", cond = is_sidebar_statusline, color = sidebar_statusline_color, padding = 1 },
+				},
 			},
 			inactive_sections = {
-				lualine_a = { { "mode", padding = 1 } },
+				lualine_a = {
+					{ "mode", cond = is_regular_statusline, padding = 1 },
+					{ "mode", cond = is_sidebar_statusline, color = sidebar_statusline_color, padding = 1 },
+				},
 				lualine_b = { diagnostics },
+				-- Keep these empty to suppress Lualine's default filename and location components.
 				lualine_c = {},
 				lualine_x = {},
-				lualine_y = { { "progress", padding = 1 } },
-				lualine_z = { { "location", padding = 1 } },
+				lualine_y = { { "progress", cond = is_regular_statusline, padding = 1 } },
+				lualine_z = {
+					{ "location", cond = is_regular_statusline, padding = 1 },
+					{ "progress", cond = is_sidebar_statusline, color = sidebar_statusline_color, padding = 1 },
+				},
 			},
 		}
 	end,
 	config = function(_, opts)
 		require("lualine").setup(opts)
-		apply_disabled_statusline_highlight()
+		apply_statusline_highlight()
 
 		local highlight_group = vim.api.nvim_create_augroup("UserLualineHighlights", { clear = true })
 		vim.api.nvim_create_autocmd("ColorScheme", {
 			group = highlight_group,
 			callback = function()
-				vim.schedule(apply_disabled_statusline_highlight)
+				vim.schedule(apply_statusline_highlight)
 			end,
 		})
 
