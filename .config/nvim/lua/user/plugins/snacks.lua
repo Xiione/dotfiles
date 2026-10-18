@@ -468,6 +468,9 @@ return {
 			root = scratch.root,
 			autowrite = true,
 			win = {
+				bo = {
+					undofile = false,
+				},
 				wo = { winhighlight = sidebars.float_winhl },
 			},
 			filekey = {
