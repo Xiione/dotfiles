@@ -16,10 +16,11 @@ vim.opt.splitright = true -- force all vertical splits to go to the right of cur
 vim.opt.swapfile = false -- creates a swapfile
 vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
 vim.opt.timeoutlen = 500 -- time to wait for a mapped sequence to complete (in milliseconds)
-local undo_dir = vim.fn.expand("~/.vim/undodir")
+local undo_dir = vim.fs.normalize(vim.fn.expand("~/.vim/undodir"))
 vim.fn.mkdir(undo_dir, "p")
 vim.opt.undodir = undo_dir
 vim.opt.undofile = true -- enable persistent undo
+
 vim.opt.updatetime = 50 -- faster completion (4000ms default)
 vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
 vim.opt.expandtab = true -- convert tabs to spaces
@@ -37,7 +38,7 @@ vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would sh
 vim.opt.wrap = false -- display lines as one long line
 vim.opt.scrolloff = 8 -- minimal number of screen lines to keep above and below the cursor
 vim.opt.mousescroll = { "ver:3", "hor:3" }
-vim.opt.sidescrolloff = 3 -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
+vim.opt.sidescrolloff = 8 -- minimal number of screen columns to keep to the left and right of the cursor if wrap is `false`
 vim.opt.shortmess:append("c") -- hide all the completion messages, e.g. "-- XXX completion (YYY)", "match 1 of 2", "The only match", "Pattern not found"
 vim.opt.iskeyword:append("-") -- treats words with `-` as single words
 -- vim.opt.formatoptions:remove("c")            -- Moved to aucmds
