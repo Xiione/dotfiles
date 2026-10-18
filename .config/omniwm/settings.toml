@@ -173,10 +173,14 @@ monitorName = "Sidecar Display (AirPlay)"
 
 [statusBar]
 showAppNames = false
+showIcon = true
 showWorkspaceName = false
 useWorkspaceId = false
 
 [workspaceBar]
+autoHide = false
+autoHideHideDelayMilliseconds = 0.0
+autoHideRevealDelayMilliseconds = 0.0
 backgroundOpacity = 0.02
 deduplicateAppIcons = false
 enabled = true
@@ -185,6 +189,7 @@ height = 28.0
 hideEmptyWorkspaces = true
 hideInNativeFullscreen = false
 hoverPreviewsEnabled = true
+inactiveIconOpacity = 0.5
 notchActiveZoneWidth = 180.0
 notchMode = "off"
 notificationBadgeRefreshIntervalSeconds = 5.0
@@ -1025,6 +1030,10 @@ id = "openCommandPalette"
 [[hotkeys]]
 binding = "Control+Option+R"
 id = "raiseAllFloatingWindows"
+
+[[hotkeys]]
+binding = "Unassigned"
+id = "toggleFloatingFocus"
 
 [[hotkeys]]
 binding = "Control+Option+Shift+R"
