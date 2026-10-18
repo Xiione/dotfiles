@@ -1,6 +1,120 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
+local undo_excluded_extensions = {
+	"age",
+	"asc",
+	"der",
+	"enc",
+	"enc.json",
+	"enc.yaml",
+	"encrypted",
+	"encrypted.json",
+	"encrypted.yaml",
+	"env",
+	"gpg",
+	"jks",
+	"key",
+	"keytab",
+	"keystore",
+	"kdbx",
+	"p12",
+	"p7b",
+	"p7c",
+	"p8",
+	"pk8",
+	"pkcs8",
+	"pem",
+	"pgp",
+	"pfx",
+	"ppk",
+	"secret",
+	"secrets",
+	"sops.json",
+	"sops.yaml",
+	"tfplan",
+	"tfstate",
+	"tfstate.backup",
+	"tfvars",
+	"tfvars.json",
+}
+
+local undo_excluded_names = {
+	".dockerconfigjson",
+	".envrc",
+	".netrc",
+	".npmrc",
+	".pgpass",
+	".pypirc",
+	".vault-token",
+	"application_default_credentials.json",
+	"client_secret.json",
+	"credentials",
+	"credentials.json",
+	"service-account-key.json",
+	"service-account.json",
+	"token.json",
+}
+
+local ssh_private_key_names = { "id_dsa", "id_ecdsa", "id_ed25519", "id_rsa" }
+
+local function has_suffix(name, suffix)
+	return name:sub(-#suffix) == suffix
+end
+
+local function is_ssh_private_key_name(name)
+	for _, key_name in ipairs(ssh_private_key_names) do
+		if name == key_name or (name:match("^" .. key_name .. "[_%-].+") and not name:match("%.pub$")) then
+			return true
+		end
+	end
+	return false
+end
+
+local function is_undo_file(path)
+	if path == "" then
+		return false
+	end
+
+	path = vim.fs.normalize(vim.fn.fnamemodify(path, ":p"))
+	local normalized_path = path:lower()
+	for _, undo_dir in ipairs(vim.opt.undodir:get()) do
+		local normalized_undo_dir = vim.fs.normalize(vim.fn.fnamemodify(vim.fn.expand(undo_dir), ":p")):lower()
+		if normalized_path == normalized_undo_dir or vim.startswith(normalized_path, normalized_undo_dir .. "/") then
+			return true
+		end
+	end
+
+	local name = vim.fs.basename(path):lower()
+	if
+		vim.tbl_contains(undo_excluded_names, name)
+		or is_ssh_private_key_name(name)
+		or name == ".env"
+		or name == "env"
+	then
+		return true
+	end
+	if name:match("^%.env[%.%-_].+") or name:match("^env[%.%-_].+") or name:match("^secrets?%.") then
+		return true
+	end
+
+	for _, extension in ipairs(undo_excluded_extensions) do
+		if has_suffix(name, "." .. extension) then
+			return true
+		end
+	end
+	return false
+end
+
+autocmd({ "BufReadPre", "BufNewFile", "BufWritePre" }, {
+	group = augroup("UserUndoFileExclusions", { clear = true }),
+	callback = function(ctx)
+		if is_undo_file(vim.api.nvim_buf_get_name(ctx.buf)) then
+			vim.bo[ctx.buf].undofile = false
+		end
+	end,
+})
+
 local neogurt = require("user.lib.neogurt")
 local sidebars = require("user.lib.sidebars")
 
