@@ -1,6 +1,6 @@
 {
     "global": {
-        "check_for_updates_on_startup": false,
+        "check_for_updates": false,
         "show_in_menu_bar": false
     },
     "profiles": [
@@ -8,9 +8,26 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Post escape if left_control is pressed alone",
+                        "description": "Post escape if left_control is pressed alone, except on Go60",
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            {
+                                                "is_keyboard": true,
+                                                "product_id": 10203,
+                                                "vendor_id": 5824
+                                            },
+                                            {
+                                                "is_keyboard": true,
+                                                "product_id": 10201,
+                                                "vendor_id": 5824
+                                            }
+                                        ],
+                                        "type": "device_unless"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": { "optional": ["any"] }
