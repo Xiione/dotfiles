@@ -49,7 +49,10 @@ return {
 
 		local function render_scratch_count()
 			local count = load_scratch_count()
-			return count > 0 and scratch_icon or ""
+			if count > 1 then
+				return ("%s %d"):format(scratch_icon, count)
+			end
+			return count == 1 and scratch_icon or ""
 		end
 
 		local function invalidate_scratch_count()
