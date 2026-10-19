@@ -326,19 +326,19 @@ return {
 	"folke/sidekick.nvim",
 	lazy = false,
 	keys = {
+		-- {
+		-- 	"<S-Tab>",
+		-- 	function()
+		-- 		if not require("sidekick").nes_jump_or_apply() then
+		-- 			return "<S-Tab>"
+		-- 		end
+		-- 	end,
+		-- 	mode = "i",
+		-- 	expr = true,
+		-- 	desc = "Go to/apply next edit suggestion",
+		-- },
 		{
-			"<S-Tab>",
-			function()
-				if not require("sidekick").nes_jump_or_apply() then
-					return "<S-Tab>"
-				end
-			end,
-			mode = "i",
-			expr = true,
-			desc = "Go to/apply next edit suggestion",
-		},
-		{
-			"<D-i>",
+			"<c-.>",
 			function()
 				require("user.lib.sidebars").open("sidekick", true)
 				require("sidekick.cli").focus("codex")
@@ -384,15 +384,15 @@ return {
 			end,
 			desc = "Send file to Codex",
 		},
-		{
-			"<D-i>",
-			function()
-				require("user.lib.sidebars").open("sidekick", true)
-				require("sidekick.cli").send({ name = "codex", msg = "{selection}" })
-			end,
-			mode = "x",
-			desc = "Send visual selection to Codex",
-		},
+		-- {
+		-- 	"<D-i>",
+		-- 	function()
+		-- 		require("user.lib.sidebars").open("sidekick", true)
+		-- 		require("sidekick.cli").send({ name = "codex", msg = "{selection}" })
+		-- 	end,
+		-- 	mode = "x",
+		-- 	desc = "Send visual selection to Codex",
+		-- },
 		{
 			"<leader>ap",
 			function()
@@ -448,12 +448,12 @@ return {
 				},
 				keys = {
 					hide_n = false,
-					nav_right = {
-						"<C-l>",
-						function() end,
-						mode = "t",
-						desc = "Ignore Ctrl-L in Sidekick terminal", -- codex clear chat is annoying and i dont need it
-					},
+					-- nav_right = {
+					-- 	"<C-l>",
+					-- 	function() end,
+					-- 	mode = "t",
+					-- 	desc = "Ignore Ctrl-L in Sidekick terminal", -- codex clear chat is annoying and i dont need it
+					-- },
 				},
 			},
 			mux = {
