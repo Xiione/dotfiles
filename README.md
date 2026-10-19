@@ -47,6 +47,19 @@ it manually from [upstream](https://sioyek.info/) if desired. Without Sioyek,
 VimTeX falls back to Zathura when available and otherwise disables external
 PDF viewing.
 
+### Codex notifications
+
+When `~/.codex/bin/codex-notify` is configured as Codex's notification command,
+clicking a completion notification focuses `/Applications/neogurt.app`, selects
+the session with an attached Codex terminal at the notification's working
+directory, and focuses Sidekick. Closed or ambiguous targets produce an error
+notification without starting Codex. Existing Neogurt sessions must reload the
+Sidekick configuration or restart after installing this command.
+
+Clicks require `terminal-notifier`, which is included in `Brewfile`; the
+AppleScript fallback only shows notifications. Set `CODEX_NOTIFY_ACTION` to
+`activate-codex`, `open-cwd`, `reveal-cwd`, or `none` to choose another action.
+
 ### Homebrew maintenance
 
 Check or explicitly upgrade the tracked dependencies with:

@@ -322,6 +322,36 @@ local function remove_owned_hosts()
 	end
 end
 
+local function resolve_path(path)
+	local normalized = vim.fs.normalize(uv.fs_realpath(path) or vim.fn.fnamemodify(path, ":p")):gsub("/+$", "")
+	return normalized == "" and "/" or normalized
+end
+
+local function focus_codex(args)
+	local target = vim.json.decode(args.args)
+	assert(
+		type(target) == "table" and type(target.cwd) == "string" and type(target.session) == "string",
+		"Invalid Codex notification target"
+	)
+	assert(vim.g.neogurt and target.pid == uv.os_getpid(), "The target Neogurt session is no longer available")
+	local terminal = require("sidekick.cli.session").attached()[target.session]
+	assert(
+		terminal
+			and terminal.backend == "terminal"
+			and terminal.tool.name == "codex"
+			and resolve_path(terminal.cwd) == resolve_path(target.cwd),
+		"The matching Codex terminal is no longer attached"
+	)
+	local session = vim.g.neogurt_cmd("session_info")
+	assert(session and vim.g.neogurt_cmd("session_switch", { id = session.id }), "Failed to select the Neogurt session")
+	require("user.lib.sidebars").open("sidekick", true)
+	-- show() keeps focus on repeated clicks; focus() would toggle it away.
+	require("sidekick.cli").show({
+		focus = true,
+		filter = { name = "codex", session = target.session, attached = true },
+	})
+end
+
 return {
 	"folke/sidekick.nvim",
 	lazy = false,
@@ -468,6 +498,10 @@ return {
 	config = function(_, opts)
 		require("sidekick").setup(opts)
 		trace_orphan_windows()
+		vim.api.nvim_create_user_command("CodexNotifyFocus", focus_codex, {
+			nargs = 1,
+			desc = "Focus the existing Neogurt Codex terminal named by a notification target",
+		})
 
 		local group = vim.api.nvim_create_augroup("UserSidekickRendezvous", { clear = true })
 		vim.api.nvim_create_autocmd("User", {
