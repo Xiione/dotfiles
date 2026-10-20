@@ -21,6 +21,33 @@ HOST_QUERY = """
 end)()
 """.replace("\n", " ")
 
+NOTIFICATION_GLYPHS = {
+    "": "🔎",
+    "": "✏️",
+    "": "⌨️",
+    "": "🧪",
+    "": "🐛",
+    "": "✅",
+    "": "⚠️",
+    "": "⛔",
+    "": "ℹ️",
+    "": "💡",
+    "": "🔐",
+    "": "🔒",
+    "": "📄",
+    "": "📁",
+    "": "🧩",
+    "": "➕",
+    "": "➖",
+    "": "📝",
+    "": "🔀",
+    "": "👀",
+}
+
+
+def notification_text(text):
+    return "".join(NOTIFICATION_GLYPHS.get(char, char) for char in text)
+
 
 def resolve_path(path):
     return os.path.realpath(os.path.expanduser(path))
@@ -307,11 +334,11 @@ def notify_with_terminal_notifier(title, subtitle, message, cwd, click_args=None
     args = [
         terminal_notifier,
         "-title",
-        title,
+        notification_text(title),
         "-subtitle",
-        subtitle,
+        notification_text(subtitle),
         "-message",
-        message,
+        notification_text(message),
         "-group",
         f"codex:{os.path.abspath(os.path.expanduser(cwd))}",
     ]
@@ -332,11 +359,11 @@ def notify_with_osascript(title, subtitle, message):
             osascript,
             "-e",
             "display notification "
-            + applescript_string(message)
+            + applescript_string(notification_text(message))
             + " with title "
-            + applescript_string(title)
+            + applescript_string(notification_text(title))
             + " subtitle "
-            + applescript_string(subtitle),
+            + applescript_string(notification_text(subtitle)),
         ],
         check=False,
     )
@@ -360,9 +387,11 @@ def main():
     title = "Codex"
     subtitle = session_name(cwd)
     message = one_line(
-        prompt_from_notification(notification)
-        or notification.get("last-assistant-message")
-        or "Turn complete"
+        notification_text(
+            prompt_from_notification(notification)
+            or notification.get("last-assistant-message")
+            or "Turn complete"
+        )
     )
 
     if os.environ.get("CODEX_NOTIFY_DRY_RUN"):
