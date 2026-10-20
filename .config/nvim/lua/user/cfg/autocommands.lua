@@ -168,6 +168,9 @@ local sidebar_signcolumn_filetypes = {
 
 local function apply_sidebar_highlights(ctx)
 	local filetype = vim.bo[ctx.buf].filetype
+	if filetype == "sidekick_terminal" then
+		return -- Sidekick already sets this window's Normal and NormalNC highlights
+	end
 	if sidebars.sidebar_types_set[filetype] == nil then
 		return
 	end
