@@ -904,11 +904,11 @@ binding = "Unassigned"
 id = "moveColumnToIndex.9"
 
 [[hotkeys]]
-binding = "Option+Period"
+binding = "Option+Equal"
 id = "cycleSizeForward"
 
 [[hotkeys]]
-binding = "Option+Comma"
+binding = "Option+Minus"
 id = "cycleSizeBackward"
 
 [[hotkeys]]
