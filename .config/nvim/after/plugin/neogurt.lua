@@ -95,7 +95,7 @@ local choose_session = function(startup)
 			local icon = session.id == curr_id and icons.status.current_session or icons.status.available_session
 			text = icon .. " " .. session.name
 		else
-			text = session.dir
+			text = vim.fn.fnamemodify(session.dir, ":~")
 		end
 		items[#items + 1] = { session = session, text = text }
 	end
