@@ -54,26 +54,37 @@ vim.g.neogurt_cmd("option_set", {
 -- from wiliam config
 local choose_session = function(startup)
 	local curr_id = not startup and vim.g.neogurt_cmd("session_info").id or -1
-	local session_list = not startup
-			-- and utils.array_filter(vim.g.neogurt_cmd("session_list", { sort = "time" }), function(sess)
-			-- 	return sess.id ~= curr_id
-			-- end)
-			and vim.g.neogurt_cmd("session_list", { sort = "time" })
-		or {}
+	local session_list = not startup and vim.g.neogurt_cmd("session_list", { sort = "time" }) or {}
 
-	local cmd = [[
-             echo "$(begin;
-               echo ~/;
-               echo ~/dotfiles;
-               find ~/code -mindepth 0 -maxdepth 2 -type d 2>/dev/null;
-               find ~/Documents -mindepth 0 -maxdepth 1 -type d 2>/dev/null;
-               find ~/figma -mindepth 0 -maxdepth 1 -type d 2>/dev/null;
-             end;)"
-             ]]
-	local output = vim.fn.system(cmd)
+	local home = vim.uv.os_homedir()
+	local commands = {
+		{ "find", home .. "/code", "-mindepth", "0", "-maxdepth", "2", "-type", "d" },
+		{ "find", home .. "/Documents", "-mindepth", "0", "-maxdepth", "1", "-type", "d" },
+		{ "find", home .. "/figma", "-mindepth", "0", "-maxdepth", "1", "-type", "d" },
+		{ "zoxide", "query", "--list" },
+	}
+	local seen = {}
+	for _, session in ipairs(session_list) do
+		seen[vim.fs.normalize(vim.fn.fnamemodify(session.dir, ":p"))] = true
+	end
 
-	for dir in string.gmatch(output, "([^\n]+)") do
-		table.insert(session_list, { dir = dir })
+	local function add_directory(dir)
+		dir = vim.fs.normalize(vim.fn.fnamemodify(dir, ":p"))
+		if not seen[dir] then
+			seen[dir] = true
+			table.insert(session_list, { dir = dir })
+		end
+	end
+
+	add_directory(home)
+	add_directory(home .. "/dotfiles")
+	for _, command in ipairs(commands) do
+		if vim.fn.executable(command[1]) == 1 then
+			local result = vim.system(command, { text = true, stderr = false }):wait()
+			for dir in (result.stdout or ""):gmatch("[^\n]+") do
+				add_directory(dir)
+			end
+		end
 	end
 
 	local items = {}
