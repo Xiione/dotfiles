@@ -21,6 +21,7 @@ local function create_session(dir, startup)
 	local name = neogurt.session_name(absolute_dir)
 
 	vim.g.neogurt_cmd("session_new", { dir = absolute_dir, name = name })
+	require("user.lib.zoxide").add(absolute_dir)
 	if startup then
 		vim.g.neogurt_cmd("session_kill")
 	end

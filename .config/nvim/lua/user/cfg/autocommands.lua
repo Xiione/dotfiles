@@ -318,6 +318,14 @@ autocmd("FileType", {
 	end,
 })
 
+autocmd("DirChanged", {
+	group = augroup("ZoxideVisits", { clear = true }),
+	desc = "Zoxide: record directory visits",
+	callback = function(ctx)
+		require("user.lib.zoxide").add(ctx.file)
+	end,
+})
+
 local session_title_group = augroup("NeogurtSessionTitle", { clear = true })
 
 local function update_neogurt_session_title(path)
