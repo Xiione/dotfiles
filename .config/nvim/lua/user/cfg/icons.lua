@@ -38,7 +38,7 @@ return {
 	status = {
 		success = "",
 		current_session = "",
-		available_session = "",
+		available_session = "○",
 	},
 	lsp_kind = {
 		Text = "",
