@@ -1,0 +1,15 @@
+~/Library/Application Support/Arc/User Data/*/History*
+~/Library/Application Support/Arc/User Data/*/Shortcuts*
+~/Library/Application Support/Arc/User Data/*/Top Sites*
+~/Library/Application Support/Arc/User Data/*/Bookmarks*
+~/Library/Caches/company.thebrowser.Browser/Cache.db*
+~/Library/Application Support/Arc/StorableCommandBarAdditionalRanking*
+~/Library/Caches/company.thebrowser.Browser/fsCachedData
+
+~/.lesshst
+~/Library/Caches/org.Zellij-Contributors.Zellij
+~/Library/Caches/com.runningwithcrayons.Alfred/Workflow Data
+~/Library/Caches/MiniLauncher
+
+~/.local/share/fish
+~/.vim/undodir
