@@ -1,6 +1,23 @@
 local utils = require("user.lib.utils")
 local icons = require("user.cfg.icons")
 
+local function open_pdf_in_sioyek()
+	local node = require("nvim-tree.api").tree.get_node_under_cursor()
+	if not node or node.type ~= "file" or node.extension:lower() ~= "pdf" then
+		return
+	end
+
+	if vim.fn.executable("sioyek") ~= 1 then
+		vim.notify("Sioyek is not installed", vim.log.levels.WARN)
+		return
+	end
+
+	local ok, job = pcall(vim.fn.jobstart, { "sioyek", node.absolute_path }, { detach = true })
+	if not ok or job <= 0 then
+		vim.notify("Could not open PDF in Sioyek", vim.log.levels.ERROR)
+	end
+end
+
 -- https://github.com/nvim-tree/nvim-tree.lua/wiki/Recipes#sorting-files-naturally-respecting-numbers-within-files-names
 local function natural_cmp(left, right)
 	left = left.name:lower()
@@ -170,7 +187,7 @@ return {
 			vim.keymap.set("n", "r", api.fs.rename, opts("Rename"))
 			vim.keymap.set("n", "R", api.tree.reload, opts("Refresh"))
 			vim.keymap.set("n", "s", api.node.run.system, opts("Run System"))
-			vim.keymap.set("n", "S", api.tree.search_node, opts("Search"))
+			vim.keymap.set("n", "S", open_pdf_in_sioyek, opts("Open PDF in Sioyek"))
 			vim.keymap.set("n", "U", api.tree.toggle_custom_filter, opts("Toggle Hidden"))
 			vim.keymap.set("n", "W", api.tree.collapse_all, opts("Collapse"))
 			vim.keymap.set("n", "x", api.fs.cut, opts("Cut"))
