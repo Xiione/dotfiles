@@ -64,10 +64,8 @@ local choose_session = function(startup)
 		{ "find", home .. "/figma", "-mindepth", "0", "-maxdepth", "1", "-type", "d" },
 		{ "zoxide", "query", "--list" },
 	}
+	-- Deduplicate directory suggestions independently of existing sessions.
 	local seen = {}
-	for _, session in ipairs(session_list) do
-		seen[vim.fs.normalize(vim.fn.fnamemodify(session.dir, ":p"))] = true
-	end
 
 	local function add_directory(dir)
 		dir = vim.fs.normalize(vim.fn.fnamemodify(dir, ":p"))
