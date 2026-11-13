@@ -29,6 +29,11 @@ return {
 		local buffer = require("cmp_buffer")
 		cmp.register_source("visible_buffer", buffer.new())
 		local compare = cmp.config.compare
+		local function has_change(entry, ctx)
+			local input = ctx.cursor_before_line:sub(entry.offset)
+			return entry.word ~= input
+		end
+
 		local format = lspkind.cmp_format({
 			mode = "symbol",
 			maxwidth = { menu = 50, abbr = 50 },
@@ -79,6 +84,8 @@ return {
 					item = format(entry, item)
 					if entry.source.name == "visible_buffer" then
 						item.icon = icons.completion.visible_buffer
+					elseif entry.source.name == "spell" then
+						item.icon = icons.completion.spell
 					end
 					return item
 				end,
@@ -106,6 +113,7 @@ return {
 				},
 				{
 					name = "buffer",
+					entry_filter = has_change,
 					option = {
 						get_bufnrs = function()
 							local ft = vim.bo.filetype
@@ -117,7 +125,10 @@ return {
 				},
 				{
 					name = "visible_buffer",
-					entry_filter = function(entry)
+					entry_filter = function(entry, ctx)
+						if not has_change(entry, ctx) then
+							return false
+						end
 						local current = buffer.buffers[entry.context.bufnr]
 						if current then
 							for _, words in ipairs(current:get_words()) do
@@ -281,7 +292,7 @@ return {
 			vim.tbl_extend("force", {
 				mapping = cmp.mapping.preset.cmdline(cmdline_mappings),
 				sources = {
-					{ name = "buffer" },
+					{ name = "buffer", entry_filter = has_change },
 				},
 			}, cmdline_opts)
 		)

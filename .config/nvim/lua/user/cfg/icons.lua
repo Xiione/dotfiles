@@ -1,5 +1,5 @@
 return {
-	completion = { visible_buffer = "" },
+	completion = { visible_buffer = "", spell = "󰓆" },
 	diagnostic = {
 		error = "󰅙",
 		warn = "",
