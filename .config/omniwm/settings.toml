@@ -756,7 +756,7 @@ binding = "Option+Return"
 id = "toggleFullscreen"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Control+Option+Return"
 id = "toggleNativeFullscreen"
 
 [[hotkeys]]
