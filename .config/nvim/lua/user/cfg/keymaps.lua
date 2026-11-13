@@ -33,14 +33,12 @@ map("", "<Space>", "<Nop>", silent)
 map({ "i", "c" }, "<M-BS>", "<C-w>", { remap = true })
 
 -- adjustments in insert and cmd
-map("i", "<C-h>", "<Left>", silent)
-map("i", "<C-l>", "<Right>", silent)
+map({ "i", "c" }, "<C-h>", "<Left>", silent)
+map({ "i", "c" }, "<C-l>", "<Right>", silent)
 map("i", "<M-Left>", "<C-Left>", silent)
 map("i", "<M-Right>", "<C-Right>", silent)
 map("i", "<M-Up>", "<Up>", silent)
 map("i", "<M-Down>", "<Down>", silent)
-map("c", "<C-h>", "<Left>", { remap = true })
-map("c", "<C-l>", "<Right>", { remap = true })
 
 -- Better window navigation
 map("n", "<C-h>", "<C-w>h", silent)
@@ -99,6 +97,7 @@ vim.cmd([[
     cnoreabbrev <expr> Wq    ((getcmdtype()  is# ':' && getcmdline() is# 'Wq')?('wq'):('Wq'))
     cnoreabbrev <expr> Qa    ((getcmdtype()  is# ':' && getcmdline() is# 'Qa')?('qa'):('Qa'))
     cnoreabbrev <expr> QA    ((getcmdtype()  is# ':' && getcmdline() is# 'QA')?('qa'):('QA'))
+    cnoreabbrev <expr> E     ((getcmdtype()  is# ':' && getcmdline() is# 'E')?('e'):('E'))
 ]])
 
 -- theprimeagen replace thingie - inner word text obj
