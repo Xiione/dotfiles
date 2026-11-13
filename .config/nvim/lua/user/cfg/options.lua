@@ -30,7 +30,7 @@ vim.opt.cursorline = true -- highlight the current line
 vim.opt.cursorlineopt = "both"
 vim.opt.number = true -- set numbered lines
 vim.opt.laststatus = 3 -- only the last window will always have a status line
-vim.opt.statusline = "" -- dropbar and lualine take care of the winbar and statusline
+vim.opt.statusline = "" -- Dropbar and Lualine take care of the winbar and statusline
 vim.opt.showcmd = true -- hide (partial) command in the last line of the screen (for performance)
 vim.opt.ruler = false -- hide the line and column number of the cursor position
 vim.opt.numberwidth = 4 -- minimal number of columns to use for the line number {default 4}
@@ -59,6 +59,7 @@ vim.opt.colorcolumn = ""
 vim.opt.autoindent = true
 vim.opt.mousemoveevent = false
 vim.opt.sessionoptions = "buffers,curdir,folds,help,winsize"
+vim.opt.spell = true
 
 -- ufo
 vim.o.foldcolumn = "1" -- '0' is not bad

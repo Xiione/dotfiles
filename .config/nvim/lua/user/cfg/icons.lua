@@ -1,4 +1,5 @@
 return {
+	completion = { visible_buffer = "" },
 	diagnostic = {
 		error = "󰅙",
 		warn = "",

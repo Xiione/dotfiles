@@ -8,6 +8,7 @@ return {
 		"luckasRanarison/tailwind-tools.nvim",
 		"onsails/lspkind-nvim",
 		"hrsh7th/cmp-buffer",
+		"f3fora/cmp-spell",
 		"hrsh7th/cmp-path",
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
@@ -19,10 +20,21 @@ return {
 	config = function()
 		local cmp = require("cmp")
 		local cmp_types = require("cmp.types")
+		local context = require("cmp.config.context")
 		cmp.register_source("math_buffer", require("user.lib.cmp_math").new())
 		local luasnip = require("luasnip")
 		local lspkind = require("lspkind")
 		local sidebars = require("user.lib.sidebars")
+		local icons = require("user.cfg.icons")
+		local buffer = require("cmp_buffer")
+		cmp.register_source("visible_buffer", buffer.new())
+		local compare = cmp.config.compare
+		local format = lspkind.cmp_format({
+			mode = "symbol",
+			maxwidth = { menu = 50, abbr = 50 },
+			ellipsis_char = "...",
+			show_labelDetails = true,
+		})
 
 		cmp.setup({
 			enabled = true,
@@ -63,15 +75,13 @@ return {
 			}),
 			formatting = {
 				fields = { "icon", "abbr", "menu" },
-				format = lspkind.cmp_format({
-					mode = "symbol",
-					maxwidth = {
-						menu = 50,
-						abbr = 50,
-					},
-					ellipsis_char = "...",
-					show_labelDetails = true,
-				}),
+				format = function(entry, item)
+					item = format(entry, item)
+					if entry.source.name == "visible_buffer" then
+						item.icon = icons.completion.visible_buffer
+					end
+					return item
+				end,
 			},
 			sources = {
 				{ name = "nvim_lsp" },
@@ -79,17 +89,56 @@ return {
 				{ name = "vimtex" },
 				{ name = "math_buffer" },
 				{ name = "nvim_lua" },
-				{ name = "luasnip" },
+				{
+					name = "luasnip",
+					entry_filter = function()
+						return not require("user.lib.cmp_context").is_member_access()
+					end,
+				},
+				{
+					name = "spell",
+					option = {
+						enable_in_context = function()
+							return vim.wo.spell
+								and (vim.bo.filetype == "text" or context.in_treesitter_capture("spell"))
+						end,
+					},
+				},
 				{
 					name = "buffer",
 					option = {
 						get_bufnrs = function()
+							local ft = vim.bo.filetype
+							return (sidebars.sidebar_types_set[ft] == nil or ft == "sidekick_terminal")
+									and { vim.api.nvim_get_current_buf() }
+								or {}
+						end,
+					},
+				},
+				{
+					name = "visible_buffer",
+					entry_filter = function(entry)
+						local current = buffer.buffers[entry.context.bufnr]
+						if current then
+							for _, words in ipairs(current:get_words()) do
+								if words[entry.completion_item.label] then
+									return false
+								end
+							end
+						end
+						return true
+					end,
+					option = {
+						get_bufnrs = function()
 							local bufs = {}
-							for _, win in ipairs(vim.api.nvim_list_wins()) do
-								local bufnr = vim.api.nvim_win_get_buf(win)
-								local ft = vim.api.nvim_get_option_value("filetype", { buf = bufnr })
-								if sidebars.sidebar_types_set[ft] == nil then
-									bufs[bufnr] = true
+							for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+								local buf = vim.api.nvim_win_get_buf(win)
+								local ft = vim.bo[buf].filetype
+								if
+									buf ~= vim.api.nvim_get_current_buf()
+									and (sidebars.sidebar_types_set[ft] == nil or ft == "sidekick_terminal")
+								then
+									bufs[buf] = true
 								end
 							end
 							return vim.tbl_keys(bufs)
@@ -98,9 +147,23 @@ return {
 				},
 				{ name = "path" },
 			},
+			sorting = {
+				comparators = {
+					compare.offset,
+					compare.exact,
+					compare.score,
+					compare.recently_used,
+					function(...)
+						return buffer:compare_locality(...)
+					end,
+					compare.kind,
+					compare.sort_text,
+					compare.length,
+					compare.order,
+				},
+			},
 			confirmation = {
-				behavior = cmp.ConfirmBehavior.Replace,
-				select = true,
+				default_behavior = cmp.ConfirmBehavior.Replace,
 			},
 			window = {
 				completion = {
@@ -110,7 +173,7 @@ return {
 					col_offset = -2,
 				},
 				documentation = {
-					border = "none",
+					border = "solid",
 					winhighlight = sidebars.sidebar_winhl({ cursorline = false })
 						.. ",MarkdownError:none,luaParenError:none",
 					max_width = 40,
