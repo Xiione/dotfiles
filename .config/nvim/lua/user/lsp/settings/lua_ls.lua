@@ -1,6 +1,9 @@
 return {
 	settings = {
 		Lua = {
+			window = {
+				progressBar = false,
+			},
 			diagnostics = {
 				globals = { "vim" },
 			},
