@@ -1,0 +1,37 @@
+#!/usr/bin/env python3
+"""Read github/<alias> from macOS Keychain for a Codex HTTP headers helper."""
+
+import argparse
+import json
+import subprocess
+import sys
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("alias", help="Keychain service suffix, e.g. project-a")
+    args = parser.parse_args()
+    service = f"github/{args.alias}"
+
+    try:
+        result = subprocess.run(
+            ["/usr/bin/security", "find-generic-password", "-s", service, "-w"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        print(f"github-headers: could not read Keychain service {service!r}", file=sys.stderr)
+        return 1
+
+    token = result.stdout.strip()
+    if not token or any(character.isspace() for character in token):
+        print("github-headers: Keychain token is empty or contains whitespace", file=sys.stderr)
+        return 1
+
+    print(json.dumps({"Authorization": f"Bearer {token}"}))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
