@@ -3,5 +3,6 @@ return {
 	lazy = true,
 	opts = {
 		default = true,
+		prefix = true,
 	},
 }
