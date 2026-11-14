@@ -96,12 +96,7 @@ return {
 				{ name = "vimtex" },
 				{ name = "math_buffer" },
 				{ name = "nvim_lua" },
-				{
-					name = "luasnip",
-					entry_filter = function()
-						return not require("user.lib.cmp_context").is_member_access()
-					end,
-				},
+				{ name = "luasnip" },
 				{
 					name = "spell",
 					option = {
@@ -185,8 +180,7 @@ return {
 				},
 				documentation = {
 					border = "solid",
-					winhighlight = sidebars.sidebar_winhl({ cursorline = false })
-						.. ",MarkdownError:none,luaParenError:none",
+					winhighlight = sidebars.float_winhl .. ",MarkdownError:none,luaParenError:none,texError:none",
 					max_width = 40,
 					max_height = 15,
 				},

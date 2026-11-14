@@ -144,8 +144,6 @@ local function set_nord_highlights(highlights)
 	update_from("RenderMarkdownMath", "@markup.math", { bg = "NONE" })
 	update("@markup.math", { fg = colors.nord4 })
 
-	define("luaParenError", { link = "NONE" })
-	define("MarkdownError", { link = "NONE" })
 	define("MarkdownLinkText", { sp = colors.nord14 })
 	define("luaError", { link = "Structure" })
 
