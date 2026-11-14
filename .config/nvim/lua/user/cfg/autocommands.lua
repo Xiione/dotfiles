@@ -192,11 +192,12 @@ autocmd({ "FileType", "BufWinEnter", "WinEnter" }, {
 	callback = apply_sidebar_highlights,
 })
 
-autocmd({ "VimResized" }, {
-	callback = function()
-		vim.cmd("tabdo wincmd =")
-	end,
-})
+-- Temporarily disabled while investigating orphan Sidekick windows on resize.
+-- autocmd({ "VimResized" }, {
+-- 	callback = function()
+-- 		vim.cmd("tabdo wincmd =")
+-- 	end,
+-- })
 
 -- autocmd({ "CmdWinEnter" }, {
 -- 	callback = function()
