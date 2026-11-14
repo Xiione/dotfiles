@@ -86,7 +86,7 @@ workspaceSwipeFingerCount = 4
 
 [hiddenBar]
 enabled = true
-hiddenBundleIDs = []
+hiddenBundleIDs = ["com.if.Amphetamine", "com.hnc.Discord", "com.cisco.secureclient.gui", "com.openai.codex", "me.mhaeuser.BatteryToolkit", "com.docker.docker", "org.jeffvli.feishin", "com.google.drivefs", "Jellyfin.Server", "org.libreoffice.script", "com.lujjjh.LinearMouse", "dev.moergolayerviz.local", "digital.twisted.noTunes", "com.utmapp.UTM", "org.videolan.vlc", "com.windscribe.client", "us.zoom.xos", "com.obsproject.obs-studio"]
 rehideIntervalSeconds = 5.0
 
 [mouseWarp]
