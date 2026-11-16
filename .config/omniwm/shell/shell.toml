@@ -1,0 +1,49 @@
+profile = "nord"
+
+[profiles]
+
+[profiles.default]
+center = ["active-window"]
+leading = ["apple-menu", "omniwm", "workspaces", "scratchpads"]
+trailing = ["volume", "wifi", "battery-details", "control-center", "system-stats", "clock"]
+
+[profiles.default.hiddenBar]
+enabled = true
+
+[profiles.default.island]
+displays = "notch"
+
+[profiles.default.workspaceBar]
+autoHide = false
+fullWidthNotchMode = "leftOfNotch"
+height = 34.0
+position = "overlappingMenuBar"
+reserveLayoutSpace = true
+showAccentHighlights = true
+showFloatingWindows = true
+solidBlackBackground = true
+systemStatsButton = true
+windowLevel = "normal"
+
+[profiles.nord]
+center = ["active-window"]
+leading = ["apple-menu", "workspaces", "scratchpads"]
+trailing = ["volume", "wifi", "battery-details", "control-center", "system-stats", "clock"]
+
+[profiles.nord.hiddenBar]
+enabled = true
+
+[profiles.nord.island]
+displays = "notch"
+
+[profiles.nord.workspaceBar]
+autoHide = false
+fullWidthNotchMode = "leftOfNotch"
+height = 34.0
+position = "overlappingMenuBar"
+reserveLayoutSpace = true
+showAccentHighlights = true
+showFloatingWindows = true
+solidBlackBackground = true
+systemStatsButton = true
+windowLevel = "normal"
