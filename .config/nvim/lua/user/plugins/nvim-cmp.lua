@@ -100,6 +100,7 @@ return {
 				{
 					name = "spell",
 					option = {
+						keep_all_entries = true,
 						enable_in_context = function()
 							return vim.wo.spell
 								and (vim.bo.filetype == "text" or context.in_treesitter_capture("spell"))
