@@ -31,8 +31,8 @@ end
 local mode = { "", "!", "t", "l" }
 
 vim.g.neogurt_cmd("option_set", {
-	titlebar = "transparent",
-	show_title = true,
+	titlebar = "none",
+	show_title = false,
 	blur = 20,
 	gamma = 1.7,
 	vsync = true,
