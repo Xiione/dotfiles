@@ -26,9 +26,9 @@ systemStatsButton = true
 windowLevel = "normal"
 
 [profiles.nord]
-center = ["active-window"]
+center = []
 leading = ["apple-menu", "workspaces", "scratchpads"]
-trailing = ["volume", "wifi", "battery-details", "control-center", "system-stats", "clock"]
+trailing = ["active-window", "volume", "wifi", "battery-details", "control-center", "system-stats", "clock"]
 
 [profiles.nord.hiddenBar]
 enabled = true

@@ -53,7 +53,7 @@ top = 2.0
 [general]
 animationSpeed = 1.0
 animationsEnabled = true
-defaultLayoutType = "dwindle"
+defaultLayoutType = "niri"
 hotkeysEnabled = true
 hyperKeyModifiers = "Control+Option+Shift+Command"
 ipcEnabled = true
@@ -90,7 +90,7 @@ workspaceSwipeFingerCount = 4
 
 [hiddenBar]
 enabled = true
-hiddenBundleIDs = ["com.if.Amphetamine", "com.hnc.Discord", "com.cisco.secureclient.gui", "com.openai.codex", "me.mhaeuser.BatteryToolkit", "com.docker.docker", "org.jeffvli.feishin", "com.google.drivefs", "Jellyfin.Server", "org.libreoffice.script", "com.lujjjh.LinearMouse", "dev.moergolayerviz.local", "digital.twisted.noTunes", "com.utmapp.UTM", "org.videolan.vlc", "com.windscribe.client", "us.zoom.xos", "com.obsproject.obs-studio"]
+hiddenBundleIDs = ["com.if.Amphetamine", "com.hnc.Discord", "com.cisco.secureclient.gui", "com.openai.codex", "me.mhaeuser.BatteryToolkit", "com.docker.docker", "org.jeffvli.feishin", "com.google.drivefs", "Jellyfin.Server", "org.libreoffice.script", "com.lujjjh.LinearMouse", "dev.moergolayerviz.local", "digital.twisted.noTunes", "com.utmapp.UTM", "org.videolan.vlc", "com.windscribe.client", "us.zoom.xos", "com.obsproject.obs-studio", "com.openai.sky.CUAService", "org.keepassxc.keepassxc", "app.monitorcontrol.MonitorControl", "io.tailscale.ipn.macos", "com.apple.ScriptMonitor"]
 rehideIntervalSeconds = 5.0
 
 [island]
@@ -108,7 +108,7 @@ terminal = "terminal"
 
 [mouseWarp]
 constrainToArrangement = false
-enabled = false
+enabled = true
 margin = 1
 
 [niri]
@@ -195,6 +195,21 @@ monitorName = "Built-in Retina Display"
 gridColumn = 0
 gridRow = 0
 monitorName = "Sidecar Display (AirPlay)"
+
+[[routing.arrangements]]
+id = "669090CD-5B6C-4928-B32F-DA7B475A2E3D"
+
+[[routing.arrangements.monitors]]
+gridColumn = 0
+gridRow = 0
+monitorDisplayUUID = "FFD863FA-01BB-4414-BFD7-73C03C1C3A59"
+monitorName = "R240HY"
+
+[[routing.arrangements.monitors]]
+gridColumn = 0
+gridRow = 1
+monitorDisplayUUID = "37D8832A-2D66-02CA-B9F7-8F30A301B230"
+monitorName = "Built-in Retina Display"
 
 [scratchpads]
 
@@ -1247,7 +1262,7 @@ id = "toggleShellWidget.workspaces"
 
 [[workspaces]]
 id = "AD36F001-C57E-41A5-AC1D-DF5249D007F0"
-layoutType = "niri"
+layoutType = "default"
 name = "1"
 
 [workspaces.monitorAssignment]
@@ -1255,7 +1270,7 @@ type = "main"
 
 [[workspaces]]
 id = "454CECD4-5E9D-4ED1-95D7-979D48817F5F"
-layoutType = "niri"
+layoutType = "default"
 name = "2"
 
 [workspaces.monitorAssignment]
@@ -1263,7 +1278,7 @@ type = "main"
 
 [[workspaces]]
 id = "BEB842B5-E894-4791-9FD1-397C3CDD3538"
-layoutType = "niri"
+layoutType = "default"
 name = "3"
 
 [workspaces.monitorAssignment]
@@ -1271,7 +1286,7 @@ type = "main"
 
 [[workspaces]]
 id = "248AA883-2261-4D45-943C-79C0E46A232B"
-layoutType = "niri"
+layoutType = "default"
 name = "4"
 
 [workspaces.monitorAssignment]
@@ -1279,7 +1294,7 @@ type = "main"
 
 [[workspaces]]
 id = "8B8C45D6-CE9E-41D9-BD50-BE4989D5E3DE"
-layoutType = "niri"
+layoutType = "default"
 name = "5"
 
 [workspaces.monitorAssignment]
@@ -1297,6 +1312,22 @@ type = "main"
 id = "5E83B317-6070-475F-AEEE-2715F992C0FF"
 layoutType = "default"
 name = "7"
+
+[workspaces.monitorAssignment]
+type = "secondary"
+
+[[workspaces]]
+id = "DABB40B3-FD4D-4185-A54C-5A0255DCC4A7"
+layoutType = "default"
+name = "8"
+
+[workspaces.monitorAssignment]
+type = "secondary"
+
+[[workspaces]]
+id = "64705B51-562F-43D3-80A6-C54EDA76208E"
+layoutType = "default"
+name = "9"
 
 [workspaces.monitorAssignment]
 type = "secondary"
