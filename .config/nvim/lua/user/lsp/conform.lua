@@ -18,7 +18,10 @@ conform.setup({
 		jsonc = { "prettierd", "prettier", stop_after_first = true },
 		kotlin = { "ktlint" },
 		lua = { "stylua" },
-		markdown = { "prettierd", "prettier", stop_after_first = true },
+		markdown = function(bufnr)
+			local formatter = conform.get_formatter_info("prettierd", bufnr).available and "prettierd" or "prettier"
+			return { formatter, "trim_inline_math_inner" }
+		end,
 		python = { "black" },
 		ruby = { "rubocop" },
 		scss = { "prettierd", "prettier", stop_after_first = true },
@@ -34,6 +37,21 @@ conform.setup({
 		lsp_format = "fallback",
 	},
 	formatters = {
+		trim_inline_math_inner = {
+			format = function(_, _, lines, callback)
+				local result = {}
+				for _, line in ipairs(lines) do
+					local trimmed = line:gsub("(%$+)([^$]-)(%$+)", function(opening, expression, closing)
+						if opening == "$" and closing == "$" then
+							return "$" .. vim.trim(expression) .. "$"
+						end
+						return opening .. expression .. closing
+					end)
+					table.insert(result, trimmed)
+				end
+				callback(nil, result)
+			end,
+		},
 		black = {
 			prepend_args = { "--fast" },
 		},
