@@ -31,12 +31,17 @@ local INDICATORS = { pills = true, underline = true, dots = true, numbers = true
 local function metrics(ctx: Context, style: BarStyle, settings): Metrics
 	local capsule = style.transparent and style.backgrounds
 	local indicator = if INDICATORS[settings.indicator] then settings.indicator else "pills"
-	local across = math.max(16, style.height - 4)
+	local across = math.max(16, style.height - 2)
+	local icon = 17 * look.scale(ctx)
+	local slot = (look.px(ctx, "slot") + look.px(ctx, "icon")) / 2
 	local m = {
 		across = across,
-		item = if capsule and indicator ~= "pills" then across - 4 else across,
-		icon = look.px(ctx, "icon"),
-		slot = look.px(ctx, "slot"),
+		item = if not style.vertical and indicator == "pills"
+			then slot + math.max(0, across - slot) / 2
+			elseif capsule and indicator ~= "pills" then across - 2
+			else across,
+		icon = icon,
+		slot = slot,
 		scale = look.scale(ctx),
 		vertical = style.vertical,
 		capsule = capsule,
@@ -238,8 +243,8 @@ local function separator(m: Metrics)
 	if m.separator == false or m.indicator == "minimal" or m.indicator == "dots" then
 		return nil
 	end
-	return m.vertical and ui.stack({ w = m.icon, h = 5, ui.box({ w = m.icon, h = 1, fill = "border" }) })
-		or ui.stack({ w = 5, h = m.icon, ui.box({ w = 1, h = m.icon, fill = "border" }) })
+	return m.vertical and ui.stack({ w = m.icon, h = 3, ui.box({ w = m.icon, h = 1, fill = "border" }) })
+		or ui.stack({ w = 3, h = m.icon, ui.box({ w = 1, h = m.icon, fill = "border" }) })
 end
 
 local function floatingGroup(icons, style: BarStyle, m: Metrics): (any, number?)
@@ -249,15 +254,16 @@ local function floatingGroup(icons, style: BarStyle, m: Metrics): (any, number?)
 			return custom, length
 		end
 	end
-	local thickness = math.max(16, m.item - 2)
+	local thickness = math.max(16, m.item - 1)
 	local symbol = math.max(10, m.icon * 0.58)
 	local group = {
-		gap = 3,
+		gap = 1.5,
+		center = true,
 		radius = look.radius(6),
 		w = if m.vertical then thickness else nil,
 		h = if m.vertical then nil else thickness,
 		fill = style.backgrounds and "foreground/0.06" or nil,
-		spacer(m.vertical, 2),
+		spacer(m.vertical, 1),
 		look.glyph({
 			name = "rectangle.on.rectangle",
 			size = symbol,
@@ -270,8 +276,8 @@ local function floatingGroup(icons, style: BarStyle, m: Metrics): (any, number?)
 	for _, icon in ipairs(icons) do
 		group[#group + 1] = icon
 	end
-	group[#group + 1] = spacer(m.vertical, 2)
-	return line(m.vertical, group), 4 + symbol + #icons * m.slot + (#icons + 2) * 3
+	group[#group + 1] = spacer(m.vertical, 1)
+	return line(m.vertical, group), 2 + symbol + #icons * m.slot + (#group - 1) * group.gap
 end
 
 local function gapBefore(drag: BarDrag?, workspace: string): number?
@@ -309,15 +315,15 @@ local function marker(ctx: Context, workspace: BarWorkspace, style: BarStyle, m:
 			h = size,
 			radius = look.radius(size * 0.3),
 			fill = if focused then "accent" else "foreground/0.1",
-			ui.box({ w = if utf8.len(workspace.name) <= 1 then size * 0.32 else 5, h = 1 }),
+			ui.box({ w = if utf8.len(workspace.name) <= 1 then size * 0.16 else 2.5, h = 1 }),
 			look.text({
 				text = workspace.name,
 				size = look.px(ctx, "text"),
 				weight = "medium",
 				color = if focused then "accentForeground" else "secondaryForeground",
-				maxWidth = if m.vertical then m.item - 10 else nil,
+				maxWidth = if m.vertical then m.item - 5 else nil,
 			}),
-			ui.box({ w = if utf8.len(workspace.name) <= 1 then size * 0.32 else 5, h = 1 }),
+			ui.box({ w = if utf8.len(workspace.name) <= 1 then size * 0.16 else 2.5, h = 1 }),
 		})
 	end
 	local minimal = m.indicator == "minimal"
@@ -330,13 +336,13 @@ local function marker(ctx: Context, workspace: BarWorkspace, style: BarStyle, m:
 			elseif minimal then "mutedForeground"
 			elseif minimal or (m.capsule and focused) then "foreground"
 			else labelColor(style, focused),
-		maxWidth = m.vertical and m.item - 4 or nil,
+		maxWidth = m.vertical and m.item - 2 or nil,
 		target = "workspace " .. workspace.id,
 		help = omniwm.l10n("Focus workspace %@", workspace.name),
 	})
 	return utf8.len(workspace.name) <= 2
 			and ui.stack({
-				w = m.vertical and m.item - 4 or (utf8.len(workspace.name) == 1 and 16 or 28) * m.scale,
+				w = m.vertical and m.item - 2 or (utf8.len(workspace.name) == 1 and 16 or 28) * m.scale,
 				h = m.icon,
 				label,
 			})
@@ -374,9 +380,10 @@ local function workspacePill(ctx: Context, workspace: BarWorkspace, bar: Bar, m:
 	local dropTarget = bar.drag ~= nil and contains(bar.drag.workspaces, workspace.id)
 	local gap = gapBefore(bar.drag, workspace.id)
 	local half = math.min(8, m.icon * 0.4) / 2
-	local edge = if m.indicator == "pills" then 6 elseif m.indicator == "minimal" then 3 else 4
+	local edge = if m.indicator == "pills" then 3 elseif m.indicator == "minimal" then 1.5 else 2
 	local pill = {
-		gap = if m.indicator == "pills" then 2 else 3,
+		gap = if m.indicator == "pills" then 1 else 1.5,
+		center = true,
 		w = if m.vertical then m.item else nil,
 		h = if m.vertical then nil else m.item,
 	}
@@ -406,7 +413,7 @@ local function workspacePill(ctx: Context, workspace: BarWorkspace, bar: Bar, m:
 		local rule = if hasIcons then separator(m) else nil
 		if rule then
 			children[#children + 1] = rule
-			sizes[#children] = 5
+			sizes[#children] = extent(rule, m.vertical)
 		end
 	end
 	for _, icon in ipairs(tiled) do
@@ -417,7 +424,7 @@ local function workspacePill(ctx: Context, workspace: BarWorkspace, bar: Bar, m:
 		local rule = if #tiled > 0 then separator(m) else nil
 		if rule then
 			children[#children + 1] = rule
-			sizes[#children] = 5
+			sizes[#children] = extent(rule, m.vertical)
 		end
 		local group, span = floatingGroup(floating, style, m)
 		children[#children + 1] = group
@@ -480,7 +487,7 @@ end
 function render(ctx: Context)
 	local bar = ctx.data.bar
 	local m = metrics(ctx, bar.style, ctx.data.settings or {})
-	local pills = { gap = if m.indicator ~= "pills" then 2 else 6 }
+	local pills = { gap = if m.indicator ~= "pills" then 1 else 3, center = true }
 	local cells = {}
 	for _, workspace in ipairs(bar.workspaces) do
 		if bar.island == "all" or workspace.focused == (bar.island == "active") then
@@ -499,7 +506,7 @@ function render(ctx: Context)
 		pills.radius = look.radius(6 * m.scale)
 		pills.fill = "foreground/0.06"
 		pills[if m.vertical then "w" else "h"] = m.across
-		pills.pad = 2
+		pills.pad = 1
 	end
 	return line(m.vertical, pills)
 end

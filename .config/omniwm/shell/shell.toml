@@ -26,15 +26,19 @@ systemStatsButton = true
 windowLevel = "normal"
 
 [profiles.nord]
-center = []
+center = ["active-window"]
 leading = ["apple-menu", "workspaces", "scratchpads"]
-trailing = ["active-window", "volume", "wifi", "battery-details", "control-center", "system-stats", "clock"]
+trailing = ["volume", "wifi", "battery-details", "control-center", "system-stats", "clock"]
 
 [profiles.nord.hiddenBar]
 enabled = true
 
 [profiles.nord.island]
 displays = "notch"
+
+[profiles.nord.widgets.active-window]
+display = "text_only"
+maxWidth = 220
 
 [profiles.nord.workspaceBar]
 autoHide = false

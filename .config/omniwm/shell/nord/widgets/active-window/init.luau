@@ -33,12 +33,15 @@ function render(ctx)
 	if not button then
 		local scale = look.scale(ctx)
 		local props = table.clone(behaviour)
+		if not ctx.data.bar.style.vertical then
+			props.pad = -8
+		end
 		if m.showIcon then
 			props[#props + 1] = ui.icon({ app = m.bundle, w = 18 * scale, h = 18 * scale, placeholder = "app.dashed" })
 		end
 		if m.showText then
 			props[#props + 1] =
-				look.text({ text = m.title, size = 13 * scale, weight = "medium", maxWidth = m.maxWidth })
+				look.text({ text = m.title, size = 13 * scale, weight = "heavy", maxWidth = m.maxWidth })
 		end
 		button = look.bar(ctx, props)
 	end
