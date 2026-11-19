@@ -6,13 +6,24 @@ tabRailAppIcons = false
 
 [borders]
 enabled = false
-width = 1.5
+width = 1.0
 
 [borders.color]
-alpha = 1.0
+alpha = 0.0
 blue = 0.4156862497329712
 green = 0.33725491166114807
-red = 0.2980392277240753
+red = 0.29803919792175293
+
+[borders.glow]
+enabled = true
+opacity = 0.6
+radius = 8.0
+
+[borders.glow.color]
+alpha = 1.0
+blue = 0.4156862745098039
+green = 0.33725490196078434
+red = 0.2980392156862745
 
 [clipboard]
 historyEnabled = false
@@ -68,7 +79,7 @@ adoptNativeResize = false
 dwindleGroupDragAcrossDisplays = "group"
 fingerCount = 3
 invertDirection = true
-mouseMoveModifierKey = "option"
+mouseMoveModifierKey = "off"
 mouseResizeModifierKey = "option"
 mouseWheelSensitivity = 1.0
 overviewGestureEnabled = true
