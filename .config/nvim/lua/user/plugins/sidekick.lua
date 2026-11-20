@@ -746,6 +746,8 @@ return {
 				},
 				keys = {
 					hide_n = false,
+					scroll_down = { "<C-d>", "<C-d>", mode = "n", desc = "Scroll down half a page" },
+					scroll_up = { "<C-u>", "<C-u>", mode = "n", desc = "Scroll up half a page" },
 					-- nav_right = {
 					-- 	"<C-l>",
 					-- 	function() end,
