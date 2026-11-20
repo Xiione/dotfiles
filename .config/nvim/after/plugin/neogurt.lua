@@ -167,3 +167,24 @@ end)
 vim.g.neogurt_startup = function()
 	choose_session(true)
 end
+
+vim.g.neogurt_on_quit = function()
+	local cmd = vim.g.neogurt_cmd
+	local sessions = cmd("session_list")
+	local current = cmd("session_info")
+	if not sessions or not current then
+		return false
+	end
+
+	for _, session in ipairs(sessions) do
+		if session.id ~= current.id then
+			if cmd("session_vim_cmd", { id = session.id, cmd = "qa" }) == nil then
+				vim.notify(("Session %d (%s) failed to quit"):format(session.id, session.name), vim.log.levels.WARN)
+				return false
+			end
+		end
+	end
+
+	-- quit the session running this callback last because a successful :qa disconnects it
+	return cmd("session_vim_cmd", { id = current.id, cmd = "qa" }) ~= nil
+end
