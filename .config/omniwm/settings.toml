@@ -816,19 +816,19 @@ binding = "Unassigned"
 id = "moveWorkspaceToMonitor.down"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Control+Shift+H"
 id = "moveWindowToMonitor.left"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Control+Shift+L"
 id = "moveWindowToMonitor.right"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Control+Shift+K"
 id = "moveWindowToMonitor.up"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Control+Shift+J"
 id = "moveWindowToMonitor.down"
 
 [[hotkeys]]
@@ -868,11 +868,11 @@ binding = "Option+T"
 id = "toggleColumnTabbed"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+Semicolon"
 id = "focusColumnFirst"
 
 [[hotkeys]]
-binding = "Unassigned"
+binding = "Option+G"
 id = "focusColumnLast"
 
 [[hotkeys]]

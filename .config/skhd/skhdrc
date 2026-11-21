@@ -1,120 +1,26 @@
-#!/bin/bash
-.shell "/bin/bash"
+# Arrow-key aliases for OmniWM's native HJKL bindings.
+.shell "/bin/sh"
 
-.define focus_space : skhdrc_spaces=( $(yabai -m query --displays --display | jq -r '.spaces[]') ) && [ -n ${skhdrc_spaces[{{1}}]} ] && yabai -m space --focus ${skhdrc_spaces[{{1}}]}
-.define move_window_to_space : skhdrc_spaces=( $(yabai -m query --displays --display | jq -r '.spaces[]') ) && [ -n ${skhdrc_spaces[{{1}}]} ] && yabai -m window --space ${skhdrc_spaces[{{1}}]} && sketchybar --trigger windows_on_spaces
-.define focus_window_in_direction : yabai -m window --focus {{1}} || yabai -m display --focus {{1}}
-.define move_window_in_direction : yabai -m window --display {{1}} || sketchybar --trigger windows_on_spaces
-.define stack_window_in_direction : yabai -m window {{1}} --stack $(yabai -m query --windows --window | jq -r '.id') && sketchybar --trigger windows_on_spaces
+# Focus windows.
+alt - left  : "$HOME/.local/bin/omniwmctl" command focus left
+alt - down  : "$HOME/.local/bin/omniwmctl" command focus down
+alt - up    : "$HOME/.local/bin/omniwmctl" command focus up
+alt - right : "$HOME/.local/bin/omniwmctl" command focus right
 
+# Move windows.
+ctrl + alt - left  : "$HOME/.local/bin/omniwmctl" command move left
+ctrl + alt - down  : "$HOME/.local/bin/omniwmctl" command move down
+ctrl + alt - up    : "$HOME/.local/bin/omniwmctl" command move up
+ctrl + alt - right : "$HOME/.local/bin/omniwmctl" command move right
 
+# Move columns horizontally and consume or expel windows vertically.
+ctrl + alt + shift - left  : "$HOME/.local/bin/omniwmctl" command move-column left
+ctrl + alt + shift - down  : "$HOME/.local/bin/omniwmctl" command consume-window-into-column
+ctrl + alt + shift - up    : "$HOME/.local/bin/omniwmctl" command expel-window-from-column
+ctrl + alt + shift - right : "$HOME/.local/bin/omniwmctl" command move-column right
 
-## Navigation (ctrl - ...)
-# Space Navigation
-ctrl - 1 : @focus_space("0")
-ctrl - 2 : @focus_space("1")
-ctrl - 3 : @focus_space("2")
-ctrl - 4 : @focus_space("3")
-ctrl - 5 : @focus_space("4")
-ctrl - 6 : @focus_space("5")
-ctrl - 7 : @focus_space("6")
-ctrl - 8 : @focus_space("7")
-ctrl - 9 : @focus_space("8")
-ctrl - 0 : @focus_space("9")
-
-# Window Navigation (through display borders)
-lalt - h : @focus_window_in_direction("west")
-lalt - j : @focus_window_in_direction("south")
-lalt - k : @focus_window_in_direction("north")
-lalt - l : @focus_window_in_direction("east")
-
-# Extended Window Navigation (0x29 is semicolon)
-lalt - g    : yabai -m window --focus first
-lalt - 0x29 : yabai -m window --focus last
-
-# Float / Unfloat window
-ctrl + lalt - backspace : yabai -m window --toggle float; yabai -m window --grid 4:4:1:1:2:2 && sketchybar --trigger windows_on_spaces
-
-# Make window zoom to fullscreen
-shift + lalt - f : yabai -m window --toggle zoom-fullscreen
-
-# Make window zoom to parent node
-lalt - f : yabai -m window --toggle zoom-parent
-
-## Window Movement
-# Moving windows in spaces: shift + lalt - {j, k, l, ö}
-# shift + lalt - j : yabai -m window --warp west || $(yabai -m window --display west && yabai -m display --focus west && yabai -m window --warp last) || yabai -m window --move rel:-10:0
-# shift + lalt - k : yabai -m window --warp south || $(yabai -m window --display south && yabai -m display --focus south) || yabai -m window --move rel:0:10
-# shift + lalt - l : yabai -m window --warp north || $(yabai -m window --display north && yabai -m display --focus north) || yabai -m window --move rel:0:-10
-# shift + lalt - 0x29 : yabai -m window --warp east || $(yabai -m window --display east && yabai -m display --focus east && yabai -m window --warp first) || yabai -m window --move rel:10:0
-
-# Toggle split orientation of the selected windows node: shift + lalt - s
-# shift + lalt - s : yabai -m window --toggle split
-
-# Rotate tree clockwise
-ctrl + alt - return : yabai -m space --rotate 270
-
-# Moving windows between spaces (Assumes 4 Spaces Max per Display)
-ctrl + lalt - 1 : @move_window_to_space("0")
-ctrl + lalt - 2 : @move_window_to_space("1")
-ctrl + lalt - 3 : @move_window_to_space("2")
-ctrl + lalt - 4 : @move_window_to_space("3")
-ctrl + lalt - 5 : @move_window_to_space("4")
-ctrl + lalt - 6 : @move_window_to_space("5")
-ctrl + lalt - 7 : @move_window_to_space("6")
-ctrl + lalt - 8 : @move_window_to_space("7")
-ctrl + lalt - 9 : @move_window_to_space("8")
-ctrl + lalt - 0 : @move_window_to_space("9")
-
-# Moving windows between displays
-ctrl + lalt - h : @move_window_in_direction("west")
-ctrl + lalt - j : @move_window_in_direction("south")
-ctrl + lalt - k : @move_window_in_direction("north")
-ctrl + lalt - l : @move_window_in_direction("east")
-
-# shift + lalt - p : yabai -m window --space prev && yabai -m space --focus prev
-# shift + lalt - n : yabai -m window --space next && yabai -m space --focus next
-lalt - tab : yabai -m space --focus recent
-
-# Mirror Space on X and Y Axis
-ctrl + lalt - x : yabai -m space --mirror x-axis
-ctrl + lalt - y : yabai -m space --mirror y-axis
-
-## Stacks
-# Add the active window to the window or stack to the {direction}
-shift + ctrl - h : @stack_window_in_direction("west")
-shift + ctrl - j : @stack_window_in_direction("south")
-shift + ctrl - k : @stack_window_in_direction("north")
-shift + ctrl - l : @stack_window_in_direction("east")
-
-# Stack Navigation
-ctrl - n : yabai -m window --focus stack.next
-shift + ctrl - n : yabai -m window --focus stack.prev
-
-## Resize (ctrl + lalt - ...)
-# Resize windows: ctrl + lalt - {j, k, l, ö}
-# ctrl + lalt - j    : yabai -m window --resize right:-100:0 || yabai -m window --resize left:-100:0
-# ctrl + lalt - k    : yabai -m window --resize bottom:0:100 || yabai -m window --resize top:0:100
-# ctrl + lalt - l    : yabai -m window --resize bottom:0:-100 || yabai -m window --resize top:0:-100
-# ctrl + lalt - 0x29 : yabai -m window --resize right:100:0 || yabai -m window --resize left:100:0
-
-# Equalize size of windows: ctrl + lalt - e
-ctrl + lalt - e : yabai -m space --balance
-
-# Enable / Disable gaps in current workspace: ctrl + lalt - g
-ctrl + lalt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
-
-## Insertion (shift + ctrl + lalt - ...)
-# Set insertion point for focused container: shift + ctrl + lalt - {j, k, l, ö, s}
-# shift + ctrl + lalt - j : yabai -m window --insert west
-# shift + ctrl + lalt - k : yabai -m window --insert south
-# shift + ctrl + lalt - l : yabai -m window --insert north
-# shift + ctrl + lalt - 0x29 : yabai -m window --insert east
-# shift + ctrl + lalt - s : yabai -m window --insert stack
-
-# New window in hor./ vert. splits for all applications with yabai
-lalt - s : yabai -m window --insert east;  skhd -k "cmd - n"
-lalt - v : yabai -m window --insert south; skhd -k "cmd - n"
-
-# Toggle sketchybar
-shift + lalt - space : sketchybar --bar hidden=toggle
+# Send windows directly to adjacent monitors.
+ctrl + shift - left  : "$HOME/.local/bin/omniwmctl" command move-to-monitor left
+ctrl + shift - down  : "$HOME/.local/bin/omniwmctl" command move-to-monitor down
+ctrl + shift - up    : "$HOME/.local/bin/omniwmctl" command move-to-monitor up
+ctrl + shift - right : "$HOME/.local/bin/omniwmctl" command move-to-monitor right
