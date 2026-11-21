@@ -5,5 +5,3 @@ git:
 keybinding:
   universal:
     quit: <disabled>
-    prevBlock-alt: l
-    nextBlock-alt: h
