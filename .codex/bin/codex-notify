@@ -6,6 +6,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 HOST_QUERY = """
@@ -20,6 +21,41 @@ HOST_QUERY = """
     })
 end)()
 """.replace("\n", " ")
+
+FOCUSED_TERMINAL_QUERY = """
+(function()
+    if vim.g.neogurt ~= true or vim.uv.os_getppid() ~= _A.app_pid
+        or vim.uv.os_getpid() ~= _A.pid then
+        return "{}"
+    end
+    local win = vim.api.nvim_get_current_win()
+    local buf = vim.api.nvim_win_get_buf(win)
+    local terminal = require("sidekick.cli.terminal").get("terminal: " .. _A.session)
+    if not terminal or terminal.win ~= win or terminal.buf ~= buf
+        or terminal.tool.name ~= "codex" or terminal.mux_backend ~= "zellij"
+        or terminal.sid ~= _A.session or not terminal:is_running()
+        or vim.bo[buf].buftype ~= "terminal" or vim.fn.pumvisible() ~= 0
+        or vim.fn.line("w$") ~= vim.api.nvim_buf_line_count(buf) then
+        return "{}"
+    end
+    local session = vim.g.neogurt_cmd("session_info")
+    local active = vim.g.neogurt_cmd("session_list", { sort = "time" })[1]
+    if not session or not active or session.id ~= active.id then
+        return "{}"
+    end
+    return vim.json.encode({ session_id = session.id, win = win, buf = buf, job = terminal.job })
+end)()
+""".replace("\n", " ")
+
+FRONTMOST_APP_SCRIPT = """
+ObjC.import("AppKit");
+const app = $.NSWorkspace.sharedWorkspace.frontmostApplication;
+JSON.stringify([ObjC.unwrap(app.bundleIdentifier), app.processIdentifier]);
+"""
+
+THREAD_ID = re.compile(r"[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}", re.I)
+SGR = re.compile(r"\x1b\[([0-9;:]*)m")
+COMPOSER_PROMPT = "\0"
 
 NOTIFICATION_GLYPHS = {
     "": "🔎",
@@ -53,7 +89,7 @@ def resolve_path(path):
     return os.path.realpath(os.path.expanduser(path))
 
 
-def remote_eval(nvim, server, expression, argument):
+def remote_eval(nvim, server, expression, argument, timeout=3):
     def quote_vim(text):
         return "'" + text.replace("'", "''") + "'"
 
@@ -65,7 +101,7 @@ def remote_eval(nvim, server, expression, argument):
         [nvim, "--server", server, "--remote-expr", expression],
         capture_output=True,
         text=True,
-        timeout=3,
+        timeout=timeout,
         check=False,
     )
     if result.returncode:
@@ -75,16 +111,14 @@ def remote_eval(nvim, server, expression, argument):
     return result.stdout.strip()
 
 
-def find_hosts(target):
-    hosts = []
-    for path in Path(target["registry"]).glob("codex *.json"):
+def rendezvous_records(registry):
+    for path in Path(registry).glob("codex *.json"):
         try:
             host = json.loads(path.read_text())
             if (
                 not isinstance(host, dict)
                 or host.get("version") != 1
                 or not isinstance(host.get("cwd"), str)
-                or resolve_path(host["cwd"]) != target["cwd"]
                 or not isinstance(host.get("server"), str)
                 or not host["server"]
                 or type(host.get("pid")) is not int
@@ -92,6 +126,17 @@ def find_hosts(target):
                 or not isinstance(host.get("session"), str)
                 or not re.fullmatch(r"codex [0-9a-f]+", host["session"])
             ):
+                continue
+            yield host
+        except (OSError, ValueError):
+            continue
+
+
+def find_hosts(target):
+    hosts = []
+    for host in rendezvous_records(target["registry"]):
+        try:
+            if resolve_path(host["cwd"]) != target["cwd"]:
                 continue
             snapshot = json.loads(
                 remote_eval(
@@ -113,6 +158,158 @@ def find_hosts(target):
         except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
             continue
     return hosts
+
+
+def rendezvous_dir():
+    state_home = os.environ.get("XDG_STATE_HOME") or Path.home() / ".local/state"
+    app_name = os.environ.get("NVIM_APPNAME") or "nvim"
+    return Path(state_home) / app_name / "sidekick/rendezvous"
+
+
+def composer_rows(screen):
+    # Zellij emits SGR changes between text spans. Codex paints the active prompt
+    # in bold and the parked companion without bold.
+    rows = []
+    bold = False
+    for row in screen.splitlines():
+        spans = SGR.split(row)
+        painted = [spans[0].replace("›", COMPOSER_PROMPT) if bold else spans[0]]
+        for style, span in zip(spans[1::2], spans[2::2]):
+            if style in ("", "0", "22"):
+                bold = False
+            elif style == "1":
+                bold = True
+            painted.append(span.replace("›", COMPOSER_PROMPT) if bold else span)
+        rows.append("".join(painted))
+    return rows
+
+
+def focused_thread_id(screen):
+    rows = composer_rows(screen)
+    for index in range(len(rows) - 1, -1, -1):
+        columns = rows[index].split("│")
+        prompts = [
+            i for i, text in enumerate(columns)
+            if text.lstrip().startswith(COMPOSER_PROMPT)
+        ]
+        if prompts:
+            if len(columns) > 2 or len(prompts) != 1:
+                return None
+            column = prompts[0]
+            break
+    else:
+        return None
+
+    footer = []
+    for row in rows[index + 1:]:
+        parts = row.split("│", len(columns) - 1) if len(columns) == 2 else [row]
+        if len(parts) != len(columns):
+            if not row.strip():
+                continue
+            return None
+        footer.append(parts[column].strip())
+    while footer and not footer[-1]:
+        footer.pop()
+    if "" not in footer:
+        return None
+    last_blank = max(index for index, row in enumerate(footer) if not row)
+    footer = footer[last_blank + 1:]
+
+    # Codex can wrap a UUID after a hyphen. Only accept a complete status-line
+    # field, including when the field spans adjacent footer rows.
+    status = re.sub(
+        r"(?<=[0-9a-f]-)\n(?=[0-9a-f])", "", "\n".join(footer), flags=re.I
+    )
+    fields = re.split(r"[·\n]", status)
+    ids = [field.strip().lower() for field in fields if THREAD_ID.fullmatch(field.strip())]
+    return ids[0] if len(ids) == 1 else None
+
+
+def should_suppress(thread_id):
+    if not isinstance(thread_id, str) or not THREAD_ID.fullmatch(thread_id):
+        return False
+    deadline = time.monotonic() + 2
+
+    def remaining():
+        timeout = deadline - time.monotonic()
+        if timeout <= 0:
+            raise TimeoutError("Focus check timed out")
+        return timeout
+
+    def probe(args):
+        return subprocess.run(
+            args, capture_output=True, text=True, check=True, timeout=remaining()
+        ).stdout
+
+    def frontmost_app():
+        return json.loads(probe(
+            ["/usr/bin/osascript", "-l", "JavaScript", "-e", FRONTMOST_APP_SCRIPT]
+        ))
+
+    def focused_terminal(host):
+        return json.loads(remote_eval(
+            nvim, host["server"], FOCUSED_TERMINAL_QUERY,
+            {"app_pid": app_pid, "pid": host["pid"], "session": host["session"]},
+            timeout=remaining(),
+        ))
+
+    try:
+        app = frontmost_app()
+        if not isinstance(app, list) or len(app) != 2:
+            return False
+        bundle, app_pid = app
+        if bundle != "com.github.williamhCode.neogurt" or type(app_pid) is not int or app_pid <= 0:
+            return False
+        nvim = shutil.which("nvim")
+        zellij = shutil.which("zellij")
+        if not nvim or not zellij:
+            return False
+
+        focused = []
+        for host in rendezvous_records(rendezvous_dir()):
+            try:
+                snapshot = focused_terminal(host)
+            except (RuntimeError, ValueError):
+                # A stale socket or a host with an incompatible RPC cannot be a match.
+                continue
+            if isinstance(snapshot, dict) and all(
+                type(snapshot.get(key)) is int for key in ("session_id", "win", "buf", "job")
+            ):
+                focused.append((host, snapshot))
+        if len(focused) != 1:
+            return False
+        host, snapshot = focused[0]
+
+        command = [zellij, "--session", host["session"], "action"]
+        panes = json.loads(probe([*command, "list-panes", "--json"]))
+        if not isinstance(panes, list) or any(not isinstance(pane, dict) for pane in panes):
+            return False
+        visible = [pane for pane in panes if pane.get("is_suppressed") is False]
+        if len(visible) != 1:
+            return False
+        pane = visible[0]
+        pane_id = pane.get("id")
+        terminal_command = pane.get("terminal_command")
+        if (
+            pane.get("is_plugin") is not False
+            or pane.get("is_focused") is not True
+            or pane.get("exited") is not False
+            or type(pane_id) is not int
+            or pane_id < 0
+            or not isinstance(terminal_command, str)
+            or Path(terminal_command).name not in ("codex-terminal-filter", "codex")
+        ):
+            return False
+        screen = probe(
+            [*command, "dump-screen", "--pane-id", f"terminal_{pane_id}", "--ansi"]
+        )
+        return (
+            focused_thread_id(screen) == thread_id.lower()
+            and focused_terminal(host) == snapshot
+            and frontmost_app() == app
+        )
+    except (OSError, ValueError, RuntimeError, subprocess.SubprocessError):
+        return False
 
 
 def focus_neogurt(payload):
@@ -294,14 +491,10 @@ def click_action(cwd):
     action = os.environ.get("CODEX_NOTIFY_ACTION", "activate-neogurt")
     cwd = os.path.abspath(os.path.expanduser(cwd))
     if action == "activate-neogurt":
-        state_home = os.environ.get("XDG_STATE_HOME") or str(
-            Path.home() / ".local/state"
-        )
-        app_name = os.environ.get("NVIM_APPNAME") or "nvim"
         target = {
             "cwd": resolve_path(cwd),
             "server": os.environ.get("NVIM"),
-            "registry": str(Path(state_home) / app_name / "sidekick/rendezvous"),
+            "registry": str(rendezvous_dir()),
             "nvim": shutil.which("nvim") or "",
         }
         command = shlex.join(
@@ -380,7 +573,11 @@ def main():
     except json.JSONDecodeError:
         return 0
 
-    if notification.get("type") != "agent-turn-complete":
+    if not isinstance(notification, dict) or notification.get("type") != "agent-turn-complete":
+        return 0
+
+    dry_run = os.environ.get("CODEX_NOTIFY_DRY_RUN")
+    if not dry_run and should_suppress(notification.get("thread-id")):
         return 0
 
     cwd = notification.get("cwd") or os.getcwd()
@@ -394,7 +591,7 @@ def main():
         )
     )
 
-    if os.environ.get("CODEX_NOTIFY_DRY_RUN"):
+    if dry_run:
         print(json.dumps({"title": title, "subtitle": subtitle, "message": message}))
         return 0
 
