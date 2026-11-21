@@ -3,6 +3,28 @@ local rendezvous_dir = vim.fn.stdpath("state") .. "/sidekick/rendezvous"
 local orphan_log_path = vim.fn.stdpath("state") .. "/sidekick/orphan-windows.jsonl"
 local orphan_status_path = vim.fn.stdpath("state") .. "/sidekick/orphan-trace-status.json"
 
+local function register_terminal_refresh()
+	vim.api.nvim_create_autocmd("BufWinEnter", {
+		group = vim.api.nvim_create_augroup("UserSidekickTerminalView", { clear = true }),
+		desc = "Refresh the Sidekick terminal after reopening its split",
+		callback = function(event)
+			if vim.bo[event.buf].filetype ~= "sidekick_terminal" or vim.bo[event.buf].buftype ~= "terminal" then
+				return
+			end
+
+			local win = vim.api.nvim_get_current_win()
+			-- Repaint the clipped right edge after Sidekick finishes opening the split.
+			vim.schedule(function()
+				if not vim.api.nvim_win_is_valid(win) or vim.api.nvim_win_get_buf(win) ~= event.buf then
+					return
+				end
+
+				vim.api.nvim__redraw({ win = win, valid = false, flush = true })
+			end)
+		end,
+	})
+end
+
 local function trace_orphan_windows()
 	local recent_split
 	local ctrl_w_at
@@ -767,6 +789,7 @@ return {
 	},
 	config = function(_, opts)
 		require("sidekick").setup(opts)
+		register_terminal_refresh()
 		trace_orphan_windows()
 		vim.api.nvim_create_user_command("CodexNotifyFocus", focus_codex, {
 			nargs = 1,
