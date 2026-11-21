@@ -10,9 +10,9 @@ function render(ctx: Context)
 		return ui.box({ w = 0, h = 0 })
 	end
 	local menu = button.render(ctx, {
-		symbol = "applelogo",
+		symbol = "omniwm",
 		action = "menu apple",
-		help = omniwm.l10n("Apple Menu; right-click for OmniWM controls and menu bar items"),
+		help = omniwm.l10n("Apple Menu"),
 	})
 	menu.onRightClick = ui.popout
 	return menu
