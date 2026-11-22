@@ -9,16 +9,21 @@ import shutil
 import signal
 import struct
 import sys
-import tempfile
 import termios
-import time
 import tty
 
 
 CURSOR_SHAPE_RE = re.compile(rb"(?:\x1b\[|\x9b)[0-9]* q")
 MAX_CURSOR_SHAPE_LEN = 12
-CAPTURE_OUTPUT = False
-CAPTURE_OUTPUT_PATH = os.path.join(tempfile.gettempdir(), "codex-filter.log")
+BULLET_REPLACEMENTS = {
+    "•".encode(): "".encode(),
+    "◦".encode(): "".encode(),
+}
+BULLET_PREFIXES = {
+    bullet[:length]
+    for bullet in BULLET_REPLACEMENTS
+    for length in range(1, len(bullet))
+}
 FORCE_CURSOR_SHAPE = True
 FORCED_CURSOR_SHAPE = b"\x1b[6 q"  # DECSCUSR: steady vertical bar
 
@@ -42,14 +47,16 @@ class OutputFilter:
         return data[:-keep]
 
     def _rewrite(self, data):
-        if FORCE_CURSOR_SHAPE:
-            return CURSOR_SHAPE_RE.sub(FORCED_CURSOR_SHAPE, data)
-        return CURSOR_SHAPE_RE.sub(b"", data)
+        for bullet, glyph in BULLET_REPLACEMENTS.items():
+            data = data.replace(bullet, glyph)
+        cursor_shape = FORCED_CURSOR_SHAPE if FORCE_CURSOR_SHAPE else b""
+        return CURSOR_SHAPE_RE.sub(cursor_shape, data)
 
     def _pending_prefix_len(self, data):
         max_keep = min(MAX_CURSOR_SHAPE_LEN, len(data))
         for keep in range(max_keep, 0, -1):
-            if self._is_cursor_shape_prefix(data[-keep:]):
+            suffix = data[-keep:]
+            if suffix in BULLET_PREFIXES or self._is_cursor_shape_prefix(suffix):
                 return keep
         return 0
 
@@ -110,25 +117,6 @@ def child_status_to_exit_code(status):
     return 1
 
 
-def open_capture_log():
-    if CAPTURE_OUTPUT:
-        return open(CAPTURE_OUTPUT_PATH, "ab", buffering=0)
-
-    path = os.environ.get("CODEX_TERMINAL_FILTER_LOG")
-    if not path:
-        return None
-    return open(os.path.abspath(os.path.expanduser(path)), "ab", buffering=0)
-
-
-def log_output(log_file, data):
-    if log_file is None or not data:
-        return
-    timestamp = time.strftime("%Y-%m-%d %H:%M:%S")
-    log_file.write(f"\n[{timestamp}] {len(data)} bytes\n".encode())
-    log_file.write(repr(data).encode())
-    log_file.write(b"\n")
-
-
 def main():
     target = os.environ.get("CODEX_TERMINAL_FILTER_TARGET", "codex")
     target_path = shutil.which(target)
@@ -140,7 +128,6 @@ def main():
     stdout_fd = sys.stdout.fileno()
     original_attrs = None
     original_flags = None
-    capture_log = open_capture_log()
     if os.isatty(stdin_fd):
         original_attrs = termios.tcgetattr(stdin_fd)
         tty.setraw(stdin_fd)
@@ -219,7 +206,6 @@ def main():
                         raise
 
                 if data:
-                    log_output(capture_log, data)
                     write_all(stdout_fd, output_filter.feed(data))
                 else:
                     final = output_filter.feed(b"", final=True)
@@ -238,8 +224,6 @@ def main():
             os.close(master_fd)
         except OSError:
             pass
-        if capture_log is not None:
-            capture_log.close()
 
     if child_status is None:
         try:
