@@ -10,19 +10,36 @@ import signal
 import struct
 import sys
 import termios
+import time
 import tty
 
 
-CURSOR_SHAPE_RE = re.compile(rb"(?:\x1b\[|\x9b)[0-9]* q")
+# Codex emits 7-bit CSI in a UTF-8 stream, where 0x9b can be a continuation byte.
+CURSOR_SHAPE_RE = re.compile(rb"\x1b\[[0-9]* q")
 MAX_CURSOR_SHAPE_LEN = 12
-BULLET_REPLACEMENTS = {
+READ_SIZE = 65536
+QUEUE_LIMIT = 4 * READ_SIZE
+RESIZE_INTERVAL = 0.1
+GLYPH_REPLACEMENTS = {
     "•".encode(): "".encode(),
     "◦".encode(): "".encode(),
+    "›".encode(): "".encode(),  # Match the Neovim fold chevron.
+    "‹".encode(): "".encode(),
+    "✔".encode(): "".encode(),
+    "↳".encode(): "󰘍".encode(),
+    "×".encode(): "".encode(),
+    "↑".encode(): "".encode(),
+    "↓".encode(): "".encode(),
+    "←".encode(): "".encode(),
+    "→".encode(): "".encode(),
+    "○".encode(): "".encode(),
+    "●".encode(): "".encode(),
+    "⇧".encode(): "󰘶".encode(),
 }
-BULLET_PREFIXES = {
-    bullet[:length]
-    for bullet in BULLET_REPLACEMENTS
-    for length in range(1, len(bullet))
+GLYPH_PREFIXES = {
+    source[:length]
+    for source in GLYPH_REPLACEMENTS
+    for length in range(1, len(source))
 }
 FORCE_CURSOR_SHAPE = True
 FORCED_CURSOR_SHAPE = b"\x1b[6 q"  # DECSCUSR: steady vertical bar
@@ -47,66 +64,66 @@ class OutputFilter:
         return data[:-keep]
 
     def _rewrite(self, data):
-        for bullet, glyph in BULLET_REPLACEMENTS.items():
-            data = data.replace(bullet, glyph)
+        for source, glyph in GLYPH_REPLACEMENTS.items():
+            data = data.replace(source, glyph)
         cursor_shape = FORCED_CURSOR_SHAPE if FORCE_CURSOR_SHAPE else b""
         return CURSOR_SHAPE_RE.sub(cursor_shape, data)
 
     def _pending_prefix_len(self, data):
-        max_keep = min(MAX_CURSOR_SHAPE_LEN, len(data))
-        for keep in range(max_keep, 0, -1):
-            suffix = data[-keep:]
-            if suffix in BULLET_PREFIXES or self._is_cursor_shape_prefix(suffix):
-                return keep
+        start = data.rfind(b"\x1b", max(0, len(data) - MAX_CURSOR_SHAPE_LEN))
+        if start != -1 and self._is_cursor_shape_prefix(data[start:]):
+            return len(data) - start
+        for prefix in GLYPH_PREFIXES:
+            if data.endswith(prefix):
+                return len(prefix)
         return 0
 
     def _is_cursor_shape_prefix(self, data):
         if data == b"\x1b":
             return True
-        if data.startswith(b"\x1b["):
-            params = data[2:]
-        elif data.startswith(b"\x9b"):
-            params = data[1:]
-        else:
+        if not data.startswith(b"\x1b["):
             return False
 
-        if params == b"":
-            return True
+        params = data[2:]
         if params.endswith(b" "):
             params = params[:-1]
-            return params == b"" or params.isdigit()
-        return params.isdigit()
+        return not params or params.isdigit()
 
 
 def get_winsize(fd):
     try:
         packed = fcntl.ioctl(fd, termios.TIOCGWINSZ, b"\0" * 8)
-        return struct.unpack("HHHH", packed)
     except OSError:
+        return None
+    rows, cols, _, _ = struct.unpack("HHHH", packed)
+    # A hidden or uninitialized pane can report zero dimensions.
+    return packed if rows and cols else None
+
+
+def sync_winsize(outer_fd, master_fd, last_size):
+    size = get_winsize(outer_fd)
+    if size is None or size == last_size:
+        return last_size
+    try:
+        fcntl.ioctl(master_fd, termios.TIOCSWINSZ, size)
+    except OSError:
+        return last_size
+    return size
+
+
+def read_ready(fd, limit):
+    try:
+        return os.read(fd, min(limit, READ_SIZE))
+    except BlockingIOError:
         return None
 
 
-def set_winsize(fd, size):
-    if size is None:
-        return
+def write_ready(fd, pending):
     try:
-        fcntl.ioctl(fd, termios.TIOCSWINSZ, struct.pack("HHHH", *size))
-    except OSError:
-        pass
-
-
-def set_nonblocking(fd):
-    flags = fcntl.fcntl(fd, fcntl.F_GETFL)
-    fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
-
-
-def write_all(fd, data):
-    while data:
-        try:
-            written = os.write(fd, data)
-            data = data[written:]
-        except BlockingIOError:
-            select.select([], [fd], [])
+        written = os.write(fd, pending)
+    except BlockingIOError:
+        return
+    del pending[:written]
 
 
 def child_status_to_exit_code(status):
@@ -115,6 +132,87 @@ def child_status_to_exit_code(status):
     if os.WIFSIGNALED(status):
         return 128 + os.WTERMSIG(status)
     return 1
+
+
+def relay(pid, master_fd, stdin_fd, stdout_fd, size_fd, last_size):
+    stdin_open = master_open = True
+    child_status = None
+    resize_pending = False
+    next_resize_check = time.monotonic() + RESIZE_INTERVAL
+    pending_input = bytearray()
+    pending_output = bytearray()
+    output_filter = OutputFilter()
+
+    def request_resize(_signum, _frame):
+        nonlocal resize_pending
+        resize_pending = True
+
+    signal.signal(signal.SIGWINCH, request_resize)
+
+    while master_open or pending_output:
+        now = time.monotonic()
+        # Poll as a fallback when the outer PTY changes size without notifying us.
+        if master_open and (resize_pending or now >= next_resize_check):
+            resize_pending = False
+            last_size = sync_winsize(size_fd, master_fd, last_size)
+            next_resize_check = now + RESIZE_INTERVAL
+
+        if child_status is None:
+            waited, status = os.waitpid(pid, os.WNOHANG)
+            if waited == pid:
+                child_status = status
+
+        # Pause reads at the queue limit and keep servicing the opposite direction.
+        can_send_input = master_open and child_status is None
+        can_read_master = master_open and len(pending_output) < QUEUE_LIMIT
+        read_fds = [master_fd] if can_read_master else []
+        if can_send_input and stdin_open and len(pending_input) < QUEUE_LIMIT:
+            read_fds.append(stdin_fd)
+        write_fds = [stdout_fd] if pending_output else []
+        if can_send_input and pending_input:
+            write_fds.append(master_fd)
+
+        readable, writable, _ = select.select(read_fds, write_fds, [], RESIZE_INTERVAL)
+
+        if stdin_fd in readable:
+            data = read_ready(stdin_fd, QUEUE_LIMIT - len(pending_input))
+            if data == b"":
+                stdin_open = False
+                pending_input.extend(b"\x04")
+            elif data is not None:
+                pending_input.extend(data)
+
+        if master_fd in readable:
+            try:
+                data = read_ready(master_fd, QUEUE_LIMIT - len(pending_output))
+            except OSError as err:
+                if err.errno != errno.EIO:
+                    raise
+                data = b""
+            if data == b"":
+                master_open = False
+            elif data is not None:
+                pending_output.extend(output_filter.feed(data))
+        elif child_status is not None and can_read_master and not (readable or writable):
+            # A descendant may still hold the slave open after the child exits.
+            master_open = False
+
+        if stdout_fd in writable:
+            write_ready(stdout_fd, pending_output)
+
+        if master_fd in writable and master_open:
+            try:
+                write_ready(master_fd, pending_input)
+            except OSError as err:
+                if err.errno != errno.EIO:
+                    raise
+                stdin_open = False
+                pending_input.clear()
+
+        if can_read_master and not master_open:
+            pending_output.extend(output_filter.feed(b"", final=True))
+
+    return child_status
 
 
 def main():
@@ -126,104 +224,50 @@ def main():
 
     stdin_fd = sys.stdin.fileno()
     stdout_fd = sys.stdout.fileno()
-    original_attrs = None
-    original_flags = None
-    if os.isatty(stdin_fd):
-        original_attrs = termios.tcgetattr(stdin_fd)
-        tty.setraw(stdin_fd)
-
-    pid, master_fd = pty.fork()
-    if pid == 0:
-        os.execvp(target_path, [target, *sys.argv[1:]])
-
-    set_winsize(master_fd, get_winsize(stdin_fd))
-    original_flags = fcntl.fcntl(stdin_fd, fcntl.F_GETFL)
-    set_nonblocking(stdin_fd)
-    set_nonblocking(master_fd)
-
-    resize_pending = False
-    child_status = None
-    output_filter = OutputFilter()
-
-    def request_resize(_signum, _frame):
-        nonlocal resize_pending
-        resize_pending = True
-
-    def forward_signal(signum, _frame):
-        try:
-            os.kill(pid, signum)
-        except ProcessLookupError:
-            pass
-
-    signal.signal(signal.SIGWINCH, request_resize)
-    for signum in (signal.SIGHUP, signal.SIGTERM):
-        signal.signal(signum, forward_signal)
-
+    stdin_is_tty = os.isatty(stdin_fd)
+    size_fd = stdin_fd if stdin_is_tty else stdout_fd
+    original_attrs = termios.tcgetattr(stdin_fd) if stdin_is_tty else None
+    original_flags = {fd: fcntl.fcntl(fd, fcntl.F_GETFL) for fd in (stdin_fd, stdout_fd)}
+    master_fd = None
+    start_read, start_write = os.pipe()
     try:
-        stdin_open = True
-        while True:
-            if resize_pending:
-                resize_pending = False
-                set_winsize(master_fd, get_winsize(stdin_fd))
-
-            if child_status is None:
-                try:
-                    waited, status = os.waitpid(pid, os.WNOHANG)
-                    if waited == pid:
-                        child_status = status
-                except ChildProcessError:
-                    child_status = 0
-
-            read_fds = [master_fd]
-            if child_status is None and stdin_open:
-                read_fds.append(stdin_fd)
-
+        if stdin_is_tty:
+            tty.setraw(stdin_fd, termios.TCSANOW)
+        pid, master_fd = pty.fork()
+        if pid == 0:
+            # Wait until the parent sets the initial window size before running Codex.
+            os.close(start_write)
             try:
-                readable, _, _ = select.select(read_fds, [], [], 0.1)
+                if os.read(start_read, 1):
+                    os.execvp(target_path, [target, *sys.argv[1:]])
             except OSError as err:
-                if err.errno == errno.EINTR:
-                    continue
-                raise
+                print(f"{target}: {err}", file=sys.stderr, flush=True)
+            finally:
+                os._exit(126)
 
-            if stdin_fd in readable:
-                try:
-                    data = os.read(stdin_fd, 65536)
-                except BlockingIOError:
-                    data = b""
-                if data:
-                    write_all(master_fd, data)
-                else:
-                    stdin_open = False
-                    write_all(master_fd, b"\x04")
+        def forward_signal(signum, _frame):
+            try:
+                os.kill(pid, signum)
+            except ProcessLookupError:
+                pass
 
-            if master_fd in readable:
-                try:
-                    data = os.read(master_fd, 65536)
-                except OSError as err:
-                    if err.errno == errno.EIO:
-                        data = b""
-                    else:
-                        raise
-
-                if data:
-                    write_all(stdout_fd, output_filter.feed(data))
-                else:
-                    final = output_filter.feed(b"", final=True)
-                    if final:
-                        write_all(stdout_fd, final)
-                    break
-
-            if child_status is not None and not readable:
-                break
+        for signum in (signal.SIGHUP, signal.SIGTERM):
+            signal.signal(signum, forward_signal)
+        for fd, flags in original_flags.items():
+            fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
+        os.set_blocking(master_fd, False)
+        last_size = sync_winsize(size_fd, master_fd, None)
+        os.write(start_write, b"1")
+        child_status = relay(pid, master_fd, stdin_fd, stdout_fd, size_fd, last_size)
     finally:
-        if original_flags is not None:
-            fcntl.fcntl(stdin_fd, fcntl.F_SETFL, original_flags)
-        if original_attrs is not None:
-            termios.tcsetattr(stdin_fd, termios.TCSADRAIN, original_attrs)
-        try:
+        os.close(start_read)
+        os.close(start_write)
+        if master_fd is not None:
             os.close(master_fd)
-        except OSError:
-            pass
+        for fd, flags in original_flags.items():
+            fcntl.fcntl(fd, fcntl.F_SETFL, flags)
+        if original_attrs is not None:
+            termios.tcsetattr(stdin_fd, termios.TCSANOW, original_attrs)
 
     if child_status is None:
         try:

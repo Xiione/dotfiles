@@ -55,6 +55,7 @@ JSON.stringify([ObjC.unwrap(app.bundleIdentifier), app.processIdentifier]);
 
 THREAD_ID = re.compile(r"[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}", re.I)
 SGR = re.compile(r"\x1b\[([0-9;:]*)m")
+COMPOSER_CHEVRONS = re.compile(r"[›]")  # Unfiltered and filtered prompt glyphs.
 COMPOSER_PROMPT = "\0"
 
 NOTIFICATION_GLYPHS = {
@@ -173,13 +174,13 @@ def composer_rows(screen):
     bold = False
     for row in screen.splitlines():
         spans = SGR.split(row)
-        painted = [spans[0].replace("›", COMPOSER_PROMPT) if bold else spans[0]]
+        painted = [COMPOSER_CHEVRONS.sub(COMPOSER_PROMPT, spans[0]) if bold else spans[0]]
         for style, span in zip(spans[1::2], spans[2::2]):
             if style in ("", "0", "22"):
                 bold = False
             elif style == "1":
                 bold = True
-            painted.append(span.replace("›", COMPOSER_PROMPT) if bold else span)
+            painted.append(COMPOSER_CHEVRONS.sub(COMPOSER_PROMPT, span) if bold else span)
         rows.append("".join(painted))
     return rows
 
